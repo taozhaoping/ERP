@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	   <!-- 
+		**
+		**主页
+		**
+		 -->
+	<package name="main" namespace="/home" extends="struts-base">
+		<action name="main" class="com.zh.base.action.mainAction"
+			method="execute">
+			<result name="success">/pages/main/main.jsp</result>
+			<result name="right">/default/jsp/main/right.jsp</result>
+			<result name="updatePwd">/default/jsp/main/updatePassword.jsp</result>
+			<result name="json" type="json">
+				<param name="root">mainModel.dataMap</param>
+			</result>
+			<result name="notice">/pages/main/notice.jsp</result>
+			<result name="personal">/pages/common/personal.jsp</result>
+			<result name="save">/pages/main/main.jsp</result>
+		</action>
+		
+		<!-- 公司公告 -->
+		<action name="notice" class="com.zh.base.action.NoticeAction"
+			method="execute">
+			<result name="success">/pages/SystemConfig/notice/List.jsp</result>
+			<result name="editor">/pages/SystemConfig/notice/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">notice</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+			</result>
+		</action>
+		<!-- 系统参数配置 -->
+		<action name="param" class="com.zh.base.action.ParamAction"
+			method="execute">
+			<result name="success">/pages/SystemConfig/param/edit.jsp</result>
+			<result name="editor" type="redirectAction">
+				<param name="actionName">param</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+			</result>
+		</action>
+		
+		
+		<!-- 企业 管理 -->
+		<action name="enterprise" class="com.zh.base.action.EnterpriseAction"
+			method="execute">
+			<result name="success">/pages/SystemConfig/enterprise/List.jsp</result>
+			<result name="editor">/pages/SystemConfig/enterprise/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">enterprise</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+			</result>
+		</action>
+		
+		<!-- 角色列表 -->
+		<action name="role" class="com.zh.base.action.RoleAction"
+			method="execute">
+			<result name="success">/pages/SystemConfig/role/roleList.jsp</result>
+			<result name="editor">/pages/SystemConfig/role/roleEdit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">role</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+			</result>
+			
+			<result name="authoritiesjson" type="json">
+				<param name="root">roleModel.authoritiesList</param>
+			</result>
+			<result name="menujson" type="json">
+				<param name="root">roleModel.menuList</param>
+			</result>
+		</action>
+		
+		<!-- 权限列表 
+		<action name="authorities" class="com.zh.base.action.AuthoritiesAction">
+			<result name="json" type="json">
+				<param name="root">authoritiesModel.authoritiesList</param>
+			</result>
+		</action>
+		-->
+		<!-- 菜单列表
+		<action name="menu" class="com.zh.base.action.MenuAction">
+			<result name="json" type="json">
+				<param name="root">menuModel.menuList</param>
+			</result>
+		</action>
+		 -->
+		
+		<!-- 用户管理 -->
+		<action name="userInfo" class="com.zh.base.action.UserInfoAction">
+			<result name="success">/pages/SystemConfig/user/List.jsp</result>
+			<result name="editor">/pages/SystemConfig/user/edit.jsp</result>
+			<result name="json" type="json">
+				<param name="root">userInfoModel.dataMap</param>
+			</result>
+			<!-- 查询所有的用户 -->
+			<result name="usersjson" type="json">
+				<param name="root">userInfoModel.userList</param>
+			</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">userInfo</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+			</result>
+		</action>
+		
+		<!-- 接口信息， 返回都是json格式-->
+		
+		<action name="interface" class="com.zh.base.action.InterfaceAction">
+			<!-- 查询所有的用户 -->
+			<result name="usersjson" type="json">
+				<param name="root">interfaceModel.userList</param>
+			</result>
+			
+			<!-- 查询所有入职人员信息 -->
+			<result name="entryProcessjson" type="json">
+				<param name="root">interfaceModel.entryProcessList</param>
+			</result>
+			
+			<!-- 查询所有培训信息 -->
+			<result name="trainCoursejson" type="json">
+				<param name="root">interfaceModel.trainCourseList</param>
+			</result>
+			
+			<!-- 查询所有活动信息 -->
+			<result name="activitiesjson" type="json">
+				<param name="root">interfaceModel.activitiesList</param>
+			</result>
+		</action>
+	</package>
+</struts>

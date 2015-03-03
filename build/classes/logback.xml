@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<substitutionProperty name="log.base" value="logs/outsourcing" />
+	<jmxConfigurator />
+	<!-- <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+		<layout class="ch.qos.logback.classic.PatternLayout"> <pattern>%d{yyyy-MM-dd 
+		HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> </layout> 
+		</appender> -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+		</encoder>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+	<appender name="logfile-core"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 设置打印级别 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level value="DEBUG" />
+		</filter>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+		</encoder>
+		<File>${log.base}_core.log</File>
+		<!-- 保存日记最大数量30 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}_core.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 设置日记文件大小 -->
+		<TimeBasedFileNamingAndTriggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<maxFileSize>20MB</maxFileSize>
+		</TimeBasedFileNamingAndTriggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="logfile-myibatis"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 设置打印级别 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level value="DEBUG" />
+		</filter>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>GBK</charset>
+		</encoder>
+		<File>${log.base}_myibatis.log</File>
+		<!-- 保存日记最大数量30 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}_myibatis.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 设置日记文件大小 -->
+		<TimeBasedFileNamingAndTriggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<maxFileSize>20MB</maxFileSize>
+		</TimeBasedFileNamingAndTriggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="logfile-struts2"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 设置打印级别 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level value="DEBUG" />
+		</filter>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+		</encoder>
+		<File>${log.base}_struts2.log</File>
+		<!-- 保存日记最大数量30 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}_struts2.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 设置日记文件大小 -->
+		<TimeBasedFileNamingAndTriggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<maxFileSize>20MB</maxFileSize>
+		</TimeBasedFileNamingAndTriggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+	<logger name="com.zh.core" addtivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="logfile-core" />
+	</logger>
+	<logger name="org.springframework" addtivity="false">
+		<level value="ERROR" />
+		<appender-ref ref="logfile-myibatis" />
+	</logger>
+	<logger name="org.apache.struts2">
+		<level value="ERROR" />
+		<appender-ref ref="logfile-struts2" />
+	</logger>
+	<root>
+		<level value="ERROR" />
+		<appender-ref ref="stdout" />
+	</root>
+</configuration> 

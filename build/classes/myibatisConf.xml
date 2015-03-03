@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties>
+		<property name="dialect" value="oracle" />
+	</properties>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+
+	<typeAliases>
+		<!-- 
+		<typeAlias alias="RoleToAuthorities" type="com.zh.base.model.RoleToAuthorities" />
+		<typeAlias alias="RoleToMenu" type="com.zh.base.model.RoleToMenu" />
+		 -->
+		<typeAlias alias="User" type="com.zh.base.model.bean.User" />
+		<typeAlias alias="Menu" type="com.zh.base.model.bean.Menu" />
+		<typeAlias alias="Authorities" type="com.zh.base.model.bean.Authorities" />
+		<typeAlias alias="Enterprise" type="com.zh.base.model.bean.Enterprise" />
+		<typeAlias alias="Resourceinfo" type="com.zh.base.model.bean.Resourceinfo" />
+		<typeAlias alias="Role" type="com.zh.base.model.bean.Role" />
+		<typeAlias alias="RoleAuthorities" type="com.zh.base.model.bean.RoleAuthorities" />
+		<typeAlias alias="RoleMenu" type="com.zh.base.model.bean.RoleMenu" />
+		<typeAlias alias="Param" type="com.zh.base.model.bean.Param" />
+		<typeAlias alias="Notice" type="com.zh.base.model.bean.Notice" />
+		
+		<!-- 业务 -->
+		<!-- 文件信息 -->
+		<typeAlias alias="FileInfo" type="com.zh.web.model.bean.FileInfo" />
+		<!-- 通讯录 -->
+		<typeAlias alias="MailList" type="com.zh.web.model.bean.MailList" />
+	</typeAliases>
+
+	<plugins>
+		<plugin interceptor="com.zh.core.base.interceptor.PaginationInterceptor">
+		</plugin>
+	</plugins>
+	<!-- spring中已经配置,这里不需要在配置 <mappers> <mapper resource="resource/UserMapper.xml" 
+		/> </mappers> -->
+</configuration> 

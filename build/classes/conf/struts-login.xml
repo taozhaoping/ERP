@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 
+		**
+		**登陆
+		**
+		 -->
+	<package name="login" namespace="/login" extends="struts-default">
+		<!-- <interceptors>菜单权限验证过滤器 -->
+			<!-- from重复提交拦截器
+			<interceptor name="invocationToken"
+				class="com.zh.core.interceptor.TokenAtionInterceptor" />
+			<interceptor-stack name="invocationTokenStack">
+				<interceptor-ref name="invocationToken" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors> -->
+		<action name="login" class="com.zh.base.action.LoginAction"
+			method="excute">
+			<!-- from重复提交拦截器
+			<interceptor-ref name="invocationTokenStack"></interceptor-ref> -->
+			<result name="creater">/pages/login/login.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">main</param>  
+    			<param name="namespace">/home</param>
+			</result>
+			<result name="error">/pages/exception/error.jsp</result>
+			<!--
+				result不再跳往jsp页面，以以下方式跳到tiles-defs.xml文件中定义的definition <result
+				type="tiles" name="success" >loginUser</result>
+			-->
+		</action>
+		
+		<action name="resetPasswordAction" class="com.zh.base.action.LoginAction" method="{1}">
+			<result name="sendEmail">/pages/login/sendEmail.jsp</result>
+			<result name="resetPwd">/pages/login/resetPassword.jsp</result>
+			<result name="sendSuccess">/pages/login/resetPwdRet.jsp</result>
+			<result name="success">/pages/login/resetPwdSuccess.jsp</result>
+			<result name="error">/pages/login/resetError.jsp</result>
+		</action>
+		
+		<!-- 校验重置密码URL -->
+		<action name="emailVerification" class="com.zh.base.action.LoginAction" method="verify">
+			<result name="verifySuccess">/pages/login/resetPassword.jsp</result>
+			<result name="error">/pages/login/resetError.jsp</result>
+			<result name="verifyError">/pages/login/urlInvalid.jsp</result>
+		</action>
+		
+		
+	</package>
+</struts>

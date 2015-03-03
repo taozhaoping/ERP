@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+	<!-- 注释配置 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com" />
+
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<!-- 指定加密算法:PBEWithMD5AndDES -->
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<!-- 指定密钥:PTSPASSWORD -->
+		<property name="password" value="TAOZHAOPING" />
+	</bean>
+	<!-- 指定加密类: StandardPBEStringEncryptor -->
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+	<!-- 指定要已被加密的属性文件 db.properties Jasypt 集成了对 spring 的属性文件解密 -->
+	<bean id="propertyConfigurer"
+		class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="locations">
+			<list>
+				<value>
+					classpath:jdbc.properties
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${jdbc.miniPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<!--连接关闭时默认将所有未提交的操作回滚。Default: false -->
+		<property name="autoCommitOnClose" value="${jdbc.autoCommitOnClose}"></property>
+		<property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${jdbc.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}" />
+		<!-- <property name="automaticTestTable" value="${jdbc.automaticTestTable}" 
+			/> -->
+
+		<property name="preferredTestQuery" value="${jdbc.preferredTestQuery}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
+		<property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"></property>
+
+	</bean>
+
+	<!--配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!--配置哪些方法,什么情况下需要回滚 -->
+	<tx:advice id="serviceAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- PROPAGATION_SUPPORTS: 如果已经存在事务,则加入事务;如果没有事务,则以非事务的方式执行; PROPAGATION_MANDATORY: 
+				使用当前事务, 如果没有, 则抛出异常; PROPAGATION_REQUIRED: 新建事务,如果当前有事务, 则挂起; P ROPAGATION_NOT_SUPPORTED:以非事务的方式执行, 
+				如果当前有事务, 则挂起; PROPAGATION_NEVER:以非事务的方式执行, 如果当前有事务,则抛出异常; +/-Exception</prop> 
+				+ 表示异常出现时事物提交 - 表示异常出现时事务回滚 -->
+			<!--当代理的service层中的方法抛出异常的时候才回滚,必须加rollback-for参数 -->
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="list*" read-only="true" />
+			<tx:method name="count*" read-only="true" />
+			<tx:method name="find*" propagation="NOT_SUPPORTED"
+				read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<!--除了上面标识的方法,其他方法全是只读方法 -->
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置系统中哪些方法中启用事物控制 -->
+
+	<aop:config>
+		<aop:pointcut id="servicePointcut"
+			expression="
+        	execution(* com.zh.*.service.impl.*Impl.*(..))" />
+		<aop:advisor pointcut-ref="servicePointcut" advice-ref="serviceAdvice" />
+	</aop:config>
+
+	<!-- myibatis 工厂bean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+		<!-- 引入数据原 -->
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- myibatis自身配置文件 -->
+		<property name="configLocation" value="classpath:myibatisConf.xml" />
+
+		<!-- 要映射类的包路径，如果使用了这种方式，则configLocation中不必再进行声明 <property name="typeAliasesPackage" 
+			value="com.zh.base.model" /> -->
+		<!-- mybatis的映射文件 -->
+		<property name="mapperLocations" value="classpath*:sql/*Mapper.xml" />
+
+		<!-- 分页拦截器 <property name="plugins"> <array> <ref bean="paginationInterceptor" 
+			/> </array> </property> -->
+
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!--也可直接注入SqlSessionFactory实例，二者都指定时，SqlSessionFactory失效 <bean id="baseDao" 
+		class="com.dahuatech.core.base.dao.BaseDao"> <property name="sqlSessionTemplate" 
+		ref="sqlSessionTemplate" /> <property name="sqlSessionFactory" ref="sqlSessionFactory" 
+		/> </bean> <bean id="loginService" class="com.dahuatech.web.agile.LoginService" 
+		init-method="init"> <property name="apiName" value="901" /> </bean> -->
+
+	<!-- 引用ehCache的配置  -->
+	
+	<bean id="defaultCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:ehcache.xml</value>
+		</property>
+	</bean>
+
+	<!-- 定义ehCache的工厂，并设置所使用的Cache name  -->
+	
+	<bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager">
+			<ref local="defaultCacheManager" />
+		</property>
+		<property name="cacheName">
+			<value>DEFAULT_CACHE</value>
+		</property>
+	</bean>
+	
+	<!-- 获取用户名实例注册 -->
+	<bean id="jspUtil" class="com.zh.base.util.JspUtil">
+	</bean>
+	
+	<!-- find/create cache拦截器 -->
+	<bean id="methodCacheInterceptor" class="com.zh.core.cache.MethodCacheInterceptor">
+		<property name="cache">
+			<ref local="ehCache" />
+		</property>
+	</bean>
+	
+	<bean id="methodCachePointCut"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="methodCacheInterceptor" />
+		</property>
+		<!-- 需要拦截的对象方法 ,查询的对象必须重写equals和hashCode方法-->
+		<property name="patterns">
+			<list>
+				<value>.*UserInfoServiceImpl.query</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- flush cache拦截器 -->
+
+	<bean id="methodCacheAfterAdvice" class="com.zh.core.cache.MethodCacheAfterAdvice">
+		<property name="cache">
+			<ref local="ehCache" />
+		</property>
+	</bean> 
+
+	<bean id="methodCachePointCutAdvice"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="methodCacheAfterAdvice" />
+		</property>
+		<!--  -->
+		<property name="patterns">
+			<list>
+				<value>.*UserInfoServiceImpl.insert</value>
+				<value>.*UserInfoServiceImpl.delete</value>
+				<value>.*UserInfoServiceImpl.update</value>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- 指定action的后缀，默认为action -->
+	<constant name="struts.action.extension" value="jspa" />
+	<!-- 该属性指定整合spring 时，是否对bean进行缓存，值为true or false,默认为true -->
+	<constant name="struts.objectFactory.spring.useClassCache"
+		value="false" />
+	<!-- 指定Web应用的默认编码集, 相当于调用HttpServletRequest的setCharacterEncoding方法 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="i18n.messages,i18n.school" />
+	<!-- <constant name="struts.locale" value="UTF-8" /> -->
+	<!-- 设置浏览器是否缓存静态内容, 默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+
+	<!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 设置是否可以在action中使用斜线，默认为false不可以，想使用需设置为true. -->
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->   
+	<constant name="struts.multipart.maxSize" value="10701096"/>
+	<!-- 是否允许使用表达式语法，默认为true. -->
+	<constant name="struts.tag.altSyntax" value="true" />
+	<!-- S标签启用ognl -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+
+	<!-- 设置是否每次请求，都重新加载资源文件，默认值为false. -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 所有package 继承这个schoolcontrol的package -->
+	<package name="struts-base" extends="struts-default,json-default" abstract="ture">
+		<interceptors>
+			<!-- 动态语言切换 -->
+			<interceptor name="language"
+				class="com.zh.core.interceptor.LanguageInterceptor" />
+			<!-- 菜单权限验证过滤器
+			<interceptor name="authority"
+				class="com.zh.core.interceptor.LoginInterceptor" />
+			 -->
+			 <!-- action的权限访问过滤器 -->
+			 <interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
+			 <!-- ERROR 过滤器 -->
+			 <interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
+			<!-- from重复提交拦截器
+			<interceptor name="invocationToken"
+				class="com.zh.core.interceptor.TokenAtionInterceptor" />
+			-->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="language" />
+				<!--<interceptor-ref name="invocationToken" />-->
+				<interceptor-ref name="authorityInterceptor" />
+				<!-- <interceptor-ref name="authority" /> -->
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="exceptionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="loginStack" />
+
+		<global-results>
+			<result name="returnLogin">/login/login.jspa
+			</result>
+			<result name="error">/pages/exception/error.jsp</result>
+			
+		</global-results>
+	</package>
+	
+	<package name="struts-workflow" extends="struts-default,json-default" abstract="ture">
+		<interceptors>
+			<!-- 动态语言切换 -->
+			<interceptor name="language"
+				class="com.zh.core.interceptor.LanguageInterceptor" />
+			<!-- 菜单权限验证过滤器
+			<interceptor name="authority"
+				class="com.zh.core.interceptor.LoginInterceptor" />
+			 -->
+			  <!-- action的权限访问过滤器 -->
+			 <interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
+			 <!-- ERROR 过滤器 -->
+			 <interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
+			<!-- from重复提交拦截器
+			<interceptor name="invocationToken"
+				class="com.zh.core.interceptor.TokenAtionInterceptor" />
+			-->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="language" />
+				<!--<interceptor-ref name="invocationToken" />-->
+				<!--<interceptor-ref name="authorityInterceptor" />-->
+				<!-- <interceptor-ref name="authority" /> -->
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="exceptionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="loginStack" />
+
+		<global-results>
+			<result name="returnLogin">/login/login.jspa
+			</result>
+			<result name="error">/pages/exception/error.jsp</result>
+			
+		</global-results>
+	</package>
+
+
+</struts>
