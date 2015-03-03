@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+<classPathEntry location="E:\workspace\outsourcing\WEB-APP\WEB-INF\lib\ojdbc14.jar" />
+<!--驱动包的绝对路径-->   
+  <context id="context1" >
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@10.18.106.216:1521:orcl" userId="OSFI" password="agile932" />
+    <javaModelGenerator targetPackage="com.zh.web.model.bean" targetProject="outsourcing" />
+    <sqlMapGenerator targetPackage="sql" targetProject="outsourcing" />
+    <!-- 要生成哪些表-->  
+ 
+    <!--    已经生成
+    <javaClientGenerator targetPackage="test.client" targetProject="outsourcing" type="XMLMAPPER" />
+    <table tableName="SYS_USER" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_MENU" domainObjectName="Menu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_AUTHORITIES" domainObjectName="Authorities" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_ENTERPRISE" domainObjectName="Enterprise" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_RESOURCEINFO" domainObjectName="Resourceinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="t_TechnologicalProcess" domainObjectName="TechnologicalProcess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_NOTICE" domainObjectName="notice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="t_Entry_Process" domainObjectName="EntryProcess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_HOTEL" domainObjectName="Hotel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_PHYSICALEXAMINATION" domainObjectName="PhysicalExam" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_TRAINCOURSE" domainObjectName="TrainCourse" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_ACTIVITIES" domainObjectName="Activities" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_Personnel" domainObjectName="Personnel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="T_Personnel_Record" domainObjectName="PersonnelRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="t_The_franchisee" domainObjectName="Franchisee" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+      -->
+      
+    <table tableName="t_Mail_list" domainObjectName="MailList" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    
+    <!-- 未生成
+    <table tableName="SYS_ROLE_TO_AUTHORITIES" domainObjectName="RoleToAuthorities" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    <table tableName="SYS_ROLE_TO_MENU" domainObjectName="RoleToMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    -->
+  </context>
+</generatorConfiguration>

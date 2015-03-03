@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_NOTICE">
+	<resultMap id="T_NOTICE" type="Notice">
+		<id column="ID" property="id" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="USERID" property="userid" />
+		<result column="CREATEDATE" property="createdate" jdbcType="DATE" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="DATE" />
+		<result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+
+		ID, TITLE, CONTENT, USERID, CREATEDATE, UPDATEDATE,ENABLED
+	</sql>
+
+	<sql id="where">
+		<where>
+			<if test="title != null">
+				and TITLE = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null">
+				and CONTENT = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="userid != null">
+				and USERID = #{userid}
+			</if>
+			<if test="createdate != null">
+				and CREATEDATE = #{createdate,jdbcType=DATE}
+			</if>
+			<if test="updatedate != null">
+				and UPDATEDATE = #{updatedate,jdbcType=DATE}
+			</if>
+			<if test="enabled != null">
+				and ENABLED = #{enabled,jdbcType=DATE}
+			</if>
+			
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_NOTICE" parameterType="Notice">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_NOTICE
+		where id = #{id}
+	</select>
+	
+	<select id="list" resultMap="T_NOTICE" parameterType="Notice">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_NOTICE
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	
+	<select id="count" resultType="Integer" parameterType="Notice">
+		select
+		count(id)
+		from SYS_NOTICE
+		<include refid="where" />
+	</select>
+	
+	<delete id="delete" parameterType="Notice">
+		delete from SYS_NOTICE
+		where ID = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="Notice">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_SYS_NOTICE.nextval from dual
+		</selectKey>
+		insert into SYS_NOTICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="userid != null">
+				USERID,
+			</if>
+			<if test="createdate != null">
+				CREATEDATE,
+			</if>
+			<if test="updatedate != null">
+				UPDATEDATE,
+			</if>
+			<if test="enabled != null">
+				ENABLED,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=DATE},
+			</if>
+			<if test="updatedate != null">
+				#{updatedate,jdbcType=DATE},
+			</if>
+			<if test="enabled != null">
+				#{enabled,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="Notice">
+		update SYS_NOTICE
+		<set>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				USERID = #{userid},
+			</if>
+			<if test="createdate != null">
+				CREATEDATE = #{createdate,jdbcType=DATE},
+			</if>
+			<if test="updatedate != null">
+				UPDATEDATE = #{updatedate,jdbcType=DATE},
+			</if>
+			<if test="enabled != null">
+				enabled = #{enabled,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

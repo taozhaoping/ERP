@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_FileInfo">
+	<resultMap id="T_FileInfo" type="FileInfo">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="NAMETYPE" property="nametype" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="DESCR" property="descr" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+		<result column="TECHNOLOGICALPROCESSID" property="technologicalprocessid" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, NAME, NAMETYPE, TYPE, DESCR, CREATEDATE, UPDATEDATE,
+		STATE,
+		TECHNOLOGICALPROCESSID
+	</sql>
+
+	<sql id="where">
+		<where>
+			<if test="name != null">
+				and NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="nametype != null">
+				and NAMETYPE = #{nametype,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null">
+				and TYPE = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="descr != null">
+				and DESCR = #{descr,jdbcType=VARCHAR}
+			</if>
+			<if test="createdate != null">
+				and CREATEDATE = #{createdate,jdbcType=VARCHAR}
+			</if>
+			<if test="updatedate != null">
+				and UPDATEDATE = #{updatedate,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null">
+				and STATE = #{state,jdbcType=VARCHAR}
+			</if>
+			<if test="technologicalprocessid != null">
+				and TECHNOLOGICALPROCESSID = #{technologicalprocessid}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_FileInfo" parameterType="FileInfo">
+		select
+		<include refid="Base_Column_List" />
+		from T_FILEINFO
+		where ID = #{id}
+	</select>
+	
+	<select id="count" resultType="Integer" parameterType="FileInfo">
+		select
+			count(id)
+		from T_FILEINFO
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_FileInfo" parameterType="FileInfo">
+		select
+		<include refid="Base_Column_List" />
+		from T_FILEINFO
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<delete id="delete" parameterType="FileInfo">
+		delete from
+		T_FILEINFO
+		where ID = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="FileInfo">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select SEQUENCE_t_FileInfo.nextval from dual
+		</selectKey>
+		insert into T_FILEINFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="nametype != null">
+				NAMETYPE,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="descr != null">
+				DESCR,
+			</if>
+			<if test="createdate != null">
+				CREATEDATE,
+			</if>
+			<if test="updatedate != null">
+				UPDATEDATE,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="technologicalprocessid != null">
+				TECHNOLOGICALPROCESSID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nametype != null">
+				#{nametype,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="descr != null">
+				#{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedate != null">
+				#{updatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="technologicalprocessid != null">
+				#{technologicalprocessid},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="FileInfo">
+		update T_FILEINFO
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nametype != null">
+				NAMETYPE = #{nametype,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="descr != null">
+				DESCR = #{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				CREATEDATE = #{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedate != null">
+				UPDATEDATE = #{updatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="technologicalprocessid != null">
+				TECHNOLOGICALPROCESSID = #{technologicalprocessid},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_MailList" >
+  <resultMap id="T_MailList" type="MailList" >
+
+    <id column="ID" property="id" />
+    <result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FRANCHISEEID" property="franchiseeId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CREATEDATE, UPDATEDATE, PHONE, NAME,franchiseeId
+  </sql>
+  
+  <sql id="where">
+		<where>
+	  <if test="id != null" >
+        and ID = #{id}
+      </if>
+      <if test="phone != null" >
+        and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="franchiseeId != null" >
+     	 and FRANCHISEEID =  #{franchiseeId}
+      </if>
+		</where>
+	</sql>
+  
+  <select id="select" resultMap="T_MailList" parameterType="MailList" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_MAIL_LIST
+    where ID = #{id}
+  </select>
+  
+    <select id="list" resultMap="T_MailList" parameterType="MailList">
+		select
+		<include refid="Base_Column_List" />
+		from T_MAIL_LIST
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	
+	<select id="count" resultType="Integer" parameterType="MailList">
+		select
+			count(id)
+		from T_MAIL_LIST
+		<include refid="where" />
+	</select>
+  
+  <delete id="delete" parameterType="MailList" >
+
+    delete from T_MAIL_LIST
+    where ID = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="MailList" >
+  	<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select SEQUENCE_t_Mail_list.nextval from dual
+	</selectKey>
+    insert into T_MAIL_LIST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="franchiseeId != null" >
+     	 FRANCHISEEID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseeId != null" >
+     	  #{franchiseeId},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="MailList" >
+    update T_MAIL_LIST
+    <set >
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseeId != null" >
+     	  FRANCHISEEID = #{franchiseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+ 
+</mapper>

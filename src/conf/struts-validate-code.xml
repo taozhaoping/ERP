@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="validatecode" namespace="/validatecode" extends="struts-default,json-default">
+		<action name="validate"
+			class="com.zh.core.validatecode.action.ValidateCodeAction">
+			<result type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="json" type="json">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+	</package>
+</struts>

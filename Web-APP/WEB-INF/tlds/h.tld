@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>Html Tag</description>
+	<tlib-version>1.1</tlib-version>
+	<short-name>html</short-name>
+	<uri>http://flounycaesar-inc.com/jsp/custom/taglib/html</uri>
+
+	<tag>
+		<description>Loading JS label</description>
+		<name>LoadJS</name>
+		<tag-class>com.china.opensrc.core.taglib.html.LoadJS</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>src</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>Loading CSS label</description>
+		<name>LoadCSS</name>
+		<tag-class>com.china.opensrc.core.taglib.html.LoadCSS</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>href</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>Label Text label</description>
+		<name>Label</name>
+		<tag-class>com.china.opensrc.core.taglib.html.Label</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>text</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>Html label</description>
+		<name>Html</name>
+		<tag-class>com.china.opensrc.core.taglib.html.Html</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+
+	<tag>
+		<description>Head label</description>
+		<name>Head</name>
+		<tag-class>com.china.opensrc.core.taglib.html.Head</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+</taglib>

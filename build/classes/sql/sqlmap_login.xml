@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<resultMap type="User" id="T_User">
+		<result property="id" column="id" />
+		<result property="userName" column="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="userPassword" column="userPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="isDelete" column="isDelete" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="roleID" column="roleID"/>
+		<result property="userType" column="userType" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="employeeID" column="employeeID" />
+	</resultMap>
+	
+	<sql id="columnID">
+		id,
+		userName,
+		userPassword,
+		roleID,
+		userType,
+		isDelete,
+		employeeID
+	</sql>
+	
+	<!-- 查询用户信息 -->
+	<select id="List" resultMap="T_User" parameterType="User">
+		<![CDATA[
+			select 
+		]]>
+		<include refid="columnID" />
+		<![CDATA[
+			from t_user
+		]]>
+		<where>
+			<if test="id!=null">
+				And id=#{id}
+			</if>
+			<if test="isDelete!=null">
+				And isDelete=#{isDelete}
+			</if>
+			<if test="userName!=null">
+				And userName=#{userName}
+			</if>
+			<if test="userPassword!=null">
+				And userPassword=#{userPassword}
+			</if>
+			<if test="employeeID!=null">
+				And employeeID=#{employeeID}
+			</if>
+		</where>
+	</select>
+	
+	<select id="select" resultMap="T_User" parameterType="User">
+		<![CDATA[
+			select 
+		]]>
+		<include refid="columnID" />
+		<![CDATA[
+			from t_user
+		]]>
+		<where>
+			<if test="id!=null">
+				And id=#{id}
+			</if>
+			<if test="isDelete!=null">
+				And isDelete=#{isDelete}
+			</if>
+			<if test="userName!=null">
+				And userName=#{userName}
+			</if>
+			<if test="userPassword!=null">
+				And userPassword=#{userPassword}
+			</if>
+			<if test="employeeID!=null">
+				And employeeID=#{employeeID}
+			</if>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="User">
+		update t_user
+		<set>
+			<if test="isDelete!=null">
+				And isDelete=#{isDelete}
+			</if>
+			<if test="userName!=null">
+				And userName=#{userName}
+			</if>
+			<if test="userPassword!=null">
+				And userPassword=#{userPassword}
+			</if>
+			<if test="employeeID!=null">
+				And employeeID=#{employeeID}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<insert id="insert" parameterType="User">
+		<![CDATA[
+		insert into PEERREVIEW
+			(
+			]]>
+				<include refid="columnID" />
+			<![CDATA[
+			)
+			values
+			(
+				#{id},
+				#{userName,jdbcType=VARCHAR},
+				#{userPassword,jdbcType=VARCHAR},
+				#{roleID},
+				#{userType,jdbcType=VARCHAR},
+				#{isDelete,jdbcType=VARCHAR},
+				#{employeeID}
+			)
+		]]>
+	</insert>
+	
+	
+	<!-- 删除数据 -->
+	<delete id="delete" parameterType="User">
+		<![CDATA[
+			delete from t_ssi_user where id=#id#
+		]]>
+	</delete>
+	
+	<select id="count" resultType="int" parameterType="User">
+		<![CDATA[
+			select 
+			count(id) 
+			from PEERREVIEW
+		]]>
+		<where>
+			<if test="isDelete!=null">
+				And isDelete=#{isDelete}
+			</if>
+			<if test="userName!=null">
+				And userName=#{userName}
+			</if>
+			<if test="userPassword!=null">
+				And userPassword=#{userPassword}
+			</if>
+			<if test="employeeID!=null">
+				And employeeID=#{employeeID}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="sequence" parameterType="string" resultType="long">
+		select ${value}.nextval from dual
+	</select>
+	
+	
+</mapper>

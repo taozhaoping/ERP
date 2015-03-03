@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ROLERELATION">
+	<!-- 删除角色资源关系 -->
+	<delete id="deleteRoleAuthorities" parameterType="RoleAuthorities">
+		delete from SYS_ROLE_TO_AUTHORITIES
+		where ROLE_ID = #{roleId}
+	</delete>
+	
+	<!-- 删除角色菜单关系 -->
+	<delete id="deleteRoleMenu" parameterType="RoleMenu">
+		delete from SYS_ROLE_TO_MENU
+		where ROLE_ID = #{roleId}
+	</delete>
+
+	<!-- 添加角色权限的关系 -->
+	<insert id="insertRoleAuthorities" parameterType="RoleAuthorities">
+		insert into SYS_ROLE_TO_AUTHORITIES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="authoritiesId != null">
+				AUTHORITIES_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId},
+			</if>
+			<if test="authoritiesId != null">
+				#{authoritiesId},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 添加角色菜单的关系 -->
+	<insert id="insertRoleMenu" parameterType="RoleMenu">
+		insert into SYS_ROLE_TO_MENU
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="menuId != null">
+				MENU_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId},
+			</if>
+			<if test="menuId != null">
+				#{menuId},
+			</if>
+		</trim>
+	</insert>
+</mapper>

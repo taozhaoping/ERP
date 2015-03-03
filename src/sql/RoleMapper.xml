@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ROLE">
+	<resultMap id="T_Role" type="Role">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="DESCRIBE" property="describe" jdbcType="VARCHAR"/>
+		<result column="CREATETIME" property="createtime" jdbcType="DATE" />
+		<result column="UPDATETIME" property="updatetime" jdbcType="DATE" />
+	</resultMap>
+	
+	<resultMap type="Role" id="Role_To_Menu" extends="T_Role">
+		<collection property="menuList" column="id"  ofType="T_Menu"
+			select="AM_Menu.roleToMenu">
+		</collection>
+		<collection property="authoritiesList" column="id"  ofType="T_Authorities"
+			select="M_Authorities.Role_To_Authorities">
+		</collection>
+	</resultMap>
+	
+	
+	<sql id="Base_Column_List">
+		ID, NAME, DESCRIBE, CREATETIME, UPDATETIME
+	</sql>
+
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null">
+				and NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="describe != null">
+				and DESCRIBE = #{describe,jdbcType=VARCHAR}
+			</if>
+			<if test="createtime != null">
+				and CREATETIME = #{createtime,jdbcType=DATE}
+			</if>
+			<if test="updatetime != null">
+				and UPDATETIME = #{updatetime,jdbcType=DATE}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="AuthoritiesToMenu" resultMap="Role_To_Menu">
+		select
+			ID, NAME, DESCRIBE, CREATETIME, UPDATETIME
+		from SYS_ROLE
+		where id = #{id} ORDER BY id
+	</select>
+
+	<select id="select" resultMap="T_Role" parameterType="Role">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_ROLE
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Role" parameterType="Role">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_ROLE
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="Role">
+		select
+		count(id)
+		from SYS_ROLE
+		<include refid="where" />
+	</select>
+
+	<delete id="delete" parameterType="Role">
+
+		delete from SYS_ROLE
+		where ID = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="Role">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_SYS_ROLE.nextval from dual
+		</selectKey>
+		insert into SYS_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="describe != null">
+				DESCRIBE,
+			</if>
+			<if test="createtime != null">
+				CREATETIME,
+			</if>
+			<if test="updatetime != null">
+				UPDATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="describe != null">
+				#{describe,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=DATE},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="Role">
+
+		update SYS_ROLE
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="describe != null">
+				DESCRIBE = #{describe,jdbcType=DATE},
+			</if>
+			<if test="createtime != null">
+				CREATETIME = #{createtime,jdbcType=DATE},
+			</if>
+			<if test="updatetime != null">
+				UPDATETIME = #{updatetime,jdbcType=DATE},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
