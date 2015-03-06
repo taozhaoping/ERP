@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>ERP</display-name>
-  <!-- spring配置 -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>ERP</display-name>
+	<!-- 配置spring配置文件文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-config.xml,classpath:spring-shiro-web.xml</param-value>
+	</context-param>
+
+	<!-- shiro 安全过滤器 -->
+	<!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!-- Make sure any request you want accessible to Shiro is filtered. /* 
+		catches all -->
+	<!-- requests. Usually this filter mapping is defined first (before all 
+		others) to -->
+	<!-- ensure that Shiro works in subsequent filters in the filter chain: -->
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- spring配置 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 		<!-- <listener-class>com.zh.core.listener.ClassListener</listener-class> -->
 	</listener>
-	
-	
-	<!-- 配置spring配置文件文件路径 -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-config.xml</param-value>
-	</context-param>
+
 	<!-- 配置session在struts之前打开，在struts处理完jsp页面之后关闭。不能放在struts之后 <filter> <filter-name>OpenSessionInView</filter-name> 
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class> 
 		<init-param> <param-name>sessionFactorybeanName</param-name> <param-value>mySessionFactory</param-value> 
@@ -37,13 +60,13 @@
 		<filter-name>SessionInvalidate</filter-name>
 		<url-pattern>/home/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!--过滤/workflow命名空间下所有action -->
 	<filter-mapping>
 		<filter-name>SessionInvalidate</filter-name>
 		<url-pattern>/workflow/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!--过滤*.jsp后缀的访问 -->
 	<filter-mapping>
 		<filter-name>JspInvalidate</filter-name>
@@ -53,8 +76,7 @@
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>
-			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
-		</filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
@@ -78,7 +100,7 @@
 	</session-config>
 	<!-- - =============================================== - Log4j Configuration 
 		- @author Flouny.Caesar - @date 2009-12-25 - =============================================== -->
-		<listener>
+	<listener>
 		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
 	</listener>
 	<context-param>
@@ -90,18 +112,10 @@
 		<load-on-startup>0</load-on-startup> </servlet> -->
 	<!-- - =============================================== - JSTL Config - @author 
 		Flouny.Caesar - @date 2009-12-25 - =============================================== -->
-	<!-- 
-	<jsp-config>
-		<taglib>
-			<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/c.tld</taglib-location>
-		</taglib>
-		<taglib>
-			<taglib-uri>http://flounycaesar-inc.com/jsp/custom/taglib/html</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/h.tld</taglib-location>
-		</taglib>
-	</jsp-config>
-	 -->
+	<!-- <jsp-config> <taglib> <taglib-uri>http://java.sun.com/jstl/core</taglib-uri> 
+		<taglib-location>/WEB-INF/tlds/c.tld</taglib-location> </taglib> <taglib> 
+		<taglib-uri>http://flounycaesar-inc.com/jsp/custom/taglib/html</taglib-uri> 
+		<taglib-location>/WEB-INF/tlds/h.tld</taglib-location> </taglib> </jsp-config> -->
 	<!-- tiles配置 <context-param> <param-name>org.apache.tiles.CONTAINER_FACTORY</param-name> 
 		<param-value> org.apache.struts2.tiles.StrutsTilesContainerFactory </param-value> 
 		</context-param> <context-param> <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name> 

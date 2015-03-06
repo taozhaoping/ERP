@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ERP" default="war">
+    <property name="project.name" value="ERP"/>
+    <property name="project.author" value="caiyingying"/>
+    <property name="project.version" value="1.0"/>
+    <!--
+      	系统目录定义
+    -->
+	<property environment="SystemVariable" />
+    <property name="release.dir" value="release"/>
+    <property name="web.dir" value="webapp"/>
+    <property name="src.dir" value="src"/>
+    <property name="resource.dir" value="resources"/>
+    <property name="build.dir" value="${release.dir}/${web.dir}/WEB-INF/classes"/>
+	
+	<property name="buildlib.dir" value="${SystemVariable.TOMCAT_HOME}\lib"/>
+
+    <tstamp>
+        <format property="datestamp" pattern="yyyy-MM-dd" locale="zh"/>
+    </tstamp>
+
+    <!--
+    	  初始化目录
+    -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${release.dir}"/>
+		<mkdir dir="${release.dir}/${datestamp}"/>
+    </target>
+
+    <!--
+      	定义Class Path
+    -->
+    <path id="compile.classpath">
+    	<fileset dir="${web.dir}/WEB-INF/lib" includes="**/*.jar"/>
+    	<!--
+    	tomcat 的依赖包
+    	-->
+    	<fileset dir="${buildlib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <!--
+    	 编译选项
+    -->
+    <property name="compiler.args" value="-encoding UTF-8"/>
+
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.script"/>
+        <include name="**/?*.groovy"/>
+        <include name="**/?*.drl"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.sql"/>
+        <include name="**/?*.xlsx"/>
+    </patternset>
+
+    <!--
+      	编译Java文件并复制资源文件
+    -->
+    <target name="compile" depends="init" description="编译Java文件并复制资源文件">
+         
+        <javac destdir="${build.dir}" fork="true" includeantruntime="true" debug="true" debuglevel="lines,vars,source">
+            <compilerarg line="${compiler.args}"/>
+            <classpath refid="compile.classpath"/>
+            <src path="${src.dir}"/>
+        </javac>
+
+        
+        <copy todir="${build.dir}">
+            <fileset dir="${src.dir}">
+                <patternset refid="compiler.resources"/>
+            </fileset>
+            <fileset dir="${resource.dir}">
+                <patternset refid="compiler.resources"/>
+            </fileset>
+        </copy>
+    </target>
+    <!--
+      	生成war文件
+    -->
+    <target name="war" depends="clean,compile" description="生成war文件">
+    	
+    	<property name="release.warfile" value="${release.dir}/${datestamp}/${project.name}.war"/>
+        	<delete file="${release.warfile}"/>
+        <buildnumber/>
+		<!--
+    	<war destfile="${release.warfile}" needxmlfile="false">  
+    		<lib dir="${web.dir}/WEB-INF/lib"/>  
+    		<classes dir="${build.dir}" excludes="${war.exclude.classes}"/>  
+    	</war>
+    	-->
+        <war destfile="${release.warfile}" webxml="${web.dir}/WEB-INF/web.xml" basedir="${web.dir}"
+             excludes="**/web.xml">
+        	<classes dir="${build.dir}" excludes="${war.exclude.classes}"/>
+            <manifest>
+                <attribute name="Author" value="${project.author}"/>
+                <section name="Shared">
+                    <attribute name="Vendor" value="${project.author}"/>
+                    <attribute name="Version" value="${project.version}"/>
+                    <attribute name="Build" value="${build.number}"/>
+                    <attribute name="Date" value="${datestamp}"/>
+                </section>
+
+                <section name="Copyright">
+                    <attribute name="Copy" value="(C) ${project.author} 2014"/>
+                </section>
+            </manifest>
+        </war>
+    	
+    	<antcall target="clean"></antcall>
+    	
+    </target>
+	
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${release.dir}/${web.dir}"/>
+        <delete dir="${web.dir}/WEB-INF/logs"/>
+    </target>
+	
+</project>
