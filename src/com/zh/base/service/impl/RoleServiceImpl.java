@@ -78,43 +78,45 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role queryAuthoritiesToMenu(Role role) {
-		// TODO Auto-generated method stub
+		
 		Role roleReult = roleDao.queryAuthoritiesToMenu(role);
 		
-		//菜单分层（树状）
-		List<Menu> menuList = roleReult.getMenuList();
-		List<Menu> newMenuList = new ArrayList<Menu>();
-		Map<Integer, List<Menu>> map = new HashMap<Integer, List<Menu>>();
-		for (Menu menu : menuList) {
-			
-			Integer parentid = menu.getParentid();
-			if(parentid == 0)
-			{
-				List<Menu> mList;
-				if(map.containsKey(menu.getId()))
+		if(null != roleReult){
+			//菜单分层（树状）
+			List<Menu> menuList = roleReult.getMenuList();
+			List<Menu> newMenuList = new ArrayList<Menu>();
+			Map<Integer, List<Menu>> map = new HashMap<Integer, List<Menu>>();
+			for (Menu menu : menuList) {
+				
+				Integer parentid = menu.getParentid();
+				if(parentid == 0)
 				{
-					mList = map.get(menu.getId());
+					List<Menu> mList;
+					if(map.containsKey(menu.getId()))
+					{
+						mList = map.get(menu.getId());
+					}else
+					{
+						mList = new ArrayList<Menu>();
+					}
+					menu.setMenuList(mList);
+					newMenuList.add(menu);
+					map.put(menu.getId(), mList);
 				}else
 				{
-					mList = new ArrayList<Menu>();
-				}
-				menu.setMenuList(mList);
-				newMenuList.add(menu);
-				map.put(menu.getId(), mList);
-			}else
-			{
-				if(map.containsKey(parentid))
-				{
-					map.get(parentid).add(menu);
-				}else
-				{
-					ArrayList<Menu> mList = new ArrayList<Menu>();
-					mList.add(menu);
-					map.put(parentid, mList);
+					if(map.containsKey(parentid))
+					{
+						map.get(parentid).add(menu);
+					}else
+					{
+						ArrayList<Menu> mList = new ArrayList<Menu>();
+						mList.add(menu);
+						map.put(parentid, mList);
+					}
 				}
 			}
+			roleReult.setMenuList(newMenuList);
 		}
-		roleReult.setMenuList(newMenuList);
 		return roleReult;
 	}
 

@@ -52,7 +52,7 @@ public class mainAction extends BaseAction {
 //		//this.setLanguage(this.getLocale().toString());
 		
 		//获取当前登录用户信息
-		//User user = (User) this.getSession().getAttribute(VariableUtil.SESSION_KEY);
+		User user = (User) this.getSession().getAttribute(VariableUtil.SESSION_KEY);
 		
 //		// 获取员工信息
 //		mainService.initEmployeeInfo(mainModel);
@@ -61,13 +61,13 @@ public class mainAction extends BaseAction {
 //		mainService.initEnterprise(mainModel);
 //
 		// 获取角色信息和菜单信息
-		//Role role = new Role();
-		//role.setId(Integer.valueOf(user.getRoleId()));
-		//Role roleReult = roleService.queryAuthoritiesToMenu(role);
-		//this.mainModel.setRole(roleReult);
+		Role role = new Role();
+		role.setId(Integer.valueOf(user.getRoleId()));
+		Role roleReult = roleService.queryAuthoritiesToMenu(role);
+		this.mainModel.setRole(roleReult);
 //		
 		//保存用户menu菜单中的action权限到session，用于过滤器的验证
-		//setAuthoritySession();
+		setAuthoritySession();
 //		
 //		//保存用户信息到session
 //		this.getSession().setAttribute(VariableUtil.EMPLOYEE, mainModel.getEmployee());
@@ -176,26 +176,27 @@ public class mainAction extends BaseAction {
 	}
 
 
-	private void setAuthoritySession(){
+	private void setAuthoritySession() {
 		LOGGER.debug("setAuthoritySession()");
 		ArrayList<String> list = new ArrayList<String>();
-		List<Menu> menuList = mainModel.getRole().getMenuList();
-		for (Menu menu : menuList) {
-			Integer parentid = menu.getParentid();
-			if(parentid.equals(0))
-			{
-				List<Menu> mList = menu.getMenuList();
-				for (Menu menu2 : mList) {
-					list.add(menu2.getAction());
+		Role role = mainModel.getRole();
+		if(null != role){
+			List<Menu> menuList = role.getMenuList();
+			for (Menu menu : menuList) {
+				Integer parentid = menu.getParentid();
+				if (parentid.equals(0)) {
+					List<Menu> mList = menu.getMenuList();
+					for (Menu menu2 : mList) {
+						list.add(menu2.getAction());
+					}
 				}
+				list.add(menu.getAction());
 			}
-			list.add(menu.getAction());
 		}
 		this.getSession().setAttribute(VariableUtil.AUTHORITY, list);
 	}
 	
-	public String rightExecute()
-	{
+	public String rightExecute(){
 		//mainModel.setEmployee((EmployeeInfo)this.getSession().getAttribute(VariableUtil.EMPLOYEE));
 
 		return "right";
