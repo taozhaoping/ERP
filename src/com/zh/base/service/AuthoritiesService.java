@@ -26,6 +26,13 @@ public interface AuthoritiesService {
 	 * @return
 	 */
 	public List<Authorities> queryList(Authorities authorities);
+
+	/**
+	 * 查询列表
+	 * @param 角色id
+	 * @return 权限集合
+	 */
+	public List<Authorities> queryListById(Long roleId);
 	
 	/**
 	 * 查询列表，带分页

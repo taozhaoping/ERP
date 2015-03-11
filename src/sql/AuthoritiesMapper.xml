@@ -9,13 +9,15 @@
     -->
     <id column="ID" property="id"/>
     <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="PERMISSION" property="permission" jdbcType="VARCHAR" />
     <result column="ENABLED" property="enabled" />
     <result column="MODULE" property="module" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
 
-    ID, NAME, ENABLED, MODULE
+    ID, NAME, DESCRIPTION, PERMISSION, ENABLED, MODULE
   </sql>
   
    <sql id="where">
@@ -25,6 +27,12 @@
 	      </if>
 	       <if test="name != null and name != ''" >
 	        and NAME = #{name,jdbcType=VARCHAR}
+	      </if>
+	       <if test="description != null and description != ''" >
+	        and DESCRIPTION = #{description,jdbcType=VARCHAR}
+	      </if>
+	       <if test="permission != null and permission != ''" >
+	        and PERMISSION = #{permission,jdbcType=VARCHAR}
 	      </if>
 	      <if test="enabled != null" >
 	        and ENABLED = #{enabled}
@@ -44,7 +52,6 @@
 	</select>
 	
   <select id="select" resultMap="T_Authorities" parameterType="Authorities" >
-  
     select 
     <include refid="Base_Column_List" />
     from SYS_AUTHORITIES
@@ -52,7 +59,6 @@
   </select>
   
    <select id="list" resultMap="T_Authorities" parameterType="Authorities" >
-  
     select 
     <include refid="Base_Column_List" />
     from SYS_AUTHORITIES
@@ -71,14 +77,13 @@
   
   
   <delete id="delete" parameterType="Authorities" >
-  
     delete from SYS_AUTHORITIES
     where ID = #{id}
   </delete>
  
   <insert id="insert" parameterType="Authorities" >
 	<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
-			select SEQUENCE_SYS_AUTHORITIES.nextval from dual
+		select SEQUENCE_SYS_AUTHORITIES.nextval from dual
 	</selectKey>
     insert into SYS_AUTHORITIES
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -87,6 +92,12 @@
       </if>
       <if test="name != null" >
         NAME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="permission != null" >
+        PERMISSION,
       </if>
       <if test="enabled != null" >
         ENABLED,
@@ -102,6 +113,12 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
       <if test="enabled != null" >
         #{enabled},
       </if>
@@ -116,6 +133,12 @@
     <set >
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        PERMISSION = #{permission,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null" >
         ENABLED = #{enabled},

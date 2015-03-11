@@ -96,7 +96,7 @@
 						</div>
 						<input type="submit" class="btn btn-primary pull-right" value="登陆">
 						
-						<label class="remember-me"><input type="checkbox">记住密码</label>
+						<label class="remember-me"><input type="checkbox" name="userInfo.isRemember">记住密码</label>
 						<div class="clearfix"></div>
 					</form>
 				</div>

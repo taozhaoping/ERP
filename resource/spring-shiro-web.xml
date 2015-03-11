@@ -7,27 +7,38 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- 缓存管理器 使用Ehcache实现 -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <!-- 
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+         -->
+        <property name="cacheManager" ref="defaultCacheManager"/>
     </bean>
 
     <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="com.github.zhangkaitao.shiro.chapter12.credentials.RetryLimitHashedCredentialsMatcher">
-        <constructor-arg ref="cacheManager"/>
+    <bean id="credentialsMatcher" class="com.zh.base.credentials.RetryLimitHashedCredentialsMatcher">
+        <constructor-arg ref="ehCacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="userRealm" class="com.github.zhangkaitao.shiro.chapter12.realm.UserRealm">
-        <property name="userService" ref="userService"/>
+    <bean id="userRealm" class="com.zh.base.realm.UserRealm">
+    	<!-- 
+    	<property name="userInfoService" ref="userInfoService"/>
+    	<property name="roleService" ref="roleService"/>
+    	<property name="authoritiesService" ref="authoritiesService"/>
+    	 -->
+    	
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
+        
+		<!-- 
         <property name="authenticationCachingEnabled" value="true"/>
         <property name="authenticationCacheName" value="authenticationCache"/>
         <property name="authorizationCachingEnabled" value="true"/>
         <property name="authorizationCacheName" value="authorizationCache"/>
+		 -->
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -38,6 +49,20 @@
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="180000"/>
+    </bean>
+    
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+        <property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 
     <!-- 会话DAO -->
@@ -67,7 +92,7 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="userRealm"/>
         <property name="sessionManager" ref="sessionManager"/>
-        <property name="cacheManager" ref="cacheManager"/>
+        <property name="cacheManager" ref="ehCacheManager"/>
     </bean>
 
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
@@ -80,14 +105,14 @@
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
-        <property name="loginUrl" value="/login.jsp"/>
+        <property name="loginUrl" value="/login/login.jspa"/>
     </bean>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login.jsp"/>
-        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <property name="loginUrl" value="/login/login.jspa"/>
+        <property name="unauthorizedUrl" value="/pages/login/unauthorized.jsp"/>
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -96,10 +121,16 @@
         <property name="filterChainDefinitions">
             <value>
                 /index.jsp = anon
-                /unauthorized.jsp = anon
-                /login.jsp = authc
                 /logout = logout
-                /** = user
+                /pages/** = authc
+                /login/** = anon
+                /main/** = authc
+                /css/** = anon
+                /font/** = anon
+                /img/** = anon
+                /js/** = anon
+                /validatecode/** = anon
+                /** = authc
             </value>
         </property>
     </bean>

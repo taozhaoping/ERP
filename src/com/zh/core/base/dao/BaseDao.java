@@ -92,6 +92,15 @@ public abstract class BaseDao<IdataObject> {
 	public IdataObject query(String sqlId , IdataObject data) {
 		return sqlSessionTemplate.selectOne(namespace + sqlId, data);
 	}
+	
+	/**
+	 * 查询数据
+	 * @param data
+	 * @return
+	 */
+	public List<IdataObject> queryListById(String sqlId , Long id) {
+		return sqlSessionTemplate.selectOne(namespace + sqlId, id);
+	}
 
 	/**
 	 * 查询数据列表

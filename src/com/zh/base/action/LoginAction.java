@@ -9,6 +9,14 @@ import java.util.Date;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +76,10 @@ public class LoginAction extends BaseAction {
 		return "creater";
 	}
 
+	/**
+	 * 用户登陆
+	 * @return
+	 */
 	public String loginUser() {
 		String code = (String) this.getRequest().getSession().getAttribute("code");
 		if (null == validecode || null == code || !validecode.toUpperCase().equals(code)) {
@@ -81,18 +93,52 @@ public class LoginAction extends BaseAction {
 			this.setErrorMessage(getText("COM.SSI.ERROR.USERNAME"));
 			return "creater";
 		}
-		userInfo.setUserPassword(null);
-		User user = userInfoService.query(userInfo);
+		//userInfo.setUserPassword(null);
+		//User user = userInfoService.query(userInfo);
+		//是否记住密码
+		boolean isRememberMe = userInfo.isRemember();
 		
+		Subject subject = SecurityUtils.getSubject();  
+		  
+        String loginName = userInfo.getLoginName();
+		char[] loginPassword = password.toCharArray();
+		UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPassword);
+        token.setRememberMe(isRememberMe);
+        try {  
+        	subject.login(token);  
+            String userID = (String) subject.getPrincipal();
+            LOGGER.info("User [" + userID + "] logged in successfully.");
+            return "success";
+        } catch (UnknownAccountException uae) {
+            errorMessage = "用户认证失败：" + "用户名不存在";  
+            LOGGER.info(errorMessage);
+        } catch (IncorrectCredentialsException ice) {
+            errorMessage = "用户认证失败：" + "密码错误";  
+            LOGGER.info(errorMessage);
+        } catch (LockedAccountException lae) {  
+            errorMessage = "用户认证失败：" + "账号已经锁定";  
+            LOGGER.info(errorMessage);
+        } catch(ExcessiveAttemptsException eae){
+        	errorMessage = "用户认证失败：" + "输入密码错误次数过多";  
+            LOGGER.info(errorMessage);
+        } catch (AuthenticationException e) {
+            errorMessage = "登录失败错误信息：" + e;
+            LOGGER.error(errorMessage);
+            e.printStackTrace();
+            token.clear();
+        }  
+        this.setErrorMessage(errorMessage);
+		return "creater";
+        
 		//密码验证
-		if (null != password && null != user && BCrypt.checkpw(password , user.getUserPassword())) {
+		/*if (null != password && null != user && BCrypt.checkpw(password , user.getUserPassword())) {
 			//保存当前用户信息到session中
 			this.getSession().setAttribute(VariableUtil.SESSION_KEY, user);
 			return "success";
 		} else {
 			this.setErrorMessage(getText("COM.SSI.ERROR.USERNAME"));
 			return "creater";
-		}
+		}*/
 	}
 	
 	/***

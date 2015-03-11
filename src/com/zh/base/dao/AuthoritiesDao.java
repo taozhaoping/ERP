@@ -1,5 +1,7 @@
 package com.zh.base.dao;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
@@ -15,6 +17,15 @@ public class AuthoritiesDao extends BaseDao<Authorities> {
 	public void init() {
 		// TODO Auto-generated method stub
 		this.setNamespace("M_Authorities");
+	}
+	
+	/**
+	 * 获取角色信息和菜单信息
+	 * @param role
+	 * @return
+	 */
+	public List<Authorities> queryAuthoritiesByRoleId(Long roleId){
+		return this.queryListById("Role_To_Authorities", roleId);
 	}
 
 }

@@ -18,43 +18,36 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
 	
 	@Override
 	public Authorities query(Authorities authorities) {
-		// TODO Auto-generated method stub
 		return authoritiesDao.query(authorities);
 	}
 
 	@Override
 	public void update(Authorities authorities) {
-		// TODO Auto-generated method stub
 		authoritiesDao.update(authorities);
 	}
 
 	@Override
 	public List<Authorities> queryList(Authorities authorities, Pager page) {
-		// TODO Auto-generated method stub
 		return authoritiesDao.queryPageList(authorities, page);
 	}
 
 	@Override
 	public Integer count(Authorities authorities) {
-		// TODO Auto-generated method stub
 		return authoritiesDao.count(authorities);
 	}
 
 	@Override
 	public void delete(Authorities authorities) {
-		// TODO Auto-generated method stub
 		authoritiesDao.delete(authorities);
 	}
 
 	@Override
 	public void insert(Authorities authorities) {
-		// TODO Auto-generated method stub
 		authoritiesDao.insert(authorities);
 	}
 
 	@Override
 	public List<Authorities> queryList(Authorities authorities) {
-		// TODO Auto-generated method stub
 		return authoritiesDao.queryList(authorities);
 	}
 
@@ -64,6 +57,11 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
 
 	public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
 		this.authoritiesDao = authoritiesDao;
+	}
+
+	@Override
+	public List<Authorities> queryListById(Long roleId) {
+		return authoritiesDao.queryAuthoritiesByRoleId(roleId);
 	}
 
 }

@@ -162,6 +162,11 @@ public class User extends IDataObject{
      */
     private Date updateTime;
     
+    /**
+     * 是否记住密码
+     */
+    private boolean isRemember;
+    
     
     /***
      * 重置密码时候保存的随机数
@@ -355,6 +360,14 @@ public class User extends IDataObject{
 
 	public void setNonce(String nonce) {
 		this.nonce = nonce;
+	}
+
+	public boolean isRemember() {
+		return isRemember;
+	}
+
+	public void setRemember(boolean isRemember) {
+		this.isRemember = isRemember;
 	}
 
 }

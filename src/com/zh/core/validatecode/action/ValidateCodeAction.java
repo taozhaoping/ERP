@@ -57,6 +57,14 @@ public class ValidateCodeAction extends BaseAction {
 	private Map<String,String> dataMap = new HashMap<String, String>();
 	
 	/**
+	 * 随机数
+	 */
+	private String random;
+	
+	
+	private String ts;
+	
+	/**
 	 * 生成验证码
 	 * 
 	 * <img src="http://xxxxxxxxx:xxxx/validatecode/validate!execute.jspa" />
@@ -140,14 +148,33 @@ public class ValidateCodeAction extends BaseAction {
 		return vc;
 	}
 	
-	public void setValidateImageManager(ValidateImageManager validateImageManager) {
+	public void setValidateImageManager(
+			ValidateImageManager validateImageManager) {
 		this.validateImageManager = validateImageManager;
 	}
+
 	public Map<String, String> getDataMap() {
 		return dataMap;
 	}
+
 	public void setDataMap(Map<String, String> dataMap) {
 		this.dataMap = dataMap;
+	}
+
+	public String getRandom() {
+		return random;
+	}
+
+	public void setRandom(String random) {
+		this.random = random;
+	}
+
+	public String getTs() {
+		return ts;
+	}
+
+	public void setTs(String ts) {
+		this.ts = ts;
 	}
 	
 }

@@ -43,6 +43,7 @@
 		<url-pattern>/*</url-pattern> </filter-mapping> -->
 
 	<!-- authority filter 最好加在Struts2的Filter前面 -->
+	<!-- 
 	<filter>
 		<filter-name>SessionInvalidate</filter-name>
 		<filter-class>com.zh.core.filter.SessionFilter</filter-class>
@@ -55,23 +56,30 @@
 		<filter-name>JspInvalidate</filter-name>
 		<filter-class>com.zh.core.filter.JspFilter</filter-class>
 	</filter>
+	 -->
 	<!--过滤/home 命名空间下所有action -->
+	<!-- 
 	<filter-mapping>
 		<filter-name>SessionInvalidate</filter-name>
 		<url-pattern>/home/*</url-pattern>
 	</filter-mapping>
+	 -->
 
 	<!--过滤/workflow命名空间下所有action -->
+	<!-- 
 	<filter-mapping>
 		<filter-name>SessionInvalidate</filter-name>
 		<url-pattern>/workflow/*</url-pattern>
 	</filter-mapping>
+	 -->
 
 	<!--过滤*.jsp后缀的访问 -->
+	<!-- 
 	<filter-mapping>
 		<filter-name>JspInvalidate</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
+	 -->
 
 	<filter>
 		<filter-name>struts2</filter-name>
