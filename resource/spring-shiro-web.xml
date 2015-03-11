@@ -122,9 +122,7 @@
             <value>
                 /index.jsp = anon
                 /logout = logout
-                /pages/** = authc
                 /login/** = anon
-                /main/** = authc
                 /css/** = anon
                 /font/** = anon
                 /img/** = anon

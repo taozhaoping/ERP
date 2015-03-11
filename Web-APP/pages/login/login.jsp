@@ -101,9 +101,11 @@
 					</form>
 				</div>
 			</div>
+			<!-- 
 			<p>
 				<a href="<%=path %>/login/resetPasswordAction!resetPassword.jspa">忘记密码？</a>
 			</p>
+			 -->
 		</div>
 	</div>
 	<script type="text/javascript" src="<%=path %>/js/bootstrap.js"></script>

@@ -34,6 +34,13 @@
 			-->
 		</action>
 		
+		<action name="logout" class="com.zh.base.action.LoginAction" method="logout">
+			<result name="success" type="redirectAction">
+				<param name="actionName">login</param>  
+    			<param name="namespace">/login</param>
+			</result>
+		</action>
+		
 		<action name="resetPasswordAction" class="com.zh.base.action.LoginAction" method="{1}">
 			<result name="sendEmail">/pages/login/sendEmail.jsp</result>
 			<result name="resetPwd">/pages/login/resetPassword.jsp</result>

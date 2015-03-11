@@ -86,7 +86,7 @@
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
 		//跳转到登陆页面
-		window.location.href = basePath + "/login/login.jspa";
+		window.location.href = basePath + "/login/logout.jspa";
 	});
 	
 	

@@ -65,15 +65,26 @@ public class LoginAction extends BaseAction {
 	
 	private User userInfo = new User();;
 
-
 	public String excute() {
-		Object user = this.getSession().getAttribute(VariableUtil.SESSION_KEY);
-		if( null != user )
-		{
-			this.getSession().removeAttribute(VariableUtil.SESSION_KEY);
-			this.getSession().removeAttribute(VariableUtil.MENULIST);
+		Subject subject = SecurityUtils.getSubject();
+		
+		boolean isAuth = subject.isAuthenticated();
+		if(isAuth){
+			return "success";
 		}
 		return "creater";
+	}
+	
+	/**
+	 * 登出
+	 * @return
+	 */
+	public String logout(){
+		Subject subject = SecurityUtils.getSubject();
+		//清除session中的用户信息
+		this.getSession().removeAttribute(VariableUtil.SESSION_KEY);
+		subject.logout();
+		return "success";
 	}
 
 	/**
@@ -98,8 +109,8 @@ public class LoginAction extends BaseAction {
 		//是否记住密码
 		boolean isRememberMe = userInfo.isRemember();
 		
-		Subject subject = SecurityUtils.getSubject();  
-		  
+		Subject subject = SecurityUtils.getSubject();
+		
         String loginName = userInfo.getLoginName();
 		char[] loginPassword = password.toCharArray();
 		UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPassword);
@@ -108,6 +119,10 @@ public class LoginAction extends BaseAction {
         	subject.login(token);  
             String userID = (String) subject.getPrincipal();
             LOGGER.info("User [" + userID + "] logged in successfully.");
+            User user = new User();
+            user.setLoginName(loginName);
+            user = userInfoService.query(user);
+            this.getSession().setAttribute(VariableUtil.SESSION_KEY, user);
             return "success";
         } catch (UnknownAccountException uae) {
             errorMessage = "用户认证失败：" + "用户名不存在";  
