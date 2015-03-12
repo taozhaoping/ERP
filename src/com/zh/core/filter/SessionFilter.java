@@ -26,7 +26,7 @@ public class SessionFilter implements Filter {
 
 	protected FilterConfig filterConfig = null;
 
-	// 跳转的登陆地址
+	// 跳转的登录地址
 	private static String redirectURL = PropertiesUtil
 			.get(VariableUtil.FORWARD_URL);
 

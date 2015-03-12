@@ -16,6 +16,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.zh.base.model.bean.User;
+import com.zh.base.realm.UserRealm;
 import com.zh.base.service.UserInfoService;
 import com.zh.base.util.Base64;
 import com.zh.base.util.DateUtil;
@@ -88,7 +90,7 @@ public class LoginAction extends BaseAction {
 	}
 
 	/**
-	 * 用户登陆
+	 * 用户登录
 	 * @return
 	 */
 	public String loginUser() {
@@ -115,6 +117,7 @@ public class LoginAction extends BaseAction {
 		char[] loginPassword = password.toCharArray();
 		UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPassword);
         token.setRememberMe(isRememberMe);
+        
         try {  
         	subject.login(token);  
             String userID = (String) subject.getPrincipal();
@@ -125,16 +128,16 @@ public class LoginAction extends BaseAction {
             this.getSession().setAttribute(VariableUtil.SESSION_KEY, user);
             return "success";
         } catch (UnknownAccountException uae) {
-            errorMessage = "用户认证失败：" + "用户名不存在";  
+            errorMessage = "登录失败：" + "用户名不存在";  
             LOGGER.info(errorMessage);
         } catch (IncorrectCredentialsException ice) {
-            errorMessage = "用户认证失败：" + "密码错误";  
+            errorMessage = "登录失败：" + "密码错误";  
             LOGGER.info(errorMessage);
         } catch (LockedAccountException lae) {  
-            errorMessage = "用户认证失败：" + "账号已经锁定";  
+            errorMessage = "登录失败：" + "账号已经锁定";  
             LOGGER.info(errorMessage);
         } catch(ExcessiveAttemptsException eae){
-        	errorMessage = "用户认证失败：" + "输入密码错误次数过多";  
+        	errorMessage = "登录失败：" + "输入密码错误次数过多";  
             LOGGER.info(errorMessage);
         } catch (AuthenticationException e) {
             errorMessage = "登录失败错误信息：" + e;
@@ -294,6 +297,14 @@ public class LoginAction extends BaseAction {
 			user.setUserPassword(bcryptPassword);
 			user.setUpdateTime(new Date());
 			userInfoService.update(user);
+			Subject subject = SecurityUtils.getSubject();
+			RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();
+			UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();
+			userRealm.clearCachedAuthenticationInfo(subject.getPrincipals());
+			char[] loginPassword = newPassWord.toCharArray();
+			UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), loginPassword);
+			subject.login(token);
+			
 		}else{
 			return "error";
 		}

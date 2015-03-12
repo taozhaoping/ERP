@@ -5,7 +5,7 @@
 <struts>
 	<!-- 
 		**
-		**登陆
+		**登录
 		**
 		 -->
 	<package name="login" namespace="/login" extends="struts-default">

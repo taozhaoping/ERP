@@ -18,7 +18,7 @@ import com.zh.core.util.PropertiesUtil;
 public class JspFilter implements Filter  {
 
 	
-	// 跳转的登陆地址
+	// 跳转的登录地址
 	private static String redirectURL = PropertiesUtil
 			.get(VariableUtil.FORWARD_URL);
 	

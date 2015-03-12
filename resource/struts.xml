@@ -12,7 +12,7 @@
 	<include file="conf/struts-framework.xml" />
 	<!-- 验证码 -->
 	<include file="conf/struts-validate-code.xml" />
-	<!-- 登陆 -->
+	<!-- 登录 -->
 	<include file="conf/struts-login.xml" />
 	<!-- 主页 -->
 	<include file="conf/struts-main.xml" />

@@ -65,7 +65,7 @@
 	<div class="row-fluid">
 		<div class="dialog">
 			<div class="block">
-				<p class="block-heading">登陆</p>
+				<p class="block-heading">登录</p>
 				<div class="block-body">
 					<form method="post" name="loginform" id="loginform" action="login!loginUser.jspa">
 						<input type="hidden" name="token" value="${token}" />
@@ -94,7 +94,7 @@
 								<img id="imgUrl" onclick="showValidateCode()" title="点击刷新"></img>
 							</div>
 						</div>
-						<input type="submit" class="btn btn-primary pull-right" value="登陆">
+						<input type="submit" class="btn btn-primary pull-right" value="登录">
 						
 						<label class="remember-me"><input type="checkbox" name="userInfo.isRemember">记住密码</label>
 						<div class="clearfix"></div>

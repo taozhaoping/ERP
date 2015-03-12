@@ -61,7 +61,7 @@ public abstract class BaseAction extends ActionSupport implements
 	//private String language;
 	
 	/**
-	 * 用户登陆信息
+	 * 用户登录信息
 	 */
 
 
@@ -121,7 +121,7 @@ public abstract class BaseAction extends ActionSupport implements
 	}
 	
 	/**
-	 * 获取当前登陆的用户id
+	 * 获取当前登录的用户id
 	 * @return
 	 */
 	public Integer queryUserId()
@@ -131,7 +131,7 @@ public abstract class BaseAction extends ActionSupport implements
 	}
 	
 	/**
-	 * 获取当前登陆的用户
+	 * 获取当前登录的用户
 	 * @return
 	 */
 	public User queryUser()

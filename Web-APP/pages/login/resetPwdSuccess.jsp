@@ -71,7 +71,7 @@
 					</form>
 				</div>
 			</div>
-			<a href="<%=path %>/login/login.jspa">登陆页面</a>
+			<a href="<%=path %>/login/login.jspa">登录页面</a>
 		</div>
 	</div>
 	<script type="text/javascript" src="<%=path%>/js/bootstrap.js"></script>

@@ -3,6 +3,10 @@ package com.zh.base.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.RealmSecurityManager;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import com.zh.base.model.bean.Menu;
 import com.zh.base.model.bean.Notice;
 import com.zh.base.model.bean.Role;
 import com.zh.base.model.bean.User;
+import com.zh.base.realm.UserRealm;
 import com.zh.base.service.NoticeService;
 import com.zh.base.service.RoleService;
 import com.zh.base.service.UserInfoService;
@@ -90,7 +95,7 @@ public class mainAction extends BaseAction {
 		User currUser = this.queryUser();
 		if (null == currUser)
 		{
-			throw new ProjectException("当前未登陆!");
+			throw new ProjectException("当前未登录!");
 		}
 		Integer id = currUser.getId();
 		user.setId(id);
@@ -104,7 +109,7 @@ public class mainAction extends BaseAction {
 		User currUser = this.queryUser();
 		if (null == currUser)
 		{
-			throw new ProjectException("当前未登陆!");
+			throw new ProjectException("当前未登录!");
 		}
 		User user = this.mainModel.getUser();
 
@@ -117,7 +122,7 @@ public class mainAction extends BaseAction {
 		
 		if (currUser.getId() != user.getId())
 		{
-			throw new ProjectException("当前登陆用户和修改的用户不匹配，无法修改!");
+			throw new ProjectException("当前登录用户和修改的用户不匹配，无法修改!");
 		}
 
 		String passWord = mainModel.getNewPassWord();
@@ -127,6 +132,20 @@ public class mainAction extends BaseAction {
 			user.setUserPassword(bcryptPassword);
 		}
 		userInfoService.update(user);
+		//修改密码，清理缓存，重新认证
+		if(null != passWord && !passWord.isEmpty()){
+			Subject subject = SecurityUtils.getSubject();
+			
+			RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();
+			UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();
+			userRealm.clearCachedAuthenticationInfo(subject.getPrincipals());
+			userRealm.clearCachedAuthorizationInfo(subject.getPrincipals());
+			
+			String username = currUser.getLoginName();
+			char[] loginPassword = passWord.toCharArray();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, loginPassword);
+			subject.login(token);
+		}
 		return "save";
 	}
 	

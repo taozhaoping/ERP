@@ -85,7 +85,7 @@
 		var localObj = window.location;
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
-		//跳转到登陆页面
+		//跳转到登录页面
 		window.location.href = basePath + "/login/logout.jspa";
 	});
 	
@@ -95,7 +95,7 @@
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
 		var hrefStr = basePath + "/" +nameSpace +"/"+ action +"!editor.jspa?menuId="+nameSpace+"&menu2Id="+action;
-		//跳转到登陆页面
+		//跳转到登录页面
 		window.location.href = hrefStr;
 	}
 	
@@ -112,7 +112,7 @@
 		var localObj = window.location;
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
-		//跳转到登陆页面
+		//跳转到登录页面
 		window.location.href = basePath + "/workflow/recruitment!editor.jspa?menuId=workflow&menu2Id=recruitment";
 	});
 	
@@ -120,7 +120,7 @@
 		var localObj = window.location;
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
-		//跳转到登陆页面
+		//跳转到登录页面
 		window.location.href = basePath + "/workflow/induction!editor.jspa?menuId=workflow&menu2Id=induction";
 	});
 	
@@ -128,7 +128,7 @@
 		var localObj = window.location;
 		var contextPath = localObj.pathname.split("/")[1];
 		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
-		//跳转到登陆页面
+		//跳转到登录页面
 		window.location.href = basePath + "/workflow/applyfranchisee!editor.jspa?menuId=workflow&menu2Id=applyfranchisee";
 	});
 	*/
