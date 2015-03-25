@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 接口信息， 返回都是json格式 -->
+	<package name="interface" namespace="/interface" extends="struts-base">
+
+		<!-- 查询所有的用户 -->
+		<action name="interfaceUserInfo" class="com.zh.base.action.InterfaceAction">
+			<!-- 查询所有的用户 -->
+			<result name="usersjson" type="json">
+				<param name="root">interfaceModel.userList</param>
+			</result>
+		</action>
+
+		<!-- 数据库字典 -->
+		<action name="interfaceDictionary" class="com.zh.base.action.DictionaryAction">
+
+			<result name="dictionaryjson" type="json">
+				<param name="root">dictionaryModel.dictionaryList</param>
+			</result>
+			
+			<result name="basiTypejson" type="json">
+				<param name="root">dictionaryModel.basiTypeList</param>
+			</result>
+		</action>
+	</package>
+</struts>

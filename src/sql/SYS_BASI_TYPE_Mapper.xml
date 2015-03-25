@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_BASI_TYPE">
+	<resultMap id="T_BASI_TYPE" type="BasiType">
+
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+
+		ID, NAME
+	</sql>
+
+	<select id="select" resultMap="T_BASI_TYPE" parameterType="BasiType">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_BASI_TYPE
+		where id=#{id}
+	</select>
+
+	<select id="list" resultMap="T_BASI_TYPE" parameterType="BasiType">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_BASI_TYPE
+		where id=#{id}
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+</mapper>

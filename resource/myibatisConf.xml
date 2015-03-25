@@ -36,6 +36,13 @@
 		<typeAlias alias="FileInfo" type="com.zh.web.model.bean.FileInfo" />
 		<!-- 通讯录 -->
 		<typeAlias alias="MailList" type="com.zh.web.model.bean.MailList" />
+		
+		<!-- 基础类别资料 -->
+		<typeAlias alias="BasiType" type="com.zh.base.model.bean.BasiType" />
+		
+		<!-- 数据库字典 -->
+		<typeAlias alias="Dictionary" type="com.zh.base.model.bean.Dictionary" />
+		
 	</typeAliases>
 
 	<plugins>

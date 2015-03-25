@@ -153,7 +153,7 @@
 	</bean> -->
 	
 	<!-- 获取用户名实例注册 -->
-	<bean id="jspUtil" class="com.zh.base.util.JspUtil">
+	<bean id="jspUtil" class="com.zh.base.util.JspUtil" init-method="getBean">
 	</bean>
 	
 	<!-- find/create cache拦截器 -->
