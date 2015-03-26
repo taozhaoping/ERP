@@ -43,6 +43,9 @@
 		<!-- 数据库字典 -->
 		<typeAlias alias="Dictionary" type="com.zh.base.model.bean.Dictionary" />
 		
+		<!-- 仓库管理 -->
+		<typeAlias alias="Warehouse" type="com.zh.base.model.bean.Warehouse" />
+		
 	</typeAliases>
 
 	<plugins>

@@ -114,27 +114,16 @@
 			</result>
 		</action>
 		
-		<!-- 接口信息， 返回都是json格式-->
-		
-		<action name="interface" class="com.zh.base.action.InterfaceAction">
-			<!-- 查询所有的用户 -->
-			<result name="usersjson" type="json">
-				<param name="root">interfaceModel.userList</param>
-			</result>
-			
-			<!-- 查询所有入职人员信息 -->
-			<result name="entryProcessjson" type="json">
-				<param name="root">interfaceModel.entryProcessList</param>
-			</result>
-			
-			<!-- 查询所有培训信息 -->
-			<result name="trainCoursejson" type="json">
-				<param name="root">interfaceModel.trainCourseList</param>
-			</result>
-			
-			<!-- 查询所有活动信息 -->
-			<result name="activitiesjson" type="json">
-				<param name="root">interfaceModel.activitiesList</param>
+		<!-- 仓库管理 -->
+		<action name="warehouse" class="com.zh.base.action.WarehouseAction">
+			<result name="success">/pages/SystemConfig/warehouse/List.jsp</result>
+			<result name="editor">/pages/SystemConfig/warehouse/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">warehouse</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
 	</package>

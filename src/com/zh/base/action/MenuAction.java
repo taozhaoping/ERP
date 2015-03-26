@@ -59,5 +59,17 @@ public class MenuAction extends BaseAction {
 		this.menuService = menuService;
 	}
 
+	@Override
+	public String editor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String save() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

@@ -64,4 +64,10 @@ public class ParamAction extends BaseAction {
 		this.paramModel = paramModel;
 	}
 
+	@Override
+	public String editor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

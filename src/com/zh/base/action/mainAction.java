@@ -253,4 +253,10 @@ public class mainAction extends BaseAction {
 		this.userInfoService = userInfoService;
 	}
 
+	@Override
+	public String editor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

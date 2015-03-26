@@ -1,6 +1,7 @@
 package com.zh.core.base.action;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -186,5 +187,11 @@ public abstract class BaseAction extends ActionSupport implements
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+	
+	@Override
+	public abstract String execute() throws Exception;
 
+	public abstract String editor() throws Exception;
+
+	public abstract String save() throws Exception;
 }

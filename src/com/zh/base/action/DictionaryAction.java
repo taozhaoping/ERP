@@ -125,5 +125,17 @@ public class DictionaryAction extends BaseAction {
 	public void setBasiTypeService(BasiTypeService basiTypeService) {
 		BasiTypeService = basiTypeService;
 	}
+
+	@Override
+	public String editor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String save() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
