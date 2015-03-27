@@ -68,7 +68,7 @@ ALTER TABLE SYS_DICTIONARY
    ID                   NUMBER               NOT NULL,
    NAME               VARCHAR(30),
    ADDRESS            VARCHAR(100),
-   STATE              NUMBER
+   enabled              NUMBER
 );
 
 COMMENT ON TABLE SYS_WAREHOUSE IS

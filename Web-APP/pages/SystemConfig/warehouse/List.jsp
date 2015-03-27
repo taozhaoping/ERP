@@ -94,29 +94,27 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>企业名称</th>
-									<th>企业地址</th>
-									<th>企业电话</th>
+									<th>仓库名称</th>
+									<th>仓库地址</th>
 									<th>状态</th>
 									<th style="width: 26px;"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="enterpriseList" var="enterprise" status="index">
+								<s:iterator value="warehouseList" var="warehouse" status="index">
 									<tr>
 										<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#enterprise.name"/></td>
-										<td><s:property value="#enterprise.address"/></td>
-										<td><s:property value="#enterprise.phonecall"/></td>
-										<s:if test="#enterprise.enabled==0">
+										<td><s:property value="#warehouse.name"/></td>
+										<td><s:property value="#warehouse.address"/></td>
+										<s:if test="#warehouse.enabled==0">
 											<td>激活</td>
 										</s:if>
 										<s:else>
 											<td>停用</td>
 										</s:else>
 										<td>
-											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#enterprise.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
-											<a title="状态" href="${menu2Id}!save.jspa?id=<s:property value='#enterprise.id'/>&view=enabled&enabled=<s:property value='#enterprise.enabled'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
+											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#warehouse.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											<a title="状态" href="${menu2Id}!save.jspa?id=<s:property value='#warehouse.id'/>&view=enabled&enabled=<s:property value='#warehouse.enabled'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
 												class="icon-remove"></i></a>
 										</td>
 									</tr>

@@ -8,25 +8,25 @@ import com.zh.core.base.model.BaseModel;
 
 public class WarehouseModel extends BaseModel {
 
-	private Warehouse Warehouse = new Warehouse();
+	private Warehouse warehouse = new Warehouse();
 	
-	private List<Warehouse> WarehouseList = new ArrayList<Warehouse>();
+	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 
 	public Warehouse getWarehouse() {
-		return Warehouse;
+		return warehouse;
 	}
 
 	public void setWarehouse(Warehouse warehouse) {
-		Warehouse = warehouse;
+		this.warehouse = warehouse;
 	}
 
 	public List<Warehouse> getWarehouseList() {
-		return WarehouseList;
+		return warehouseList;
 	}
 
 	public void setWarehouseList(List<Warehouse> warehouseList) {
-		WarehouseList = warehouseList;
+		this.warehouseList = warehouseList;
 	}
-	
+
 	
 }

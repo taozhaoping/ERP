@@ -29,7 +29,7 @@ public class Warehouse extends IDataObject {
 	/**
 	 * 状态
 	 */
-	private Integer state;
+	private Integer enabled;
 
 	public Integer getId() {
 		return id;
@@ -55,13 +55,13 @@ public class Warehouse extends IDataObject {
 		this.address = address;
 	}
 
-	public Integer getState() {
-		return state;
+	public Integer getEnabled() {
+		return enabled;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	public void setEnabled(Integer enabled) {
+		this.enabled = enabled;
 	}
-	
-	
+
+
 }

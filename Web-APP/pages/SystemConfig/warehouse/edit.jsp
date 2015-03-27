@@ -17,6 +17,7 @@
 	href="<%=path%>/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/theme.css">
 <link rel="stylesheet" href="<%=path%>/css/font-awesome.css">
+<link rel="stylesheet" href="<%=path%>/js/select2/select2.css">
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
 <!-- Demo page code -->
 <style type="text/css">
@@ -96,29 +97,33 @@
 					<div class="well">
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane active" id="home">
-									<input type="hidden" name="enterprise.id" value="${enterprise.id}">
+									<input type="hidden" name="warehouse.id" value="${warehouse.id}">
 									<input type="hidden" name="menuId" value="${menuId}">
 									<input type="hidden" name="menu2Id" value="${menu2Id}">
 									<input type="hidden" name="spaceId" value="${spaceId}">
 									<div class="control-group" id="name_div">
 										<label class="control-label" for="name_input">名称：</label>
 										<div class="controls">
-											<input type="text" data-required="true" maxlength="50"  id="name_input" name="enterprise.name" value="${enterprise.name}" class="input-xlarge">
+											<input type="text" data-required="true" maxlength="30"  id="name_input" name="warehouse.name" value="${warehouse.name}" class="input-xlarge">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label" for="inputaddress">地址：</label>
 										<div class="controls">
-											<input type="text" id="inputaddress" maxlength="100" data-required="true" name="enterprise.address" value="${enterprise.address}" class="input-xlarge">
+											<input type="text" id="inputaddress" maxlength="100"  name="warehouse.address" value="${warehouse.address}" class="input-xlarge">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="inputaddress">电话：</label>
-										<div class="controls">
-											<input type="number" id="inputaddress" maxlength="15" data-pattern="(^(\d{3,4}-)?\d{7,8})$|(1[3,5,7,8,9]{1}[0-9]{9})" name="enterprise.phonecall" value="${enterprise.phonecall}" class="input-xlarge">
-										</div>
-									</div>						
-								
+										<label class="control-label" for="inputenabled">状态:</label>
+											<div class="controls">
+												<select id="inputenabled" class="input-xlarge"
+													name="warehouse.enabled">
+													<option value="0">激活</option>
+													<option value="1">未激活</option>
+												</select>
+											</div>
+									</div>
+									
 							</div>
 						</div>
 					</div>
@@ -132,6 +137,8 @@
 		<script src="<%=path %>/js/collapsePulg.js"></script>
 		<script src="<%=path %>/js/common.js"></script>
 		<script src="<%=path %>/js/jquery-validate.js"></script>
+		<script src="<%=path%>/js/select2/select2.js"></script>
+	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
 			var id='${menuId}';
@@ -139,7 +146,12 @@
 			var spaceId = '${spaceId}';
 			var url=$("#"+menuId).attr('url');
 			
-			
+			$("#inputenabled").select2();
+			var enabled ='${warehouse.enabled}';
+			if ( enabled != null)
+			{
+				$("#inputenabled").val(enabled).trigger("change");
+			}
 		</script>
 </body>
 </html>

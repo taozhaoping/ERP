@@ -209,7 +209,7 @@
 												<input size="16" id="inputentryTime"
 													name="userInfo.entryTime" type="text"
 													value="<s:date name="userInfo.entryTime" format="yyyy-MM-dd" />"
-													readonly class="form_datetime input-xlarge">
+													 class="form_datetime input-xlarge">
 											</div>
 										</div>
 									</div>
