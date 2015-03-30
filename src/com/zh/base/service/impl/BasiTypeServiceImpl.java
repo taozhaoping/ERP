@@ -12,7 +12,7 @@ import com.zh.core.util.JSONUtil;
 
 @Component("basiTypeService")
 public class BasiTypeServiceImpl implements BasiTypeService {
-
+	
 	@Autowired
 	private BasiTypeDao basiTypeDao;
 	

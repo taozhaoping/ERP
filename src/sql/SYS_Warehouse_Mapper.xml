@@ -5,10 +5,11 @@
 		<id column="ID" property="id" />
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
 		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_ID" property="enterpriseID"/>
 		<result column="enabled" property="enabled" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, NAME, ADDRESS, enabled
+		ID, NAME, ADDRESS,ENTERPRISE_ID,enabled
 	</sql>
 	<sql id="where">
 		<where>
@@ -20,6 +21,9 @@
 			</if>
 			<if test="address != null">
 				and address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="enterpriseID != null">
+				and ENTERPRISE_ID = #{enterpriseID}
 			</if>
 			<if test="enabled != null">
 				and enabled = #{enabled}
@@ -68,6 +72,9 @@
 			<if test="address != null">
 				ADDRESS,
 			</if>
+			<if test="enterpriseID != null">
+				ENTERPRISE_ID,
+			</if>
 			<if test="enabled != null">
 				enabled,
 			</if>
@@ -82,6 +89,9 @@
 			<if test="address != null">
 				#{address,jdbcType=VARCHAR},
 			</if>
+			<if test="enterpriseID != null">
+				#{enterpriseID},
+			</if>
 			<if test="enabled != null">
 				#{enabled},
 			</if>
@@ -95,6 +105,9 @@
 			</if>
 			<if test="address != null">
 				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseID != null">
+				ENTERPRISE_ID = #{enterpriseID},
 			</if>
 			<if test="enabled != null">
 				enabled = #{enabled},

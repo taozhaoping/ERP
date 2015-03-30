@@ -24,7 +24,7 @@ public class Dept extends IDataObject {
 	/**
 	 * 企业ID
 	 */
-	private String enterpriseID;
+	private Integer enterpriseID;
 	
 	/**
 	 * 仓库类型
@@ -52,11 +52,12 @@ public class Dept extends IDataObject {
 		this.deptName = deptName;
 	}
 
-	public String getEnterpriseID() {
+
+	public Integer getEnterpriseID() {
 		return enterpriseID;
 	}
 
-	public void setEnterpriseID(String enterpriseID) {
+	public void setEnterpriseID(Integer enterpriseID) {
 		this.enterpriseID = enterpriseID;
 	}
 

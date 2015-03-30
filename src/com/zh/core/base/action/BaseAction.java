@@ -1,17 +1,24 @@
 package com.zh.core.base.action;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.zh.base.model.bean.Dictionary;
+import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.User;
+import com.zh.base.service.BasiTypeService;
+import com.zh.base.service.DictionaryService;
+import com.zh.base.service.EnterpriseService;
 import com.zh.core.model.Pager;
 import com.zh.core.model.VariableUtil;
 
@@ -19,6 +26,12 @@ public abstract class BaseAction extends ActionSupport implements
 		ModelDriven<Object> {
 
 	public static boolean STATS_BOOL = false;
+	
+	@Autowired
+	private DictionaryService dictionaryService;
+	
+	@Autowired
+	private EnterpriseService enterpriseService;
 	
 	/**static
 	{
@@ -186,6 +199,25 @@ public abstract class BaseAction extends ActionSupport implements
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+	
+	protected List<Dictionary> queryDictionaryList(Integer typeID)
+	{
+		return dictionaryService.queryList(typeID);
+	}
+	
+	protected List<Enterprise> queryEnterpriseList()
+	{
+		Enterprise enterprise = new Enterprise();
+		return enterpriseService.queryList(enterprise);
+		
+	}
+	
+	protected Enterprise queryEnterprise(Integer enterpriseID)
+	{
+		Enterprise enterprise = new Enterprise();
+		enterprise.setId(enterpriseID);
+		return enterpriseService.query(enterprise);
 	}
 	
 	@Override

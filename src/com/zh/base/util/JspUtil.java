@@ -127,7 +127,7 @@ public class JspUtil implements ApplicationContextAware {
 		}
 
 		Dictionary dictionary = new Dictionary();
-		dictionary.setBasiTypeID(Integer.valueOf(id));
+		dictionary.setKey(Integer.valueOf(id));
 		Dictionary reult = dictionaryService.query(dictionary);
 		if (reult == null) {
 			return "";

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@  page import="com.zh.base.util.JspUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 	String path = request.getContextPath();
@@ -54,6 +55,7 @@
 <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body class="">
+<jsp:useBean id="userName" class="com.zh.base.util.JspUtil" scope="session"></jsp:useBean>
 	<!--<![endif]-->
 	<%@ include file="/pages/common/titleWithNav.jsp"%>
 	<%@ include file="/pages/common/sidebarWithNav.jsp"%> 
@@ -106,8 +108,14 @@
 									<tr>
 										<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#dept.deptName"/></td>
-										<td><s:property value="#dept.enterpriseID"/></td>
-										<td><s:property value="#dept.type"/></td>
+										<td>	
+											<s:set id="enterpriseID" value="#dept.enterpriseID"></s:set>
+											<%=userName.queryEnterprise(String.valueOf(request.getAttribute("enterpriseID"))) %>
+										</td>
+										<td>
+											<s:set id="deptType" value="#dept.type"></s:set>
+											<%=userName.queryDictionary(String.valueOf(request.getAttribute("deptType"))) %>
+										</td>
 										<s:if test="#dept.enabled==0">
 											<td>激活</td>
 										</s:if>

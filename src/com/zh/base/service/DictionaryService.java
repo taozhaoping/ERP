@@ -24,6 +24,19 @@ public interface DictionaryService {
 	public Dictionary query(Dictionary dictionary);
 	
 	/**
+	 * 根据传入的类型返回数据
+	* @Title: queryList 
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param  @param typeid
+	* @param  @return   参数 
+	* @return List<Dictionary>    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public List<Dictionary> queryList(Integer typeid);
+	
+	/**
 	 * 查询列表
 	 * @param 
 	 * @return

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zh.base.dao.DictionaryDao;
+import com.zh.base.model.bean.Dept;
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.service.DictionaryService;
 import com.zh.core.util.JSONUtil;
@@ -27,6 +28,14 @@ public class DictionaryServiceImpl implements
 	public List<Dictionary> queryList(Dictionary dictionary) {
 		// TODO Auto-generated method stub
 		return dictionaryDao.queryList(dictionary);
+	}
+	
+	public List<Dictionary> queryList(Integer typeid)
+	{
+		Dictionary dictionary = new Dictionary();
+		dictionary.setBasiTypeID(typeid);
+		return this.queryList(dictionary);
+		
 	}
 
 	@Override

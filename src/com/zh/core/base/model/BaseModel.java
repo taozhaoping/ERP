@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zh.base.model.bean.Dictionary;
+import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.User;
 import com.zh.core.model.Pager;
 
@@ -45,6 +47,16 @@ public class BaseModel {
 	 * 需要展示的tab页面
 	 */
 	private String tabID;
+	
+	/**
+	 * 基础数据
+	 */
+	private List<Dictionary> dictionaryList;
+	
+	/**
+	 * 企业列表
+	 */
+	private List<Enterprise> enterpriseList;
 	
 	/**
 	 * 返回界面列表使用
@@ -189,6 +201,22 @@ public class BaseModel {
 
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
+	}
+
+	public List<Dictionary> getDictionaryList() {
+		return dictionaryList;
+	}
+
+	public void setDictionaryList(List<Dictionary> dictionaryList) {
+		this.dictionaryList = dictionaryList;
+	}
+
+	public List<Enterprise> getEnterpriseList() {
+		return enterpriseList;
+	}
+
+	public void setEnterpriseList(List<Enterprise> enterpriseList) {
+		this.enterpriseList = enterpriseList;
 	}
 	
 }

@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.base.model.DeptModel;
 import com.zh.base.model.bean.Dept;
+import com.zh.base.model.bean.Dictionary;
+import com.zh.base.model.bean.Enterprise;
+import com.zh.base.service.BasiTypeService;
 import com.zh.base.service.DeptService;
+import com.zh.base.service.DictionaryService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
@@ -26,6 +30,7 @@ public class DeptAction extends BaseAction {
 	
 	@Autowired
 	private DeptService deptService;
+	
 	
 	@Override
 	public Object getModel() {
@@ -64,6 +69,14 @@ public class DeptAction extends BaseAction {
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
 		Integer id = this.deptModel.getId();
+		//部门类型
+		List<Dictionary> list = queryDictionaryList(BasiTypeService.DEPT_TYPE);
+		this.deptModel.setDictionaryList(list);
+		
+		//获取企业列表
+		List<Enterprise> enterpriseList = this.queryEnterpriseList();
+		this.deptModel.setEnterpriseList(enterpriseList);
+		
 		if (null != id)
 		{
 			//查询信息
@@ -88,7 +101,7 @@ public class DeptAction extends BaseAction {
 			{
 				String enabled = this.deptModel.getEnabled();
 				dept = new Dept();
-				dept.setId(id);
+				
 				if ("0".equals(enabled))
 				{
 					dept.setEnabled(1);
@@ -98,6 +111,7 @@ public class DeptAction extends BaseAction {
 				}
 				LOGGER.debug("update dept enabled " + dept.getEnabled());
 			}
+			dept.setId(id);
 			deptService.update(dept);
 			LOGGER.debug("update dept id" + id);
 		}else

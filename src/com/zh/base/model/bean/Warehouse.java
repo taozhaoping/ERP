@@ -27,6 +27,11 @@ public class Warehouse extends IDataObject {
 	private String address;
 	
 	/**
+	 * 企业ID
+	 */
+	private Integer enterpriseID;
+	
+	/**
 	 * 状态
 	 */
 	private Integer enabled;
@@ -63,5 +68,12 @@ public class Warehouse extends IDataObject {
 		this.enabled = enabled;
 	}
 
+	public Integer getEnterpriseID() {
+		return enterpriseID;
+	}
+
+	public void setEnterpriseID(Integer enterpriseID) {
+		this.enterpriseID = enterpriseID;
+	}
 
 }

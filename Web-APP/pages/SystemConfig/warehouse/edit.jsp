@@ -97,7 +97,7 @@
 					<div class="well">
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane active" id="home">
-									<input type="hidden" name="warehouse.id" value="${warehouse.id}">
+									<input type="hidden" name="id" value="${warehouse.id}">
 									<input type="hidden" name="menuId" value="${menuId}">
 									<input type="hidden" name="menu2Id" value="${menu2Id}">
 									<input type="hidden" name="spaceId" value="${spaceId}">
@@ -111,6 +111,15 @@
 										<label class="control-label" for="inputaddress">地址：</label>
 										<div class="controls">
 											<input type="text" id="inputaddress" maxlength="100"  name="warehouse.address" value="${warehouse.address}" class="input-xlarge">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="inputenterpriseID">企业：</label>
+										<div class="controls">
+											<s:select id="inputenterpriseID"  list="enterpriseList" listKey="id" listValue="name"
+													name="warehouse.enterpriseID" cssClass="input-xlarge">
+													
+												</s:select>
 										</div>
 									</div>
 									<div class="control-group">
@@ -146,7 +155,7 @@
 			var spaceId = '${spaceId}';
 			var url=$("#"+menuId).attr('url');
 			
-			$("#inputenabled").select2();
+			$("select").select2();
 			var enabled ='${warehouse.enabled}';
 			if ( enabled != null)
 			{

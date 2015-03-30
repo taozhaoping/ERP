@@ -66,13 +66,13 @@
 			<if test="id != null">
 				ID,
 			</if>
-			<if test="name != null">
+			<if test="deptName != null">
 				DEPT_NAME,
 			</if>
-			<if test="address != null">
+			<if test="enterpriseID != null">
 				ENTERPRISE_ID,
 			</if>
-			<if test="address != null">
+			<if test="type != null">
 				TYPE,
 			</if>
 			<if test="enabled != null">
@@ -83,13 +83,13 @@
 			<if test="id != null">
 				#{id},
 			</if>
-			<if test="name != null">
+			<if test="deptName != null">
 				#{deptName,jdbcType=VARCHAR},
 			</if>
-			<if test="address != null">
+			<if test="enterpriseID != null">
 				#{enterpriseID},
 			</if>
-			<if test="address != null">
+			<if test="type != null">
 				#{type},
 			</if>
 			<if test="enabled != null">

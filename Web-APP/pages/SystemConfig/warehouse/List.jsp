@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@  page import="com.zh.base.util.JspUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 	String path = request.getContextPath();
@@ -54,6 +55,7 @@
 <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body class="">
+<jsp:useBean id="userName" class="com.zh.base.util.JspUtil" scope="session"></jsp:useBean>
 	<!--<![endif]-->
 	<%@ include file="/pages/common/titleWithNav.jsp"%>
 	<%@ include file="/pages/common/sidebarWithNav.jsp"%> 
@@ -96,6 +98,7 @@
 									<th>序号</th>
 									<th>仓库名称</th>
 									<th>仓库地址</th>
+									<th>所属公司</th>
 									<th>状态</th>
 									<th style="width: 26px;"></th>
 								</tr>
@@ -106,6 +109,10 @@
 										<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#warehouse.name"/></td>
 										<td><s:property value="#warehouse.address"/></td>
+										<td>
+											<s:set id="enterpriseID" value="#warehouse.enterpriseID"></s:set>
+											<%=userName.queryEnterprise(String.valueOf(request.getAttribute("enterpriseID"))) %>
+										</td>
 										<s:if test="#warehouse.enabled==0">
 											<td>激活</td>
 										</s:if>
