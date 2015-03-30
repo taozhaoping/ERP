@@ -20,6 +20,16 @@ public interface BasiTypeService {
 	 * 部门类型
 	 */
 	public static final Integer DEPT_TYPE = 5;
+	
+	/**
+	 * 客户级别
+	 */
+	public static final Integer CUSTOMER_LEV = 3;
+	
+	/**
+	 * 客户类型
+	 */
+	public static final Integer CUSTOMER_TYPE = 2;
 
 	/**
 	 * 查询信息

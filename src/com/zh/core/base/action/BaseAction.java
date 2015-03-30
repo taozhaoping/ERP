@@ -220,6 +220,7 @@ public abstract class BaseAction extends ActionSupport implements
 		return enterpriseService.query(enterprise);
 	}
 	
+	
 	@Override
 	public abstract String execute() throws Exception;
 

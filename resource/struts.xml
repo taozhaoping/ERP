@@ -18,6 +18,8 @@
 	<include file="conf/struts-main.xml" />
 	<!-- 接口集合 -->
 	<include file="conf/struts-interface.xml"></include>
+	<!-- 业务 -->
+	<include file="conf/struts-business.xml"></include>
 	<!--
 		===============================================
 		struts取消Struts2标签的布局 - @author Flouny.Caesar - @date 2009-12-25 -

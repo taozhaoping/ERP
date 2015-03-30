@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	   <!-- 
+		**
+		**主页
+		**
+		 -->
+	<package name="business" namespace="/business" extends="struts-base">
+		
+		<!-- 客户资源-->
+		<action name="customerInfo" class="com.zh.web.action.CustomerAction">
+			<result name="success">/pages/business/customer/List.jsp</result>
+			<result name="editor">/pages/business/customer/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">customerInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>

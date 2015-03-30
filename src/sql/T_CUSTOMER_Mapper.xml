@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Customer">
+	<resultMap id="T_Customer" type="Customer">
+		<id column="ID" property="id" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" />
+		<result column="mail" property="mail" jdbcType="VARCHAR" />
+		<result column="FAX_NUMBER" property="faxNumber" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="lev" property="lev" />
+		<result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+		<result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+		<result column="iphone" property="iphone" jdbcType="VARCHAR" />
+		<result column="enabled" property="enabled" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, name, LEGAL_PERSON,TYPE
+		,mail,FAX_NUMBER,address,lev,OPENING_BANK,BANK_ACCOUNT,iphone,enabled
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="type != null">
+				and TYPE = #{type}
+			</if>
+			<if test="enabled != null">
+				and enabled = #{enabled}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Customer" parameterType="Customer">
+		select
+		<include refid="Base_Column_List" />
+		from T_CUSTOMER
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Customer" parameterType="Customer">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_CUSTOMER
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="Customer">
+		select
+		count(id)
+		from T_CUSTOMER
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="Customer">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Customer.nextval from dual
+		</selectKey>
+		insert into T_CUSTOMER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="legalPerson != null">
+				LEGAL_PERSON,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="mail != null">
+				mail,
+			</if>
+			<if test="faxNumber != null">
+				FAX_NUMBER,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="lev != null">
+				lev,
+			</if>
+			<if test="openingBank != null">
+				OPENING_BANK,
+			</if>
+			<if test="bankAccount != null">
+				BANK_ACCOUNT,
+			</if>
+			<if test="iphone != null">
+				iphone,
+			</if>
+			<if test="enabled != null">
+				enabled,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				#{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="mail != null">
+				#{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="faxNumber != null">
+				#{faxNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="lev != null">
+				#{lev},
+			</if>
+			<if test="openingBank != null">
+				#{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccount != null">
+				#{bankAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="iphone != null">
+				#{iphone,jdbcType=VARCHAR},
+			</if>
+			<if test="enabled != null">
+				#{enabled},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="Customer">
+		update T_CUSTOMER
+		<set>
+			<if test="name != null">
+				name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				LEGAL_PERSON=#{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="mail != null">
+				mail=#{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="faxNumber != null">
+				fax_number = #{faxNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address=#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="lev != null">
+				lev=#{lev},
+			</if>
+			<if test="openingBank != null">
+				opening_Bank = #{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccount != null">
+				bank_Account = #{bankAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="iphone != null">
+				iphone = #{iphone,jdbcType=VARCHAR},
+			</if>
+			<if test="enabled != null">
+				 enabled = #{enabled},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

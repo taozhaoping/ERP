@@ -48,6 +48,11 @@
 		
 		<!-- 部门配置 -->
 		<typeAlias alias="Dept" type="com.zh.base.model.bean.Dept" />
+		
+		<!-- 客户资料 -->
+		
+		<!-- 客户资料 -->
+		<typeAlias alias="Customer" type="com.zh.web.model.bean.Customer"/>
 	</typeAliases>
 
 	<plugins>
