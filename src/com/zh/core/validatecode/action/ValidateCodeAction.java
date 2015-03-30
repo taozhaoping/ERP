@@ -164,25 +164,26 @@ public class ValidateCodeAction extends BaseAction {
 	public String getRandom() {
 		return random;
 	}
-
 	public void setRandom(String random) {
 		this.random = random;
 	}
-
 	public String getTs() {
 		return ts;
 	}
-
 	public void setTs(String ts) {
 		this.ts = ts;
 	}
-	@Override
-	public String editor() throws Exception {
+	public ValidateImageManager getValidateImageManager() {
+		return validateImageManager;
+	}
+	
+	public String editor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public String save() throws Exception {
+	
+
+	public String save()  {
 		// TODO Auto-generated method stub
 		return null;
 	}

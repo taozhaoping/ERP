@@ -141,61 +141,10 @@
 		</property>
 	</bean>
 
-	<!-- 定义ehCache的工厂，并设置所使用的Cache name  -->
-	<!-- 
-	<bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-		<property name="cacheManager">
-			<ref local="defaultCacheManager" />
-		</property>
-		<property name="cacheName">
-			<value>DEFAULT_CACHE</value>
-		</property>
-	</bean> -->
 	
 	<!-- 获取用户名实例注册 -->
 	<bean id="jspUtil" class="com.zh.base.util.JspUtil" init-method="getBean">
 	</bean>
 	
-	<!-- find/create cache拦截器 -->
-	<!-- <bean id="methodCacheInterceptor" class="com.zh.core.cache.MethodCacheInterceptor">
-		<property name="cache">
-			<ref local="ehCache" />
-		</property>
-	</bean>
 	
-	<bean id="methodCachePointCut"
-		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-		<property name="advice">
-			<ref local="methodCacheInterceptor" />
-		</property>
-		需要拦截的对象方法 ,查询的对象必须重写equals和hashCode方法
-		<property name="patterns">
-			<list>
-				<value>.*UserInfoServiceImpl.query</value>
-			</list>
-		</property>
-	</bean> -->
-	
-	<!-- flush cache拦截器 -->
-
-	<!-- <bean id="methodCacheAfterAdvice" class="com.zh.core.cache.MethodCacheAfterAdvice">
-		<property name="cache">
-			<ref local="ehCache" />
-		</property>
-	</bean> 
-
-	<bean id="methodCachePointCutAdvice"
-		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-		<property name="advice">
-			<ref local="methodCacheAfterAdvice" />
-		</property>
-		
-		<property name="patterns">
-			<list>
-				<value>.*UserInfoServiceImpl.insert</value>
-				<value>.*UserInfoServiceImpl.delete</value>
-				<value>.*UserInfoServiceImpl.update</value>
-			</list>
-		</property>
-	</bean> -->
 </beans>

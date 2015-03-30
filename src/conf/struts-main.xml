@@ -126,5 +126,19 @@
     			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 部门管理 -->
+		<action name="dept" class="com.zh.base.action.DeptAction">
+			<result name="success">/pages/SystemConfig/dept/List.jsp</result>
+			<result name="editor">/pages/SystemConfig/dept/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">dept</param>  
+    			<param name="namespace">/home</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
 	</package>
 </struts>

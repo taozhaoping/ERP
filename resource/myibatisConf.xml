@@ -46,6 +46,8 @@
 		<!-- 仓库管理 -->
 		<typeAlias alias="Warehouse" type="com.zh.base.model.bean.Warehouse" />
 		
+		<!-- 部门配置 -->
+		<typeAlias alias="Dept" type="com.zh.base.model.bean.Dept" />
 	</typeAliases>
 
 	<plugins>
