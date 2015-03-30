@@ -19,6 +19,8 @@ public class Dictionary extends IDataObject {
 	private String descr;
 	
 	private Integer basiTypeID;
+	
+	private Integer sorting;
 
 	public Integer getKey() {
 		return key;
@@ -42,6 +44,14 @@ public class Dictionary extends IDataObject {
 
 	public void setBasiTypeID(Integer basiTypeID) {
 		this.basiTypeID = basiTypeID;
+	}
+
+	public Integer getSorting() {
+		return sorting;
+	}
+
+	public void setSorting(Integer sorting) {
+		this.sorting = sorting;
 	}
 	
 	

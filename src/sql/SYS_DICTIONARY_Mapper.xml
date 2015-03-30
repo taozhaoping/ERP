@@ -6,11 +6,13 @@
 		<id column="key" property="key" />
 		<result column="DESCR" property="descr" jdbcType="VARCHAR" />
 		<result column="BASI_TYPE_ID" property="basiTypeID" />
+		<result column="SORTING" property="sorting" />
+		
 	</resultMap>
 
 	<sql id="Base_Column_List">
 
-		key, DESCR,BASI_TYPE_ID
+		key, DESCR,BASI_TYPE_ID,sorting
 	</sql>
 	
 	<sql id="where">

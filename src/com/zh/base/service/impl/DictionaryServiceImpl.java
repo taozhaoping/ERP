@@ -34,6 +34,7 @@ public class DictionaryServiceImpl implements
 	{
 		Dictionary dictionary = new Dictionary();
 		dictionary.setBasiTypeID(typeid);
+		dictionary.setOrderByClause("sorting");
 		return this.queryList(dictionary);
 		
 	}
