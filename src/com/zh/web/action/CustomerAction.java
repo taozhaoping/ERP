@@ -5,18 +5,25 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.service.BasiTypeService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
+import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 import com.zh.web.model.CustomerModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.MailList;
 import com.zh.web.service.CustomerService;
+import com.zh.web.service.MailListService;
 
 public class CustomerAction extends BaseAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CustomerAction.class); 
 	
@@ -24,6 +31,9 @@ public class CustomerAction extends BaseAction {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private MailListService mailListService;
 	
 	@Override
 	public Object getModel() {
@@ -66,6 +76,15 @@ public class CustomerAction extends BaseAction {
 			customer.setId(Integer.valueOf(id));
 			Customer reult = customerService.query(customer);
 			this.customerModel.setCustomer(reult);
+			
+			//查询通讯录
+			MailList mailList = this.customerModel.getMailList();
+			mailList.setForeignId(id);
+			Integer count = mailListService.count(mailList);
+			Pager page = this.customerModel.getPageInfo();
+			page.setTotalRow(count);
+			List<MailList> mailListList = mailListService.queryList(mailList, page);
+			this.customerModel.setMailListList(mailListList);
 		}
 		
 		return Action.EDITOR;
@@ -102,6 +121,33 @@ public class CustomerAction extends BaseAction {
 			LOGGER.debug("add customer");
 		}
 		return Action.EDITOR_SUCCESS;
+	}
+	
+	public String saveMailList() {
+		LOGGER.debug("saveMailList()");
+		String formId = this.customerModel.getFormId();
+		Integer id = this.customerModel.getId();
+		String view = this.customerModel.getView();
+		
+		if (null == formId || "".equals(formId)) {
+			throw ProjectException
+					.createException("当前的流程编号不允许为空！请先保存当前流程的基本信息");
+		}
+		
+		if (null != view && (null == id || "".equals(id))) {
+			throw ProjectException.createException("当前的活动编号不允许为空！");
+		}
+		
+		MailList mailList = this.customerModel.getMailList();
+		mailList.setForeignId(Integer.valueOf(formId));
+
+		if (null != view && "delete".equals(view)) {
+			mailList.setId(id);
+			mailListService.delete(mailList);
+		} else {
+			mailListService.insert(mailList);
+		}
+		return "save";
 	}
 
 	public CustomerModel getCustomerModel() {

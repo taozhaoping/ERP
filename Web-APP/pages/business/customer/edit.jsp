@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="<%=path%>/css/font-awesome.css">
 <link rel="stylesheet" href="<%=path%>/js/select2/select2.css">
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
+<script type="text/javascript" src="<%=path%>/js/jqPaginator.min.js"></script>
 <!-- Demo page code -->
 <style type="text/css">
 #line-chart {
@@ -81,10 +82,10 @@
 			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
 			<li class="active">编辑</li>
 		</ul>
-
+<s:set name="ProcessId"
+					value="customer.id!=null&&customer.id!=''" />
 		<div class="container-fluid">
-			<form id="editForm" class="form-horizontal"
-				action="${menu2Id}!save.jspa" method="post">
+
 				<div class="row-fluid">
 
 					<div class="btn-toolbar">
@@ -102,7 +103,9 @@
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane active" id="home">
+							<div class="tab-pane fade" id="home">
+								<form id="editForm" class="form-horizontal"
+										action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="id" value="${customer.id}"> <input
 									type="hidden" name="menuId" value="${menuId}"> <input
 									type="hidden" name="menu2Id" value="${menu2Id}"> <input
@@ -243,18 +246,113 @@
 									</div>
 									
 								</dir>
+								</form>
 							</div>
+							<div class="tab-pane fade" id="maillist">
+							<form id="mailListForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+								<input type="hidden" name="menuId" value="${menuId}" /> 
+								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+								<input type="hidden" name="spaceId" value="${spaceId}">
+								<input type="hidden" name="formId" value="${customer.id}" />
+								<input type="hidden" name="tabID" value="maillistButt" />
+								<input type="hidden" id="mailListName" name="mailList.name" value="" />
+								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
+								<button class="btn btn-small btn-primary" type="button"
+								data-toggle="modal" data-target="#popupfirm">添加通讯录</button>
+							</form>
+							<table class="table">
+								<thead>
+									<tr>
+										<th style="width: 32px;">序号</th>
+										<th style="width: 240px;">姓名</th>
+										<th style="width: 200px;">号码</th>
+										<th style="width: 240px;">创建时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								
+								<tbody id="maillistSearch">
+									<tr>
+										<!-- 通讯录 -->
+										<s:iterator value="mailListList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#index.index+1" /></td>
+											<td><s:property value="#tp.name" /></td>
+											<td>
+												<s:property value="#tp.phone" />
+											</td>
+											<td><s:property value="#tp.createdate" /></td>
+											<td>
+												<a href="${menu2Id}!saveMailList.jspa?id=<s:property value='#tp.id'/>&formId=${franchisee.id}&view=delete&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=maillistButt"><i
+												class="icon-remove"></i></a>
+										</td>
+										</tr>
+										</s:iterator>
+									</tr>
+								</tbody>
+							</table>
+							<div class="pagination">
+								<ul id="pagination">
+								</ul>
+							</div>
+						</div>
 						</div>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
+	
+	<!-- 添加通讯录 -->
+	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="startModalLabel1">人员添加</h3>
+		</div>
+		<div class="modal-body">
+				<dir class="row">
+					<div class="span3">
+						<div class="control-group">
+							<label class="control-label" for="popupName">姓名：</label>
+							<div class="controls">
+								<input type="text" id="popupName"
+								placeholder="姓名" class="input-large">
+							</div>
+						</div>
+					</div>
+
+				</dir>
+				<dir class="row">
+					<div class="span3">
+						<div class="control-group">
+							<label class="control-label" for="popupPhone">号码：</label>
+							<div class="controls">
+								<input type="text" id="popupPhone"
+								placeholder="号码" class="input-large">
+							</div>
+						</div>
+					</div>
+
+				</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="popupBtnConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="spaceId" value="${spaceId}">
+	</form>
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
 	<script src="<%=path%>/js/common.js"></script>
 	<script src="<%=path%>/js/jquery-validate.js"></script>
+	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script src="<%=path%>/js/select2/select2.js"></script>
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 	<script type="text/javascript">
@@ -263,12 +361,63 @@
 		var menuId = '${menu2Id}';
 		var spaceId = '${spaceId}';
 		var url = $("#" + menuId).attr('url');
-
+		var totalPage = ${pageInfo.totalPage};
+		var totalRow = ${pageInfo.totalRow};
+		var pageSize = ${pageInfo.pageSize};
+		var curPage = ${pageInfo.curPage};
+		
 		$("select").select2();
 		var enabled = '${customer.enabled}';
 		if (enabled != null) {
 			$("#inputenabled").val(enabled).trigger("change");
 		}
+		
+		//进入指定的tbs
+		var tabID = "${tabID}";
+		if (null != tabID && "" != tabID) {
+			$("#" + tabID).parent().addClass("active");
+			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
+					.addClass("active");
+		} else {
+			tabID = "homeButt";
+			$("#tabID").val("homeButt");
+			$("#homeButt").parent().addClass("active");
+			$("#home").removeClass("fade").addClass("active");
+		}
+		
+		$.jqPaginator('#pagination', {
+			//设置分页的总页数
+	        totalPages: totalPage,
+	        //设置分页的总条目数
+	        totalCounts:totalRow,
+	        pageSize:pageSize,
+	        //最多显示的页码
+	        visiblePages: 10,
+	        currentPage: curPage,
+	        onPageChange: function (num, type) {
+	           if("init"==type)
+	        	{
+	        	 	return false;  
+	        	}
+	           $('#curPage').val(num);
+	        	$('#queryForm').submit();
+	        	//document.getElementsByName("operateForm")[0].submit(); 
+	        }
+	    });
+		
+		$("#popupBtnConfirm").click(function(x) {
+			var _name = $("#popupName").val();
+			var _phone = $("#popupPhone").val();
+			name = $.trim(_name);
+			phone = $.trim(_phone);
+			if (name == null || phone == "" || phone == null || phone == "") {
+				return;
+			} else {
+				$("#mailListName").val(name);
+				$("#mailListPhone").val(phone);
+				$("#mailListForm").submit();
+			}
+	});
 	</script>
 </body>
 </html>

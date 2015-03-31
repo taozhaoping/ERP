@@ -387,7 +387,7 @@ create table sys_Mail_list
    updateDate         VARCHAR(20),  --修改时间
    phone              VARCHAR(20),  --电话号码
    name               VARCHAR(25),  --姓名
-   franchiseeId       NUMBER,       --加盟商ID
+   foreignId       NUMBER,       --外建ID
   constraint PK_Mail_list primary key (id)
 );
 /*注释*/

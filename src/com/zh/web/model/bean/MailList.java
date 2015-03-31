@@ -49,7 +49,7 @@ public class MailList extends IDataObject {
      */
     private String name;
     
-    private Integer franchiseeId;
+    private Integer foreignId;
 
 	public Integer getId() {
 		return id;
@@ -91,12 +91,13 @@ public class MailList extends IDataObject {
 		this.name = name;
 	}
 
-	public Integer getFranchiseeId() {
-		return franchiseeId;
+	public Integer getForeignId() {
+		return foreignId;
 	}
 
-	public void setFranchiseeId(Integer franchiseeId) {
-		this.franchiseeId = franchiseeId;
+	public void setForeignId(Integer foreignId) {
+		this.foreignId = foreignId;
 	}
+
 
 }

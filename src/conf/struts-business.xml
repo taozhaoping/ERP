@@ -14,6 +14,16 @@
 		<action name="customerInfo" class="com.zh.web.action.CustomerAction">
 			<result name="success">/pages/business/customer/List.jsp</result>
 			<result name="editor">/pages/business/customer/edit.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">customerInfo</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
 			<result name="editorSuccess" type="redirectAction">
 				<param name="actionName">customerInfo</param>  
     			<param name="namespace">/business</param>

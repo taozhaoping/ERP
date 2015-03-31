@@ -8,11 +8,11 @@
     <result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="FRANCHISEEID" property="franchiseeId" />
+    <result column="foreignId" property="foreignId" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, CREATEDATE, UPDATEDATE, PHONE, NAME,franchiseeId
+    ID, CREATEDATE, UPDATEDATE, PHONE, NAME,foreignId
   </sql>
   
   <sql id="where">
@@ -26,8 +26,8 @@
       <if test="name != null" >
         and name = #{name,jdbcType=VARCHAR}
       </if>
-      <if test="franchiseeId != null" >
-     	 and FRANCHISEEID =  #{franchiseeId}
+      <if test="foreignId != null" >
+     	 and foreignId =  #{foreignId}
       </if>
 		</where>
 	</sql>
@@ -35,14 +35,14 @@
   <select id="select" resultMap="T_MailList" parameterType="MailList" >
     select 
     <include refid="Base_Column_List" />
-    from T_MAIL_LIST
+    from SYS_MAIL_LIST
     where ID = #{id}
   </select>
   
     <select id="list" resultMap="T_MailList" parameterType="MailList">
 		select
 		<include refid="Base_Column_List" />
-		from T_MAIL_LIST
+		from SYS_MAIL_LIST
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -52,21 +52,21 @@
 	<select id="count" resultType="Integer" parameterType="MailList">
 		select
 			count(id)
-		from T_MAIL_LIST
+		from SYS_MAIL_LIST
 		<include refid="where" />
 	</select>
   
   <delete id="delete" parameterType="MailList" >
 
-    delete from T_MAIL_LIST
+    delete from SYS_MAIL_LIST
     where ID = #{id}
   </delete>
   
   <insert id="insert" parameterType="MailList" >
   	<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
-			select SEQUENCE_t_Mail_list.nextval from dual
+			select SEQUENCE_SYS_Mail_list.nextval from dual
 	</selectKey>
-    insert into T_MAIL_LIST
+    insert into SYS_MAIL_LIST
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -83,8 +83,8 @@
       <if test="name != null" >
         NAME,
       </if>
-      <if test="franchiseeId != null" >
-     	 FRANCHISEEID,
+      <if test="foreignId != null" >
+     	 foreignId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -103,13 +103,13 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="franchiseeId != null" >
-     	  #{franchiseeId},
+      <if test="foreignId != null" >
+     	  #{foreignId},
       </if>
     </trim>
   </insert>
   <update id="update" parameterType="MailList" >
-    update T_MAIL_LIST
+    update SYS_MAIL_LIST
     <set >
       <if test="createdate != null" >
         CREATEDATE = #{createdate,jdbcType=VARCHAR},
@@ -123,8 +123,8 @@
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="franchiseeId != null" >
-     	  FRANCHISEEID = #{franchiseeId,jdbcType=VARCHAR},
+      <if test="foreignId != null" >
+     	  foreignId = #{foreignId,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id}
