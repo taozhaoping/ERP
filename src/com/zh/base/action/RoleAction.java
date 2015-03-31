@@ -8,6 +8,8 @@ import java.util.Map;
 
 import net.sf.json.JSONArray;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.zh.base.model.bean.Menu;
 import com.zh.base.model.bean.Role;
 import com.zh.base.model.bean.RoleAuthorities;
 import com.zh.base.model.bean.RoleMenu;
+import com.zh.base.realm.UserRealm;
 import com.zh.base.service.AuthoritiesService;
 import com.zh.base.service.MenuService;
 import com.zh.base.service.RoleService;
@@ -235,11 +238,21 @@ public class RoleAction extends BaseAction {
 				roleAuthoritiesList.add(roleAuthorities);
 			}
 			roleService.updateRoleAuthorities(roleAuthoritiesList);
+			clearAllCachedAuthorizationInfo();
 		}
 		
 		return Action.EDITOR_SUCCESS;
 	}
 
+	/**
+	 * 清除权限认证的缓存
+	 */
+	private void clearAllCachedAuthorizationInfo(){
+		RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();
+		UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();
+		userRealm.clearAllCachedAuthorizationInfo();
+	}
+	
 	public RoleModel getRoleModel() {
 		return roleModel;
 	}

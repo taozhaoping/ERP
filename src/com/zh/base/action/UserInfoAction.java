@@ -3,6 +3,8 @@ package com.zh.base.action;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.zh.base.model.UserInfoModel;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.Role;
 import com.zh.base.model.bean.User;
+import com.zh.base.realm.UserRealm;
 import com.zh.base.service.EnterpriseService;
 import com.zh.base.service.RoleService;
 import com.zh.base.service.UserInfoService;
@@ -137,6 +140,7 @@ public class UserInfoAction extends BaseAction {
 			}
 			user.setUpdateTime(new Date());
 			userInfoService.update(user);
+			clearAllCachedAuthorizationInfo();
 		}
 		return Action.EDITOR_SUCCESS;
 	}
@@ -154,7 +158,16 @@ public class UserInfoAction extends BaseAction {
 		this.userInfoModel.setUserList(userList);
 		return "usersjson";
 	}
-
+	
+	/**
+	 * 清除权限认证的缓存
+	 */
+	private void clearAllCachedAuthorizationInfo(){
+		RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();
+		UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();
+		userRealm.clearAllCachedAuthorizationInfo();
+	}
+	
 	public Object getModel() {
 		return userInfoModel;
 	}

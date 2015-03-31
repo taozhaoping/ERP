@@ -119,7 +119,8 @@ public class LoginAction extends BaseAction {
         token.setRememberMe(isRememberMe);
         
         try {  
-        	subject.login(token);  
+        	subject.login(token);
+        	
             String userID = (String) subject.getPrincipal();
             LOGGER.info("User [" + userID + "] logged in successfully.");
             User user = new User();
