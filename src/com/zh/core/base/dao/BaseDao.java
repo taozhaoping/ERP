@@ -99,7 +99,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @return
 	 */
 	public List<IdataObject> queryListById(String sqlId , Long id) {
-		return sqlSessionTemplate.selectOne(namespace + sqlId, id);
+		return sqlSessionTemplate.selectList(namespace + sqlId, id);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -80,13 +81,16 @@
 			<li class="active" id="navigation"></li>
 		</ul>
 
+		<shiro:hasPermission name="user:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
-						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
-							<i class="icon-plus"></i> 新增
-						</a>
+						<shiro:hasPermission name="user:add">
+							<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
+								<i class="icon-plus"></i> 新增
+							</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -121,11 +125,13 @@
 											<td>停用</td>
 										</s:else>
 										<td>
+											<shiro:hasPermission name="user:edit">
 											<a href="${menu2Id}!editor.jspa?id=<s:property value='#userInfo.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<s:if test="#userInfo.id!=1">
 											<a href="${menu2Id}!save.jspa?id=<s:property value='#userInfo.id'/>&view=enabled&enabled=<s:property value='#userInfo.enabled'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
 												class="icon-remove"></i></a>											
 											</s:if>
+											</shiro:hasPermission>
 										</td>
 									</tr>
 								</s:iterator>
@@ -139,6 +145,11 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="user:view">
+			<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
+		
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>

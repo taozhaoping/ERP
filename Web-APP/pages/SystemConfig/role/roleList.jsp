@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -79,14 +80,17 @@
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
 			<li class="active" id="navigation"></li>
 		</ul>
-
+		
+		<shiro:hasPermission name="role:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<shiro:hasPermission name="role:add">
 						<a class="btn btn-primary" href="role!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -109,11 +113,14 @@
 										<td><s:property value="#role.describe" /></td>
 										<td><s:property value="#role.createtime" /></td>
 										<td><s:property value="#role.updatetime" /></td>
-										<td><a
-											href="role!editor.jspa?id=<s:property value='#role.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
+										<td>
+										<shiro:hasPermission name="role:edit">
+											<a href="role!editor.jspa?id=<s:property value='#role.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
 												class="icon-pencil"></i></a> <!-- 
 											<a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-											 --></td>
+											 -->
+										</shiro:hasPermission>
+										</td>
 									</tr>
 								</s:iterator>
 							</tbody>
@@ -126,6 +133,10 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="role:view">
+		<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}"
 		id="queryForm" method="post">
