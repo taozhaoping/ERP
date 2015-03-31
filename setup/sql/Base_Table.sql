@@ -4,7 +4,6 @@ alter table sys_Warehouse drop primary key cascade;
 alter table SYS_DEPT drop primary key cascade;
 
 drop table SYS_DEPT cascade constraints;
-
 drop table sys_Warehouse cascade constraints;
 DROP TABLE SYS_DICTIONARY CASCADE CONSTRAINTS;
 drop table SYS_BASI_TYPE cascade constraints;

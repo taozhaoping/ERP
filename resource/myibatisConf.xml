@@ -53,6 +53,9 @@
 		
 		<!-- 客户资料 -->
 		<typeAlias alias="Customer" type="com.zh.web.model.bean.Customer"/>
+		
+		<!-- 产品资料 -->
+		<typeAlias alias="Products" type="com.zh.web.model.bean.Products"/>
 	</typeAliases>
 
 	<plugins>

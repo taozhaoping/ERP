@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Products">
+	<resultMap id="T_Products" type="Products">
+		<id column="ID" property="id" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="LONG_DEGREE" property="longDegree" jdbcType="FLOAT" />
+		<result column="WIDE_DEGREE" property="wideDegree" jdbcType="FLOAT" />
+		<result column="SPECIFICATIONS" property="specifications" jdbcType="VARCHAR" />
+		<result column="SURFACE_TREATMENT" property="surfaceTreatment" jdbcType="VARCHAR" />
+		<result column="PAINT" property="paint" />
+		<result column="ISPAINT" property="isPaint" />
+		<result column="MEASUREMENT_COMPANY" property="measurementCompany" />
+		<result column="SOURCE_TYPE" property="sourceType" jdbcType="VARCHAR" />
+		<result column="APPROVALUSERID" property="approvalUserID" />
+		<result column="APPROVAL" property="approval" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TYPE" property="productType" />
+		<result column="PROCESSING_FEE" property="processingFee" jdbcType="FLOAT" />
+		<result column="ESTIMATED_PRICE" property="estimatedPrice" jdbcType="FLOAT" />
+		<result column="SALES_PRICE" property="salesPrice" jdbcType="FLOAT" />
+		<result column="SAFETY_STOCK" property="safetyStock" />
+		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
+		<result column="USERID" property="userID" />
+		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id ,
+		name ,
+		long_degree ,
+		wide_degree ,
+		specifications ,
+		surface_treatment ,
+		paint ,
+		isPaint ,
+		measurement_company ,
+		source_type ,
+		approval ,
+		approvaluserid ,
+		product_type ,
+		processing_fee ,
+		estimated_price ,
+		sales_price ,
+		safety_stock ,
+		createdate ,
+		updatedate ,
+		userID ,
+		remarks
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="sourceType != null">
+				and source_type = #{sourceType}
+			</if>
+			<if test="productType != null">
+				and product_type = #{productType}
+			</if>
+			<if test="safetyStock != null">
+				and SAFETY_STOCK = #{safetyStock}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Products" parameterType="Products">
+		select
+		<include refid="Base_Column_List" />
+		from T_PRODUCTS
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Products" parameterType="Products">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_PRODUCTS
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="Products">
+		select
+		count(id)
+		from T_PRODUCTS
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="Products">
+		<!-- 
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_PRODUCTS.nextval from dual
+		</selectKey>
+		 -->
+		insert into T_PRODUCTS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				name ,
+			</if>
+			<if test="longDegree != null">
+				long_degree ,
+			</if>
+			<if test="wideDegree != null">
+				wide_degree ,
+			</if>
+			<if test="specifications != null">
+				specifications ,
+			</if>
+			<if test="surfaceTreatment != null">
+				surface_treatment ,
+			</if>
+			<if test="paint != null">
+				paint ,
+			</if>
+			<if test="isPaint != null">
+				isPaint ,
+			</if>
+			<if test="measurementCompany != null">
+				measurement_company ,
+			</if>
+			<if test="sourceType != null">
+				source_type ,
+			</if>
+			<if test="approval != null">
+				approval ,
+			</if>
+			<if test="approvalUserID != null">
+				approvaluserid ,
+			</if>
+			<if test="productType != null">
+				product_type ,
+			</if>
+			<if test="processingFee != null">
+				processing_fee ,
+			</if>
+			<if test="estimatedPrice != null">
+				estimated_price ,
+			</if>
+			<if test="salesPrice != null">
+				sales_price ,
+			</if>
+			<if test="safetyStock != null">
+				safety_stock ,
+			</if>
+			<if test="createdate != null">
+				createdate ,
+			</if>
+			<if test="updatedate != null">
+				updatedate ,
+			</if>
+			<if test="userID != null">
+				userID ,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="longDegree != null">
+				#{longDegree,jdbcType=FLOAT},
+			</if>
+			<if test="wideDegree != null">
+				#{wideDegree,jdbcType=FLOAT},
+			</if>
+			<if test="specifications != null">
+				#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="surfaceTreatment != null">
+				#{surfaceTreatment,jdbcType=VARCHAR},
+			</if>
+			<if test="paint != null">
+				#{paint},
+			</if>
+			<if test="isPaint != null">
+				#{isPaint},
+			</if>
+			<if test="measurementCompany != null">
+				#{measurementCompany},
+			</if>
+			<if test="sourceType != null">
+				#{sourceType,jdbcType=VARCHAR},
+			</if>
+			<if test="approval != null">
+				#{approval,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalUserID != null">
+				#{approvalUserID},
+			</if>
+			<if test="productType != null">
+				#{productType},
+			</if>
+			<if test="processingFee != null">
+				#{processingFee,jdbcType=FLOAT},
+			</if>
+			<if test="estimatedPrice != null">
+				#{estimatedPrice,jdbcType=FLOAT},
+			</if>
+			<if test="salesPrice != null">
+				#{salesPrice,jdbcType=FLOAT},
+			</if>
+			<if test="safetyStock != null">
+				#{safetyStock},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedate != null">
+				#{updatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="Products">
+		update T_PRODUCTS
+		<set>
+			<if test="name != null">
+				name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="longDegree != null">
+				long_degree=#{longDegree,jdbcType=FLOAT},
+			</if>
+			<if test="wideDegree != null">
+				wide_degree=#{wideDegree,jdbcType=FLOAT},
+			</if>
+			<if test="specifications != null">
+				specifications=#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="surfaceTreatment != null">
+				surface_treatment=#{surfaceTreatment,jdbcType=VARCHAR},
+			</if>
+			<if test="paint != null">
+				paint=#{paint},
+			</if>
+			<if test="isPaint != null">
+				isPaint=#{isPaint},
+			</if>
+			<if test="measurementCompany != null">
+				measurement_company=#{measurementCompany},
+			</if>
+			<if test="sourceType != null">
+				source_type=#{sourceType,jdbcType=VARCHAR},
+			</if>
+			<if test="approval != null">
+				approval=#{approval,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalUserID != null">
+				approvaluserid=#{approvalUserID},
+			</if>
+			<if test="productType != null">
+				product_type=#{productType},
+			</if>
+			<if test="processingFee != null">
+				processing_fee=#{processingFee,jdbcType=FLOAT},
+			</if>
+			<if test="estimatedPrice != null">
+				estimated_price=#{estimatedPrice,jdbcType=FLOAT},
+			</if>
+			<if test="salesPrice != null">
+				sales_price=#{salesPrice,jdbcType=FLOAT},
+			</if>
+			<if test="safetyStock != null">
+				safety_stock=#{safetyStock},
+			</if>
+			<if test="createdate != null">
+				createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedate != null">
+				updatedate=#{updatedate,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				userID=#{userID},
+			</if>
+			<if test="remarks != null">
+				remarks=#{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

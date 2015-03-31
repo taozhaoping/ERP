@@ -83,7 +83,7 @@
 			<li class="active">编辑</li>
 		</ul>
 <s:set name="ProcessId"
-					value="customer.id!=null&&customer.id!=''" />
+					value="products.id!=null&&products.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -99,35 +99,41 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-								<li><a id="maillistButt" href="#maillist" data-toggle="tab">通讯录</a></li>
+								<li><a id="maillistButt" href="#maillist" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal"
 										action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${customer.id}"> <input
+								<input type="hidden" name="id" value="${products.id}"> <input
 									type="hidden" name="menuId" value="${menuId}"> <input
 									type="hidden" name="menu2Id" value="${menu2Id}"> <input
 									type="hidden" name="spaceId" value="${spaceId}">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputId" style="">编号：</label>
+											<label class="control-label" for="inputId" style="">产品编号：</label>
 											<div class="controls">
-												<input type="text" maxlength="20" disabled="disabled"
-													id="inputId" value="${customer.id}" class="input-medium"></input>
+												<s:if test="#ProcessId">
+													<input type="text" maxlength="20" disabled="disabled"
+														id="inputId" value="${products.id}" class="input-medium"></input>
+												</s:if>
+												<s:else>
+													<input type="text" maxlength="20"  name="products.id"
+														id="inputId" value="${products.id}" class="input-medium"></input>
+												</s:else>
 											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputname" style="">客户名称：</label>
+											<label class="control-label" for="inputname" style="">名称：</label>
 											<div class="controls">
 												<input type="text" data-required="true" maxlength="40"
-													placeholder="客户名称" id="inputname" name="customer.name"
-													value="${customer.name}" class="input-medium"></input>
+													placeholder="产品名称" id="inputname" name="products.name"
+													value="${products.name}" class="input-medium"></input>
 											</div>
 										</div>
 									</div>
@@ -135,64 +141,64 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputlegalPerson" style="">法人：</label>
+											<label class="control-label" for="inputlongDegree" style="">长度：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="customer.legalPerson"
-													placeholder="法人" id="inputlegalPerson" value="${customer.legalPerson}" class="input-medium"></input>
+												<input type="number" maxlength="40" name="products.longDegree"
+													placeholder="长度" id="inputlongDegree" value="${products.longDegree}" class="input-medium"></input>
 											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputtype" style="">客户类型：</label>
+											<label class="control-label" for="inputwideDegree" style="">宽度：</label>
 											<div class="controls">
-												<s:select id="inputtype"  list="typeList" listKey="key" listValue="descr"
-													name="customer.type" cssClass="input-medium" placeholder="客户类型">
+												<input type="number" maxlength="40" name="products.wideDegree"
+													placeholder="长度" id="inputwideDegree" value="${products.wideDegree}" class="input-medium"></input>
+											</div>
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputspecifications" style="">规格：</label>
+											<div class="controls">
+												<input type="text" maxlength="40" name="products.specifications"
+													placeholder="规格" id="inputspecifications" value="${products.specifications}" class="input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputsurfaceTreatment">表面处理：</label>
+											<div class="controls">
+												<input type="text" maxlength="40" name="products.surfaceTreatment" 
+													placeholder="表面处理" id="inputsurfaceTreatment" value="${products.surfaceTreatment}" class="input-medium"></input>
+											</div>
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputipaint" >颜色：</label>
+											<div class="controls">
+												<s:select id="inputpaint"  list="paintList" listKey="key" listValue="descr"
+													name="products.paint" cssClass="input-medium" placeholder="颜色">
 												</s:select>
 											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputmail" style="">邮箱：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="customer.mail"
-													placeholder="邮箱" id="inputmail" value="${customer.mail}" class="input-medium"></input>
-											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputfaxNumber">传真：</label>
+											<label class="control-label" for="inputenabled" style="">是否油漆：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="customer.faxNumber" 
-													placeholder="传真" id="inputfaxNumber" value="${customer.faxNumber}" class="input-medium"></input>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputiphone" >电话号码：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="customer.iphone"
-													placeholder="地址" id="inputiphone" value="${customer.iphone}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputenabled" style="">状态：</label>
-											<div class="controls">
-												<select id="inputtype" name="customer.enabled" class="input-medium">
-													<option value="0">激活</option>
-													<option value="1">未激活</option>
+												<select id="inputenabled" name="products.isPaint" class="input-medium">
+													<option value="0">是</option>
+													<option value="1">否</option>
 												</select>
 											</div>
 										</div>
@@ -201,50 +207,99 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputopeningBank" >开户银行：</label>
+											<label class="control-label" for="inputmeasurementCompany" >计量单位：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="customer.openingBank"
-													placeholder="地址" id="inputopeningBank" value="${customer.openingBank}" class="input-medium"></input>
+												<s:select id="inputmeasurementCompany"  list="dictionaryList" listKey="key" listValue="descr"
+													name="products.measurementCompany" cssClass="input-medium" placeholder="计量单位">
+												</s:select>
 											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputbankAccount" style="">银行账号：</label>
+											<label class="control-label" for="inputsourceType" style="">来源：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="customer.bankAccount"
-													placeholder="地址" id="inputbankAccount" value="${customer.bankAccount}" class="input-medium"></input>
+												<input type="text" maxlength="40" name="products.sourceType"
+													placeholder="来源" id="inputsourceType" value="${products.sourceType}" class="input-medium"></input>
 											</div>
 										</div>
 									</div>
 								</dir>
 								<dir class="row">
-									<div class="span10">
+									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputlev" >客户级别：</label>
+											<label class="control-label" for="inputproductType" >产品类型：</label>
 											<div class="controls">
-												<s:select id="inputlev"  list="dictionaryList" listKey="key" listValue="descr"
-													name="customer.lev" cssClass="input-medium" placeholder="客户类型">
+												<s:select id="inputproductType"  list="productTypeList" listKey="key" listValue="descr"
+													name="products.productType" cssClass="input-medium" placeholder="产品类型">
 												</s:select>
 											</div>
 
 										</div>
 									</div>
-									
-								</dir>
-								<dir class="row">
-									<div class="span10">
+								
+									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputaddress" >地址：</label>
+											<label class="control-label" for="inputprocessingFee" >加工费：</label>
 											<div class="controls">
-												<input type="text" maxlength="100" name="customer.address"
-													placeholder="地址" id="inputaddress" value="${customer.address}" class="input-xxlarge"></input>
+												<input type="number" maxlength="20" name="products.processingFee"
+													placeholder="加工费" id="inputprocessingFee" value="${products.processingFee}" class="input-medium"></input>
 											</div>
 
 										</div>
 									</div>
 									
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputestimatedPrice" >预估价：</label>
+											<div class="controls">
+												<input type="number" maxlength="20" name="products.estimatedPrice"
+													placeholder="预估价" id="inputestimatedPrice" value="${products.estimatedPrice}" class="input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+								
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputsalesPrice" >销售价：</label>
+											<div class="controls">
+												<input type="number" maxlength="20" name="products.salesPrice"
+													placeholder="销售价" id="inputsalesPrice" value="${products.salesPrice}" class="input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+									
+								</dir>
+								<dir class="row">
+									<div class="span8">
+										<div class="control-group">
+											<label class="control-label" for="inputsafetyStock" >安全库存：</label>
+											<div class="controls">
+												<input type="number" maxlength="10" name="products.safetyStock"
+													placeholder="安全库存" id="inputsafetyStock" value="${products.safetyStock}" class="input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+								
+								</dir>
+								<dir class="row">
+									<div class="span8">
+										<div class="control-group">
+											<label class="control-label" for="inputremarks" >备注：</label>
+											<div class="controls">
+												<input type="text" maxlength="500" name="products.remarks"
+													placeholder="备注" id="inputremarks" value="${products.remarks}" class="input-xxlarge"></input>
+											</div>
+
+										</div>
+									</div>
+								
 								</dir>
 								</form>
 							</div>
@@ -253,19 +308,19 @@
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${customer.id}" />
+								<input type="hidden" name="formId" value="${products.id}" />
 								<input type="hidden" name="tabID" value="maillistButt" />
 								<input type="hidden" id="mailListName" name="mailList.name" value="" />
 								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
 								<button class="btn btn-small btn-primary" type="button"
-								data-toggle="modal" data-target="#popupfirm">添加通讯录</button>
+								data-toggle="modal" data-target="#popupfirm">添加产品</button>
 							</form>
 							<table class="table">
 								<thead>
 									<tr>
-										<th style="width: 32px;">序号</th>
-										<th style="width: 240px;">姓名</th>
-										<th style="width: 200px;">号码</th>
+										<th style="width: 32px;">编号</th>
+										<th style="width: 240px;">名称</th>
+										<th style="width: 200px;">数量</th>
 										<th style="width: 240px;">创建时间</th>
 										<th>操作</th>
 									</tr>
@@ -273,7 +328,7 @@
 								
 								<tbody id="maillistSearch">
 									<tr>
-										<!-- 通讯录 -->
+										<!-- 产品列表 
 										<s:iterator value="mailListList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index+1" /></td>
@@ -288,6 +343,7 @@
 										</td>
 										</tr>
 										</s:iterator>
+										-->
 									</tr>
 								</tbody>
 							</table>
@@ -367,10 +423,6 @@
 		var curPage = ${pageInfo.curPage};
 		
 		$("select").select2();
-		var enabled = '${customer.enabled}';
-		if (enabled != null) {
-			$("#inputenabled").val(enabled).trigger("change");
-		}
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";
@@ -385,26 +437,6 @@
 			$("#home").removeClass("fade").addClass("active");
 		}
 		
-		$.jqPaginator('#pagination', {
-			//设置分页的总页数
-	        totalPages: totalPage,
-	        //设置分页的总条目数
-	        totalCounts:totalRow,
-	        pageSize:pageSize,
-	        //最多显示的页码
-	        visiblePages: 10,
-	        currentPage: curPage,
-	        onPageChange: function (num, type) {
-	           if("init"==type)
-	        	{
-	        	 	return false;  
-	        	}
-	           $('#curPage').val(num);
-	        	$('#queryForm').submit();
-	        	//document.getElementsByName("operateForm")[0].submit(); 
-	        }
-	    });
-		
 		//提交按钮
 		$("#formButton").click(function() {
 			currTab = $("#tabID").val();
@@ -416,19 +448,7 @@
 			$("#editForm").submit();
 		}
 		
-		$("#popupBtnConfirm").click(function(x) {
-			var _name = $("#popupName").val();
-			var _phone = $("#popupPhone").val();
-			name = $.trim(_name);
-			phone = $.trim(_phone);
-			if (name == null || phone == "" || phone == null || phone == "") {
-				return;
-			} else {
-				$("#mailListName").val(name);
-				$("#mailListPhone").val(phone);
-				$("#mailListForm").submit();
-			}
-	});
+		
 	</script>
 </body>
 </html>

@@ -30,7 +30,22 @@ public interface BasiTypeService {
 	 * 客户类型
 	 */
 	public static final Integer CUSTOMER_TYPE = 2;
-
+	
+	/**
+	 * 产品类型
+	 */
+	public static final Integer PRODUCT_TYPE = 9;
+	
+	/**
+	 * 计量单位
+	 */
+	public static final Integer SOURCE_TYPE = 8;
+	
+	/**
+	 * 颜色
+	 */
+	public static final Integer PAINT_COLR = 10;
+	
 	/**
 	 * 查询信息
 	 * 

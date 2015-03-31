@@ -33,5 +33,17 @@
 			</result>
 		</action>
 		
+		<!-- 产品资料-->
+		<action name="productsInfo" class="com.zh.web.action.ProductsAction">
+			<result name="success">/pages/business/products/List.jsp</result>
+			<result name="editor">/pages/business/products/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productsInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
