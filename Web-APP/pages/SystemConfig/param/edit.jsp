@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -81,16 +82,19 @@
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
 			<li><span class="active" id="navigation1"></span> <span class="divider">/</span></li>
 		</ul>
-
+		
+		<shiro:hasPermission name="param:view">
 		<div class="container-fluid">
 			<form id="editForm" class="form-horizontal"
 				action="${menu2Id}!save.jspa" method="post">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+					<shiro:hasPermission name="param:edit">
 						<button class="btn btn-primary" type="submit">
 							<i class="icon-save"></i> 保存
 						</button>
-						<div class="btn-group"></div>
+					</shiro:hasPermission>
+					<div class="btn-group"></div>
 					</div>
 					<div class="well">
 
@@ -180,6 +184,11 @@
 				</div>
 			</form>
 		</div>
+		
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="param:view">
+		<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
