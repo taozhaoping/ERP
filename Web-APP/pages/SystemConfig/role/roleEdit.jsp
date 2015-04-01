@@ -198,6 +198,10 @@
 		<script src="<%=path %>/js/collapsePulg.js"></script>
 		<script src="<%=path%>/js/common.js"></script>
 		<script src="<%=path %>/js/jquery-validate.js"></script>
+		<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
+		<script src="<%=path%>/js/select2/select2.js"></script>
+		<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
+		<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
 			var id='${menuId}';
@@ -309,13 +313,13 @@
 				var selMenuList = JSON.parse($("#menuListInputJson").val());
 				
 				if(selMenuList != null && selMenuList != "" && selMenuList.length > 0){
-					for(var j = 0; j<selMenuList.length; j++){
+					for(var j = 0; j < selMenuList.length; j++){
 						var selMenu = selMenuList[j];
 						$("#menu"+selMenu.id).children("input").attr("checked", "checked");
 						var selMenu2List = selMenu.menuList;
 						if(selMenu2List != null && selMenu2List != "" && selMenu2List.length >0){
-							for(var j = 0; j<selMenu2List.length; j++){
-								var selMenu2 = selMenu2List[j];
+							for(var k = 0; k < selMenu2List.length; k++){
+								var selMenu2 = selMenu2List[k];
 								$("#menu"+selMenu2.id).children("input").attr("checked", "checked");
 							}
 						}
@@ -326,13 +330,14 @@
 			<% 
 			if(isEdit){
 			%>
+			//初始化有权限的菜单
 			(function initMenu(){
 				var selMenuList = ${dataMap.menuListJson}; //JSON.parse($("#menuListJsonId").val());
 				
 				if(selMenuList != null && selMenuList != "" && selMenuList.length > 0){
 					var selectedMenus = new Array();
 					var selMenuListValue = "";
-					for(var j = 0; j<selMenuList.length; j++){
+					for(var j = 0; j < selMenuList.length; j++){
 						var selMenu = selMenuList[j];
 						
 						var tempMenu = new Object();
@@ -343,15 +348,14 @@
 						selMenuListValue = selMenuListValue + selMenu.name + ";";
 						var selMenu2List = selMenu.menuList;
 						if(selMenu2List != null && selMenu2List != "" && selMenu2List.length >0){
-							for(var j = 0; j<selMenu2List.length; j++){
-								var selMenu2 = selMenu2List[j];
+							for(var k = 0; k < selMenu2List.length; k++){
+								var selMenu2 = selMenu2List[k];
 								selMenuListValue = selMenuListValue + selMenu2.name + ";";
 								
 								var tempMenu2 = new Object();
 								tempMenu2.name = selMenu2.name;
 								tempMenu2.id = selMenu2.id;
 								selectedMenus.push(tempMenu2);
-								
 							}
 						}
 					}
