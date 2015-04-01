@@ -155,3 +155,17 @@ values (25, '仓库配置编辑', null, 0, null, 'warehouse:edit');
 insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
 values (26, '仓库配置删除', null, 0, null, 'warehouse:delete');
 commit;
+
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
+values (1, 9);
+
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
+values (1, 10);
+
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
+values (1, 11);
+
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
+values (1, 12);
+
+commit;
