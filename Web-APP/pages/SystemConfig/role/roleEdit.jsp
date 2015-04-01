@@ -89,7 +89,7 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
-			<li><a href="role.jspa" id="navigation"></a> <span class="divider">/</span></li>
+			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
 			<li class="active"><%=curNavigation%></li>
 		</ul>
 		
@@ -196,6 +196,7 @@
 		<%@ include file="/pages/common/footer.jsp"%>
 		<script src="<%=path%>/js/bootstrap.js"></script>
 		<script src="<%=path %>/js/collapsePulg.js"></script>
+		<script src="<%=path%>/js/common.js"></script>
 		<script src="<%=path %>/js/jquery-validate.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
