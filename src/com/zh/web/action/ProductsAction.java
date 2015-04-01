@@ -48,12 +48,16 @@ public class ProductsAction extends BaseAction {
 		LOGGER.debug("editor()");
 		Integer id = this.productsModel.getId();
 		
-		//产品类型
+		//产品来源
+		List<Dictionary> sourceTypeList = queryDictionaryList(BasiTypeService.SOURCE_TYPE);
+		this.productsModel.setSourceTypeList(sourceTypeList);
+		
+		//产品来源
 		List<Dictionary> productTypeList = queryDictionaryList(BasiTypeService.PRODUCT_TYPE);
 		this.productsModel.setProductTypeList(productTypeList);
 		
 		//计量等级
-		List<Dictionary> list = queryDictionaryList(BasiTypeService.SOURCE_TYPE);
+		List<Dictionary> list = queryDictionaryList(BasiTypeService.MEASUREMENT_COMPANYSOURCE_TYPE);
 		this.productsModel.setDictionaryList(list);
 		
 		//颜色
@@ -92,4 +96,5 @@ public class ProductsAction extends BaseAction {
 		return Action.EDITOR_SUCCESS;
 	}
 
+	
 }

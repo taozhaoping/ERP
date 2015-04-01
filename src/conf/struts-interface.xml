@@ -25,5 +25,16 @@
 				<param name="root">dictionaryModel.basiTypeList</param>
 			</result>
 		</action>
+		
+		<!-- 产品信息 -->
+		<action name="interfaceProducts" class="com.zh.base.action.InterfaceProductsAction">
+			<!-- 产品信息列表 -->
+			<result name="productsjson" type="json">
+				<param name="root">productsModel.productsList</param>
+			</result>
+			<result name="products" type="json">
+			    <param name="root">productsModel.dataMap</param>
+			</result>
+		</action>
 	</package>
 </struts>

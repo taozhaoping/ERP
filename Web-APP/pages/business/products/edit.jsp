@@ -120,7 +120,7 @@
 														id="inputId" value="${products.id}" class="input-medium"></input>
 												</s:if>
 												<s:else>
-													<input type="text" maxlength="20"  name="products.id"
+													<input type="text" maxlength="20"  name="products.id" data-required="true"
 														id="inputId" value="${products.id}" class="input-medium"></input>
 												</s:else>
 											</div>
@@ -220,8 +220,9 @@
 										<div class="control-group">
 											<label class="control-label" for="inputsourceType" style="">来源：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="products.sourceType"
-													placeholder="来源" id="inputsourceType" value="${products.sourceType}" class="input-medium"></input>
+												<s:select id="inputsourceType"  list="sourceTypeList" listKey="key" listValue="descr"
+													name="products.sourceType" cssClass="input-medium" placeholder="来源">
+												</s:select>
 											</div>
 										</div>
 									</div>
@@ -377,7 +378,6 @@
 							</div>
 						</div>
 					</div>
-
 				</dir>
 				<dir class="row">
 					<div class="span3">
@@ -389,7 +389,6 @@
 							</div>
 						</div>
 					</div>
-
 				</dir>
 		</div>
 		<div class="modal-footer">
@@ -448,6 +447,38 @@
 			$("#editForm").submit();
 		}
 		
+		//自定义表单控件验证行为
+        var checkvalue = function(e){
+            var el = e.target;
+            var id = el.value;
+            selectProducts(id,el);
+            e.stopPropagation();
+            e.preventDefault();
+        }
+		
+        //定义表单验证方法
+        function invalidHandler(evt) {
+            checkvalue(evt);
+        }
+        
+        function loadDemo() {
+           var myform = document.getElementById("editForm");
+           //注册表单的oninvlid事件
+           myform.addEventListener("invalid", invalidHandler, true);
+          
+           //注册表单元素的onchange事件，优化用户体验
+           $('#inputId')[0].addEventListener("change",checkvalue,false);
+        }
+        
+        //在页面初始化事件（onload）时注册的自定义事件
+        window.addEventListener("load", loadDemo, false);
+		
+	
+		/* 
+		$.validator.addMethod("queryProducts",function(value,element,params){
+			   return false;
+			},"必须是一个字母,且a-f");
+ */
 		
 	</script>
 </body>

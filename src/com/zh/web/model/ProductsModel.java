@@ -16,6 +16,9 @@ public class ProductsModel extends BaseModel {
 	private List<Dictionary> productTypeList = new ArrayList<Dictionary>();
 	
 	private List<Dictionary> paintList = new ArrayList<Dictionary>();
+	
+	private List<Dictionary> sourceTypeList = new ArrayList<Dictionary>();
+	
 
 	public Products getProducts() {
 		return products;
@@ -48,4 +51,14 @@ public class ProductsModel extends BaseModel {
 	public void setPaintList(List<Dictionary> paintList) {
 		this.paintList = paintList;
 	}
+
+	public List<Dictionary> getSourceTypeList() {
+		return sourceTypeList;
+	}
+
+	public void setSourceTypeList(List<Dictionary> sourceTypeList) {
+		this.sourceTypeList = sourceTypeList;
+	}
+	
+	
 }

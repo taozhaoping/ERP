@@ -32,14 +32,19 @@ public interface BasiTypeService {
 	public static final Integer CUSTOMER_TYPE = 2;
 	
 	/**
+	 * 产品来源
+	 */
+	public static final Integer SOURCE_TYPE = 9;
+	
+	/**
 	 * 产品类型
 	 */
-	public static final Integer PRODUCT_TYPE = 9;
+	public static final Integer PRODUCT_TYPE = 11;
 	
 	/**
 	 * 计量单位
 	 */
-	public static final Integer SOURCE_TYPE = 8;
+	public static final Integer MEASUREMENT_COMPANYSOURCE_TYPE = 8;
 	
 	/**
 	 * 颜色

@@ -50,54 +50,25 @@ $(function() {
 	});
 });
 
-//培训信息
-function selectActivities(id) {
+//产品信息
+function selectProducts(id,e) {
 	$.ajax({
 		type : "POST", //访问WebService使用Post方式请求
-		url : basePath + "/home/interface!queryActivities.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
+		url : basePath + "/interface/interfaceProducts!queryProducts.jspa?id=" + id, 
 		data : {}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
 		dataType : 'json', //WebService 会返回Json类型
 		traditional : false, //不要序列化参数
 		error : function(err, textStatus) {
-			//alert("error: " + err + " textStatus: " + textStatus);
+			
 		},
 		success : function(result) {//回调函数，result，返回值
-			//填充到table中
-			fillTrainCourseList(result, id);
+			var status = result.status;
+			if (status == "success")
+			{
+				$('#' + e.id).parents('div').removeClass('success').addClass('error');
+			}
 		}
 	});
-}
-
-//培训信息
-function selectTrainCourse(id,type) {
-	$.ajax({
-		type : "POST", //访问WebService使用Post方式请求
-		url : basePath + "/home/interface!queryTrainCourse.jspa?type=" + type, //调用WebService的地址和方法名称组合 ---- WsURL/方法名
-		data : {}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
-		dataType : 'json', //WebService 会返回Json类型
-		traditional : false, //不要序列化参数
-		error : function(err, textStatus) {
-			//alert("error: " + err + " textStatus: " + textStatus);
-		},
-		success : function(result) {//回调函数，result，返回值
-			//填充到table中
-			fillTrainCourseList(result, id);
-		}
-	});
-}
-
-//展示培训选择列表
-function fillTrainCourseList(trainCourseList, id) {
-	//清空上次的查询结果
-	$("#" + id + "Option").nextAll("option").remove();
-	//动态生成用户列表
-	for ( var i = 0; i < trainCourseList.length; i++) {
-		var trainCourse = trainCourseList[i];
-		$("#" + id + "Option").clone(true).removeAttr("selected").attr(
-					"value", trainCourse.id).val(trainCourse.id).html(
-							trainCourse.name + "(" + trainCourse.scheduleDate + ")").insertAfter(
-					"#" + id + "Option");
-	}
 }
 
 
