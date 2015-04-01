@@ -10,7 +10,7 @@
     <property name="release.dir" value="release"/>
     <property name="web.dir" value="Web-APP"/>
     <property name="src.dir" value="src"/>
-    <property name="resource.dir" value="resources"/>
+    <property name="resource.dir" value="resource"/>
     <property name="build.dir" value="${release.dir}/${web.dir}/WEB-INF/classes"/>
 	
 	<property name="buildlib.dir" value="${SystemVariable.TOMCAT_HOME}\lib"/>

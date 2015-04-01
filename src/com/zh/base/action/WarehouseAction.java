@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import com.zh.base.model.WarehouseModel;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.Warehouse;
@@ -15,6 +14,11 @@ import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 
 public class WarehouseAction extends BaseAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8144200795355470737L;
 
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(WarehouseAction.class);
@@ -46,7 +50,7 @@ public class WarehouseAction extends BaseAction {
 	}
 
 	public void setWarehouseModel(WarehouseModel warehouseModel) {
-		warehouseModel = warehouseModel;
+		this.warehouseModel = warehouseModel;
 	}
 
 	public WarehouseService getWarehouseService() {

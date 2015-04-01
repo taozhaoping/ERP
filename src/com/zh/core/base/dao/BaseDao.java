@@ -48,7 +48,7 @@ public abstract class BaseDao<IdataObject> {
 	public Long getSequence(String sequenceName) throws ProjectException
 	{
 		try {
-			return sqlSessionTemplate.selectOne(namespace + "sequence", sequenceName);
+			return (Long) sqlSessionTemplate.selectOne(namespace + "sequence", sequenceName);
 		} catch (RuntimeException e) {
 			Logger.error("获取表序列号失败!");
 			throw new ProjectException("获取表序列号失败");
@@ -167,7 +167,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @return
 	 */
 	public int count(IdataObject data) {
-		return sqlSessionTemplate.selectOne(namespace + "count", data);
+		return (Integer) sqlSessionTemplate.selectOne(namespace + "count", data);
 	}
 
 	/**
@@ -176,7 +176,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @return
 	 */
 	public int countByPermission(IdataObject data) {
-		return sqlSessionTemplate.selectOne(namespace + "countByPermission", data);
+		return (Integer) sqlSessionTemplate.selectOne(namespace + "countByPermission", data);
 	}
 
 	/**
@@ -186,7 +186,7 @@ public abstract class BaseDao<IdataObject> {
 	 */
 	public int count(String sqlId,IdataObject data) 
 	{
-		return sqlSessionTemplate.selectOne(namespace + sqlId, data);
+		return (Integer) sqlSessionTemplate.selectOne(namespace + sqlId, data);
 	}
 	
 	public String getNamespace() {
