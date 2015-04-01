@@ -76,3 +76,82 @@ commit;
 insert into SYS_PARAM (id, emailservice, emailform, emailusername, emailpassword, emailisauth, emailurlpassword)
 values (1, 'smtp.163.com', 'noreplay101@163.com', 'noreplay101', '123qwe!@#', '0', '');
 commit;
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (1, '企业列表查看', null, 0, null, 'enterprise:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (2, '企业列表新增', null, 0, null, 'enterprise:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (3, '企业列表编辑', null, 0, null, 'enterprise:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (4, '企业列表删除', null, 0, null, 'enterprise:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (5, '用户列表查看', null, 0, null, 'user:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (6, '用户列表新增', null, 0, null, 'user:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (7, '用户列表编辑', null, 0, null, 'user:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (8, '用户列表删除', null, 0, null, 'user:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (9, '角色列表查看', null, 0, null, 'role:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (10, '角色列表新增', null, 0, null, 'role:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (11, '角色列表编辑', null, 0, null, 'role:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (12, '角色列表删除', null, 0, null, 'role:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (13, '参数配置查看', null, 0, null, 'param:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (14, '参数配置编辑', null, 0, null, 'param:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (15, '系统公告查看', null, 0, null, 'notice:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (16, '系统公告新增', null, 0, null, 'notice:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (17, '系统公告编辑', null, 0, null, 'notice:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (18, '系统公告删除', null, 0, null, 'notice:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (19, '部门配置查看', null, 0, null, 'dept:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (20, '部门配置新增', null, 0, null, 'dept:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (21, '部门配置编辑', null, 0, null, 'dept:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (22, '部门配置删除', null, 0, null, 'dept:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (23, '仓库配置查看', null, 0, null, 'warehouse:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (24, '仓库配置新增', null, 0, null, 'warehouse:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (25, '仓库配置编辑', null, 0, null, 'warehouse:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (26, '仓库配置删除', null, 0, null, 'warehouse:delete');
+commit;
