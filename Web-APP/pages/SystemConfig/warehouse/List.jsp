@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@  page import="com.zh.base.util.JspUtil" %>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ page import="com.zh.base.util.JspUtil" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -81,14 +82,17 @@
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
 			<li class="active" id="navigation"></li>
 		</ul>
-
+		
+		<shiro:hasPermission name="warehouse:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<shiro:hasPermission name="warehouse:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -120,9 +124,11 @@
 											<td>停用</td>
 										</s:else>
 										<td>
+											<shiro:hasPermission name="warehouse:edit">
 											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#warehouse.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="状态" href="${menu2Id}!save.jspa?id=<s:property value='#warehouse.id'/>&view=enabled&enabled=<s:property value='#warehouse.enabled'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
 												class="icon-remove"></i></a>
+											</shiro:hasPermission>
 										</td>
 									</tr>
 								</s:iterator>
@@ -136,6 +142,10 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="warehouse:view">
+			<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
