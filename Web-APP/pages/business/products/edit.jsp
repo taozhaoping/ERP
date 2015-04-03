@@ -99,7 +99,7 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-								<li><a id="maillistButt" href="#maillist" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructureButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -242,9 +242,9 @@
 								
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputprocessingFee" >加工费：</label>
+											<label class="control-label" for="inputprocessingFee" >成本：</label>
 											<div class="controls">
-												<input type="number" maxlength="20" name="products.processingFee"
+												<input type="number" maxlength="20" name="products.processingFee" readonly="readonly"
 													placeholder="加工费" id="inputprocessingFee" value="${products.processingFee}" class="input-medium"></input>
 											</div>
 
@@ -255,7 +255,7 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputestimatedPrice" >预估价：</label>
+											<label class="control-label" for="inputestimatedPrice" >采购价：</label>
 											<div class="controls">
 												<input type="number" maxlength="20" name="products.estimatedPrice"
 													placeholder="预估价" id="inputestimatedPrice" value="${products.estimatedPrice}" class="input-medium"></input>
@@ -304,13 +304,13 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="maillist">
-							<form id="mailListForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+							<div class="tab-pane fade" id="productStructure">
+							<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="formId" value="${products.id}" />
-								<input type="hidden" name="tabID" value="maillistButt" />
+								<input type="hidden" name="tabID" value="productStructureButt" />
 								<input type="hidden" id="mailListName" name="mailList.name" value="" />
 								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
 								<button class="btn btn-small btn-primary" type="button"
@@ -319,32 +319,33 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th style="width: 32px;">编号</th>
-										<th style="width: 240px;">名称</th>
-										<th style="width: 200px;">数量</th>
-										<th style="width: 240px;">创建时间</th>
-										<th>操作</th>
+										<th>编号</th>
+										<th>名称</th>
+										<th>产品类型</th>
+										<th>来源</th>
+										<th>主产品</th>
+										<th>组</th>
+										<th>主料/替代料</th>
+										<th>数量</th>
 									</tr>
 								</thead>
 								
 								<tbody id="maillistSearch">
 									<tr>
-										<!-- 产品列表 
-										<s:iterator value="mailListList" var="tp" status="index">
+										<!-- 产品列表 -->
+										<s:iterator value="productStructureList" var="tp" status="index">
 										<tr>
-											<td><s:property value="#index.index+1" /></td>
-											<td><s:property value="#tp.name" /></td>
-											<td>
-												<s:property value="#tp.phone" />
-											</td>
-											<td><s:property value="#tp.createdate" /></td>
-											<td>
-												<a href="${menu2Id}!saveMailList.jspa?id=<s:property value='#tp.id'/>&formId=${franchisee.id}&view=delete&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=maillistButt"><i
-												class="icon-remove"></i></a>
-										</td>
+											<td><s:property value="#tp.id" /></td>
+											<td><s:property value="#tp.products.name" /></td>
+											<td><s:property value="#tp.products.productType" /></td>
+											<td><s:property value="#tp.products.sourceType" /></td>
+											<td><s:property value="#tp.products.ismainproducts" /></td>
+											<td><s:property value="#tp.products.groupID" /></td>
+											<td><s:property value="#tp.products.maAlMeterials" /></td>
+											<td><s:property value="#tp.products.productsNumber" /></td>
 										</tr>
 										</s:iterator>
-										-->
+										
 									</tr>
 								</tbody>
 							</table>
@@ -359,44 +360,6 @@
 		</div>
 	</div>
 	
-	<!-- 添加通讯录 -->
-	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="startModalLabel1">人员添加</h3>
-		</div>
-		<div class="modal-body">
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupName">姓名：</label>
-							<div class="controls">
-								<input type="text" id="popupName"
-								placeholder="姓名" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupPhone">号码：</label>
-							<div class="controls">
-								<input type="text" id="popupPhone"
-								placeholder="号码" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-danger" data-dismiss="modal"
-				id="popupBtnConfirm">确认</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-		</div>
-	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">

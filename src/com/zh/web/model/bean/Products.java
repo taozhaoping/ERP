@@ -76,7 +76,7 @@ public class Products extends IDataObject {
 	private Integer productType;
 
 	/**
-	 * 加工费用
+	 * 成本
 	 */
 	private Float processingFee;
 

@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.base.model.bean.Dictionary;
-import com.zh.base.model.bean.Enterprise;
 import com.zh.base.service.BasiTypeService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductsModel;
+import com.zh.web.model.bean.ProductStructure;
 import com.zh.web.model.bean.Products;
-import com.zh.web.model.bean.MailList;
+import com.zh.web.service.ProductStructureService;
 import com.zh.web.service.ProductsService;
 
 public class ProductsAction extends BaseAction {
@@ -25,6 +25,9 @@ public class ProductsAction extends BaseAction {
 	
 	@Autowired
 	private ProductsService productsService;
+	
+	@Autowired
+	private ProductStructureService productStructureService;
 	
 	@Override
 	public Object getModel() {
@@ -72,7 +75,14 @@ public class ProductsAction extends BaseAction {
 			Products reult = productsService.query(products);
 			this.productsModel.setProducts(reult);
 			
-			
+			//获取产品结构
+			ProductStructure productStructure = new ProductStructure();
+			productStructure.setProductsid(id);
+			Integer count = productStructureService.count(productStructure);
+			Pager page = this.productsModel.getPageInfo();
+			page.setTotalRow(count);
+			List<ProductStructure> productStructureList = productStructureService.queryList(productStructure, page);
+			this.productsModel.setProductStructureList(productStructureList);
 		}
 		
 		return Action.EDITOR;

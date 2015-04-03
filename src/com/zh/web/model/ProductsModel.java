@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zh.base.model.bean.Dictionary;
 import com.zh.core.base.model.BaseModel;
+import com.zh.web.model.bean.ProductStructure;
 import com.zh.web.model.bean.Products;
 
 public class ProductsModel extends BaseModel {
@@ -19,6 +20,10 @@ public class ProductsModel extends BaseModel {
 	
 	private List<Dictionary> sourceTypeList = new ArrayList<Dictionary>();
 	
+	private ProductStructure ProductStructure = new ProductStructure();
+	
+	private List<ProductStructure> ProductStructureList = new ArrayList<ProductStructure>();
+
 
 	public Products getProducts() {
 		return products;
@@ -59,6 +64,21 @@ public class ProductsModel extends BaseModel {
 	public void setSourceTypeList(List<Dictionary> sourceTypeList) {
 		this.sourceTypeList = sourceTypeList;
 	}
-	
+
+	public ProductStructure getProductStructure() {
+		return ProductStructure;
+	}
+
+	public void setProductStructure(ProductStructure productStructure) {
+		ProductStructure = productStructure;
+	}
+
+	public List<ProductStructure> getProductStructureList() {
+		return ProductStructureList;
+	}
+
+	public void setProductStructureList(List<ProductStructure> productStructureList) {
+		ProductStructureList = productStructureList;
+	}
 	
 }

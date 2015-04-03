@@ -1,13 +1,20 @@
 alter table T_Customer  drop primary key cascade;
 alter table T_Products  drop primary key cascade;
+alter table t_product_structure drop primary key cascade;
+alter table t_Stock     drop primary key cascade;
 
-
+drop table t_Stock cascade constraints;
+drop table t_product_structure cascade constraints;
 drop table T_Products cascade constraints;
 drop table T_T_Customer cascade constraints;
 
 
 
 drop sequence SEQUENCE_T_Customer;
+drop sequence SEQUENCE_T_Products;
+drop sequence SEQUENCE_t_product_structure;
+drop sequence SEQUENCE_t_Stock;
+drop sequence SEQUENCE_Position;
 
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
@@ -26,6 +33,27 @@ start with 1
  cache 10
 order;
 
+create sequence SEQUENCE_t_product_structure
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_t_Stock
+start with 10000
+ maxvalue 999999999
+ minvalue 10000
+ cache 10
+order;
+
+/*库位序号*/
+create sequence SEQUENCE_Position
+start with 10000
+ maxvalue 999999999
+ minvalue 10000
+ cache 10
+order;
 
 /*==============================================================*/
 /* Table: 客户资料                                            */
@@ -159,10 +187,10 @@ comment on column T_Products.product_type is
 '产品类型';
 
 comment on column T_Products.processing_fee is
-'加工费';
+'成本';
 
 comment on column T_Products.Estimated_price is
-'预估价';
+'采购价';
 
 comment on column T_Products.Sales_price is
 '销售价';
@@ -184,3 +212,81 @@ comment on column T_Products.Remarks is
 
 alter table T_Products
    add constraint PK_T_Products primary key (ID);
+   
+
+/*==============================================================*/
+/* Table:  产品结构                                                                                                                                               */
+/*==============================================================*/
+create table t_product_structure 
+(
+   ID                 NUMBER               not null,
+   ProductsID         NUMBER,
+   Sub_productsID     NUMBER,
+   isMainProducts     NUMBER,
+   group_id           NUMBER,
+   ma_al_meterials    NUMBER,
+   PRODUCTS_NUMBER      NUMBER,
+   createDate         varchar2(20),
+   updateDate         varchar2(20)
+);
+
+comment on table t_product_structure is
+'产品结构清单';
+
+comment on column t_product_structure.ID is
+'主键';
+
+comment on column t_product_structure.ProductsID is
+'产品主键';
+
+comment on column t_product_structure.Sub_productsID is
+'子产品主键';
+
+comment on column t_product_structure.isMainProducts is
+'是否主要产品';
+
+comment on column t_product_structure.group_id is
+'组';
+
+comment on column t_product_structure.ma_al_meterials is
+'主料或替代料';
+
+comment on column t_product_structure.PRODUCTS_NUMBER is
+'数量';
+
+alter table t_product_structure
+   add constraint PK_t_product_structure primary key (ID);
+   
+   
+/*==============================================================*/
+/* Table: 库存信息	                                                */
+/*==============================================================*/
+create table t_Stock 
+(
+   id                 NUMBER               not null,
+   Position           NUMBER               not null,
+   PRODUCTS_ID          NUMBER,
+   Warehouse_ID       NUMBER,
+   t_Stock_number       FLOAT
+);
+
+comment on table t_Stock is
+'库存信息';
+
+comment on column t_Stock.id is
+'主键';
+
+comment on column t_Stock.Position is
+'库位';
+
+comment on column t_Stock.PRODUCTS_ID is
+'商品编号';
+
+comment on column t_Stock.Warehouse_ID is
+'所属仓库';
+
+comment on column t_Stock.t_Stock_number is
+'库存数量';
+
+alter table t_Stock
+   add constraint PK_t_Stock primary key (id);

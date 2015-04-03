@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Stock">
+	<resultMap id="T_Stock" type="Stock">
+		<id column="ID" property="id" />
+		<result column="position" property="position" />
+		<result column="products_ID" property="productsID" />
+		<result column="warehouse_ID" property="warehouseID" />
+		<result column="stock_Number" property="stockNumber" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		position,
+		products_ID,
+		warehouse_ID,
+		stock_Number
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="position != null">
+				and position = #{position}
+			</if>
+			<if test="productsID != null">
+				and products_ID = #{productsID}
+			</if>
+			<if test="warehouseID != null">
+				and warehouse_ID = #{warehouseID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Stock" parameterType="Stock">
+		select
+		<include refid="Base_Column_List" />
+		from T_Stock
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Stock" parameterType="Stock">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_Stock
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="Stock">
+		select
+		count(id)
+		from T_Stock
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="Stock">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Stock.nextval from dual
+		</selectKey>
+		insert into T_Stock
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="productsID != null">
+				products_ID,
+			</if>
+			<if test="warehouseID != null">
+				warehouse_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="position != null">
+				#{position},
+			</if>
+			<if test="productsID != null">
+				#{productsID},
+			</if>
+			<if test="warehouseID != null">
+				#{warehouseID},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="Stock">
+		update T_Stock
+		<set>
+			<if test="warehouseID != null">
+				warehouse_ID = #{warehouseID}
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

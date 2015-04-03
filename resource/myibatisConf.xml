@@ -54,8 +54,14 @@
 		<!-- 客户资料 -->
 		<typeAlias alias="Customer" type="com.zh.web.model.bean.Customer"/>
 		
+		<!-- 库存量 -->
+		<typeAlias alias="Stock" type="com.zh.web.model.bean.Stock"/>
+		
 		<!-- 产品资料 -->
 		<typeAlias alias="Products" type="com.zh.web.model.bean.Products"/>
+		
+		<!-- 产品结构 -->
+		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.ProductStructure"/>
 	</typeAliases>
 
 	<plugins>
