@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="M_Products">
 	<resultMap id="T_Products" type="Products">
-		<id column="ID" property="id" />
+		<id column="ID" property="id" javaType="Integer"  jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="LONG_DEGREE" property="longDegree" jdbcType="FLOAT" />
 		<result column="WIDE_DEGREE" property="wideDegree" jdbcType="FLOAT" />
@@ -68,7 +68,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from T_PRODUCTS
-		<include refid="where" />
+		where id=#{id}
 	</select>
 
 	<select id="list" resultMap="T_Products" parameterType="Products">
