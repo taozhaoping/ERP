@@ -10,11 +10,14 @@
 package com.zh.core.base.dao;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 
@@ -48,7 +51,7 @@ public abstract class BaseDao<IdataObject> {
 	public Long getSequence(String sequenceName) throws ProjectException
 	{
 		try {
-			return (Long) sqlSessionTemplate.selectOne(namespace + "sequence", sequenceName);
+			return (Long) sqlSessionTemplate.selectOne("SYS_BASE." + sequenceName);
 		} catch (RuntimeException e) {
 			Logger.error("获取表序列号失败!");
 			throw new ProjectException("获取表序列号失败");

@@ -114,6 +114,11 @@ public class Products extends IDataObject {
 	 * 备注
 	 */
 	private String remarks;
+	
+	/**
+	 * 仓库位
+	 */
+	private Integer position;
 
 	public Integer getId() {
 		return id;
@@ -281,6 +286,14 @@ public class Products extends IDataObject {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public Integer getPosition() {
+		return position;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
 	}
 
 }

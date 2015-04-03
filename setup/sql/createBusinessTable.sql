@@ -136,12 +136,13 @@ create table T_PRODUCTS
   processing_fee      FLOAT,
   estimated_price     FLOAT,
   sales_price         FLOAT,
-  safety_stock        NUMBER,
+  safety_stock        NUMBER  default 0,
   createdate          DATE,
   updatedate          DATE,
   userid              NUMBER,
   remarks             VARCHAR2(500),
-  approval            VARCHAR2(1)
+  approval            VARCHAR2(1),
+  Position           NUMBER
 )
 
 comment on table T_Products is
@@ -267,7 +268,7 @@ create table t_Stock
    Position           NUMBER               not null,
    PRODUCTS_ID          NUMBER,
    Warehouse_ID       NUMBER,
-   t_Stock_number       FLOAT
+   t_Stock_number       FLOAT           default 0
 );
 
 comment on table t_Stock is

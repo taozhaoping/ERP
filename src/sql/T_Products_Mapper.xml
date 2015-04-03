@@ -23,6 +23,7 @@
 		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
 		<result column="USERID" property="userID" />
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+		<result column="position" property="position" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id ,
@@ -45,7 +46,8 @@
 		createdate ,
 		updatedate ,
 		userID ,
-		remarks
+		remarks,
+		position
 	</sql>
 	<sql id="where">
 		<where>
@@ -161,6 +163,9 @@
 			<if test="remarks != null">
 				remarks,
 			</if>
+			<if test="position != null">
+				position,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -225,6 +230,9 @@
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				#{position},
 			</if>
 		</trim>
 	</insert>

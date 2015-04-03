@@ -8,13 +8,18 @@ import org.springframework.stereotype.Component;
 import com.zh.core.model.Pager;
 import com.zh.web.dao.ProductsDao;
 import com.zh.web.model.bean.Products;
+import com.zh.web.model.bean.Stock;
 import com.zh.web.service.ProductsService;
+import com.zh.web.service.StockService;
 
 @Component("productsService")
 public class ProductsServiceImpl implements ProductsService {
 
 	@Autowired
 	private ProductsDao productsDao;
+	
+	@Autowired
+	private StockService stockService;
 	
 	@Override
 	public Products query(Products products) {
@@ -55,6 +60,10 @@ public class ProductsServiceImpl implements ProductsService {
 	@Override
 	public Integer insert(Products products) {
 		// TODO Auto-generated method stub
+		Stock stock = new Stock();
+		stock.setProductsID(products.getId());
+		Integer position = stockService.insert(stock);
+		products.setPosition(position);
 		return productsDao.insert(products);
 	}
 
