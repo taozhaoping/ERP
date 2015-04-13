@@ -33,10 +33,10 @@
 			<if test="id != null">
 				and id = #{id}
 			</if>
-			<if test="position != null">
+			<if test="orderNoID != null">
 				and order_no_id = #{orderNoID}
 			</if>
-			<if test="productsID != null">
+			<if test="purchaseOrderID != null">
 				and purchase_order_id = #{purchaseOrderID}
 			</if>
 		</where>

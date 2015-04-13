@@ -10,10 +10,14 @@ import com.zh.base.model.bean.BasiType;
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.User;
+import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.BasiTypeService;
 import com.zh.base.service.DictionaryService;
 import com.zh.base.service.EnterpriseService;
 import com.zh.base.service.UserInfoService;
+import com.zh.base.service.WarehouseService;
+import com.zh.web.model.bean.Customer;
+import com.zh.web.service.CustomerService;
 
 public class JspUtil implements ApplicationContextAware {
 
@@ -26,6 +30,10 @@ public class JspUtil implements ApplicationContextAware {
 	private static DictionaryService dictionaryService;
 
 	private static EnterpriseService enterpriseService;
+	
+	private static CustomerService customerService;
+	
+	private static WarehouseService  warehouseService;
 
 	/**
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
@@ -71,6 +79,16 @@ public class JspUtil implements ApplicationContextAware {
 		if (null == enterpriseService) {
 			enterpriseService = (EnterpriseService) applicationContext
 					.getBean("enterpriseService");
+		}
+		
+		if (null == customerService) {
+			customerService = (CustomerService) applicationContext
+					.getBean("customerService");
+		}
+		
+		if (null == warehouseService) {
+			warehouseService = (WarehouseService) applicationContext
+					.getBean("warehouseService");
 		}
 	}
 
@@ -174,6 +192,57 @@ public class JspUtil implements ApplicationContextAware {
 		Enterprise enterprise = new Enterprise();
 		enterprise.setId(Integer.valueOf(id));
 		Enterprise reult = enterpriseService.query(enterprise);
+		if (reult == null) {
+			return "";
+		} else {
+			return reult.getName();
+		}
+	}
+	
+	/**
+	* @Title: queryCustomer 
+	* @Description: 获取客户名称
+	* @param  @param id
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public static String queryCustomer(String id) {
+		if (null == id) {
+			return "";
+		}
+
+		Customer customer = new Customer();
+		customer.setId(Integer.valueOf(id));
+		Customer reult = customerService.query(customer);
+		if (reult == null) {
+			return "";
+		} else {
+			return reult.getName();
+		}
+	}
+	
+	/**
+	 * 
+	* @Title: queryWarehouse 
+	* @Description: 获取仓库名称
+	* @param  @param id
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public static String queryWarehouse(String id) {
+		if (null == id) {
+			return "";
+		}
+
+		Warehouse warehouse = new Warehouse();
+		warehouse.setId(Integer.valueOf(id));
+		Warehouse reult = warehouseService.query(warehouse);
 		if (reult == null) {
 			return "";
 		} else {
