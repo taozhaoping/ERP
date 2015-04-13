@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Storage_Primary">
+	<resultMap id="T_Storage_Primary" type="StoragePrimary">
+		<id column="ID" property="id" />
+		<result column="order_no_id" property="orderNoID" jdbcType="VARCHAR" />
+		<result column="storage_date" property="storagedate" jdbcType="VARCHAR" />
+		<result column="purchase_order_id" property="purchaseOrderID"
+			jdbcType="VARCHAR" />
+		<result column="userid" property="userID" />
+		<result column="warehouse_id" property="warehouseID" />
+		<result column="mount_meoey" property="mountMeoey" jdbcType="FLOAT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerID" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		order_no_id ,
+		storage_date ,
+		purchase_order_id ,
+		userid ,
+		warehouse_id ,
+		mount_meoey ,
+		remarks ,
+		customer_id ,
+		createdate ,
+		updatedate
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="position != null">
+				and order_no_id = #{orderNoID}
+			</if>
+			<if test="productsID != null">
+				and purchase_order_id = #{purchaseOrderID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Storage_Primary" parameterType="StoragePrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_Storage_Primary
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Storage_Primary" parameterType="StoragePrimary">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_Storage_Primary
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="StoragePrimary">
+		select
+		count(id)
+		from T_Storage_Primary
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="StoragePrimary">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Storage_Primary.nextval from dual
+		</selectKey>
+		insert into T_Storage_Primary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderNoID != null">
+				order_no_id,
+			</if>
+			<if test="storagedate != null">
+				storage_date ,
+			</if>
+			<if test="purchaseOrderID != null">
+				purchase_order_id ,
+			</if>
+			<if test="userID != null">
+				userid ,
+			</if>
+			<if test="warehouseID != null">
+				warehouse_id ,
+			</if>
+			<if test="mountMeoey != null">
+				mount_meoey ,
+			</if>
+			<if test="remarks != null">
+				remarks ,
+			</if>
+			<if test="customerID != null">
+				customer_id ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="orderNoID != null">
+				#{orderNoID,jdbcType=VARCHAR},
+			</if>
+			<if test="storagedate != null">
+				#{storagedate,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseOrderID != null">
+				#{purchaseOrderID,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+			<if test="warehouseID != null">
+				#{warehouseID},
+			</if>
+			<if test="mountMeoey != null">
+				#{mountMeoey,jdbcType=FLOAT},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="customerID != null">
+				#{customerID},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="StoragePrimary">
+		update T_Storage_Primary
+		<set>
+			<if test="warehouseID != null">
+				warehouse_ID = #{warehouseID}
+			</if>
+			<if test="orderNoID != null">
+				order_no_id = #{orderNoID}
+			</if>
+			<if test="storagedate != null">
+				storage_date = #{storagedate}
+			</if>
+			<if test="purchaseOrderID != null">
+				purchase_order_id = #{purchaseOrderID}
+			</if>
+			<if test="userID != null">
+				userid = #{userID}
+			</if>
+			<if test="warehouseID != null">
+				warehouse_id = #{warehouseID}
+			</if>
+			<if test="mountMeoey != null">
+				mount_meoey = #{mountMeoey}
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks}
+			</if>
+			<if test="customerID != null">
+				customer_id = #{customerID}
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

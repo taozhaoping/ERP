@@ -265,4 +265,47 @@ DBMS_OUTPUT.PUT_LINE('Failed Other Trigger Operation in table t_product_structur
 END;
 /
 
+--
+-- Creating trigger T_Storage_header
+-- ===========================
+--
+CREATE OR REPLACE TRIGGER Storage_Primary_T
+BEFORE DELETE OR INSERT OR UPDATE
+ON T_Storage_Primary
+FOR EACH ROW
+DECLARE
+createDate    varchar2(20);
+modifyDate    varchar2(20);
+BEGIN
+IF DELETING THEN
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Delete Trigger Operation in table T_Storage_Primary');
+  END;
+END IF;
+IF INSERTING THEN
+  BEGIN
+    select TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS') into createDate from dual;
+    select TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS') into modifyDate from dual;
+    :new.CREATEDATE := createDate;
+    :new.UPDATEDATE := modifyDate;
+    EXCEPTION
+    WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Failed Insert Trigger Operation in table T_Storage_Primary');
+  END;
+END IF;
+IF UPDATING THEN
+  BEGIN
+    select TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS') into modifyDate from dual;
+    :new.UPDATEDATE := modifyDate;
+    EXCEPTION
+    WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Failed Update Trigger Operation in table T_Storage_Primary');
+  END;
+END IF;
+EXCEPTION
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE('Failed Other Trigger Operation in table T_Storage_Primary');
+END;
+/
+
 --spool off

@@ -1,8 +1,18 @@
 alter table T_Customer  drop primary key cascade;
 alter table T_Products  drop primary key cascade;
-alter table t_product_structure drop primary key cascade;
+/*alter table t_product_structure drop primary key cascade;*/
 alter table t_Stock     drop primary key cascade;
+alter table T_Storage_Primary drop primary key cascade;
+alter table T_Storage_Detail   drop primary key cascade;
+alter table T_BOM_PRIMARY      drop primary key cascade;
+alter table T_BOM_DETAIL       drop primary key cascade;
+alter table T_BOM_SUB          drop primary key cascade;
 
+drop table T_BOM_SUB cascade constraints;
+drop table T_BOM_DETAIL cascade constraints;
+drop table T_BOM_PRIMARY cascade constraints;
+drop table T_Storage_Detail cascade constraints;
+drop table T_Storage_Primary cascade constraints;
 drop table t_Stock cascade constraints;
 drop table t_product_structure cascade constraints;
 drop table T_Products cascade constraints;
@@ -12,10 +22,14 @@ drop table T_T_Customer cascade constraints;
 
 drop sequence SEQUENCE_T_Customer;
 drop sequence SEQUENCE_T_Products;
-drop sequence SEQUENCE_t_product_structure;
+/*drop sequence SEQUENCE_t_product_structure;*/
 drop sequence SEQUENCE_t_Stock;
 drop sequence SEQUENCE_Position;
-
+drop sequence SEQUENCE_T_Storage_Primary;
+drop sequence SEQUENCE_T_Storage_Detail;
+drop sequence SEQUENCE_T_BOM_PRIMARY;
+drop sequence SEQUENCE_T_BOM_DETAIL;
+drop sequence SEQUENCE_T_BOM_SUB
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -32,14 +46,14 @@ start with 1
  minvalue 1
  cache 10
 order;
-
+/*
 create sequence SEQUENCE_t_product_structure
 start with 1
  maxvalue 999999999
  minvalue 1
  cache 10
 order;
-
+*/
 create sequence SEQUENCE_t_Stock
 start with 10000
  maxvalue 999999999
@@ -52,6 +66,42 @@ create sequence SEQUENCE_Position
 start with 10000
  maxvalue 999999999
  minvalue 10000
+ cache 10
+order;
+
+
+create sequence SEQUENCE_T_Storage_Primary
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_Storage_Detail
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_BOM_PRIMARY
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_BOM_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_BOM_SUB
+start with 1
+ maxvalue 999999999
+ minvalue 1
  cache 10
 order;
 
@@ -218,7 +268,7 @@ alter table T_Products
 /*==============================================================*/
 /* Table:  产品结构                                                                                                                                               */
 /*==============================================================*/
-create table t_product_structure 
+/*create table t_product_structure 
 (
    ID                 NUMBER               not null,
    ProductsID         NUMBER,
@@ -257,7 +307,7 @@ comment on column t_product_structure.PRODUCTS_NUMBER is
 
 alter table t_product_structure
    add constraint PK_t_product_structure primary key (ID);
-   
+   */
    
 /*==============================================================*/
 /* Table: 库存信息	                                                */
@@ -291,3 +341,207 @@ comment on column t_Stock.t_Stock_number is
 
 alter table t_Stock
    add constraint PK_t_Stock primary key (id);
+   
+   
+/*==============================================================*/
+/* Table: 入库头表                                                                                                                                                 */
+/*==============================================================*/
+create table T_Storage_Primary 
+(
+   ID                   NUMBER,
+   Order_No_id        varchar2(20),
+   Storage_Date       varchar2(20),
+   Purchase_order_ID  varchar2(20),
+   UserID             NUMBER,
+   Warehouse_ID       NUMBER,
+   mount_meoey        FLOAT,
+   Remarks            VARCHAR2(500),
+   Customer_ID        NUMBER,
+   createDate         varchar2(20),
+   updateDate         varchar2(20)
+);
+alter table T_Storage_Primary
+   add constraint PK_T_STORAGE_HEADER primary key (ID);
+   
+comment on table T_Storage_Primary is
+'入库信息_主表';
+
+comment on column T_Storage_Primary.ID is
+'主键';
+
+comment on column T_Storage_Primary.Order_No_id is
+'入库单号';
+
+comment on column T_Storage_Primary.Storage_Date is
+'入库时间';
+
+comment on column T_Storage_Primary.Purchase_order_ID is
+'对应单据';
+
+comment on column T_Storage_Primary.UserID is
+'收货人';
+
+comment on column T_Storage_Primary.Warehouse_ID is
+'收入仓库';
+
+comment on column T_Storage_Primary.mount_meoey is
+'金额';
+
+comment on column T_Storage_Primary.Remarks is
+'备注';
+
+comment on column T_Storage_Primary.Customer_ID is
+'发货客户';
+
+comment on column T_Storage_Primary.createDate is
+'创建时间';
+
+comment on column T_Storage_Primary.updateDate is
+'修改时间';
+
+/*==============================================================*/
+/* Table: 入库明细表                                                                                                                                              */
+/*==============================================================*/
+create table T_Storage_Detail 
+(
+   ID                   NUMBER,
+   Order_No_id        varchar2(20),
+   Products_ID        NUMBER,
+   Position           NUMBER,
+   Storage_number     NUMBER,
+   Use                VARCHAR2(100),
+   Remarks            varchar2(500)
+);
+alter table T_Storage_Detail
+   add constraint PK_T_STORAGE_BODY primary key (ID);
+   
+comment on table T_Storage_Detail is
+'入库信息_明细表';
+
+comment on column T_Storage_Detail.ID is
+'主键';
+
+comment on column T_Storage_Detail.Order_No_id is
+'入库单号';
+
+comment on column T_Storage_Detail.Products_ID is
+'产品编号';
+
+comment on column T_Storage_Detail.Position is
+'库位';
+
+comment on column T_Storage_Detail.Storage_number is
+'入库数量';
+
+comment on column T_Storage_Detail.Use is
+'用途';
+
+comment on column T_Storage_Detail.Remarks is
+'备注';
+
+/*==============================================================*/
+/* Table: 产品结构_表头                                         */
+/*==============================================================*/
+create table T_BOM_PRIMARY 
+(
+   ID                   NUMBER               not null,
+   Products_ID        NUMBER,
+   DESCR                VARCHAR(500),
+   EFFDT                VARCHAR(40),
+   EFF_STAUTS           VARCHAR(1)
+);
+
+comment on table T_BOM_PRIMARY is
+'产品结构头表';
+
+comment on column T_BOM_PRIMARY.ID is
+'主键';
+
+comment on column T_BOM_PRIMARY.Products_ID is
+'主产品编号';
+
+comment on column T_BOM_PRIMARY.DESCR is
+'描述';
+
+comment on column T_BOM_PRIMARY.EFFDT is
+'生效日期';
+
+comment on column T_BOM_PRIMARY.EFF_STAUTS is
+'生效状态';
+
+alter table T_BOM_PRIMARY
+   add constraint PK_T_BOM_PRIMARY primary key (ID);
+
+   
+/*==============================================================*/
+/* Table: 产品结构明细                                          */
+/*==============================================================*/
+create table T_BOM_DETAIL 
+(
+   ID                   NUMBER               not null,
+   ProductsID         NUMBER,
+   Sub_productsID     NUMBER,
+   Position           NUMBER,
+   isMainProducts     NUMBER,
+   PRODUCTS_NUMBER      FLOAT,
+   Remarks            varchar2(500)
+);
+
+comment on table T_BOM_DETAIL is
+'产品结构清单';
+
+comment on column T_BOM_DETAIL.ID is
+'主键';
+
+comment on column T_BOM_DETAIL.ProductsID is
+'产品主键';
+
+comment on column T_BOM_DETAIL.Sub_productsID is
+'子产品主键';
+
+comment on column T_BOM_DETAIL.isMainProducts is
+'是否主要产品';
+
+comment on column T_BOM_DETAIL.PRODUCTS_NUMBER is
+'数量';
+
+alter table T_BOM_DETAIL
+   add constraint PK_T_BOM_DETAIL primary key (ID);
+
+/*==============================================================*/
+/* Table: bom替代料表                                             */
+/*==============================================================*/
+create table T_BOM_SUB 
+(
+   ID                   NUMBER               not null,
+   ProductsID         NUMBER,
+   MAIN_ProductsID    NUMBER,
+   Sub_productsID     NUMBER,
+   PRODUCTS_NUMBER      FLOAT,
+   Remarks            varCHar2(500),
+   Position           NUMBER
+);
+
+comment on table T_BOM_SUB is
+'替代料产品结构清单';
+
+comment on column T_BOM_SUB.ID is
+'主键';
+
+comment on column T_BOM_SUB.ProductsID is
+'产品主键';
+
+comment on column T_BOM_SUB.Sub_productsID is
+'子产品主键';
+
+comment on column T_BOM_SUB.PRODUCTS_NUMBER is
+'数量';
+
+comment on column T_BOM_SUB.Remarks is
+'备注';
+
+comment on column T_BOM_SUB.Position is
+'仓库位';
+
+alter table T_BOM_SUB
+   add constraint PK_T_BOM_SUB primary key (ID);
