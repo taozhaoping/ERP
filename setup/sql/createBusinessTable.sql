@@ -448,7 +448,7 @@ create table T_BOM_PRIMARY
    Products_ID        NUMBER,
    DESCR                VARCHAR(500),
    EFFDT                VARCHAR(40),
-   EFF_STAUTS           VARCHAR(1)
+   EFF_STATUS           VARCHAR(1)
 );
 
 comment on table T_BOM_PRIMARY is
@@ -466,7 +466,7 @@ comment on column T_BOM_PRIMARY.DESCR is
 comment on column T_BOM_PRIMARY.EFFDT is
 '生效日期';
 
-comment on column T_BOM_PRIMARY.EFF_STAUTS is
+comment on column T_BOM_PRIMARY.EFF_STATUS is
 '生效状态';
 
 alter table T_BOM_PRIMARY
@@ -483,7 +483,7 @@ create table T_BOM_DETAIL
    Sub_productsID     NUMBER,
    Position           NUMBER,
    isMainProducts     NUMBER,
-   PRODUCTS_NUMBER      FLOAT,
+   QTY      FLOAT,
    Remarks            varchar2(500)
 );
 
@@ -502,7 +502,7 @@ comment on column T_BOM_DETAIL.Sub_productsID is
 comment on column T_BOM_DETAIL.isMainProducts is
 '是否主要产品';
 
-comment on column T_BOM_DETAIL.PRODUCTS_NUMBER is
+comment on column T_BOM_DETAIL.QTY is
 '数量';
 
 alter table T_BOM_DETAIL
