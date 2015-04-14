@@ -125,13 +125,14 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author mail taozhaoping@gmail.com
 	 */
 	public synchronized void reduceStock(StorageDetail storageDetail) {
-		Integer productsID = storageDetail.getProductsID();
-		Integer warehouseID = storageDetail.getWarehouseID();
-		Integer StorageNumber = storageDetail.getStorageNumber();
-		verification(productsID, warehouseID, StorageNumber);
+		Integer id = storageDetail.getId();
+		if (id == null || "".equals(id.toString())) {
+			throw new ProjectException("入库明细主建不允许为空!");
+		}
+		StorageDetail storageDetailReult = storageDetailService.query(storageDetail);
 		Stock stock = new Stock();
-		stock.setProductsID(productsID);
-		stock.setWarehouseID(warehouseID);
+		stock.setProductsID(storageDetailReult.getProductsID());
+		stock.setWarehouseID(storageDetailReult.getWarehouseID());
 		Stock reult = stockService.query(stock);
 		if (reult == null)
 		{
@@ -139,7 +140,7 @@ public class StockUtil implements ApplicationContextAware {
 		}
 		Float stockNumber = reult.getStockNumber();
 		Float currentNumber = stockNumber 
-				- StorageNumber;
+				- storageDetailReult.getStorageNumber();
 		stock = new Stock();
 		stock.setId(reult.getId());
 		stock.setStockNumber(currentNumber);

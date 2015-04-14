@@ -192,7 +192,6 @@
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${storagePrimary.id}" />
 								<input type="hidden" name="tabID" value="storagedetailButt" />
 								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
 								<input type="hidden" id="detailwarehouseID" name="storageDetail.warehouseID" value="${storagePrimary.warehouseID}" />
@@ -212,7 +211,7 @@
 										<th>入库数量</th>
 										<th>用途</th>
 										<th>备注</th>
-										
+										<th>操作</th>
 									</tr>
 								</thead>
 								
@@ -227,6 +226,10 @@
 											<td><s:property value="#tp.storageNumber" /></td>
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
+											<td>
+												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i
+												class="icon-remove"></i></a>
+											</td>
 										</tr>
 										</s:iterator>
 										

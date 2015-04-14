@@ -116,12 +116,13 @@ public class StoragePrimaryAction extends BaseAction {
 		LOGGER.debug("save StorageDetail ()");
 		StorageDetail storageDetail = this.storagePrimaryModel
 				.getStorageDetail();
-		Integer id = storageDetail.getId();
+		Integer id = this.storagePrimaryModel.getId();
 			if (null == id || "".equals(id)) {
 				// 新增
 				storageDetailService.insert(storageDetail);
 			} else {
 				// 修改
+				storageDetail.setId(id);
 				storageDetailService.delete(storageDetail);
 			}
 		return Action.EDITOR_SAVE;
