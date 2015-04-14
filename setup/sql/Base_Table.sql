@@ -82,7 +82,7 @@ ALTER TABLE SYS_DICTIONARY
    NAME               VARCHAR(30),
    ADDRESS            VARCHAR(100),
    ENTERPRISE_ID        NUMBER,
-   enabled              NUMBER
+   enabled              NUMBER default 0
 );
 
 COMMENT ON TABLE SYS_WAREHOUSE IS
