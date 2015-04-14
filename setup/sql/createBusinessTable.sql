@@ -349,7 +349,7 @@ alter table t_Stock
 create table T_Storage_Primary 
 (
    ID                   NUMBER,
-   Order_No_id        varchar2(20),
+   Order_No_id        varchar2(50),
    Storage_Date       varchar2(20),
    Purchase_order_ID  varchar2(20),
    UserID             NUMBER,
@@ -358,7 +358,8 @@ create table T_Storage_Primary
    Remarks            VARCHAR2(500),
    Customer_ID        NUMBER,
    createDate         varchar2(20),
-   updateDate         varchar2(20)
+   updateDate         varchar2(20),
+  status            NUMBER
 );
 alter table T_Storage_Primary
    add constraint PK_T_STORAGE_HEADER primary key (ID);
@@ -398,7 +399,9 @@ comment on column T_Storage_Primary.createDate is
 
 comment on column T_Storage_Primary.updateDate is
 '修改时间';
-
+comment on column T_STORAGE_PRIMARY.status
+  is '是否入库';
+  
 /*==============================================================*/
 /* Table: 入库明细表                                                                                                                                              */
 /*==============================================================*/
@@ -448,7 +451,7 @@ create table T_BOM_PRIMARY
    Products_ID        NUMBER,
    DESCR                VARCHAR(500),
    EFFDT                VARCHAR(40),
-   EFF_STATUS           VARCHAR(1)
+   EFF_STAUTS           VARCHAR(1)
 );
 
 comment on table T_BOM_PRIMARY is
@@ -466,7 +469,7 @@ comment on column T_BOM_PRIMARY.DESCR is
 comment on column T_BOM_PRIMARY.EFFDT is
 '生效日期';
 
-comment on column T_BOM_PRIMARY.EFF_STATUS is
+comment on column T_BOM_PRIMARY.EFF_STAUTS is
 '生效状态';
 
 alter table T_BOM_PRIMARY
@@ -476,34 +479,32 @@ alter table T_BOM_PRIMARY
 /*==============================================================*/
 /* Table: 产品结构明细                                          */
 /*==============================================================*/
-create table T_BOM_DETAIL 
+create table T_BOM_DETAIL
 (
-   ID                   NUMBER               not null,
-   ProductsID         NUMBER,
-   Sub_productsID     NUMBER,
-   Position           NUMBER,
-   isMainProducts     NUMBER,
-   QTY      FLOAT,
-   Remarks            varchar2(500)
-);
+  id             NUMBER not null,
+  bomprimaryid   NUMBER,
+  sub_productsid NUMBER,
+  position       NUMBER,
+  ismainproducts NUMBER,
+  qty            FLOAT,
+  remarks        VARCHAR2(500)
+)
 
-comment on table T_BOM_DETAIL is
-'产品结构清单';
-
-comment on column T_BOM_DETAIL.ID is
-'主键';
-
-comment on column T_BOM_DETAIL.ProductsID is
-'产品主键';
-
-comment on column T_BOM_DETAIL.Sub_productsID is
-'子产品主键';
-
-comment on column T_BOM_DETAIL.isMainProducts is
-'是否主要产品';
-
-comment on column T_BOM_DETAIL.QTY is
-'数量';
+comment on table T_BOM_DETAIL
+  is '产品结构清单';
+-- Add comments to the columns 
+comment on column T_BOM_DETAIL.id
+  is '主键';
+comment on column T_BOM_DETAIL.bomprimaryid
+  is '产品结构头表主建';
+comment on column T_BOM_DETAIL.sub_productsid
+  is '子产品主键';
+comment on column T_BOM_DETAIL.position
+  is '库位号';
+comment on column T_BOM_DETAIL.ismainproducts
+  is '是否主要产品';
+comment on column T_BOM_DETAIL.qty
+  is '数量';
 
 alter table T_BOM_DETAIL
    add constraint PK_T_BOM_DETAIL primary key (ID);
