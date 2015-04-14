@@ -65,6 +65,9 @@
 		
 		<!-- 入库头表 -->
 		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary"/>
+		
+		<!-- 入库明细表 -->
+		<typeAlias alias="StorageDetail" type="com.zh.web.model.bean.StorageDetail"/>
 	</typeAliases>
 
 	<plugins>
