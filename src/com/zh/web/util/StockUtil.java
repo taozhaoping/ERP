@@ -1,7 +1,8 @@
 package com.zh.web.util;
 
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationObjectSupport;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import com.zh.core.exception.ProjectException;
 import com.zh.web.model.bean.Stock;
@@ -19,9 +20,9 @@ import com.zh.web.service.StorageDetailService;
  * @author mail taozhaoping@gmail.com
  * @version V1.0
  */
-public class StockUtil extends WebApplicationObjectSupport {
+public class StockUtil implements ApplicationContextAware {
 
-	private static WebApplicationContext ctx;
+	private static ApplicationContext ctx;
 
 	private static StockUtil stockUtil;
 
@@ -29,14 +30,17 @@ public class StockUtil extends WebApplicationObjectSupport {
 
 	private static StockService stockService;
 
-	private StockUtil() {
-		if (stockUtil == null) {
-			ctx = this.getWebApplicationContext();
-			storageDetailService = (StorageDetailService) ctx
-					.getBean("storageDetailService");
-			stockService = (StockService) ctx.getBean("stockService");
-		}
+	/**
+	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
+	 * 
+	 * @param applicationContext
+	 * @throws BeansException
+	 */
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		ctx = applicationContext;
 	}
+
 
 	/**
 	 * 
@@ -51,7 +55,10 @@ public class StockUtil extends WebApplicationObjectSupport {
 	 */
 	public synchronized static StockUtil getInstance() {
 		if (stockUtil == null) {
-			stockUtil = new StockUtil();
+				storageDetailService = (StorageDetailService) ctx
+						.getBean("storageDetailService");
+				stockService = (StockService) ctx.getBean("stockService");
+				stockUtil  = (StockUtil) ctx.getBean("stockUtil");
 		}
 
 		return stockUtil;
@@ -60,22 +67,18 @@ public class StockUtil extends WebApplicationObjectSupport {
 	/**
 	 * 验证
 	 */
-	private static void verification(Integer productsID,Integer position,Integer warehouseID,Integer StorageNumber)
+	private static void verification(Integer productsID,Integer warehouseID,Integer StorageNumber)
 	{
 		
-		if (productsID == null && !"".equals(productsID.toString())) {
+		if (productsID == null || "".equals(productsID.toString())) {
 			throw new ProjectException("产品编号不允许为null");
 		}
 		
-		if (position == null && !"".equals(position.toString())) {
-			throw new ProjectException("仓库位不允许为null");
-		}
-		
-		if (warehouseID == null && !"".equals(warehouseID.toString())) {
+		if (warehouseID == null || "".equals(warehouseID.toString())) {
 			throw new ProjectException("仓库ID不允许为null");
 		}
 		
-		if (StorageNumber == null && !"".equals(StorageNumber.toString())) {
+		if (StorageNumber == null || "".equals(StorageNumber.toString())) {
 			throw new ProjectException("数量不允许为null");
 		}
 	}
@@ -92,12 +95,10 @@ public class StockUtil extends WebApplicationObjectSupport {
 	 */
 	public synchronized void increaseStock(StorageDetail storageDetail) {
 		Integer productsID = storageDetail.getProductsID();
-		Integer position = storageDetail.getPosition();
 		Integer warehouseID = storageDetail.getWarehouseID();
 		Integer StorageNumber = storageDetail.getStorageNumber();
-		verification(productsID, position, warehouseID, StorageNumber);
+		verification(productsID, warehouseID, StorageNumber);
 		Stock stock = new Stock();
-		stock.setPosition(position);
 		stock.setProductsID(productsID);
 		stock.setWarehouseID(warehouseID);
 		Stock reult = stockService.query(stock);
@@ -125,12 +126,10 @@ public class StockUtil extends WebApplicationObjectSupport {
 	 */
 	public synchronized void reduceStock(StorageDetail storageDetail) {
 		Integer productsID = storageDetail.getProductsID();
-		Integer position = storageDetail.getPosition();
 		Integer warehouseID = storageDetail.getWarehouseID();
 		Integer StorageNumber = storageDetail.getStorageNumber();
-		verification(productsID, position, warehouseID, StorageNumber);
+		verification(productsID, warehouseID, StorageNumber);
 		Stock stock = new Stock();
-		stock.setPosition(position);
 		stock.setProductsID(productsID);
 		stock.setWarehouseID(warehouseID);
 		Stock reult = stockService.query(stock);

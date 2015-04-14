@@ -142,35 +142,33 @@
 	<update id="update" parameterType="StoragePrimary">
 		update T_Storage_Primary
 		<set>
-			<if test="warehouseID != null">
-				warehouse_ID = #{warehouseID}
-			</if>
+			
 			<if test="orderNoID != null">
-				order_no_id = #{orderNoID}
+				order_no_id = #{orderNoID},
 			</if>
 			<if test="storagedate != null">
-				storage_date = #{storagedate}
+				storage_date = #{storagedate},
 			</if>
 			<if test="purchaseOrderID != null">
-				purchase_order_id = #{purchaseOrderID}
+				purchase_order_id = #{purchaseOrderID},
 			</if>
 			<if test="userID != null">
-				userid = #{userID}
+				userid = #{userID},
 			</if>
 			<if test="warehouseID != null">
-				warehouse_id = #{warehouseID}
+				warehouse_id = #{warehouseID},
 			</if>
 			<if test="mountMeoey != null">
-				mount_meoey = #{mountMeoey}
+				mount_meoey = #{mountMeoey},
 			</if>
 			<if test="remarks != null">
-				remarks = #{remarks}
+				remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
 			<if test="customerID != null">
-				customer_id = #{customerID}
+				customer_id = #{customerID},
 			</if>
 			<if test="status != null">
-				status = #{status}
+				status = #{status},
 			</if>
 		</set>
 		where ID = #{id}

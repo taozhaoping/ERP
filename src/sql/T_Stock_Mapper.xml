@@ -95,8 +95,8 @@
 	<update id="update" parameterType="Stock">
 		update T_Stock
 		<set>
-			<if test="warehouseID != null">
-				warehouse_ID = #{warehouseID}
+			<if test="stockNumber != null">
+			stock_Number = #{stockNumber}
 			</if>
 		</set>
 		where ID = #{id}

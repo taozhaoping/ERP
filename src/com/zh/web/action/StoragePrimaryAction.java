@@ -1,6 +1,7 @@
 package com.zh.web.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.WarehouseService;
+import com.zh.base.util.ConstantService;
 import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
@@ -24,13 +26,13 @@ import com.zh.web.util.UtilService;
 
 public class StoragePrimaryAction extends BaseAction {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 731437174900014739L;
 
-	private static Logger LOGGER = LoggerFactory.getLogger(StoragePrimaryAction.class); 
+	private static Logger LOGGER = LoggerFactory
+			.getLogger(StoragePrimaryAction.class);
 
 	@Autowired
 	private StoragePrimaryService storagePrimaryService;
@@ -115,14 +117,14 @@ public class StoragePrimaryAction extends BaseAction {
 		StorageDetail storageDetail = this.storagePrimaryModel
 				.getStorageDetail();
 		Integer id = storageDetail.getId();
-		if (null == id || "".equals(id)) {
-			// 新增
-			storageDetailService.insert(storageDetail);
-		} else {
-			// 修改
-			storageDetailService.delete(storageDetail);
-		}
-		return Action.RETURN_JSON;
+			if (null == id || "".equals(id)) {
+				// 新增
+				storageDetailService.insert(storageDetail);
+			} else {
+				// 修改
+				storageDetailService.delete(storageDetail);
+			}
+		return Action.EDITOR_SAVE;
 
 	}
 
@@ -141,6 +143,7 @@ public class StoragePrimaryAction extends BaseAction {
 					UtilService.STORAGE_TYPE);
 			LOGGER.debug("add storagePrimary");
 		}
-		return Action.EDITOR_SUCCESS;
+		this.storagePrimaryModel.setFormId(storagePrimary.getId().toString());
+		return Action.EDITOR_SAVE;
 	}
 }

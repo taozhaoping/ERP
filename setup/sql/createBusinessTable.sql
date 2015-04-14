@@ -318,7 +318,7 @@ create table t_Stock
    Position           NUMBER               not null,
    PRODUCTS_ID          NUMBER,
    Warehouse_ID       NUMBER,
-   t_Stock_number       FLOAT           default 0
+   Stock_number       FLOAT           default 0
 );
 
 comment on table t_Stock is

@@ -101,7 +101,7 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="productStructureButt" href="#productstructure" data-toggle="tab">入库清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -130,7 +130,7 @@
 											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
 											<div class="controls">
 												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
-													type="text"
+													type="text" data-required="true"
 													value="${storagePrimary.storagedate}"
 													readonly class="form_datetime input-medium">
 											</div>
@@ -164,7 +164,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputwarehouseID" style="">收入仓库：</label>
 											<div class="controls">
-												<s:select id="inputwarehouseID"  list="warehouseList" listKey="id" listValue="name"
+												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
 													name="storagePrimary.warehouseID" cssClass="input-medium" placeholder="收入仓库">
 												</s:select>
 											</div>
@@ -187,25 +187,30 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="productstructure">
-								<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+							<div class="tab-pane fade" id="storagedetail">
+								<form id="storageDetailForm" class="form-horizontal" action="${menu2Id}!saveStorageDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${products.id}" />
-								<input type="hidden" name="tabID" value="productStructureButt" />
-								<input type="hidden" id="mailListName" name="mailList.name" value="" />
-								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
-								<button class="btn btn-small btn-primary" type="button"
-								data-toggle="modal" data-target="#popupfirm">添加产品</button>
+								<input type="hidden" name="formId" value="${storagePrimary.id}" />
+								<input type="hidden" name="tabID" value="storagedetailButt" />
+								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
+								<input type="hidden" id="detailwarehouseID" name="storageDetail.warehouseID" value="${storagePrimary.warehouseID}" />
+								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
+								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
+								<input type="hidden" id="detailuse" name="storageDetail.use" value="" />
+								<input type="hidden" id="detailremarks" name="storageDetail.remarks" value="" />
+										<button class="btn btn-small btn-primary" type="button"
+										data-toggle="modal" data-target="#popupfirm">添加产品</button>
 							</form>
-							<table class="table">
+							<table class="table ">
 								<thead>
 									<tr>
+									<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>入库数量</th>
-										<th>单价</th>
+										<th>用途</th>
 										<th>备注</th>
 										
 									</tr>
@@ -213,20 +218,18 @@
 								
 								<tbody id="maillistSearch">
 									<tr>
-										<!-- 产品列表
-										<s:iterator value="productStructureList" var="tp" status="index">
+										<!-- 产品列表-->
+										<s:iterator value="StorageDetailList" var="tp" status="index">
 										<tr>
-											<td><s:property value="#tp.id" /></td>
-											<td><s:property value="#tp.products.name" /></td>
-											<td><s:property value="#tp.products.productType" /></td>
-											<td><s:property value="#tp.products.sourceType" /></td>
-											<td><s:property value="#tp.products.ismainproducts" /></td>
-											<td><s:property value="#tp.products.groupID" /></td>
-											<td><s:property value="#tp.products.maAlMeterials" /></td>
-											<td><s:property value="#tp.products.productsNumber" /></td>
+											<td><s:property value="#index.index +1" /></td>
+											<td><s:property value="#tp.productsID" /></td>
+											<td><s:property value="#tp.productsName" /></td>
+											<td><s:property value="#tp.storageNumber" /></td>
+											<td><s:property value="#tp.use" /></td>
+											<td><s:property value="#tp.remarks" /></td>
 										</tr>
 										</s:iterator>
-										 -->
+										
 									</tr>
 								</tbody>
 							</table>
@@ -250,10 +253,7 @@
 			<h3 id="startModalLabel1">产品添加</h3>
 		</div>
 		<div class="modal-body">
-			 	<div class="alert">
-			 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<h4>产品编号和数量为必填项!</h4>
-				</div>
+			 	
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
@@ -271,7 +271,7 @@
 						<div class="control-group">
 							<label class="control-label" for="popupQty">数量：</label>
 							<div class="controls">
-								<input type="text" id="popupQty"
+								<input type="text" id="popupQty" 
 								placeholder="数量" class="input-large">
 							</div>
 						</div>
@@ -281,13 +281,14 @@
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
-							<label class="control-label" for="popupUse">备注：</label>
+							<label class="control-label" for="popupUse">用途：</label>
 							<div class="controls">
 								<input type="text" id="popupUse"
 								placeholder="备注" class="input-large">
 							</div>
 						</div>
 					</div>
+				</dir>
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
@@ -302,7 +303,7 @@
 				</dir>
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-danger" data-dismiss="modal" data-loading-text="正在保存"
+			<button class="btn btn-danger" data-loading-text="正在保存"
 				id="popupBtnConfirm">确认</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
@@ -331,13 +332,11 @@
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
-		var storagePrimaryID="${storagePrimary.id}";
-		
 		$("select").select2();
 		
 		$("#popupProductsID").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 1,
+			minimumInputLength : 3,
 			//multiple:true,
 			quietMillis : 3000,
 			ajax : {
@@ -346,8 +345,7 @@
 				data : function(term, page) {
 					return {
 						"productsID" : term,
-						"pageInfo.curPage" : page,
-						apikey : "ju6z9mjyajq2djue3gbvv26t"
+						"pageInfo.curPage" : page
 					};
 				},
 				results : function(data, page) {
@@ -392,48 +390,33 @@
 			}
 		});
 		
+		
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
 			var _Qty = $("#popupQty").val();
 			var _Use = $("#popupUse").val();
 			var _Remarks = $("#popupRemarks").val();
 			
-			ProductsID = $.trim(_ProductsID);
-			Qty = $.trim(_Qty);
-			Use = $.trim(_Use);
-			Remarks = $.trim(_Remarks);
-			if (ProductsID == null || ProductsID == "" || Qty == null || Use == "") {
+			var ProductsID = $.trim(_ProductsID);
+			var Qty = $.trim(_Qty);
+			var Use = $.trim(_Use);
+			var Remarks = $.trim(_Remarks);
+			if (ProductsID == null || ProductsID == "") {
+				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
 				return;
-			} else {
-				$.ajax({
-					type: "POST",   //访问WebService使用Post方式请求
-					url: "${menu2Id}!saveStorageDetail.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
-					async:false,
-					data: {
-						"storageDetail.storagePrimaryID":storagePrimaryID,
-						"storageDetail.productsID":ProductsID,
-						"storageDetail.position":Qty,
-						"storageDetail.warehouseID":warehouseID,
-						"storageDetail.storageNumber":Qty,
-						"storageDetail.use":Use,
-						"storageDetail.remarks":Remarks,
-						},  //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
-					dataType: 'json',   //WebService 会返回Json类型
-					traditional: false,	//不要序列化参数
-					error: function(err, textStatus){
-						//alert("error: " + err + " textStatus: " + textStatus);
-					},
-					success: function(result) {//回调函数，result，返回值
-						if(result.success)
-						{
-							bool=true;	
-						}else
-						{
-							bool=false;	
-						}
-					}
-				});
+			} 
+			if (Qty == null || Use == "") {
+				$("#popupQty").attr("title","入库数量必须填写!");
+				return;
 			}
+			
+			
+			$("#detailproductsID").val(ProductsID);
+			$("#detailqty").val(Qty);
+			$("#detailuse").val(Use);
+			$("#detailremarks").val(Remarks);
+			$('#popupfirm').modal('hide')
+			$("#storageDetailForm").submit();
 	});
 		
 		//进入指定的tbs

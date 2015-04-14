@@ -127,7 +127,7 @@
 											<div class="controls">
 												<select id="inputenabled" class="input-xlarge"
 													name="warehouse.enabled">
-													<option value="0">激活</option>
+													<option value="0" selected="selected">激活</option>
 													<option value="1">未激活</option>
 												</select>
 											</div>
@@ -146,6 +146,7 @@
 		<script src="<%=path %>/js/collapsePulg.js"></script>
 		<script src="<%=path %>/js/common.js"></script>
 		<script src="<%=path %>/js/jquery-validate.js"></script>
+			<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 		<script src="<%=path%>/js/select2/select2.js"></script>
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 		<script type="text/javascript">

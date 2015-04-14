@@ -94,19 +94,19 @@
 		</layout>
 	</appender>
 	<logger name="com.zh.core" addtivity="false">
-		<level value="DEBUG" />
+		<level value="WARN" />
 		<appender-ref ref="logfile-core" />
 	</logger>
 	<logger name="org.springframework" addtivity="false">
-		<level value="DEBUG" />
+		<level value="WARN" />
 		<appender-ref ref="logfile-myibatis" />
 	</logger>
 	<logger name="org.apache.struts2">
-		<level value="DEBUG" />
+		<level value="WARN" />
 		<appender-ref ref="logfile-struts2" />
 	</logger>
 	<root>
-		<level value="DEBUG" />
+		<level value="WARN" />
 		<appender-ref ref="stdout" />
 	</root>
 </configuration> 

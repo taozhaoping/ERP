@@ -11,11 +11,11 @@ import com.zh.web.model.bean.StoragePrimary;
 
 public class StoragePrimaryModel extends BaseModel {
 
-	private StoragePrimary StoragePrimary = new StoragePrimary();
+	private StoragePrimary storagePrimary = new StoragePrimary();
 
 	private List<StoragePrimary> storagePrimaryList = new ArrayList<StoragePrimary>();
 
-	private StorageDetail StorageDetail = new StorageDetail();
+	private StorageDetail storageDetail = new StorageDetail();
 
 	private List<StorageDetail> StorageDetailList = new ArrayList<StorageDetail>();
 
@@ -24,11 +24,11 @@ public class StoragePrimaryModel extends BaseModel {
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 
 	public StoragePrimary getStoragePrimary() {
-		return StoragePrimary;
+		return storagePrimary;
 	}
 
 	public void setStoragePrimary(StoragePrimary storagePrimary) {
-		StoragePrimary = storagePrimary;
+		this.storagePrimary = storagePrimary;
 	}
 
 	public List<StoragePrimary> getStoragePrimaryList() {
@@ -37,6 +37,22 @@ public class StoragePrimaryModel extends BaseModel {
 
 	public void setStoragePrimaryList(List<StoragePrimary> storagePrimaryList) {
 		this.storagePrimaryList = storagePrimaryList;
+	}
+
+	public StorageDetail getStorageDetail() {
+		return storageDetail;
+	}
+
+	public void setStorageDetail(StorageDetail storageDetail) {
+		this.storageDetail = storageDetail;
+	}
+
+	public List<StorageDetail> getStorageDetailList() {
+		return StorageDetailList;
+	}
+
+	public void setStorageDetailList(List<StorageDetail> storageDetailList) {
+		StorageDetailList = storageDetailList;
 	}
 
 	public List<Customer> getCustomerList() {
@@ -55,20 +71,5 @@ public class StoragePrimaryModel extends BaseModel {
 		this.warehouseList = warehouseList;
 	}
 
-	public StorageDetail getStorageDetail() {
-		return StorageDetail;
-	}
-
-	public void setStorageDetail(StorageDetail storageDetail) {
-		StorageDetail = storageDetail;
-	}
-
-	public List<StorageDetail> getStorageDetailList() {
-		return StorageDetailList;
-	}
-
-	public void setStorageDetailList(List<StorageDetail> storageDetailList) {
-		StorageDetailList = storageDetailList;
-	}
-
+	
 }

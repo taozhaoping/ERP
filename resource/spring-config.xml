@@ -143,8 +143,9 @@
 
 	
 	<!-- 获取用户名实例注册 -->
-	<bean id="jspUtil" class="com.zh.base.util.JspUtil" init-method="getBean">
-	</bean>
+	<bean id="jspUtil" class="com.zh.base.util.JspUtil" init-method="getBean" />
+	
+	<bean id="stockUtil" class="com.zh.web.util.StockUtil" init-method="getInstance"/>
 	
 	
 </beans>

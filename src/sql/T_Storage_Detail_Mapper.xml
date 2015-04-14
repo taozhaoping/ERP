@@ -13,6 +13,10 @@
 		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	  <resultMap id="T_Storage_Detail_lIST" type="StorageDetail" extends="T_Storage_Detail">
+	  	<result column="PRODUCTS_NAME" property="productsName" jdbcType="VARCHAR" />
+	  </resultMap>
 	<sql id="Base_Column_List">
 		ID,
 		STORAGEPRIMARYID ,
@@ -49,11 +53,21 @@
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_Storage_Detail" parameterType="StorageDetail">
+	<select id="list" resultMap="T_Storage_Detail_lIST" parameterType="StorageDetail">
 
 		select
-		<include refid="Base_Column_List" />
-		from T_STORAGE_DETAIL
+		S.ID,
+		STORAGEPRIMARYID ,
+		PRODUCTS_ID ,
+		T.POSITION ,
+		STORAGE_NUMBER,
+		warehouse_id,
+		use ,
+		S.remarks ,
+		name as PRODUCTS_NAME,
+		S.createdate ,
+		S.updatedate
+		from T_STORAGE_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.PRODUCTS_ID
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -130,25 +144,25 @@
 		update T_STORAGE_DETAIL
 		<set>
 			<if test="storagePrimaryID != null">
-				STORAGEPRIMARYID = #{storagePrimaryID}
+				STORAGEPRIMARYID = #{storagePrimaryID},
 			</if>
 			<if test="productsID != null">
-				PRODUCTS_ID = #{productsID}
+				PRODUCTS_ID = #{productsID},
 			</if>
 			<if test="position != null">
-				POSITION = #{position}
+				POSITION = #{position},
 			</if>
 			<if test="storageNumber != null">
-				STORAGE_NUMBER = #{storageNumber}
+				STORAGE_NUMBER = #{storageNumber},
 			</if>
 			<if test="warehouseID != null">
-				warehouse_id = #{warehouseID}
+				warehouse_id = #{warehouseID},
 			</if>
 			<if test="use != null">
-				use = #{use,jdbcType=VARCHAR}
+				use = #{use,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
-				remarks = #{remarks,jdbcType=VARCHAR}
+				remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where ID = #{id}

@@ -51,6 +51,11 @@ public class StorageDetail extends IDataObject {
 	private String remarks;
 	
 	/**
+	 * 产品名称
+	 */
+	private String productsName;
+	
+	/**
 	 * 创建时间
 	 */
 	private String createdate;
@@ -138,6 +143,14 @@ public class StorageDetail extends IDataObject {
 
 	public void setWarehouseID(Integer warehouseID) {
 		this.warehouseID = warehouseID;
+	}
+
+	public String getProductsName() {
+		return productsName;
+	}
+
+	public void setProductsName(String productsName) {
+		this.productsName = productsName;
 	}
 
 

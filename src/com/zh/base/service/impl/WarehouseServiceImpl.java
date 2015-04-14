@@ -72,7 +72,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 		for (Iterator<?> iterator = productsList.iterator(); iterator.hasNext();) {
 			Products products = (Products) iterator.next();
 			Stock stock = new Stock();
-			stock.setWarehouseID(id);
+			stock.setWarehouseID(warehouse.getId());
 			stock.setProductsID(products.getId());
 			stock.setPosition(products.getPosition());
 			stockDao.insert(stock);
