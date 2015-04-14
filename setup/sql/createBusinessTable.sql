@@ -515,7 +515,7 @@ alter table T_BOM_DETAIL
 create table T_BOM_SUB 
 (
    ID                   NUMBER               not null,
-   ProductsID         NUMBER,
+   bomprimaryid         NUMBER,
    MAIN_ProductsID    NUMBER,
    Sub_productsID     NUMBER,
    PRODUCTS_NUMBER      FLOAT,
@@ -529,8 +529,11 @@ comment on table T_BOM_SUB is
 comment on column T_BOM_SUB.ID is
 '主键';
 
-comment on column T_BOM_SUB.ProductsID is
-'产品主键';
+comment on column T_BOM_SUB.bomprimaryid is
+'产品结构表头';
+
+comment on column T_BOM_SUB.MAIN_ProductsID is
+'主料产品';
 
 comment on column T_BOM_SUB.Sub_productsID is
 '子产品主键';
