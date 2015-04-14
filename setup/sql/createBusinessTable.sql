@@ -447,11 +447,11 @@ comment on column T_Storage_Detail.Remarks is
 /*==============================================================*/
 create table T_BOM_PRIMARY 
 (
-   ID                   NUMBER               not null,
-   Products_ID        NUMBER,
+   ID                   NUMBER	not null,
+   PRODUCTS_ID        	NUMBER,
    DESCR                VARCHAR(500),
    EFFDT                VARCHAR(40),
-   EFF_STAUTS           VARCHAR(1)
+   EFF_STATUS           VARCHAR(1)
 );
 
 comment on table T_BOM_PRIMARY is
@@ -460,7 +460,7 @@ comment on table T_BOM_PRIMARY is
 comment on column T_BOM_PRIMARY.ID is
 '主键';
 
-comment on column T_BOM_PRIMARY.Products_ID is
+comment on column T_BOM_PRIMARY.PRODUCTS_ID is
 '主产品编号';
 
 comment on column T_BOM_PRIMARY.DESCR is
@@ -469,7 +469,7 @@ comment on column T_BOM_PRIMARY.DESCR is
 comment on column T_BOM_PRIMARY.EFFDT is
 '生效日期';
 
-comment on column T_BOM_PRIMARY.EFF_STAUTS is
+comment on column T_BOM_PRIMARY.EFF_STATUS is
 '生效状态';
 
 alter table T_BOM_PRIMARY
@@ -481,29 +481,29 @@ alter table T_BOM_PRIMARY
 /*==============================================================*/
 create table T_BOM_DETAIL
 (
-  id             NUMBER not null,
-  bomprimaryid   NUMBER,
-  sub_productsid NUMBER,
-  position       NUMBER,
-  ismainproducts NUMBER,
-  qty            FLOAT,
-  remarks        VARCHAR2(500)
+  ID            	 NUMBER not null,
+  PRIMARY_ID  		 NUMBER,
+  SUB_PRODUCTS_ID	 NUMBER,
+  POSITION      	 NUMBER,
+  IS_MAIN_PRODUCTS	 NUMBER,
+  QTY            	 FLOAT,
+  REMARKS        	 VARCHAR2(500)
 )
 
 comment on table T_BOM_DETAIL
   is '产品结构清单';
 -- Add comments to the columns 
-comment on column T_BOM_DETAIL.id
+comment on column T_BOM_DETAIL.ID
   is '主键';
-comment on column T_BOM_DETAIL.bomprimaryid
+comment on column T_BOM_DETAIL.PRIMARY_ID
   is '产品结构头表主建';
-comment on column T_BOM_DETAIL.sub_productsid
+comment on column T_BOM_DETAIL.SUB_PRODUCTS_ID
   is '子产品主键';
-comment on column T_BOM_DETAIL.position
-  is '库位号';
-comment on column T_BOM_DETAIL.ismainproducts
+comment on column T_BOM_DETAIL.POSITION
+  is '仓库位号';
+comment on column T_BOM_DETAIL.IS_MAIN_PRODUCTS
   is '是否主要产品';
-comment on column T_BOM_DETAIL.qty
+comment on column T_BOM_DETAIL.QTY
   is '数量';
 
 alter table T_BOM_DETAIL
@@ -514,13 +514,13 @@ alter table T_BOM_DETAIL
 /*==============================================================*/
 create table T_BOM_SUB 
 (
-   ID                   NUMBER               not null,
-   bomprimaryid         NUMBER,
-   MAIN_ProductsID    NUMBER,
-   Sub_productsID     NUMBER,
-   PRODUCTS_NUMBER      FLOAT,
-   Remarks            varCHar2(500),
-   Position           NUMBER
+   ID					NUMBER               not null,
+   PRIMARY_ID			NUMBER,
+   MAIN_PRODUCTS_ID    	NUMBER,
+   SUB_PRODUCTS_ID     	NUMBER,
+   QTY					FLOAT,
+   REMARKS            	VARCHAR2(500),
+   POSITION           	NUMBER
 );
 
 comment on table T_BOM_SUB is
@@ -529,23 +529,23 @@ comment on table T_BOM_SUB is
 comment on column T_BOM_SUB.ID is
 '主键';
 
-comment on column T_BOM_SUB.bomprimaryid is
-'产品结构表头';
+comment on column T_BOM_SUB.PRIMARY_ID is
+'产品结构主表主键';
 
-comment on column T_BOM_SUB.MAIN_ProductsID is
-'主料产品';
+comment on column T_BOM_SUB.MAIN_PRODUCTS_ID is
+'主料产品主键';
 
-comment on column T_BOM_SUB.Sub_productsID is
+comment on column T_BOM_SUB.SUB_PRODUCTS_ID is
 '子产品主键';
 
-comment on column T_BOM_SUB.PRODUCTS_NUMBER is
+comment on column T_BOM_SUB.QTY is
 '数量';
 
-comment on column T_BOM_SUB.Remarks is
+comment on column T_BOM_SUB.REMARKS is
 '备注';
 
-comment on column T_BOM_SUB.Position is
-'仓库位';
+comment on column T_BOM_SUB.POSITION is
+'仓库位号';
 
 alter table T_BOM_SUB
    add constraint PK_T_BOM_SUB primary key (ID);
