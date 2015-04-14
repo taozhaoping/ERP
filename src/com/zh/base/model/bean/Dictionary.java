@@ -14,6 +14,11 @@ import com.zh.core.model.IDataObject;
  */
 public class Dictionary extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8311169146042600404L;
+
 	private Integer key;
 	
 	private String descr;

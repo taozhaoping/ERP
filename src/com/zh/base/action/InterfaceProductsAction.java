@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.zh.base.model.InterfaceModel;
-import com.zh.base.service.UserInfoService;
 import com.zh.base.util.ConstantService;
 import com.zh.core.base.action.BaseAction;
 import com.zh.web.model.ProductsModel;

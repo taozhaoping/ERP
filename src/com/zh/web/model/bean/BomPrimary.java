@@ -11,7 +11,7 @@ import com.zh.core.model.IDataObject;
  * @author mail taozhaoping@gmail.com
  * @version V1.0
  */
-public class BOMPrimary extends IDataObject {
+public class BomPrimary extends IDataObject {
 
 	/**
 	 * 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zh.base.dao.DictionaryDao;
-import com.zh.base.model.bean.Dept;
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.service.DictionaryService;
 import com.zh.core.util.JSONUtil;

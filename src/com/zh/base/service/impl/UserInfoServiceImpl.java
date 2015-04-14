@@ -2,8 +2,6 @@ package com.zh.base.service.impl;
 
 import java.util.List;
 
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.identity.UserQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +43,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDAO.update(user);
 		//同步更新用户
 		User updateUser = userInfoDAO.query(user);
+		@SuppressWarnings("unused")
 		String userId = updateUser.getLoginName();
 		//查询activiti user
 		//UserQuery userQuery = identityService.createUserQuery();
@@ -93,7 +92,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		LOGGER.debug("delete(User user)");
 		userInfoDAO.delete(user);
 		//同步删除用户
-		Integer userId = user.getId();
+		//Integer userId = user.getId();
 		//identityService.deleteUser(userId.toString());
 		LOGGER.debug("sync delete activiti user");
 	}
@@ -115,7 +114,8 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param user          系统用户对象
      * @param activitiUser  Activiti User
      */
-    private void cloneAndSaveActivitiUser(User user, org.activiti.engine.identity.User activitiUser) {
+    @SuppressWarnings("unused")
+	private void cloneAndSaveActivitiUser(User user, org.activiti.engine.identity.User activitiUser) {
     	String userName = user.getName();
     	String email = user.getEmail();
     	if(null != userName && !userName.isEmpty() && null != email && !email.isEmpty()){

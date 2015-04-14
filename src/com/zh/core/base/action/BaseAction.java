@@ -16,7 +16,6 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.User;
-import com.zh.base.service.BasiTypeService;
 import com.zh.base.service.DictionaryService;
 import com.zh.base.service.EnterpriseService;
 import com.zh.core.model.Pager;

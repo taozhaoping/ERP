@@ -5,10 +5,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import com.zh.core.base.dao.BaseDao;
-import com.zh.web.model.bean.BOMPrimary;
+import com.zh.web.model.bean.BomPrimary;
 
 @Component("productStructureDao")
-public class ProductStructureDao extends BaseDao<BOMPrimary> {
+public class ProductStructDao extends BaseDao<BomPrimary> {
 
 	@Override
 	@PostConstruct

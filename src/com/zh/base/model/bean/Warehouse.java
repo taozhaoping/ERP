@@ -14,6 +14,11 @@ import com.zh.core.model.IDataObject;
  */
 public class Warehouse extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -916242789369646195L;
+
 	private Integer id;
 	
 	/**

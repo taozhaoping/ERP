@@ -6,55 +6,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zh.core.model.Pager;
-import com.zh.web.dao.ProductStructureDao;
-import com.zh.web.model.bean.BOMPrimary;
-import com.zh.web.service.ProductStructureService;
+import com.zh.web.dao.ProductStructDao;
+import com.zh.web.model.bean.BomPrimary;
+import com.zh.web.service.ProductStructService;
 
 @Component("productStructureService")
-public class ProductStructureServiceImpl implements ProductStructureService {
+public class ProductStructServiceImpl implements ProductStructService {
 
 	@Autowired
-	private ProductStructureDao productStructureDao;
+	private ProductStructDao productStructureDao;
 	
 	@Override
-	public BOMPrimary query(BOMPrimary productStructure) {
+	public BomPrimary query(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.query(productStructure);
 	}
 
 	@Override
-	public void update(BOMPrimary productStructure) {
+	public void update(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		productStructureDao.update(productStructure);
 	}
 
 	@Override
-	public List<BOMPrimary> queryList(BOMPrimary productStructure) {
+	public List<BomPrimary> queryList(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.queryList(productStructure);
 	}
 
 	@Override
-	public List<BOMPrimary> queryList(BOMPrimary productStructure,
+	public List<BomPrimary> queryList(BomPrimary productStructure,
 			Pager page) {
 		// TODO Auto-generated method stub
 		return productStructureDao.queryList(productStructure);
 	}
 
 	@Override
-	public Integer count(BOMPrimary productStructure) {
+	public Integer count(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.count(productStructure);
 	}
 
 	@Override
-	public void delete(BOMPrimary productStructure) {
+	public void delete(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		productStructureDao.delete(productStructure);
 	}
 
 	@Override
-	public Integer insert(BOMPrimary productStructure) {
+	public Integer insert(BomPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.insert(productStructure);
 	}

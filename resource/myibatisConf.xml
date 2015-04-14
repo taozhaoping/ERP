@@ -61,7 +61,7 @@
 		<typeAlias alias="Products" type="com.zh.web.model.bean.Products"/>
 		
 		<!-- 产品结构 -->
-		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BOMPrimary"/>
+		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BomPrimary"/>
 		
 		<!-- 入库头表 -->
 		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary"/>

@@ -14,6 +14,11 @@ import com.zh.core.model.IDataObject;
  */
 public class BasiType extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6253404251597951505L;
+
 	private Integer id;
 	
 	private String name;

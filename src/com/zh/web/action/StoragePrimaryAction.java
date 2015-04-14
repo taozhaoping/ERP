@@ -15,6 +15,11 @@ import com.zh.web.service.StoragePrimaryService;
 
 public class StoragePrimaryAction extends BaseAction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 731437174900014739L;
+
 	private static Logger LOGGER = LoggerFactory.getLogger(StoragePrimaryAction.class); 
 
 	@Autowired

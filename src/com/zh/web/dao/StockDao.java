@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import com.zh.core.base.dao.BaseDao;
-import com.zh.web.model.bean.Products;
 import com.zh.web.model.bean.Stock;
 
 @Component("stockDao")
