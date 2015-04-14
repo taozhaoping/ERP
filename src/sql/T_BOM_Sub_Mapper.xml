@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_BomSub">
+	<resultMap id="T_BomSub" type="BomSub">
+		<id column="ID" property="id" />
+		<result column="PRIMARY_ID" property="primaryId" />
+		<result column="MAIN_PRODUCTS_ID" property="mainProductsId" />
+		<result column="SUB_PRODUCTS_ID" property="subProductsId" />
+		<result column="QTY" property="qty" />
+		<result column="REMARKS" property="remarks" />
+		<result column="POSITION" property="position" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,
+		PRIMARY_ID,
+		MAIN_PRODUCTS_ID,
+		SUB_PRODUCTS_ID,
+		QTY,
+		REMARKS,
+		POSITION
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="primaryId != null">
+				and PRIMARY_ID = #{primaryId}
+			</if>
+			<if test="mainProductsId != null">
+				and MAIN_PRODUCTS_ID = #{mainProductsId}
+			</if>
+			<if test="subProductsId != null">
+				and SUB_PRODUCTS_ID = #{subProductsId}
+			</if>
+			<if test="qty != null">
+				and QTY = #{qty}
+			</if>
+			<if test="remarks != null">
+				and REMARKS = #{remarks}
+			</if>
+			<if test="position != null">
+				and POSITION = #{position}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_BomSub"
+		parameterType="BomSub">
+		select
+		<include refid="Base_Column_List" />
+		from T_BOM_SUB
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_BomSub" parameterType="BomSub">
+		select
+		<include refid="Base_Column_List" />
+		from T_BOM_SUB
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="BomSub">
+		select
+		count(id)
+		from T_BOM_SUB
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="BomSub">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_BOM_SUB.nextval from dual
+		</selectKey>
+		insert into T_BOM_SUB
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="primaryId != null">
+				PRIMARY_ID,
+			</if>
+			<if test="mainProductsId != null">
+				MAIN_PRODUCTS_ID,
+			</if>
+			<if test="subProductsId != null">
+				SUB_PRODUCTS_ID,
+			</if>
+			<if test="qty != null">
+				QTY,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+			<if test="position != null">
+				POSITION,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="primaryId != null">
+				#{primaryId},
+			</if>
+			<if test="mainProductsId != null">
+				#{mainProductsId},
+			</if>
+			<if test="subProductsId != null">
+				#{subProductsId},
+			</if>
+			<if test="qty != null">
+				#{qty},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="position != null">
+				#{position},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="BomSub">
+		update T_BOM_SUB
+		<set>
+			<if test="id != null">
+				ID = #{id},
+			</if>
+			<if test="primaryId != null">
+				PRIMARY_ID = #{primaryId},
+			</if>
+			<if test="mainProductsId != null">
+				MAIN_PRODUCTS_ID = #{mainProductsId},
+			</if>
+			<if test="subProductsId != null">
+				SUB_PRODUCTS_ID = #{subProductsId},
+			</if>
+			<if test="qty != null">
+				QTY = #{qty},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks},
+			</if>
+			<if test="position != null">
+				POSITION = #{position},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

@@ -63,6 +63,15 @@
 		<!-- 产品结构 -->
 		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BomPrimary"/>
 		
+		<!-- bom主表 -->
+		<typeAlias alias="BomPrimary" type="com.zh.web.model.bean.BomPrimary"/>
+		
+		<!-- bom明细表 -->
+		<typeAlias alias="BomDetail" type="com.zh.web.model.bean.BomDetail"/>
+		
+		<!-- bom替代料表 -->
+		<typeAlias alias="BomSub" type="com.zh.web.model.bean.BomSub"/>
+		
 		<!-- 入库头表 -->
 		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary"/>
 		

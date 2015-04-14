@@ -28,10 +28,19 @@ public class BomPrimary extends IDataObject {
 	 */
 	private Integer mainProductsId;
 	
+	/**
+	 * 描述
+	 */
 	private String descr;
 	
+	/**
+	 * 生效日期
+	 */
 	private String effdt;
 	
+	/**
+	 * 生效状态
+	 */
 	private String effStatus;
 
 	public Integer getId() {

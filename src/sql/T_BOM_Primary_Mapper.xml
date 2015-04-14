@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_BomPrimary">
+	<resultMap id="T_BomPrimary" type="BomPrimary">
+		<id column="ID" property="id" />
+		<result column="PRODUCTS_ID" property="productsId" />
+		<result column="DESCR" property="descr" />
+		<result column="EFFDT" property="effdt" />
+		<result column="EFF_STATUS" property="effStatus" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,
+		PRODUCTS_ID,
+		DESCR,
+		EFFDT,
+		EFF_STATUS
+	</sql>
+	
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="productsId != null">
+				and PRODUCTS_ID = #{productsId}
+			</if>
+			<if test="descr != null">
+				and DESCR = #{descr}
+			</if>
+			<if test="effdt != null">
+				and EFFDT = #{effdt}
+			</if>
+			<if test="effStatus != null">
+				and EFF_STATUS = #{effStatus}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_BomPrimary"
+		parameterType="BomPrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_BOM_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_BomPrimary" parameterType="BomPrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_BOM_PRIMARY
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="BomPrimary">
+		select
+		count(id)
+		from T_BOM_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="BomPrimary">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_BOM_PRIMARY.nextval from dual
+		</selectKey>
+		insert into T_BOM_PRIMARY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="productsId != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="descr != null">
+				DESCR,
+			</if>
+			<if test="effdt != null">
+				EFFDT,
+			</if>
+			<if test="effStatus != null">
+				EFF_STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="productsId != null">
+				#{productsId},
+			</if>
+			<if test="descr != null">
+				#{descr},
+			</if>
+			<if test="effdt != null">
+				#{effdt},
+			</if>
+			<if test="effStatus != null">
+				#{effStatus},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="BomPrimary">
+		update T_BOM_PRIMARY
+		<set>
+			<if test="productsId != null">
+				PRODUCTS_ID = #{productsId},
+			</if>
+			<if test="descr != null">
+				DESCR = #{descr},
+			</if>
+			<if test="effdt != null">
+				EFFDT = #{effdt},
+			</if>
+			<if test="effStatus != null">
+				EFF_STATUS = #{effStatus},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
