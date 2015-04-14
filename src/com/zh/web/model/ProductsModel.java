@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.zh.base.model.bean.Dictionary;
 import com.zh.core.base.model.BaseModel;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 import com.zh.web.model.bean.Products;
 
 public class ProductsModel extends BaseModel {
@@ -20,9 +20,9 @@ public class ProductsModel extends BaseModel {
 	
 	private List<Dictionary> sourceTypeList = new ArrayList<Dictionary>();
 	
-	private ProductStructure ProductStructure = new ProductStructure();
+	private BOMPrimary ProductStructure = new BOMPrimary();
 	
-	private List<ProductStructure> ProductStructureList = new ArrayList<ProductStructure>();
+	private List<BOMPrimary> ProductStructureList = new ArrayList<BOMPrimary>();
 
 
 	public Products getProducts() {
@@ -65,19 +65,19 @@ public class ProductsModel extends BaseModel {
 		this.sourceTypeList = sourceTypeList;
 	}
 
-	public ProductStructure getProductStructure() {
+	public BOMPrimary getProductStructure() {
 		return ProductStructure;
 	}
 
-	public void setProductStructure(ProductStructure productStructure) {
+	public void setProductStructure(BOMPrimary productStructure) {
 		ProductStructure = productStructure;
 	}
 
-	public List<ProductStructure> getProductStructureList() {
+	public List<BOMPrimary> getProductStructureList() {
 		return ProductStructureList;
 	}
 
-	public void setProductStructureList(List<ProductStructure> productStructureList) {
+	public void setProductStructureList(List<BOMPrimary> productStructureList) {
 		ProductStructureList = productStructureList;
 	}
 	

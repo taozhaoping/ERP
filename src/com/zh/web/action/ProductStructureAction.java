@@ -12,7 +12,7 @@ import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductStructureModel;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 import com.zh.web.service.ProductStructureService;
 
 public class ProductStructureAction extends BaseAction {
@@ -33,11 +33,11 @@ public class ProductStructureAction extends BaseAction {
 
 	@Override
 	public String execute() throws Exception {
-		ProductStructure productStructure = this.productStructureModel.getProductStructure();
+		BOMPrimary productStructure = this.productStructureModel.getProductStructure();
 		Integer count = productStructureService.count(productStructure);
 		Pager page = this.productStructureModel.getPageInfo();
 		page.setTotalRow(count);
-		List<ProductStructure> list = productStructureService.queryList(productStructure, page);
+		List<BOMPrimary> list = productStructureService.queryList(productStructure, page);
 		this.productStructureModel.setProductStructureList(list);
 		return Action.SUCCESS;
 
@@ -51,9 +51,9 @@ public class ProductStructureAction extends BaseAction {
 		{
 			//查询信息
 			LOGGER.debug("editor ProductStructure id " + id );
-			ProductStructure productStructure = this.productStructureModel.getProductStructure();
+			BOMPrimary productStructure = this.productStructureModel.getProductStructure();
 			productStructure.setId(Integer.valueOf(id));
-			ProductStructure reult = productStructureService.query(productStructure);
+			BOMPrimary reult = productStructureService.query(productStructure);
 			this.productStructureModel.setProductStructure(reult);
 			
 		}
@@ -63,7 +63,7 @@ public class ProductStructureAction extends BaseAction {
 
 	public String save() throws Exception {
 		LOGGER.debug("save()");
-		ProductStructure productStructure = this.productStructureModel.getProductStructure();
+		BOMPrimary productStructure = this.productStructureModel.getProductStructure();
 		Integer id = this.productStructureModel.getId();
 		if (null != id && !"".equals(id))
 		{

@@ -2,7 +2,7 @@ package com.zh.web.service;
 
 import java.util.List;
 import com.zh.core.model.Pager;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 
 /**
  * 
@@ -21,44 +21,44 @@ public interface ProductStructureService {
 	 * @param 
 	 * @return
 	 */
-	public ProductStructure query(ProductStructure productStructure);
+	public BOMPrimary query(BOMPrimary productStructure);
 	
 	/**
 	 * 修改
 	 * @param 
 	 */
-	public void update(ProductStructure productStructure);
+	public void update(BOMPrimary productStructure);
 	
 	/**
 	 * 查询列表
 	 * @param 
 	 * @return
 	 */
-	public List<ProductStructure> queryList(ProductStructure productStructure);
+	public List<BOMPrimary> queryList(BOMPrimary productStructure);
 	
 	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return
 	 */
-	public List<ProductStructure> queryList(ProductStructure productStructure , Pager page);
+	public List<BOMPrimary> queryList(BOMPrimary productStructure , Pager page);
 	
 	/**
 	 * 查询数量
 	 * @param 
 	 * @return
 	 */
-	public Integer count(ProductStructure productStructure);
+	public Integer count(BOMPrimary productStructure);
 	
 	/**
 	 * 删除
 	 * @param 
 	 */
-	public void delete(ProductStructure productStructure);
+	public void delete(BOMPrimary productStructure);
 	
 	/**
 	 * 新增
 	 * @param 
 	 */
-	public Integer insert(ProductStructure productStructure);
+	public Integer insert(BOMPrimary productStructure);
 }

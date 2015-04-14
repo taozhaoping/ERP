@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zh.core.base.model.BaseModel;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 
 public class ProductStructureModel extends BaseModel {
 
-	private ProductStructure ProductStructure = new ProductStructure();
+	private BOMPrimary ProductStructure = new BOMPrimary();
 	
-	private List<ProductStructure> ProductStructureList = new ArrayList<ProductStructure>();
+	private List<BOMPrimary> ProductStructureList = new ArrayList<BOMPrimary>();
 
-	public ProductStructure getProductStructure() {
+	public BOMPrimary getProductStructure() {
 		return ProductStructure;
 	}
 
-	public void setProductStructure(ProductStructure productStructure) {
+	public void setProductStructure(BOMPrimary productStructure) {
 		ProductStructure = productStructure;
 	}
 
-	public List<ProductStructure> getProductStructureList() {
+	public List<BOMPrimary> getProductStructureList() {
 		return ProductStructureList;
 	}
 
-	public void setProductStructureList(List<ProductStructure> productStructureList) {
+	public void setProductStructureList(List<BOMPrimary> productStructureList) {
 		ProductStructureList = productStructureList;
 	}
 

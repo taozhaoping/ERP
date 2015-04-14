@@ -12,7 +12,7 @@ import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductsModel;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 import com.zh.web.model.bean.Products;
 import com.zh.web.service.ProductStructureService;
 import com.zh.web.service.ProductsService;
@@ -76,13 +76,13 @@ public class ProductsAction extends BaseAction {
 			this.productsModel.setProducts(reult);
 			
 			//获取产品结构
-			ProductStructure productStructure = new ProductStructure();
-			productStructure.setProductsid(id);
-			Integer count = productStructureService.count(productStructure);
-			Pager page = this.productsModel.getPageInfo();
-			page.setTotalRow(count);
-			List<ProductStructure> productStructureList = productStructureService.queryList(productStructure, page);
-			this.productsModel.setProductStructureList(productStructureList);
+//			BOMPrimary productStructure = new BOMPrimary();
+//			productStructure.setProductsid(id);
+//			Integer count = productStructureService.count(productStructure);
+//			Pager page = this.productsModel.getPageInfo();
+//			page.setTotalRow(count);
+//			List<BOMPrimary> productStructureList = productStructureService.queryList(productStructure, page);
+//			this.productsModel.setProductStructureList(productStructureList);
 		}
 		
 		return Action.EDITOR;

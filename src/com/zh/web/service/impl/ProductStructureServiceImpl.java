@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.zh.core.model.Pager;
 import com.zh.web.dao.ProductStructureDao;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BOMPrimary;
 import com.zh.web.service.ProductStructureService;
 
 @Component("productStructureService")
@@ -17,44 +17,44 @@ public class ProductStructureServiceImpl implements ProductStructureService {
 	private ProductStructureDao productStructureDao;
 	
 	@Override
-	public ProductStructure query(ProductStructure productStructure) {
+	public BOMPrimary query(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.query(productStructure);
 	}
 
 	@Override
-	public void update(ProductStructure productStructure) {
+	public void update(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		productStructureDao.update(productStructure);
 	}
 
 	@Override
-	public List<ProductStructure> queryList(ProductStructure productStructure) {
+	public List<BOMPrimary> queryList(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.queryList(productStructure);
 	}
 
 	@Override
-	public List<ProductStructure> queryList(ProductStructure productStructure,
+	public List<BOMPrimary> queryList(BOMPrimary productStructure,
 			Pager page) {
 		// TODO Auto-generated method stub
 		return productStructureDao.queryList(productStructure);
 	}
 
 	@Override
-	public Integer count(ProductStructure productStructure) {
+	public Integer count(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.count(productStructure);
 	}
 
 	@Override
-	public void delete(ProductStructure productStructure) {
+	public void delete(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		productStructureDao.delete(productStructure);
 	}
 
 	@Override
-	public Integer insert(ProductStructure productStructure) {
+	public Integer insert(BOMPrimary productStructure) {
 		// TODO Auto-generated method stub
 		return productStructureDao.insert(productStructure);
 	}

@@ -13,6 +13,10 @@ import com.zh.core.model.IDataObject;
  */
 public class StoragePrimary extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6333019662890680692L;
 	private Integer id;
 	/**
 	 * 入库单号

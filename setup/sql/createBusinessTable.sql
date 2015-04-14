@@ -482,7 +482,7 @@ alter table T_BOM_PRIMARY
 create table T_BOM_DETAIL
 (
   ID            	 NUMBER not null,
-  BOM_PRIMARY_ID  	 NUMBER,
+  PRIMARY_ID  		 NUMBER,
   SUB_PRODUCTS_ID	 NUMBER,
   POSITION      	 NUMBER,
   IS_MAIN_PRODUCTS	 NUMBER,
@@ -495,7 +495,7 @@ comment on table T_BOM_DETAIL
 -- Add comments to the columns 
 comment on column T_BOM_DETAIL.ID
   is '主键';
-comment on column T_BOM_DETAIL.BOM_PRIMARY_ID
+comment on column T_BOM_DETAIL.PRIMARY_ID
   is '产品结构头表主建';
 comment on column T_BOM_DETAIL.SUB_PRODUCTS_ID
   is '子产品主键';
@@ -515,7 +515,7 @@ alter table T_BOM_DETAIL
 create table T_BOM_SUB 
 (
    ID					NUMBER               not null,
-   BOM_PRIMARY_ID		NUMBER,
+   PRIMARY_ID			NUMBER,
    MAIN_PRODUCTS_ID    	NUMBER,
    SUB_PRODUCTS_ID     	NUMBER,
    QTY					FLOAT,
@@ -529,7 +529,7 @@ comment on table T_BOM_SUB is
 comment on column T_BOM_SUB.ID is
 '主键';
 
-comment on column T_BOM_SUB.BOM_PRIMARY_ID is
+comment on column T_BOM_SUB.PRIMARY_ID is
 '产品结构主表主键';
 
 comment on column T_BOM_SUB.MAIN_PRODUCTS_ID is
