@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.zh.base.model.bean.Dictionary;
 import com.zh.core.base.model.BaseModel;
-import com.zh.web.model.bean.ProductStructure;
+import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.Products;
 
 public class ProductsModel extends BaseModel {
 
+	private String productsID;
+	
 	private Products products = new Products();
 	
 	private List<Products> productsList = new ArrayList<Products>();
@@ -20,9 +22,9 @@ public class ProductsModel extends BaseModel {
 	
 	private List<Dictionary> sourceTypeList = new ArrayList<Dictionary>();
 	
-	private ProductStructure ProductStructure = new ProductStructure();
+	private BomPrimary ProductStructure = new BomPrimary();
 	
-	private List<ProductStructure> ProductStructureList = new ArrayList<ProductStructure>();
+	private List<BomPrimary> ProductStructureList = new ArrayList<BomPrimary>();
 
 
 	public Products getProducts() {
@@ -65,20 +67,28 @@ public class ProductsModel extends BaseModel {
 		this.sourceTypeList = sourceTypeList;
 	}
 
-	public ProductStructure getProductStructure() {
+	public BomPrimary getProductStructure() {
 		return ProductStructure;
 	}
 
-	public void setProductStructure(ProductStructure productStructure) {
+	public void setProductStructure(BomPrimary productStructure) {
 		ProductStructure = productStructure;
 	}
 
-	public List<ProductStructure> getProductStructureList() {
+	public List<BomPrimary> getProductStructureList() {
 		return ProductStructureList;
 	}
 
-	public void setProductStructureList(List<ProductStructure> productStructureList) {
+	public void setProductStructureList(List<BomPrimary> productStructureList) {
 		ProductStructureList = productStructureList;
+	}
+
+	public String getProductsID() {
+		return productsID;
+	}
+
+	public void setProductsID(String productsID) {
+		this.productsID = productsID;
 	}
 	
 }

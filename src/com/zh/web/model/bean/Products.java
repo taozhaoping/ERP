@@ -13,6 +13,11 @@ import com.zh.core.model.IDataObject;
  */
 public class Products extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6958330497434989824L;
+
 	private Integer id;
 
 	/**

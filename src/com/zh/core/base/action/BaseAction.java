@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,11 +17,11 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.model.bean.User;
-import com.zh.base.service.BasiTypeService;
 import com.zh.base.service.DictionaryService;
 import com.zh.base.service.EnterpriseService;
 import com.zh.core.model.Pager;
 import com.zh.core.model.VariableUtil;
+import com.zh.web.util.StockUtil;
 
 public abstract class BaseAction extends ActionSupport implements
 		ModelDriven<Object> {
@@ -33,23 +34,6 @@ public abstract class BaseAction extends ActionSupport implements
 	@Autowired
 	private EnterpriseService enterpriseService;
 	
-	/**static
-	{
-		SystemInfo sys = SystemInfo.getInstance();
-		//if(sys.getSystem().contains("Windows"))
-		//{
-		//	throw new ExceptionManager("数据出错",new RuntimeException());
-		//}
-		String mac = sys.getMac();
-		SystemService systemService = (SystemService) new ClassPathXmlApplicationContext(
-		"spring-config.xml").getBean("systemService");
-		String ll = systemService.querySysteminfo();
-		if(!BCrypt.checkpw(mac ,ll))
-		{
-			throw new ExceptionManager("数据出错",new RuntimeException());
-		}
-		
-	}*/
 	/**
 	 * 在struts2中可以设置：
 	 * ActionContext.getContext().getSession().put("WW_TRANS_I18N_LOCALE",
@@ -170,6 +154,20 @@ public abstract class BaseAction extends ActionSupport implements
 
 	public void setReturnJSON(String returnJSON) {
 		this.returnJSON = returnJSON;
+	}
+	
+	/**
+	* @Title: getServletContext 
+	* @Description: ServletContext 
+	* @param  @return   参数 
+	* @return ServletContext    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public  ServletContext getServletContext()
+	{
+		return this.getSession().getServletContext();
 	}
 
 	/**

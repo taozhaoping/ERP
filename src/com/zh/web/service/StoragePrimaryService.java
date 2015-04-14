@@ -16,6 +16,8 @@ import com.zh.web.model.bean.StoragePrimary;
  */
 public interface StoragePrimaryService {
 
+	String SEQUENCE_STORAGE_PRIMARY = "SEQUENCE_STORAGE_PRIMARY";
+	
 	/**
 	 * 查询信息
 	 * @param 
@@ -60,5 +62,5 @@ public interface StoragePrimaryService {
 	 * 新增
 	 * @param 
 	 */
-	public Integer insert(StoragePrimary storagePrimary);
+	public Integer insert(StoragePrimary storagePrimary,String type);
 }

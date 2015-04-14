@@ -14,7 +14,6 @@ import com.zh.web.dao.StockDao;
 import com.zh.web.model.bean.Products;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.service.ProductsService;
-import com.zh.web.service.StockService;
 
 @Component("warehouseService")
 public class WarehouseServiceImpl implements WarehouseService {
@@ -70,7 +69,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 		//添加相应的产品到对应的仓库
 		int id = warehouseDao.insert(warehouse);
 		List<Products> productsList = productsService.queryList(new Products());
-		for (Iterator iterator = productsList.iterator(); iterator.hasNext();) {
+		for (Iterator<?> iterator = productsList.iterator(); iterator.hasNext();) {
 			Products products = (Products) iterator.next();
 			Stock stock = new Stock();
 			stock.setWarehouseID(id);

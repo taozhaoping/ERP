@@ -295,6 +295,18 @@ public class DateUtil {
 	 }
 
 	 /**
+	  * 得到现在时间
+	  *
+	  * @return 字符串 yyyyMMdd 
+	  */
+	 public static String getToday() {
+	  Date currentTime = new Date();
+	  SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+	  String dateString = formatter.format(currentTime);
+	  return dateString;
+	 }
+	 
+	 /**
 	  * 得到现在小时
 	  */
 	 public static String getHour() {

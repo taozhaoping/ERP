@@ -408,7 +408,7 @@ comment on column T_STORAGE_PRIMARY.status
 create table T_Storage_Detail 
 (
    ID                   NUMBER,
-   Order_No_id        varchar2(20),
+   STORAGEPRIMARYID        NUMBER,
    Products_ID        NUMBER,
    Position           NUMBER,
    Storage_number     NUMBER,
@@ -424,8 +424,8 @@ comment on table T_Storage_Detail is
 comment on column T_Storage_Detail.ID is
 '主键';
 
-comment on column T_Storage_Detail.Order_No_id is
-'入库单号';
+comment on column T_Storage_Detail.STORAGEPRIMARYID is
+'入库表头主建';
 
 comment on column T_Storage_Detail.Products_ID is
 '产品编号';

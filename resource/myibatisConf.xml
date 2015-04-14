@@ -61,10 +61,13 @@
 		<typeAlias alias="Products" type="com.zh.web.model.bean.Products"/>
 		
 		<!-- 产品结构 -->
-		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.ProductStructure"/>
+		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BomPrimary"/>
 		
 		<!-- 入库头表 -->
 		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary"/>
+		
+		<!-- 入库明细表 -->
+		<typeAlias alias="StorageDetail" type="com.zh.web.model.bean.StorageDetail"/>
 	</typeAliases>
 
 	<plugins>

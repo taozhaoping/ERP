@@ -36,6 +36,38 @@
 		<typeAlias alias="FileInfo" type="com.zh.web.model.bean.FileInfo" />
 		<!-- 通讯录 -->
 		<typeAlias alias="MailList" type="com.zh.web.model.bean.MailList" />
+		
+		<!-- 基础类别资料 -->
+		<typeAlias alias="BasiType" type="com.zh.base.model.bean.BasiType" />
+		
+		<!-- 数据库字典 -->
+		<typeAlias alias="Dictionary" type="com.zh.base.model.bean.Dictionary" />
+		
+		<!-- 仓库管理 -->
+		<typeAlias alias="Warehouse" type="com.zh.base.model.bean.Warehouse" />
+		
+		<!-- 部门配置 -->
+		<typeAlias alias="Dept" type="com.zh.base.model.bean.Dept" />
+		
+		<!-- 客户资料 -->
+		
+		<!-- 客户资料 -->
+		<typeAlias alias="Customer" type="com.zh.web.model.bean.Customer"/>
+		
+		<!-- 库存量 -->
+		<typeAlias alias="Stock" type="com.zh.web.model.bean.Stock"/>
+		
+		<!-- 产品资料 -->
+		<typeAlias alias="Products" type="com.zh.web.model.bean.Products"/>
+		
+		<!-- 产品结构 -->
+		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BomPrimary"/>
+		
+		<!-- 入库头表 -->
+		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary"/>
+		
+		<!-- 入库明细表 -->
+		<typeAlias alias="StorageDetail" type="com.zh.web.model.bean.StorageDetail"/>
 	</typeAliases>
 
 	<plugins>

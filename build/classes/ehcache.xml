@@ -1,17 +1,30 @@
-<ehcache>  
-     <diskStore path="c:\\myapp\\cache"/>  
-     <defaultCache  
-         maxElementsInMemory="1000"  
-         eternal="false"  
-         timeToIdleSeconds="120"  
-         timeToLiveSeconds="120"  
-         overflowToDisk="true"  
-        />  
-   <cache name="DEFAULT_CACHE"  
-         maxElementsInMemory="10000"  
-         eternal="false"  
-         timeToIdleSeconds="300000"  
-         timeToLiveSeconds="600000"  
-         overflowToDisk="true"  
-         />  
- </ehcache> 
+<ehcache>
+	<!-- 修改为系统临时文件，保持通用性 -->
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache maxElementsInMemory="1000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" />
+		
+	<cache name="DEFAULT_CACHE" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="300000" timeToLiveSeconds="600000" overflowToDisk="true" />
+
+	<!-- 登录记录缓存 锁定10分钟 -->
+	<cache name="passwordRetryCache" maxEntriesLocalHeap="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+	<cache name="authorizationCache" maxEntriesLocalHeap="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+	<cache name="authenticationCache" maxEntriesLocalHeap="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+	<cache name="shiro-activeSessionCache" maxEntriesLocalHeap="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+</ehcache> 

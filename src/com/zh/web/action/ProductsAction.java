@@ -12,13 +12,17 @@ import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductsModel;
-import com.zh.web.model.bean.ProductStructure;
 import com.zh.web.model.bean.Products;
-import com.zh.web.service.ProductStructureService;
+import com.zh.web.service.ProductStructService;
 import com.zh.web.service.ProductsService;
 
 public class ProductsAction extends BaseAction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7837876428251372000L;
+
 	private static Logger LOGGER = LoggerFactory.getLogger(ProductsAction.class); 
 
 	private ProductsModel productsModel = new ProductsModel();
@@ -27,7 +31,7 @@ public class ProductsAction extends BaseAction {
 	private ProductsService productsService;
 	
 	@Autowired
-	private ProductStructureService productStructureService;
+	private ProductStructService productStructureService;
 	
 	@Override
 	public Object getModel() {
@@ -76,13 +80,13 @@ public class ProductsAction extends BaseAction {
 			this.productsModel.setProducts(reult);
 			
 			//获取产品结构
-			ProductStructure productStructure = new ProductStructure();
-			productStructure.setProductsid(id);
-			Integer count = productStructureService.count(productStructure);
-			Pager page = this.productsModel.getPageInfo();
-			page.setTotalRow(count);
-			List<ProductStructure> productStructureList = productStructureService.queryList(productStructure, page);
-			this.productsModel.setProductStructureList(productStructureList);
+//			BOMPrimary productStructure = new BOMPrimary();
+//			productStructure.setProductsid(id);
+//			Integer count = productStructureService.count(productStructure);
+//			Pager page = this.productsModel.getPageInfo();
+//			page.setTotalRow(count);
+//			List<BOMPrimary> productStructureList = productStructureService.queryList(productStructure, page);
+//			this.productsModel.setProductStructureList(productStructureList);
 		}
 		
 		return Action.EDITOR;

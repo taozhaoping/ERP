@@ -98,15 +98,15 @@
 		<appender-ref ref="logfile-core" />
 	</logger>
 	<logger name="org.springframework" addtivity="false">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-myibatis" />
 	</logger>
 	<logger name="org.apache.struts2">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-struts2" />
 	</logger>
 	<root>
-		<level value="ERROR" />
+		<level value="DEBUG" />
 		<appender-ref ref="stdout" />
 	</root>
 </configuration> 

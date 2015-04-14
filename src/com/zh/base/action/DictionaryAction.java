@@ -66,6 +66,7 @@ public class DictionaryAction extends BaseAction {
 	 * @throws ParameterException 
 	 */
 	public String queryDictionary() throws ProjectException {
+		LOGGER.debug("queryDictionary()");
 		String formId = dictionaryModel.getFormId();
 		if (null == formId || "".equals(formId))
 		{

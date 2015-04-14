@@ -51,21 +51,21 @@
 	<select id="select" resultMap="T_FileInfo" parameterType="FileInfo">
 		select
 		<include refid="Base_Column_List" />
-		from T_FILEINFO
+		from SYS_FILEINFO
 		where ID = #{id}
 	</select>
 	
 	<select id="count" resultType="Integer" parameterType="FileInfo">
 		select
 			count(id)
-		from T_FILEINFO
+		from SYS_FILEINFO
 		<include refid="where" />
 	</select>
 
 	<select id="list" resultMap="T_FileInfo" parameterType="FileInfo">
 		select
 		<include refid="Base_Column_List" />
-		from T_FILEINFO
+		from SYS_FILEINFO
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -74,15 +74,15 @@
 
 	<delete id="delete" parameterType="FileInfo">
 		delete from
-		T_FILEINFO
+		SYS_FILEINFO
 		where ID = #{id}
 	</delete>
 
 	<insert id="insert" parameterType="FileInfo">
 		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
-			select SEQUENCE_t_FileInfo.nextval from dual
+			select SEQUENCE_SYS_FileInfo.nextval from dual
 		</selectKey>
-		insert into T_FILEINFO
+		insert into SYS_FILEINFO
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				ID,
@@ -144,7 +144,7 @@
 	</insert>
 
 	<update id="update" parameterType="FileInfo">
-		update T_FILEINFO
+		update SYS_FILEINFO
 		<set>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},

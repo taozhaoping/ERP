@@ -13,6 +13,11 @@ import com.zh.core.model.IDataObject;
  */
 public class Stock extends IDataObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1948935877580356439L;
+
 	private Integer id;
 	
 	/**

@@ -70,7 +70,7 @@ public class StockServiceImpl implements StockService {
 		stock.setStockNumber(0F);
 		stock.setPosition(position);
 		List<Warehouse> list = warehouseService.queryList(new Warehouse());
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+		for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
 			Warehouse warehouse = (Warehouse) iterator.next();
 			stock.setWarehouseID(warehouse.getId());
 			stockDao.insert(stock);
