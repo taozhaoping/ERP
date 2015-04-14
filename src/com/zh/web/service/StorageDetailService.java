@@ -2,11 +2,11 @@ package com.zh.web.service;
 
 import java.util.List;
 import com.zh.core.model.Pager;
-import com.zh.web.model.bean.StoragePrimary;
+import com.zh.web.model.bean.StorageDetail;
 
 /**
  * 
-* @Title: StoragePrimaryService.java 
+* @Title: StorageDetailService.java 
 * @Package com.zh.base.service 
 * @Description: 入库表头信息接口接口
 * @date 2015年3月25日 下午7:41:39 
@@ -14,53 +14,51 @@ import com.zh.web.model.bean.StoragePrimary;
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public interface StoragePrimaryService {
-
-	String SEQUENCE_STORAGE_PRIMARY = "SEQUENCE_STORAGE_PRIMARY";
+public interface StorageDetailService {
 	
 	/**
 	 * 查询信息
 	 * @param 
 	 * @return
 	 */
-	public StoragePrimary query(StoragePrimary storagePrimary);
+	public StorageDetail query(StorageDetail storageDetail);
 	
 	/**
 	 * 修改
 	 * @param 
 	 */
-	public void update(StoragePrimary storagePrimary);
+	public void update(StorageDetail storageDetail);
 	
 	/**
 	 * 查询列表
 	 * @param 
 	 * @return
 	 */
-	public List<StoragePrimary> queryList(StoragePrimary storagePrimary);
+	public List<StorageDetail> queryList(StorageDetail storageDetail);
 	
 	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return
 	 */
-	public List<StoragePrimary> queryList(StoragePrimary storagePrimary , Pager page);
+	public List<StorageDetail> queryList(StorageDetail storageDetail , Pager page);
 	
 	/**
 	 * 查询数量
 	 * @param 
 	 * @return
 	 */
-	public Integer count(StoragePrimary storagePrimary);
+	public Integer count(StorageDetail storageDetail);
 	
 	/**
 	 * 删除
 	 * @param 
 	 */
-	public void delete(StoragePrimary storagePrimary);
+	public void delete(StorageDetail storageDetail);
 	
 	/**
 	 * 新增
 	 * @param 
 	 */
-	public Integer insert(StoragePrimary storagePrimary,String type);
+	public Integer insert(StorageDetail storageDetail);
 }

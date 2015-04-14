@@ -67,6 +67,11 @@ public class StoragePrimary extends IDataObject {
 	 * 修改时间
 	 */
 	private String updatedate;
+	
+	/**
+	 * 入库状态
+	 */
+	private Integer status;
 
 	public Integer getId() {
 		return id;
@@ -155,6 +160,13 @@ public class StoragePrimary extends IDataObject {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	
 }

@@ -99,7 +99,7 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-								<li><a id="productStructureButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
+								<li><a id="productstructureButt" href="#productstructure" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -304,7 +304,7 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="productStructure">
+							<div class="tab-pane fade" id="productstructure">
 							<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 

@@ -10,6 +10,8 @@ import com.zh.web.model.bean.Products;
 
 public class ProductsModel extends BaseModel {
 
+	private String productsID;
+	
 	private Products products = new Products();
 	
 	private List<Products> productsList = new ArrayList<Products>();
@@ -79,6 +81,14 @@ public class ProductsModel extends BaseModel {
 
 	public void setProductStructureList(List<BomPrimary> productStructureList) {
 		ProductStructureList = productStructureList;
+	}
+
+	public String getProductsID() {
+		return productsID;
+	}
+
+	public void setProductsID(String productsID) {
+		this.productsID = productsID;
 	}
 	
 }

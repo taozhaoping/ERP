@@ -1,5 +1,6 @@
 package com.zh.base.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.base.util.ConstantService;
 import com.zh.core.base.action.BaseAction;
+import com.zh.core.model.Pager;
 import com.zh.web.model.ProductsModel;
 import com.zh.web.model.bean.Products;
 import com.zh.web.service.ProductsService;
@@ -20,6 +22,8 @@ public class InterfaceProductsAction extends BaseAction {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(InterfaceProductsAction.class); 
 
+	public static final Integer PAGE_SIZE = 10;
+	
 	/**
 	 * 产品接口
 	 */
@@ -42,10 +46,25 @@ public class InterfaceProductsAction extends BaseAction {
 	public String queryProductsList() {
 		LOGGER.debug("queryProductsList() ");
 		//所有所有激活的用户
-		Products products = new Products();
+		/*Products products = new Products();
 		List<Products> productsList = productsService.queryList(products);
-		this.productsModel.setProductsList(productsList);
-		return "productsjson";
+		this.productsModel.setProductsList(productsList);*/
+		
+		Products products = this.productsModel.getProducts();
+		String id = this.productsModel.getProductsID();
+		if ( null !=id && !"".equals(id))
+		products.setId(Integer.valueOf(id));
+		Pager page = productsModel.getPageInfo();
+
+		Map<String, Object> jsonMap = this.productsModel.getDataMap();
+		int size = productsService.count(products);
+		page.setTotalRow(size);
+		jsonMap.put("total", size);
+		List<Products> table = productsService.queryList(products, page);
+		
+		jsonMap.put("rows", table);
+		
+		return "products";
 	}
 	
 	public String queryProducts() throws ParameterException

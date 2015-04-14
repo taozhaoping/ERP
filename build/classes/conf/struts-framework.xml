@@ -7,8 +7,7 @@
 	<!-- 指定action的后缀，默认为action -->
 	<constant name="struts.action.extension" value="jspa" />
 	<!-- 该属性指定整合spring 时，是否对bean进行缓存，值为true or false,默认为true -->
-	<constant name="struts.objectFactory.spring.useClassCache"
-		value="false" />
+	<constant name="struts.objectFactory.spring.useClassCache" value="false" />
 	<!-- 指定Web应用的默认编码集, 相当于调用HttpServletRequest的setCharacterEncoding方法 -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.custom.i18n.resources" value="i18n.messages,i18n.school" />
@@ -37,24 +36,25 @@
 	<package name="struts-base" extends="struts-default,json-default" abstract="ture">
 		<interceptors>
 			<!-- 动态语言切换 -->
-			<interceptor name="language"
-				class="com.zh.core.interceptor.LanguageInterceptor" />
+			<interceptor name="language" class="com.zh.core.interceptor.LanguageInterceptor" />
 			<!-- 菜单权限验证过滤器
-			<interceptor name="authority"
-				class="com.zh.core.interceptor.LoginInterceptor" />
+			<interceptor name="authority" class="com.zh.core.interceptor.LoginInterceptor" />
 			 -->
-			 <!-- action的权限访问过滤器 -->
-			 <interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
-			 <!-- ERROR 过滤器 -->
-			 <interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
+			<!-- action的权限访问过滤器 -->
+			<!-- 
+			<interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
+			-->
+			<!-- ERROR 过滤器 -->
+			<interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
 			<!-- from重复提交拦截器
-			<interceptor name="invocationToken"
-				class="com.zh.core.interceptor.TokenAtionInterceptor" />
+			<interceptor name="invocationToken" class="com.zh.core.interceptor.TokenAtionInterceptor" />
 			-->
 			<interceptor-stack name="loginStack">
 				<interceptor-ref name="language" />
 				<!--<interceptor-ref name="invocationToken" />-->
+				<!-- 
 				<interceptor-ref name="authorityInterceptor" />
+				-->
 				<!-- <interceptor-ref name="authority" /> -->
 				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="exceptionInterceptor" />
@@ -64,29 +64,26 @@
 		<default-interceptor-ref name="loginStack" />
 
 		<global-results>
-			<result name="returnLogin">/login/login.jspa
-			</result>
+			<result name="returnLogin">/login/login.jspa</result>
 			<result name="error">/pages/exception/error.jsp</result>
-			
 		</global-results>
 	</package>
 	
 	<package name="struts-workflow" extends="struts-default,json-default" abstract="ture">
 		<interceptors>
 			<!-- 动态语言切换 -->
-			<interceptor name="language"
-				class="com.zh.core.interceptor.LanguageInterceptor" />
+			<interceptor name="language" class="com.zh.core.interceptor.LanguageInterceptor" />
 			<!-- 菜单权限验证过滤器
-			<interceptor name="authority"
-				class="com.zh.core.interceptor.LoginInterceptor" />
+			<interceptor name="authority" class="com.zh.core.interceptor.LoginInterceptor" />
 			 -->
-			  <!-- action的权限访问过滤器 -->
-			 <interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
-			 <!-- ERROR 过滤器 -->
-			 <interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
+			<!-- action的权限访问过滤器 -->
+			<!-- 
+			<interceptor name="authorityInterceptor" class="com.zh.core.interceptor.AuthorityInterceptor"></interceptor>
+			-->
+			<!-- ERROR 过滤器 -->
+			<interceptor name="exceptionInterceptor" class="com.zh.core.interceptor.ExceptionInterceptor"></interceptor>
 			<!-- from重复提交拦截器
-			<interceptor name="invocationToken"
-				class="com.zh.core.interceptor.TokenAtionInterceptor" />
+			<interceptor name="invocationToken" class="com.zh.core.interceptor.TokenAtionInterceptor" />
 			-->
 			<interceptor-stack name="loginStack">
 				<interceptor-ref name="language" />
@@ -101,12 +98,8 @@
 		<default-interceptor-ref name="loginStack" />
 
 		<global-results>
-			<result name="returnLogin">/login/login.jspa
-			</result>
+			<result name="returnLogin">/login/login.jspa</result>
 			<result name="error">/pages/exception/error.jsp</result>
-			
 		</global-results>
 	</package>
-
-
 </struts>

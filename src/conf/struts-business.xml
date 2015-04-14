@@ -70,6 +70,9 @@
     			<param name="menu2Id">${menu2Id}</param>
     			<param name="spaceId">${spaceId}</param>
 			</result>
+			<result name="json" type="json">
+			    <param name="root">productsModel.dataMap</param>
+			</result>
 		</action>
 	</package>
 </struts>

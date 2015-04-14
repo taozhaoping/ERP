@@ -108,7 +108,7 @@
 							<tbody>
 								<s:iterator value="storagePrimaryList" var="tp" status="index">
 									<tr>
-									<td><s:property value="#index+1"/></td>
+									<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#tp.orderNoID"/></td>
 										<td><s:property value="#tp.storagedate"/></td>
 										<td>

@@ -14,6 +14,7 @@
 		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
 		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
 		<result column="customer_id" property="customerID" jdbcType="VARCHAR" />
+		<result column="status" property="status" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID,
@@ -26,7 +27,8 @@
 		remarks ,
 		customer_id ,
 		createdate ,
-		updatedate
+		updatedate,
+		status
 	</sql>
 	<sql id="where">
 		<where>
@@ -38,6 +40,9 @@
 			</if>
 			<if test="purchaseOrderID != null">
 				and purchase_order_id = #{purchaseOrderID}
+			</if>
+			<if test="status != null">
+				and status = #{status}
 			</if>
 		</where>
 	</sql>
@@ -68,10 +73,6 @@
 	</select>
 
 	<insert id="insert" parameterType="StoragePrimary">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
-			select
-			SEQUENCE_T_Storage_Primary.nextval from dual
-		</selectKey>
 		insert into T_Storage_Primary
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -101,6 +102,9 @@
 			<if test="customerID != null">
 				customer_id ,
 			</if>
+			<if test="status != null">
+				status ,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -129,6 +133,9 @@
 			</if>
 			<if test="customerID != null">
 				#{customerID},
+			</if>
+			<if test="status != null">
+				#{status},
 			</if>
 		</trim>
 	</insert>
@@ -161,6 +168,9 @@
 			</if>
 			<if test="customerID != null">
 				customer_id = #{customerID}
+			</if>
+			<if test="status != null">
+				status = #{status}
 			</if>
 		</set>
 		where ID = #{id}
