@@ -98,7 +98,8 @@
 						<div class="btn-group"></div>
 						<div class="pull-right">
 							<s:if test="#ProcessId">
-								<button class="btn btn-danger" type="button" id="approveBtn">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
 									<i class="icon-ok"></i> 入库
 								</button>
 							</s:if>
@@ -181,9 +182,9 @@
 										<div class="control-group">
 											<label class="control-label" for="inputstatus" style="">入库：</label>
 											<div class="controls">
-												<select id="inputstatus" data-required="true" disabled="disabled"
-													name="storagePrimary.status" class="input-medium" placeholder="是否入库">
-													<option value="0" selected="selected">否</option>
+												<select id="inputstatus"  disabled="disabled" list=""
+													name="storagePrimary.status" class="input-medium" placeholder="是否入库" >
+													<option value="0">否</option>
 													<option value="1">是</option>
 												</select>
 											</div>
@@ -212,7 +213,6 @@
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="tabID" value="storagedetailButt" />
 								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
-								<input type="hidden" id="detailwarehouseID" name="storageDetail.warehouseID" value="${storagePrimary.warehouseID}" />
 								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
 								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
 								<input type="hidden" id="detailuse" name="storageDetail.use" value="" />
@@ -330,9 +330,32 @@
 		</div>
 	</div>
 	
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>当前单据更新到库存后将不可更改.继续请按."更新" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">更新</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
+	</form>
+	
+	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="formId" name="formId" value="${storagePrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -354,6 +377,13 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
+		
+		$("#inputstatus").val("${storagePrimary.status}")
+		.trigger("change");
+		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 		
 		$("#popupProductsID").select2({
 			placeholder : "查询产品编号",

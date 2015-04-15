@@ -167,7 +167,7 @@
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled"
 													name="storagePrimary.status" class="input-medium" placeholder="是否入库">
-													<option value="0" selected="selected">否</option>
+													<option value="0">否</option>
 													<option value="1">是</option>
 												</select>
 											</div>
@@ -255,6 +255,8 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
+		$("#inputstatus").val("${storagePrimary.status}")
+		.trigger("change");
 		
 		$.jqPaginator('#pagination', {
 			//设置分页的总页数

@@ -26,11 +26,6 @@ public class StorageDetail extends IDataObject {
 	private Integer productsID;
 	
 	/**
-	 * 仓库
-	 */
-	private Integer warehouseID;
-	
-	/**
 	 * 库位
 	 */
 	private Integer position;
@@ -135,14 +130,6 @@ public class StorageDetail extends IDataObject {
 
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
-	}
-
-	public Integer getWarehouseID() {
-		return warehouseID;
-	}
-
-	public void setWarehouseID(Integer warehouseID) {
-		this.warehouseID = warehouseID;
 	}
 
 	public String getProductsName() {

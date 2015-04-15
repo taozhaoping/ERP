@@ -63,4 +63,9 @@ public interface StoragePrimaryService {
 	 * @param 
 	 */
 	public Integer insert(StoragePrimary storagePrimary,String type);
+	
+	/**
+	* 材料入库
+	 */
+	public void increaseStock(String id);
 }

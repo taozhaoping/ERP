@@ -7,7 +7,6 @@
 		<result column="PRODUCTS_ID" property="productsID" />
 		<result column="POSITION" property="position" />
 		<result column="STORAGE_NUMBER" property="storageNumber" />
-		<result column="warehouse_id" property="warehouseID" />
 		<result column="use" property="use" jdbcType="VARCHAR" />
 		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
 		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
@@ -23,7 +22,6 @@
 		PRODUCTS_ID ,
 		POSITION ,
 		STORAGE_NUMBER,
-		warehouse_id,
 		use ,
 		remarks ,
 		createdate ,
@@ -61,7 +59,6 @@
 		PRODUCTS_ID ,
 		T.POSITION ,
 		STORAGE_NUMBER,
-		warehouse_id,
 		use ,
 		S.remarks ,
 		name as PRODUCTS_NAME,
@@ -103,9 +100,6 @@
 			<if test="storageNumber != null">
 				STORAGE_NUMBER,
 			</if>
-			<if test="warehouseID != null">
-				warehouse_id,
-			</if>
 			<if test="use != null">
 				use,
 			</if>
@@ -129,9 +123,6 @@
 			<if test="storageNumber != null">
 				#{storageNumber},
 			</if>
-			<if test="warehouseID != null">
-				#{warehouseID},
-			</if>
 			<if test="use != null">
 				#{use,jdbcType=VARCHAR},
 			</if>
@@ -154,9 +145,6 @@
 			</if>
 			<if test="storageNumber != null">
 				STORAGE_NUMBER = #{storageNumber},
-			</if>
-			<if test="warehouseID != null">
-				warehouse_id = #{warehouseID},
 			</if>
 			<if test="use != null">
 				use = #{use,jdbcType=VARCHAR},

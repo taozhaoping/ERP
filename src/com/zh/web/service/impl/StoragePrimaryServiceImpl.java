@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 import com.zh.core.util.DateUtil;
 import com.zh.web.dao.StoragePrimaryDao;
 import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.StoragePrimaryService;
+import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
 @Component("storagePrimaryService")
@@ -63,6 +65,32 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 		storagePrimary.setOrderNoID(type + dateStr + id);
 		storagePrimary.setStatus(UtilService.STORAGE_STATUS_ON);
 		return storagePrimaryDao.insert(storagePrimary);
+	}
+
+	@Override
+	public void increaseStock(String id) {
+		StoragePrimary storagePrimary = new StoragePrimary();
+		storagePrimary.setId(Integer.valueOf(id));
+		StoragePrimary reult = this.query(storagePrimary);
+		if (null == reult)
+		{
+			throw new ProjectException("数据库不存在该单据");
+		}
+		
+		if (0 == reult.getStatus())
+		{
+			//设置未入库状态
+			storagePrimary.setStatus(1);
+			this.update(storagePrimary);
+			
+			//单据入库
+			StockUtil stockUtil = StockUtil.getInstance();
+			stockUtil.increaseStock(reult,StockUtil.INCREASE);
+		}else
+		{
+			throw new ProjectException("单据号：" + reult.getOrderNoID() + "，已经入库!不允许重复入库");
+		}
+		
 	}
 
 }

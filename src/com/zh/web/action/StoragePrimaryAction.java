@@ -22,6 +22,7 @@ import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.StorageDetailService;
 import com.zh.web.service.StoragePrimaryService;
+import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
 public class StoragePrimaryAction extends BaseAction {
@@ -65,6 +66,30 @@ public class StoragePrimaryAction extends BaseAction {
 				.queryList(storagePrimary, page);
 		this.storagePrimaryModel.setStoragePrimaryList(storagePrimaryList);
 		return Action.SUCCESS;
+	}
+	
+	/**
+	 * 
+	* @Title: increaseStock 
+	* @Description: 单据入库(更新库存数量) 
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 * @throws ParameterException 
+	 */
+	public String increaseStock() throws ParameterException
+	{
+		String formID = this.storagePrimaryModel.getFormId();
+		if (null == formID || "".equals(formID))
+		{
+			throw new ParameterException("入库单据不允许为空!");
+		}
+		storagePrimaryService.increaseStock(formID);
+
+		
+		return Action.EDITOR_SUCCESS;
 	}
 
 	public String editor() throws Exception {
