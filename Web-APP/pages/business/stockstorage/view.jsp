@@ -91,41 +91,25 @@
 				<div class="row-fluid">
 
 					<div class="btn-toolbar">
-						<button id="formButton" class="btn btn-primary" type="submit">
-							<i class="icon-save"></i> 保存
-						</button>
+						
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
-						<div class="pull-right">
-							<s:if test="#ProcessId">
-								<button class="btn btn-danger" type="button" id="approveBtn">
-									<i class="icon-ok"></i> 入库
-								</button>
-							</s:if>
-						</div>
+						
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<s:if test="#ProcessId">
 							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
-							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade" id="home">
-								<form id="editForm" class="form-horizontal"
-										action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${storagePrimary.id}"> 
-								<input type="hidden" name="storagePrimary.userID" value="${storagePrimary.userID}">
-								<input type="hidden" name="menuId" value="${menuId}"> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
+							<div class="tab-pane active" id="home">
+								<form id="editForm" class="form-horizontal" method="post">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
 											<label class="control-label" for="inputorderNoID" style="">入库单号：</label>
 											<div class="controls">
-													<input type="text" maxlength="30" disabled="disabled"
+													<input type="text" maxlength="30" readonly="readonly"
 														id="inputorderNoID" value="${storagePrimary.orderNoID}" class="input-medium"></input>
 												
 											</div>
@@ -137,7 +121,7 @@
 											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
 											<div class="controls">
 												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
-													type="text" data-required="true"
+													type="text" readonly="readonly"
 													value="${storagePrimary.storagedate}"
 													readonly class="form_datetime input-medium">
 											</div>
@@ -147,10 +131,10 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">收货人：</label>
+											<label class="control-label" for="inputuserID" >收货人：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="storagePrimary.userID" disabled="disabled"
-													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
+												<input type="text" maxlength="40" name="storagePrimary.userID" readonly="readonly"
+													 id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
 											</div>
 
 										</div>
@@ -159,8 +143,8 @@
 										<div class="control-group">
 											<label class="control-label" for="inputcustomerID" style="">发货客户：</label>
 											<div class="controls">
-												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name"
-													name="storagePrimary.customerID" cssClass="input-medium" placeholder="发货客户">
+												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name" disabled="disabled"
+													name="storagePrimary.customerID" cssClass="input-medium">
 												</s:select>
 											</div>
 										</div>
@@ -172,7 +156,7 @@
 											<label class="control-label" for="inputwarehouseID" style="">收入仓库：</label>
 											<div class="controls">
 												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
-													name="storagePrimary.warehouseID" cssClass="input-medium" placeholder="收入仓库">
+													name="storagePrimary.warehouseID" cssClass="input-medium" disabled="disabled">
 												</s:select>
 											</div>
 										</div>
@@ -181,7 +165,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputstatus" style="">入库：</label>
 											<div class="controls">
-												<select id="inputstatus" data-required="true" disabled="disabled"
+												<select id="inputstatus"  disabled="disabled"
 													name="storagePrimary.status" class="input-medium" placeholder="是否入库">
 													<option value="0" selected="selected">否</option>
 													<option value="1">是</option>
@@ -206,20 +190,7 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="storagedetail">
-								<form id="storageDetailForm" class="form-horizontal" action="${menu2Id}!saveStorageDetail.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="storagedetailButt" />
-								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
-								<input type="hidden" id="detailwarehouseID" name="storageDetail.warehouseID" value="${storagePrimary.warehouseID}" />
-								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="storageDetail.use" value="" />
-								<input type="hidden" id="detailremarks" name="storageDetail.remarks" value="" />
-										<button class="btn btn-small btn-primary" type="button"
-										data-toggle="modal" data-target="#popupfirm">添加产品</button>
-							</form>
+				
 							<table class="table ">
 								<thead>
 									<tr>
@@ -229,7 +200,6 @@
 										<th>入库数量</th>
 										<th>用途</th>
 										<th>备注</th>
-										<th>操作</th>
 									</tr>
 								</thead>
 								
@@ -244,10 +214,6 @@
 											<td><s:property value="#tp.storageNumber" /></td>
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
-											<td>
-												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i
-												class="icon-remove"></i></a>
-											</td>
 										</tr>
 										</s:iterator>
 										
@@ -262,71 +228,6 @@
 						</div>
 					</div>
 				</div>
-		</div>
-	</div>
-	
-	<!-- 添加产品 -->
-	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="startModalLabel1">产品添加</h3>
-		</div>
-		<div class="modal-body">
-			 	
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupProductsID">产品编号：</label>
-							<div class="controls">
-								<input id="popupProductsID" class="input-large">
-								</input>
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupQty">数量：</label>
-							<div class="controls">
-								<input type="text" id="popupQty" 
-								placeholder="数量" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupUse">用途：</label>
-							<div class="controls">
-								<input type="text" id="popupUse"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupRemarks">备注：</label>
-							<div class="controls">
-								<input type="text" id="popupRemarks"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-danger" data-loading-text="正在保存"
-				id="popupBtnConfirm">确认</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 	
@@ -355,115 +256,6 @@
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#popupProductsID").select2({
-			placeholder : "查询产品编号",
-			minimumInputLength : 3,
-			//multiple:true,
-			quietMillis : 3000,
-			ajax : {
-				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
-				dataType : 'json',
-				data : function(term, page) {
-					return {
-						"productsID" : term,
-						"pageInfo.curPage" : page
-					};
-				},
-				results : function(data, page) {
-					
-					var more = (page * 10) < data.total;
-					for ( var i = 0; i < data.rows.length; i++) {
-						var parts = data.rows[i];
-						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
-					}
-					partsArr = data.rows;
-					return {
-						results : data.rows,
-						more : more
-					};
-				}
-			},
-			formatNoMatches : function() {
-				return "没有找到匹配项";
-			},
-
-			formatInputTooShort : function(input, min) {
-				var n = min - input.length;
-				return "请最少输入" + n + "个字符";
-			},
-
-			formatInputTooLong : function(input, max) {
-				var n = input.length - max;
-				return "请删掉" + n + "个字符";
-			},
-
-			formatSelectionTooBig : function(limit) {
-				return "你只能选择最多" + limit + "项";
-			},
-
-			formatLoadMore : function(pageNumber) {
-				return "加载结果中...";
-			},
-
-			formatSearching : function() {
-				return "搜索中...";
-			}
-		});
-		
-		
-		$("#popupBtnConfirm").click(function(x) {
-			var _ProductsID = $("#popupProductsID").val();
-			var _Qty = $("#popupQty").val();
-			var _Use = $("#popupUse").val();
-			var _Remarks = $("#popupRemarks").val();
-			
-			var ProductsID = $.trim(_ProductsID);
-			var Qty = $.trim(_Qty);
-			var Use = $.trim(_Use);
-			var Remarks = $.trim(_Remarks);
-			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
-				return;
-			} 
-			if (Qty == null || Use == "") {
-				$("#popupQty").attr("title","入库数量必须填写!");
-				return;
-			}
-			
-			
-			$("#detailproductsID").val(ProductsID);
-			$("#detailqty").val(Qty);
-			$("#detailuse").val(Use);
-			$("#detailremarks").val(Remarks);
-			$('#popupfirm').modal('hide')
-			$("#storageDetailForm").submit();
-	});
-		
-		//进入指定的tbs
-		var tabID = "${tabID}";
-		if (null != tabID && "" != tabID) {
-			$("#" + tabID).parent().addClass("active");
-			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
-					.addClass("active");
-		} else {
-			tabID = "homeButt";
-			$("#tabID").val("homeButt");
-			$("#homeButt").parent().addClass("active");
-			$("#home").removeClass("fade").addClass("active");
-		}
-		
-		//提交按钮
-		$("#formButton").click(function() {
-			currTab = $("#tabID").val();
-			saveForm();
-		});
-		
-		//判读当前tab，需要保存那个form
-		function saveForm() {
-			$("#editForm").submit();
-		}
-		
 		$.jqPaginator('#pagination', {
 			//设置分页的总页数
 	        totalPages: totalPage,
@@ -483,7 +275,6 @@
 	        	//document.getElementsByName("operateForm")[0].submit(); 
 	        }
 	    });
-		
 	</script>
 </body>
 </html>

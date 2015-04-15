@@ -104,7 +104,7 @@
 									<th>仓库地址</th>
 									<th>所属公司</th>
 									<th>状态</th>
-									<th style="width: 26px;"></th>
+									<th style="width: 30px;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -127,7 +127,7 @@
 											<shiro:hasPermission name="warehouse:edit">
 											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#warehouse.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="状态" href="${menu2Id}!save.jspa?id=<s:property value='#warehouse.id'/>&view=enabled&enabled=<s:property value='#warehouse.enabled'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
-												class="icon-remove"></i></a>
+												class="icon-eye-open"></i></a>
 											</shiro:hasPermission>
 										</td>
 									</tr>

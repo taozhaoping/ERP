@@ -102,7 +102,7 @@
 									<th>仓库</th>
 									<th>发货客户</th>
 									<th>金额</th>
-									<th style="width: 26px;"></th>
+									<th style="width: 30px;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -128,6 +128,7 @@
 										</td>
 										<td>
 											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											<a title="查看" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>
 								</s:iterator>

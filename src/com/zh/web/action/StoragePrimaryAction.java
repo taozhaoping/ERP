@@ -103,6 +103,14 @@ public class StoragePrimaryAction extends BaseAction {
 			List<StorageDetail> list = storageDetailService.queryList(
 					storageDetail, page);
 			this.storagePrimaryModel.setStorageDetailList(list);
+			
+			//判断是否已经入库，入库状态下，只进入查看页面
+			Integer status = reult.getStatus();
+			String view = this.storagePrimaryModel.getView();
+			if (status == 1 || "view".equals(view))
+			{
+				return Action.VIEW;
+			}
 		} else {
 			Integer userID = this.queryUser().getId();
 			this.storagePrimaryModel.getStoragePrimary().setUserID(userID);

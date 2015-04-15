@@ -53,16 +53,16 @@ public class StorageDetailServiceImpl implements StorageDetailService {
 	public void delete(StorageDetail storageDetail) {
 
 		// 修改对应库存
-		StockUtil stockUtil = StockUtil.getInstance();
-		stockUtil.reduceStock(storageDetail);
+		/*StockUtil stockUtil = StockUtil.getInstance();
+		stockUtil.reduceStock(storageDetail);*/
 		storageDetailDao.delete(storageDetail);
 	}
 
 	@Override
 	public Integer insert(StorageDetail storageDetail) {
 		// 修改对应库存
-		StockUtil stockUtil = StockUtil.getInstance();
-		stockUtil.increaseStock(storageDetail);
+		/*StockUtil stockUtil = StockUtil.getInstance();
+		stockUtil.increaseStock(storageDetail);*/
 		return storageDetailDao.insert(storageDetail);
 	}
 

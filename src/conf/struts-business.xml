@@ -63,6 +63,7 @@
 		<action name="stockStorage" class="com.zh.web.action.StoragePrimaryAction">
 			<result name="success">/pages/business/stockstorage/List.jsp</result>
 			<result name="editor">/pages/business/stockstorage/edit.jsp</result>
+			<result name="view">/pages/business/stockstorage/view.jsp</result>
 			<result name="editorSuccess" type="redirectAction">
 				<param name="actionName">stockStorage</param>  
     			<param name="namespace">/business</param>

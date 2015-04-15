@@ -25,6 +25,8 @@ public interface Action extends com.opensymphony.xwork2.Action {
 	
 	public final static String EDITOR = "editor";
 	
+	public final static String VIEW = "view";
+	
 	public final static String EDITOR_SUCCESS = "editorSuccess";
 	
 	public final static String JSON_ERROR = "json_error";
@@ -32,4 +34,6 @@ public interface Action extends com.opensymphony.xwork2.Action {
 	public final static String FORM_ERROR = "form_error";
 	
 	public final static String EDITOR_SAVE = "save";
+	
+	
 }
