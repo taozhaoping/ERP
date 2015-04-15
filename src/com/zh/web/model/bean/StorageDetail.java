@@ -49,16 +49,6 @@ public class StorageDetail extends IDataObject {
 	 * 产品名称
 	 */
 	private String productsName;
-	
-	/**
-	 * 创建时间
-	 */
-	private String createdate;
-	
-	/**
-	 * 修改时间
-	 */
-	private String updatedate;
 
 	public Integer getId() {
 		return id;
@@ -114,22 +104,6 @@ public class StorageDetail extends IDataObject {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
-	}
-
-	public String getCreatedate() {
-		return createdate;
-	}
-
-	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
-	}
-
-	public String getUpdatedate() {
-		return updatedate;
-	}
-
-	public void setUpdatedate(String updatedate) {
-		this.updatedate = updatedate;
 	}
 
 	public String getProductsName() {

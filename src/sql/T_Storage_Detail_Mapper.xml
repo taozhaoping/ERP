@@ -8,8 +8,6 @@
 		<result column="POSITION" property="position" />
 		<result column="STORAGE_NUMBER" property="storageNumber" />
 		<result column="use" property="use" jdbcType="VARCHAR" />
-		<result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
-		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -23,9 +21,7 @@
 		POSITION ,
 		STORAGE_NUMBER,
 		use ,
-		remarks ,
-		createdate ,
-		updatedate
+		remarks 
 	</sql>
 	<sql id="where">
 		<where>
@@ -61,9 +57,7 @@
 		STORAGE_NUMBER,
 		use ,
 		S.remarks ,
-		name as PRODUCTS_NAME,
-		S.createdate ,
-		S.updatedate
+		name as PRODUCTS_NAME
 		from T_STORAGE_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.PRODUCTS_ID
 		<include refid="where" />
 		<if test="orderByClause != null">
