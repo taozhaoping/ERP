@@ -351,7 +351,7 @@ create table T_Storage_Primary
    ID                   NUMBER,
    Order_No_id        varchar2(50),
    Storage_Date       varchar2(20),
-   Purchase_order_ID  varchar2(20),
+   Purchase_order_ID  varchar2(50),
    UserID             NUMBER,
    Warehouse_ID       NUMBER,
    mount_meoey        FLOAT,
