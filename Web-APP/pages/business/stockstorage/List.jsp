@@ -101,7 +101,6 @@
 									<th>签收人</th>
 									<th>仓库</th>
 									<th>发货客户</th>
-									<th>金额</th>
 									<th style="width: 30px;"></th>
 								</tr>
 							</thead>
@@ -122,9 +121,6 @@
 										<td>
 											<s:set id="customerID" value="#tp.customerID"></s:set>
 											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
-										</td>
-										<td>
-											<s:property value="#tp.mountMeoey"/>
 										</td>
 										<td>
 											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
