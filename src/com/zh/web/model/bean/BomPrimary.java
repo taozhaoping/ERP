@@ -26,7 +26,7 @@ public class BomPrimary extends IDataObject {
 	/**
 	 * 主产品编号
 	 */
-	private Integer mainProductsId;
+	private Integer productsId;
 	
 	/**
 	 * 描述
@@ -51,12 +51,12 @@ public class BomPrimary extends IDataObject {
 		this.id = id;
 	}
 
-	public Integer getMainProductsId() {
-		return mainProductsId;
+	public Integer getProductsId() {
+		return productsId;
 	}
 
-	public void setMainProductsId(Integer mainProductsId) {
-		this.mainProductsId = mainProductsId;
+	public void setProductsId(Integer productsId) {
+		this.productsId = productsId;
 	}
 
 	public String getDescr() {

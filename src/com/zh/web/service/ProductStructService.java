@@ -21,44 +21,44 @@ public interface ProductStructService {
 	 * @param 
 	 * @return
 	 */
-	public BomPrimary query(BomPrimary productStructure);
+	public BomPrimary queryPrimary(BomPrimary bomPrimary);
 	
 	/**
 	 * 修改
 	 * @param 
 	 */
-	public void update(BomPrimary productStructure);
+	public void updatePrimary(BomPrimary bomPrimary);
 	
 	/**
 	 * 查询列表
 	 * @param 
 	 * @return
 	 */
-	public List<BomPrimary> queryList(BomPrimary productStructure);
+	public List<BomPrimary> queryPrimaryList(BomPrimary bomPrimary);
 	
 	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return
 	 */
-	public List<BomPrimary> queryList(BomPrimary productStructure , Pager page);
+	public List<BomPrimary> queryPrimaryList(BomPrimary bomPrimary , Pager page);
 	
 	/**
 	 * 查询数量
 	 * @param 
 	 * @return
 	 */
-	public Integer count(BomPrimary productStructure);
+	public Integer countPrimary(BomPrimary bomPrimary);
 	
 	/**
 	 * 删除
 	 * @param 
 	 */
-	public void delete(BomPrimary productStructure);
+	public void deletePrimary(BomPrimary bomPrimary);
 	
 	/**
 	 * 新增
 	 * @param 
 	 */
-	public Integer insert(BomPrimary productStructure);
+	public Integer insertPrimary(BomPrimary bomPrimary);
 }

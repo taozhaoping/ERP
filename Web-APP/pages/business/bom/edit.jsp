@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -79,7 +80,6 @@
 			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
 			<li class="active">编辑</li>
 		</ul>
-		<s:set name="ProcessId" value="products.id!=null&&products.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -95,261 +95,113 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-								<li><a id="productStructureButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade" id="home">
-								<form id="editForm" class="form-horizontal"
-										action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${products.id}"> <input
-									type="hidden" name="menuId" value="${menuId}"> <input
-									type="hidden" name="menu2Id" value="${menu2Id}"> <input
-									type="hidden" name="spaceId" value="${spaceId}">
+								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
+								<input type="hidden" name="bomPrimary.id" value="${bomPrimary.id}">
+								<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
+								<input type="hidden" name="menuId" value="${menuId}">
+								<input type="hidden" name="menu2Id" value="${menu2Id}">
+								<input type="hidden" name="spaceId" value="${spaceId}">
+								
 								<dir class="row">
-									<div class="span4">
+									<div class="span5">
 										<div class="control-group">
 											<label class="control-label" for="inputId" style="">产品编号：</label>
 											<div class="controls">
-												<s:if test="#ProcessId">
-													<input type="text" maxlength="20" disabled="disabled"
-														id="inputId" value="${products.id}" class="input-medium"></input>
-												</s:if>
-												<s:else>
-													<input type="text" maxlength="20"  name="products.id" data-required="true"
-														id="inputId" value="${products.id}" class="input-medium"></input>
-												</s:else>
+												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true"
+													id="inputId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
 											</div>
 
 										</div>
 									</div>
-									<div class="span4">
+									<div class="span5">
 										<div class="control-group">
-											<label class="control-label" for="inputname" style="">名称：</label>
+											<label class="control-label" for="inputname" style="">描述：</label>
 											<div class="controls">
-												<input type="text" data-required="true" maxlength="40"
-													placeholder="产品名称" id="inputname" name="products.name"
-													value="${products.name}" class="input-medium"></input>
+												<input type="text" data-required="true" maxlength="40" data-required="true" 
+													placeholder="描述" id="inputDescr" name="bomPrimary.descr"
+													value="${bomPrimary.descr}" class="input-medium input-xlarge"></input>
 											</div>
 										</div>
 									</div>
 								</dir>
 								<dir class="row">
-									<div class="span4">
+									<div class="span5">
 										<div class="control-group">
-											<label class="control-label" for="inputlongDegree" style="">长度：</label>
+											<label class="control-label" for="inputlongDegree">生效日期：</label>
 											<div class="controls">
-												<input type="number" maxlength="40" name="products.longDegree"
-													placeholder="长度" id="inputlongDegree" value="${products.longDegree}" class="input-medium"></input>
+												<!-- 
+												<input type="number" maxlength="40" name="bomPrimary.effdt" data-required="true" 
+													placeholder="生效日期" id="inputEffdt" value="${bomPrimary.effdt}" class="input-medium"></input>
+												 -->
+												<input size="16" id="inputEffdt" data-required="true" 
+													name="bomPrimary.effdt" type="text"
+													readonly="readonly" value="<s:date name="bomPrimary.effdt" format="yyyy-MM-dd" />" class="form_datetime input-xlarge">
 											</div>
 
 										</div>
 									</div>
-									<div class="span4">
+									<div class="span5">
 										<div class="control-group">
-											<label class="control-label" for="inputwideDegree" style="">宽度：</label>
+											<label class="control-label" for="inputwideDegree">生效状态：</label>
 											<div class="controls">
-												<input type="number" maxlength="40" name="products.wideDegree"
-													placeholder="长度" id="inputwideDegree" value="${products.wideDegree}" class="input-medium"></input>
+												<input type="text" maxlength="40" name="products.effStatus" disabled="disabled"
+													placeholder="生效状态" id="inputEffStatus" value="${products.effStatus}" class="input-medium input-xlarge"></input>
 											</div>
 										</div>
 									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputspecifications" style="">规格：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="products.specifications"
-													placeholder="规格" id="inputspecifications" value="${products.specifications}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputsurfaceTreatment">表面处理：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="products.surfaceTreatment" 
-													placeholder="表面处理" id="inputsurfaceTreatment" value="${products.surfaceTreatment}" class="input-medium"></input>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputipaint" >颜色：</label>
-											<div class="controls">
-												<s:select id="inputpaint"  list="paintList" listKey="key" listValue="descr"
-													name="products.paint" cssClass="input-medium" placeholder="颜色">
-												</s:select>
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputenabled" style="">是否油漆：</label>
-											<div class="controls">
-												<select id="inputenabled" name="products.isPaint" class="input-medium">
-													<option value="0">是</option>
-													<option value="1">否</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputmeasurementCompany" >计量单位：</label>
-											<div class="controls">
-												<s:select id="inputmeasurementCompany"  list="dictionaryList" listKey="key" listValue="descr"
-													name="products.measurementCompany" cssClass="input-medium" placeholder="计量单位">
-												</s:select>
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputsourceType" style="">来源：</label>
-											<div class="controls">
-												<s:select id="inputsourceType"  list="sourceTypeList" listKey="key" listValue="descr"
-													name="products.sourceType" cssClass="input-medium" placeholder="来源">
-												</s:select>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputproductType" >产品类型：</label>
-											<div class="controls">
-												<s:select id="inputproductType"  list="productTypeList" listKey="key" listValue="descr"
-													name="products.productType" cssClass="input-medium" placeholder="产品类型">
-												</s:select>
-											</div>
-
-										</div>
-									</div>
-								
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputprocessingFee" >成本：</label>
-											<div class="controls">
-												<input type="number" maxlength="20" name="products.processingFee" readonly="readonly"
-													placeholder="加工费" id="inputprocessingFee" value="${products.processingFee}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-									
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputestimatedPrice" >采购价：</label>
-											<div class="controls">
-												<input type="number" maxlength="20" name="products.estimatedPrice"
-													placeholder="预估价" id="inputestimatedPrice" value="${products.estimatedPrice}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-								
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputsalesPrice" >销售价：</label>
-											<div class="controls">
-												<input type="number" maxlength="20" name="products.salesPrice"
-													placeholder="销售价" id="inputsalesPrice" value="${products.salesPrice}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-									
-								</dir>
-								<dir class="row">
-									<div class="span8">
-										<div class="control-group">
-											<label class="control-label" for="inputsafetyStock" >安全库存：</label>
-											<div class="controls">
-												<input type="number" maxlength="10" name="products.safetyStock"
-													placeholder="安全库存" id="inputsafetyStock" value="${products.safetyStock}" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-								
-								</dir>
-								<dir class="row">
-									<div class="span8">
-										<div class="control-group">
-											<label class="control-label" for="inputremarks" >备注：</label>
-											<div class="controls">
-												<input type="text" maxlength="500" name="products.remarks"
-													placeholder="备注" id="inputremarks" value="${products.remarks}" class="input-xxlarge"></input>
-											</div>
-
-										</div>
-									</div>
-								
 								</dir>
 								</form>
 							</div>
+							
 							<div class="tab-pane fade" id="productStructure">
-							<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${products.id}" />
-								<input type="hidden" name="tabID" value="productStructureButt" />
-								<input type="hidden" id="mailListName" name="mailList.name" value="" />
-								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
-								<button class="btn btn-small btn-primary" type="button"
-								data-toggle="modal" data-target="#popupfirm">添加产品</button>
-							</form>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>编号</th>
-										<th>名称</th>
-										<th>产品类型</th>
-										<th>来源</th>
-										<th>主产品</th>
-										<th>组</th>
-										<th>主料/替代料</th>
-										<th>数量</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表 -->
-										<s:iterator value="productStructureList" var="tp" status="index">
+								<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="{bomPrimary.id" value="${bomPrimary.id}">
+									<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
+									<input type="hidden" name="tabID" value="productStructButt" />
+									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加产品</button>
+								</form>
+								<table class="table">
+									<thead>
 										<tr>
-											<td><s:property value="#tp.id" /></td>
-											<td><s:property value="#tp.products.name" /></td>
-											<td><s:property value="#tp.products.productType" /></td>
-											<td><s:property value="#tp.products.sourceType" /></td>
-											<td><s:property value="#tp.products.ismainproducts" /></td>
-											<td><s:property value="#tp.products.groupID" /></td>
-											<td><s:property value="#tp.products.maAlMeterials" /></td>
-											<td><s:property value="#tp.products.productsNumber" /></td>
+											<th>产品编号</th>
+											<th>名称</th>
+											<th>库位号</th>
+											<th>主产品</th>
+											<th>数量</th>
+											<th>备注</th>
 										</tr>
-										</s:iterator>
-										
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<tr>
+											<!-- 产品列表 -->
+											<s:iterator value="bomDetailList" var="tp" status="index">
+											<tr>
+												<td><s:property value="#tp.subProductsId" /></td>
+												<td></td>
+												<td><s:property value="#tp.position" /></td>
+												<td><s:property value="#tp.products.sourceType" /></td>
+												<td><s:property value="#tp.isMainProducts" /></td>
+												<td><s:property value="#tp.qty" /></td>
+												<td><s:property value="#tp.remarks" /></td>
+											</tr>
+											</s:iterator>
+										</tr>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>

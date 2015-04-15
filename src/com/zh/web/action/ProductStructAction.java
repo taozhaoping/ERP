@@ -31,17 +31,17 @@ public class ProductStructAction extends BaseAction {
 	
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
 		return productStructModel;
 	}
 
 	@Override
 	public String execute() throws Exception {
+		LOGGER.debug("execute()");
 		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
-		Integer count = productStructureService.count(bomPrimary);
+		Integer count = productStructureService.countPrimary(bomPrimary);
 		Pager page = this.productStructModel.getPageInfo();
 		page.setTotalRow(count);
-		List<BomPrimary> bomPrimaryList = productStructureService.queryList(bomPrimary, page);
+		List<BomPrimary> bomPrimaryList = productStructureService.queryPrimaryList(bomPrimary, page);
 		this.productStructModel.setBomPrimaryList(bomPrimaryList);
 		return Action.SUCCESS;
 
@@ -67,19 +67,17 @@ public class ProductStructAction extends BaseAction {
 
 	public String save() throws Exception {
 		LOGGER.debug("save()");
-	/*	BOMPrimary productStructure = this.productStructModel.getProductStructure();
-		Integer id = this.productStructModel.getId();
-		if (null != id && !"".equals(id))
-		{
-			productStructure.setId(id);
-			productStructureService.update(productStructure);
+		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
+		Integer id = bomPrimary.getId();
+		if (null != id && !"".equals(id)){
+			bomPrimary.setId(id);
+			productStructureService.updatePrimary (bomPrimary);
 			LOGGER.debug("update productStructure id" + id);
-		}else
-		{
+		}else{
 			//新增
-			productStructureService.insert(productStructure);
+			productStructureService.insertPrimary(bomPrimary);
 			LOGGER.debug("add productStructure");
-		}*/
+		}
 		return Action.EDITOR_SUCCESS;
 	}
 

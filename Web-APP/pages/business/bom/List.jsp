@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@  page import="com.zh.base.util.JspUtil" %>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -94,33 +95,20 @@
 							<thead>
 								<tr>
 									<th>产品编号</th>
-									<th>名称</th>
-									<th>产品类型</th>
-									<th>预估价</th>
-									<th>销售价格</th>
-									<th>安全库存</th>
+									<th>描述</th>
+									<th>生效日期</th>
+									<th>生效状态</th>
 									<th style="width: 26px;"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="productsList" var="tp" status="index">
+								<s:iterator value="bomPrimaryList" var="tp" status="index">
 									<tr>
-										<td><s:property value="#tp.id"/></td>
-										<td><s:property value="#tp.name"/></td>
-										<td>
-											<s:set id="type" value="#tp.productType"></s:set>
-											<%=userName.queryDictionary(String.valueOf(request.getAttribute("type"))) %>
-										</td>
-										<td>
-											<s:property value="#tp.estimatedPrice"/>
-										</td>
-										<td><s:property value="#tp.salesPrice"/></td>
-										<td>
-											<s:property value="#tp.safetyStock"/>
-										</td>
-										<td>
-											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
-										</td>
+										<td><s:property value="#tp.mainProductsId"/></td>
+										<td><s:property value="#tp.descr"/></td>
+										<td><s:property value="#tp.effdt"/></td>
+										<td><s:property value="#tp.effStatus"/></td>
+										<td><a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a></td>
 									</tr>
 								</s:iterator>
 							</tbody>
