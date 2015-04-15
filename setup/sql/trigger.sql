@@ -309,12 +309,12 @@ END;
 /
 
 --
--- Creating trigger SYS_FILEINFO_T
+-- Creating trigger 
 -- ===========================
 --
-CREATE OR REPLACE TRIGGER STORAGE_DETAIL_T
+CREATE OR REPLACE TRIGGER library_Primary_T
 BEFORE DELETE OR INSERT OR UPDATE
-ON T_STORAGE_DETAIL
+ON t_library_Primary
 FOR EACH ROW
 DECLARE
 createDate    varchar2(20);
@@ -322,7 +322,7 @@ modifyDate    varchar2(20);
 BEGIN
 IF DELETING THEN
   BEGIN
-    DBMS_OUTPUT.PUT_LINE('Delete Trigger Operation in table T_STORAGE_DETAIL');
+    DBMS_OUTPUT.PUT_LINE('Delete Trigger Operation in table t_library_Primary');
   END;
 END IF;
 IF INSERTING THEN
@@ -333,7 +333,7 @@ IF INSERTING THEN
     :new.UPDATEDATE := modifyDate;
     EXCEPTION
     WHEN OTHERS THEN
-    DBMS_OUTPUT.PUT_LINE('Failed Insert Trigger Operation in table T_STORAGE_DETAIL');
+    DBMS_OUTPUT.PUT_LINE('Failed Insert Trigger Operation in table t_library_Primary');
   END;
 END IF;
 IF UPDATING THEN
@@ -342,12 +342,12 @@ IF UPDATING THEN
     :new.UPDATEDATE := modifyDate;
     EXCEPTION
     WHEN OTHERS THEN
-    DBMS_OUTPUT.PUT_LINE('Failed Update Trigger Operation in table T_STORAGE_DETAIL');
+    DBMS_OUTPUT.PUT_LINE('Failed Update Trigger Operation in table t_library_Primary');
   END;
 END IF;
 EXCEPTION
 WHEN OTHERS THEN
-DBMS_OUTPUT.PUT_LINE('Failed Other Trigger Operation in table T_STORAGE_DETAIL');
+DBMS_OUTPUT.PUT_LINE('Failed Other Trigger Operation in table t_library_Primary');
 END;
 /
 --spool off
