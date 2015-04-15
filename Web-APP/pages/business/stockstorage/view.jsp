@@ -82,7 +82,7 @@
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span
 				class="divider">/</span></li>
 			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
-			<li class="active">编辑</li>
+			<li class="active">查看</li>
 		</ul>
 		<s:set name="ProcessId"
 					value="storagePrimary.id!=null&&storagePrimary.id!=''" />
@@ -102,128 +102,116 @@
 							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane active" id="home">
-								<form id="editForm" class="form-horizontal" method="post">
+							<dl class="tab-pane active dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">入库单号：</label>
-											<div class="controls">
-													<input type="text" maxlength="30" readonly="readonly"
-														id="inputorderNoID" value="${storagePrimary.orderNoID}" class="input-medium"></input>
-												
-											</div>
-
+											<dt>入库单号：</dt>
+											<dd>${storagePrimary.orderNoID}</dd>
 										</div>
 									</div>
+									
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
-											<div class="controls">
-												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
-													type="text" readonly="readonly"
-													value="${storagePrimary.storagedate}"
-													readonly class="form_datetime input-medium">
-											</div>
+											<dt>入库时间：</dt>
+											<dd>${storagePrimary.storagedate}</dd>
 										</div>
 									</div>
 								</dir>
+								
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" >收货人：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="storagePrimary.userID" readonly="readonly"
-													 id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
-											</div>
-
+											<dt>收货人：</dt>
+											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %></dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">发货客户：</label>
-											<div class="controls">
-												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name" disabled="disabled"
-													name="storagePrimary.customerID" cssClass="input-medium">
-												</s:select>
-											</div>
+											<dt>发货客户：</dt>
+											<dd>
+												<s:iterator value="customerList" var="tp" status="index">
+													<s:if test="#tp.id == storagePrimary.customerID">
+														<s:property value="#tp.name"/>
+													</s:if>
+												</s:iterator>
+											</dd>
 										</div>
 									</div>
 								</dir>
+								
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputwarehouseID" style="">收入仓库：</label>
-											<div class="controls">
-												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
-													name="storagePrimary.warehouseID" cssClass="input-medium" disabled="disabled">
-												</s:select>
-											</div>
+											<dt>收入仓库：</dt>
+											<dd>
+												<s:iterator value="warehouseList" var="tp" status="index">
+													<s:if test="#tp.id == storagePrimary.warehouseID">
+														<s:property value="#tp.name"/>
+													</s:if>
+												</s:iterator>
+											</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstatus" style="">入库：</label>
-											<div class="controls">
-												<select id="inputstatus"  disabled="disabled"
-													name="storagePrimary.status" class="input-medium" placeholder="是否入库">
-													<option value="0">否</option>
-													<option value="1">是</option>
-												</select>
-											</div>
+											<dt>入库：</dt>
+											<dd>
+												<s:if test="#storagePrimary.status==0">
+													否
+												</s:if>
+												<s:else>
+													是
+												</s:else>
+											</dd>
 										</div>
 									</div>
 								</dir>
+								
 								<dir class="row">
 									<div class="span8">
 										<div class="control-group">
-											<label class="control-label" for="inputremarks" >备注：</label>
-											<div class="controls">
-												<input type="text" maxlength="500" name="storagePrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${storagePrimary.remarks}" class="input-xxlarge"></input>
-											</div>
-
+											<dt>备注：</dt>
+											<dd>${storagePrimary.remarks}</dd>
 										</div>
 									</div>
-								
 								</dir>
-								</form>
-							</div>
+							</dl>
+							
 							<div class="tab-pane fade" id="storagedetail">
-				
-							<table class="table ">
-								<thead>
-									<tr>
-									<th>序号</th>
-										<th>产品编号</th>
-										<th>产品名称</th>
-										<th>入库数量</th>
-										<th>用途</th>
-										<th>备注</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表-->
-										<s:iterator value="StorageDetailList" var="tp" status="index">
+								<table class="table ">
+									<thead>
 										<tr>
-											<td><s:property value="#index.index +1" /></td>
-											<td><s:property value="#tp.productsID" /></td>
-											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
-											<td><s:property value="#tp.use" /></td>
-											<td><s:property value="#tp.remarks" /></td>
+										<th>序号</th>
+											<th>产品编号</th>
+											<th>产品名称</th>
+											<th>入库数量</th>
+											<th>用途</th>
+											<th>备注</th>
 										</tr>
-										</s:iterator>
-										
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
-							</div>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<tr>
+											<!-- 产品列表-->
+											<s:iterator value="StorageDetailList" var="tp" status="index">
+											<tr>
+												<td><s:property value="#index.index +1" /></td>
+												<td><s:property value="#tp.productsID" /></td>
+												<td><s:property value="#tp.productsName" /></td>
+												<td><s:property value="#tp.storageNumber" /></td>
+												<td><s:property value="#tp.use" /></td>
+												<td><s:property value="#tp.remarks" /></td>
+											</tr>
+											</s:iterator>
+											
+										</tr>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
