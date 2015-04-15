@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/theme.css">
 <link rel="stylesheet" href="<%=path%>/css/font-awesome.css">
 <link rel="stylesheet" href="<%=path%>/js/select2/select2.css">
+<link rel="stylesheet" href="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.css">
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
 <script type="text/javascript" src="<%=path%>/js/jqPaginator.min.js"></script>
 <!-- Demo page code -->
