@@ -98,13 +98,13 @@
 									<th>描述</th>
 									<th>生效日期</th>
 									<th>生效状态</th>
-									<th style="width: 26px;"></th>
+									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								<s:iterator value="bomPrimaryList" var="tp" status="index">
 									<tr>
-										<td><s:property value="#tp.mainProductsId"/></td>
+										<td><s:property value="#tp.productsId"/></td>
 										<td><s:property value="#tp.descr"/></td>
 										<td><s:property value="#tp.effdt"/></td>
 										<td><s:property value="#tp.effStatus"/></td>

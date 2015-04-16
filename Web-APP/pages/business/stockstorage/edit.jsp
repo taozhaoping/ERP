@@ -107,15 +107,14 @@
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
-							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
+							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
 							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade" id="home">
-								<form id="editForm" class="form-horizontal"
-										action="${menu2Id}!save.jspa" method="post">
+							<div class="tab-pane fade active" id="home">
+								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="id" value="${storagePrimary.id}"> 
 								<input type="hidden" name="storagePrimary.userID" value="${storagePrimary.userID}">
 								<input type="hidden" name="menuId" value="${menuId}"> 

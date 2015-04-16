@@ -98,7 +98,7 @@
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
-							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
+							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">

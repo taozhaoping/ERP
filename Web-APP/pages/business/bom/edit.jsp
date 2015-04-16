@@ -103,7 +103,9 @@
 							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="bomPrimary.id" value="${bomPrimary.id}">
+								<!-- 
 								<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
+								 -->
 								<input type="hidden" name="menuId" value="${menuId}">
 								<input type="hidden" name="menu2Id" value="${menu2Id}">
 								<input type="hidden" name="spaceId" value="${spaceId}">
@@ -114,7 +116,7 @@
 											<label class="control-label" for="inputId" style="">产品编号：</label>
 											<div class="controls">
 												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true"
-													id="inputId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
+													id="inputProductsId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
 											</div>
 
 										</div>
@@ -139,8 +141,7 @@
 												<input type="number" maxlength="40" name="bomPrimary.effdt" data-required="true" 
 													placeholder="生效日期" id="inputEffdt" value="${bomPrimary.effdt}" class="input-medium"></input>
 												 -->
-												<input size="16" id="inputEffdt" data-required="true" 
-													name="bomPrimary.effdt" type="text"
+												<input size="16" id="inputEffdt" data-required="true" name="bomPrimary.effdt" type="text"
 													readonly="readonly" value="<s:date name="bomPrimary.effdt" format="yyyy-MM-dd" />" class="form_datetime input-xlarge">
 											</div>
 
@@ -234,6 +235,62 @@
 		var curPage = ${pageInfo.curPage};
 		
 		$("select").select2();
+		
+		$("#inputProductsId").select2({
+			placeholder : "查询产品编号",
+			minimumInputLength : 3,
+			//multiple:true,
+			quietMillis : 3000,
+			ajax : {
+				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						"productsID" : term,
+						"pageInfo.curPage" : page
+					};
+				},
+				results : function(data, page) {
+					
+					var more = (page * 10) < data.total;
+					for ( var i = 0; i < data.rows.length; i++) {
+						var parts = data.rows[i];
+						parts.id = parts.id;
+						parts.text = parts.id + "(" + parts.name + ")";
+					}
+					partsArr = data.rows;
+					return {
+						results : data.rows,
+						more : more
+					};
+				}
+			},
+			formatNoMatches : function() {
+				return "没有找到匹配项";
+			},
+
+			formatInputTooShort : function(input, min) {
+				var n = min - input.length;
+				return "请最少输入" + n + "个字符";
+			},
+
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
+			},
+
+			formatLoadMore : function(pageNumber) {
+				return "加载结果中...";
+			},
+
+			formatSearching : function() {
+				return "搜索中...";
+			}
+		});
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";

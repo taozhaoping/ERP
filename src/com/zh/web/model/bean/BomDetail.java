@@ -108,5 +108,18 @@ public class BomDetail extends IDataObject {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("id:").append(id)
+		.append(" primaryId:").append(primaryId)
+		.append(" subProductsId:").append(subProductsId)
+		.append(" position:").append(position)
+		.append(" isMainProducts:").append(isMainProducts)
+		.append(" qty:").append(qty)
+		.append(" remarks:").append(remarks);
+		return sb.toString();
+	}
 
 }

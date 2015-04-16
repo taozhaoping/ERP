@@ -82,5 +82,15 @@ public class BomPrimary extends IDataObject {
 	public void setEffStatus(String effStatus) {
 		this.effStatus = effStatus;
 	}
-	
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("id:").append(id)
+		.append(" productsId:").append(productsId)
+		.append(" descr:").append(descr)
+		.append(" effdt:").append(effdt)
+		.append(" effStatus:").append(effStatus);
+		return sb.toString();
+	}
 }
