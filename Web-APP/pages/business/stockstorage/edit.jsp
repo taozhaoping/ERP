@@ -109,11 +109,11 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
+							<li><a id="storageButt" href="#storage" data-toggle="tab">入库清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade active" id="home">
+							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="id" value="${storagePrimary.id}"> 
 								<input type="hidden" name="storagePrimary.userID" value="${storagePrimary.userID}">
@@ -205,12 +205,13 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="storagedetail">
+							<div class="tab-pane fade" id="storage">
 								<form id="storageDetailForm" class="form-horizontal" action="${menu2Id}!saveStorageDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="storagedetailButt" />
+								<input type="hidden" name="tabID" value="storageButt" />
+								<input type="hidden" name="formId" value="${storagePrimary.id}" />
 								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
 								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
 								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
@@ -244,7 +245,7 @@
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i
+												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&formId=${storagePrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storageButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
@@ -370,6 +371,7 @@
 		var id = '${menuId}';
 		var menuId = '${menu2Id}';
 		var spaceId = '${spaceId}';
+		var id = '${storagePrimary.id}';
 		var url = $("#" + menuId).attr('url');
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
@@ -379,6 +381,19 @@
 		
 		$("#inputstatus").val("${storagePrimary.status}")
 		.trigger("change");
+		
+		//进入指定的tbs
+		var tabID = "${tabID}";
+		if (null != tabID && "" != tabID) {
+			$("#" + tabID).parent().addClass("active");
+			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
+					.addClass("active");
+		} else {
+			tabID = "homeButt";
+			$("#tabID").val("homeButt");
+			$("#homeButt").parent().addClass("active");
+			$("#home").removeClass("fade").addClass("active");
+		}
 		
 		$("#formChangefirmBtn").click(function() {
 			$("#increaseStockForm").submit();
@@ -455,7 +470,7 @@
 				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
 				return;
 			} 
-			if (Qty == null || Use == "") {
+			if (Qty == null || Qty == "") {
 				$("#popupQty").attr("title","入库数量必须填写!");
 				return;
 			}
@@ -469,19 +484,6 @@
 			$("#storageDetailForm").submit();
 	});
 		
-		//进入指定的tbs
-		var tabID = "${tabID}";
-		if (null != tabID && "" != tabID) {
-			$("#" + tabID).parent().addClass("active");
-			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
-					.addClass("active");
-		} else {
-			tabID = "homeButt";
-			$("#tabID").val("homeButt");
-			$("#homeButt").parent().addClass("active");
-			$("#home").removeClass("fade").addClass("active");
-		}
-		
 		//提交按钮
 		$("#formButton").click(function() {
 			currTab = $("#tabID").val();
@@ -493,6 +495,8 @@
 			$("#editForm").submit();
 		}
 		
+		if ("" != id)
+		{
 		$.jqPaginator('#pagination', {
 			//设置分页的总页数
 	        totalPages: totalPage,
@@ -512,7 +516,7 @@
 	        	//document.getElementsByName("operateForm")[0].submit(); 
 	        }
 	    });
-		
+		}
 	</script>
 </body>
 </html>

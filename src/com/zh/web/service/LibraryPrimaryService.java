@@ -16,7 +16,7 @@ import com.zh.web.model.bean.LibraryPrimary;
  */
 public interface LibraryPrimaryService {
 
-	String SEQUENCE_STORAGE_PRIMARY = "SEQUENCE_LIBRARY_PRIMARY";
+	String SEQUENCE_LIBRARY_PRIMARY = "SEQUENCE_LIBRARY_PRIMARY";
 	
 	/**
 	 * 查询信息

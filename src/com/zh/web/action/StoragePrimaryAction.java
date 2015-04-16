@@ -64,28 +64,25 @@ public class StoragePrimaryAction extends BaseAction {
 		this.storagePrimaryModel.setStoragePrimaryList(storagePrimaryList);
 		return Action.SUCCESS;
 	}
-	
+
 	/**
 	 * 
-	* @Title: increaseStock 
-	* @Description: 单据入库(更新库存数量) 
-	* @param  @return   参数 
-	* @return String    返回类型 
-	* @throws 
-	* @author taozhaoping 26078
-	* @author mail taozhaoping@gmail.com
-	 * @throws ParameterException 
+	 * @Title: increaseStock
+	 * @Description: 单据入库(更新库存数量)
+	 * @param @return 参数
+	 * @return String 返回类型
+	 * @throws
+	 * @author taozhaoping 26078
+	 * @author mail taozhaoping@gmail.com
+	 * @throws ParameterException
 	 */
-	public String increaseStock() throws ParameterException
-	{
+	public String increaseStock() throws ParameterException {
 		String formID = this.storagePrimaryModel.getFormId();
-		if (null == formID || "".equals(formID))
-		{
+		if (null == formID || "".equals(formID)) {
 			throw new ParameterException("入库单据不允许为空!");
 		}
 		storagePrimaryService.increaseStock(formID);
 
-		
 		return Action.EDITOR_SUCCESS;
 	}
 
@@ -125,12 +122,11 @@ public class StoragePrimaryAction extends BaseAction {
 			List<StorageDetail> list = storageDetailService.queryList(
 					storageDetail, page);
 			this.storagePrimaryModel.setStorageDetailList(list);
-			
-			//判断是否已经入库，入库状态下，只进入查看页面
+
+			// 判断是否已经入库，入库状态下，只进入查看页面
 			Integer status = reult.getStatus();
 			String view = this.storagePrimaryModel.getView();
-			if (status == 1 || "view".equals(view))
-			{
+			if (status == 1 || "view".equals(view)) {
 				return Action.VIEW;
 			}
 		} else {
@@ -147,14 +143,16 @@ public class StoragePrimaryAction extends BaseAction {
 		StorageDetail storageDetail = this.storagePrimaryModel
 				.getStorageDetail();
 		Integer id = this.storagePrimaryModel.getId();
-			if (null == id || "".equals(id)) {
-				// 新增
-				storageDetailService.insert(storageDetail);
-			} else {
-				// 修改
-				storageDetail.setId(id);
-				storageDetailService.delete(storageDetail);
-			}
+		if (null == id || "".equals(id)) {
+			// 新增
+			storageDetailService.insert(storageDetail);
+		} else {
+			// 修改
+			storageDetail.setId(id);
+			storageDetailService.delete(storageDetail);
+		}
+		String formId = this.storagePrimaryModel.getFormId();
+		this.storagePrimaryModel.setFormId(formId);
 		return Action.EDITOR_SAVE;
 
 	}

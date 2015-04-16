@@ -47,12 +47,13 @@ public class StoragePrimaryModel extends BaseModel {
 		this.storageDetail = storageDetail;
 	}
 
+
 	public List<StorageDetail> getStorageDetailList() {
 		return storageDetailList;
 	}
 
 	public void setStorageDetailList(List<StorageDetail> storageDetailList) {
-		storageDetailList = storageDetailList;
+		this.storageDetailList = storageDetailList;
 	}
 
 	public List<Customer> getCustomerList() {

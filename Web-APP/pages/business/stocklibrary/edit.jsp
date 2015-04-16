@@ -113,7 +113,7 @@
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade active" id="home">
+							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="id" value="${libraryPrimary.id}"> 
 								<input type="hidden" name="libraryPrimary.userID" value="${libraryPrimary.userID}">
@@ -211,6 +211,7 @@
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="tabID" value="librarydetailButt" />
+								<input type="hidden" name="formId" value="${libraryPrimary.id}" />
 								<input type="hidden" id="detaillibraryPrimaryID" name="libraryDetail.libraryPrimaryID" value="${libraryPrimary.id}" />
 								<input type="hidden" id="detailproductsID" name="libraryDetail.productsID" value="" />
 								<input type="hidden" id="detailqty" name="libraryDetail.storageNumber" value="" />
@@ -244,7 +245,7 @@
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
+												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&formId=${libraryPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
@@ -456,7 +457,7 @@
 				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
 				return;
 			} 
-			if (Qty == null || Use == "") {
+			if (Qty == null || Qty == "") {
 				$("#popupQty").attr("title","入库数量必须填写!");
 				return;
 			}

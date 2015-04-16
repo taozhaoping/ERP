@@ -59,7 +59,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 	@Override
 	public Integer insert(LibraryPrimary libraryPrimary,String type) {
 		// TODO Auto-generated method stub
-		Integer id = Integer.valueOf(libraryPrimaryDao.getSequence(SEQUENCE_STORAGE_PRIMARY).toString());
+		Integer id = Integer.valueOf(libraryPrimaryDao.getSequence(SEQUENCE_LIBRARY_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		libraryPrimary.setId(id);
 		libraryPrimary.setOrderNoID(type + dateStr + id);
@@ -79,7 +79,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 		
 		if (0 == reult.getStatus())
 		{
-			//设置未入库状态
+			//设置入库状态
 			libraryPrimary.setStatus(1);
 			this.update(libraryPrimary);
 			

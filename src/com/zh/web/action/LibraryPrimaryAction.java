@@ -64,28 +64,25 @@ public class LibraryPrimaryAction extends BaseAction {
 		this.libraryPrimaryModel.setLibraryPrimaryList(libraryPrimaryList);
 		return Action.SUCCESS;
 	}
-	
+
 	/**
 	 * 
-	* @Title: increaseStock 
-	* @Description: 单据入库(更新库存数量) 
-	* @param  @return   参数 
-	* @return String    返回类型 
-	* @throws 
-	* @author taozhaoping 26078
-	* @author mail taozhaoping@gmail.com
-	 * @throws ParameterException 
+	 * @Title: increaseStock
+	 * @Description: 单据入库(更新库存数量)
+	 * @param @return 参数
+	 * @return String 返回类型
+	 * @throws
+	 * @author taozhaoping 26078
+	 * @author mail taozhaoping@gmail.com
+	 * @throws ParameterException
 	 */
-	public String increaseStock() throws ParameterException
-	{
+	public String increaseStock() throws ParameterException {
 		String formID = this.libraryPrimaryModel.getFormId();
-		if (null == formID || "".equals(formID))
-		{
+		if (null == formID || "".equals(formID)) {
 			throw new ParameterException("入库单据不允许为空!");
 		}
 		libraryPrimaryService.increaseStock(formID);
 
-		
 		return Action.EDITOR_SUCCESS;
 	}
 
@@ -125,12 +122,11 @@ public class LibraryPrimaryAction extends BaseAction {
 			List<LibraryDetail> list = libraryDetailService.queryList(
 					libraryDetail, page);
 			this.libraryPrimaryModel.setLibraryDetailList(list);
-			
-			//判断是否已经入库，入库状态下，只进入查看页面
+
+			// 判断是否已经入库，入库状态下，只进入查看页面
 			Integer status = reult.getStatus();
 			String view = this.libraryPrimaryModel.getView();
-			if (status == 1 || "view".equals(view))
-			{
+			if (status == 1 || "view".equals(view)) {
 				return Action.VIEW;
 			}
 		} else {
@@ -147,14 +143,17 @@ public class LibraryPrimaryAction extends BaseAction {
 		LibraryDetail libraryDetail = this.libraryPrimaryModel
 				.getLibraryDetail();
 		Integer id = this.libraryPrimaryModel.getId();
-			if (null == id || "".equals(id)) {
-				// 新增
-				libraryDetailService.insert(libraryDetail);
-			} else {
-				// 修改
-				libraryDetail.setId(id);
-				libraryDetailService.delete(libraryDetail);
-			}
+
+		if (null == id || "".equals(id)) {
+			// 新增
+			libraryDetailService.insert(libraryDetail);
+		} else {
+			// 修改
+			libraryDetail.setId(id);
+			libraryDetailService.delete(libraryDetail);
+		}
+		String formId = this.libraryPrimaryModel.getFormId();
+		this.libraryPrimaryModel.setFormId(formId);
 		return Action.EDITOR_SAVE;
 
 	}
@@ -171,7 +170,7 @@ public class LibraryPrimaryAction extends BaseAction {
 		} else {
 			// 新增
 			libraryPrimaryService.insert(libraryPrimary,
-					UtilService.STORAGE_TYPE);
+					UtilService.LIBRARY_TYPE);
 			LOGGER.debug("add libraryPrimary");
 		}
 		this.libraryPrimaryModel.setFormId(libraryPrimary.getId().toString());

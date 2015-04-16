@@ -32,5 +32,13 @@ public interface UtilService {
 	 */
 	public static Integer STORAGE_STATUS_OFF = 1;
 	
+	/**
+	 * 其他入库
+	 */
 	public static String STORAGE_TYPE = "QTRK";
+	
+	/**
+	 * 其他出库
+	 */
+	public static String LIBRARY_TYPE = "QTCK";
 }
