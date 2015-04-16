@@ -129,15 +129,14 @@ public class StockUtil implements ApplicationContextAware {
 				throw new ProjectException("数据库不存在该产品编号");
 			}
 			Float stockNumber = reult.getStockNumber();
-			Float currentNumber = 0F;
 			if (type == INCREASE) {
-				currentNumber = stockNumber + StorageNumber;
+				stockNumber += StorageNumber;
 			} else if (type == REDUCE) {
-				currentNumber = stockNumber - StorageNumber;
+				stockNumber -= StorageNumber;
 			}
 			stock = new Stock();
 			stock.setId(reult.getId());
-			stock.setStockNumber(currentNumber);
+			stock.setStockNumber(stockNumber);
 			stockService.update(stock);
 		}
 
