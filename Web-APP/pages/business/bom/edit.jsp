@@ -137,12 +137,8 @@
 										<div class="control-group">
 											<label class="control-label" for="inputlongDegree">生效日期：</label>
 											<div class="controls">
-												<!-- 
-												<input type="number" maxlength="40" name="bomPrimary.effdt" data-required="true" 
-													placeholder="生效日期" id="inputEffdt" value="${bomPrimary.effdt}" class="input-medium"></input>
-												 -->
 												<input size="16" id="inputEffdt" data-required="true" name="bomPrimary.effdt" type="text"
-													readonly="readonly" value="<s:date name="bomPrimary.effdt" format="yyyy-MM-dd" />" class="form_datetime input-xlarge">
+													readonly="readonly" value="${bomPrimary.effdt}" class="form_datetime input-xlarge">
 											</div>
 
 										</div>
@@ -265,6 +261,21 @@
 					};
 				}
 			},
+			
+			initSelection: function(element, callback) {
+		        // the input tag has a value attribute preloaded that points to a preselected repository's id
+		        // this function resolves that id attribute to an object that select2 can render
+		        // using its formatResult renderer - that way the repository name is shown preselected
+		        var id = "${bomPrimary.productsId}";
+		        if (id !== "") {
+		            $.ajax(basePath + "/interface/interfaceProducts!queryProducts.jspa", {
+		                dataType: "json",
+		                data : {
+							"id" : id
+						},
+		           	}).done(function(data) { callback({id:data.dataObject.id, text:data.dataObject.id + "(" + data.dataObject.name + ")"}); });
+				}
+		    },
 			formatNoMatches : function() {
 				return "没有找到匹配项";
 			},
@@ -291,6 +302,8 @@
 				return "搜索中...";
 			}
 		});
+		//设置初始化值
+		//$("#inputProductsId").val("${bomPrimary.productsId}").trigger("change");
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";
