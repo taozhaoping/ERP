@@ -101,7 +101,7 @@
 									<th>签收人</th>
 									<th>仓库</th>
 									<th>发货客户</th>
-									<th style="width: 30px;"></th>
+									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -123,8 +123,8 @@
 											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
 										</td>
 										<td>
-											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
-											<a title="查看" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
+											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>
 								</s:iterator>
