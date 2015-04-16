@@ -395,7 +395,7 @@
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
 				dataType : 'json',
 				data : function(term, page) {
-					return { "productsID" : term,"pageInfo.curPage" : page,apikey : "ju6z9mjyajq2djue3gbvv26t"};
+					return { "productsID" : term,"pageInfo.curPage" : page};
 				},
 				results : function(data, page) {
 					
