@@ -395,7 +395,10 @@
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
 				dataType : 'json',
 				data : function(term, page) {
-					return { "productsID" : term,"pageInfo.curPage" : page};
+					return {
+						"productsID" : term,
+						"pageInfo.curPage" : page
+					};
 				},
 				results : function(data, page) {
 					
@@ -419,6 +422,15 @@
 			formatInputTooShort : function(input, min) {
 				var n = min - input.length;
 				return "请最少输入" + n + "个字符";
+			},
+
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
 			},
 
 			formatLoadMore : function(pageNumber) {
