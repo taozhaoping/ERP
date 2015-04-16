@@ -93,9 +93,9 @@ public class LibraryPrimaryAction extends BaseAction {
 		LOGGER.debug("editor()");
 		Integer id = this.libraryPrimaryModel.getId();
 
-		// 供应商信息
+		// 客户信息
 		Customer customer = new Customer();
-		customer.setType(UtilService.CUSTOMER_TYPE_SUPPLIER);
+		customer.setType(UtilService.CUSTOMER_TYPE_CUSTO);
 		customer.setEnabled(UtilService.ENABLED_EFFECTIVE);
 		List<Customer> customerList = customerService.queryList(customer);
 		this.libraryPrimaryModel.setCustomerList(customerList);
