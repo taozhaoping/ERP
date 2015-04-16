@@ -66,6 +66,25 @@ public class ProductStructAction extends BaseAction {
 		
 		return Action.EDITOR;
 	}
+	
+	/**
+	 * 查看
+	 */
+	public String view() throws Exception {
+		LOGGER.debug("view()");
+		Integer id = this.productStructModel.getId();
+		if (null != id){
+			//查询信息
+			LOGGER.debug("view ProductStructure id " + id );
+			BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
+			bomPrimary.setId(Integer.valueOf(id));
+			//查询结果
+			BomPrimary result = productStructureService.queryPrimary(bomPrimary);
+			LOGGER.debug("query bomPrimary:{}", result);
+			this.productStructModel.setBomPrimary(result);
+		}
+		return Action.VIEW;
+	}
 
 	/** 
 	 * 保存

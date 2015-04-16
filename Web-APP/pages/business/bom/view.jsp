@@ -92,57 +92,42 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<s:if test="#ProcessId">
-								<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
-							</s:if>
+							<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade" id="home">
-								<dir class="row">
-									<div class="span5">
-										<div class="control-group">
-											<label class="control-label" for="inputId" style="">产品编号：</label>
-											<div class="controls">
-												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true"
-													id="inputProductsId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
-											</div>
-
-										</div>
-									</div>
-									<div class="span5">
-										<div class="control-group">
-											<label class="control-label" for="inputname" style="">描述：</label>
-											<div class="controls">
-												<input type="text" data-required="true" maxlength="40" data-required="true" 
-													placeholder="描述" id="inputDescr" name="bomPrimary.descr"
-													value="${bomPrimary.descr}" class="input-medium input-xlarge"></input>
+							<dl class="tab-pane active dl-horizontal" id="home">
+									<dir class="row">
+										<div class="span4">
+											<div class="control-group">
+												<dt>产品编号：</dt>
+												<dd>${bomPrimary.productsId}</dd>
 											</div>
 										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span5">
-										<div class="control-group">
-											<label class="control-label" for="inputlongDegree">生效日期：</label>
-											<div class="controls">
-												<input size="16" id="inputEffdt" data-required="true" name="bomPrimary.effdt" type="text"
-													readonly="readonly" value="${bomPrimary.effdt}" class="form_datetime input-xlarge">
-											</div>
-
-										</div>
-									</div>
-									<div class="span5">
-										<div class="control-group">
-											<label class="control-label" for="inputwideDegree">生效状态：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="products.effStatus" disabled="disabled"
-													placeholder="生效状态" id="inputEffStatus" value="${products.effStatus}" class="input-medium input-xlarge"></input>
+										
+										<div class="span4">
+											<div class="control-group">
+												<dt>描述：</dt>
+												<dd>${bomPrimary.descr}</dd>
 											</div>
 										</div>
-									</div>
-								</dir>
-							</div>
-							
+									</dir>
+									
+									<dir class="row">
+										<div class="span4">
+											<div class="control-group">
+												<dt>生效日期：</dt>
+												<dd>${bomPrimary.effdt}</dd>
+											</div>
+										</div>
+										
+										<div class="span4">
+											<div class="control-group">
+												<dt>生效状态：</dt>
+												<dd>${products.effStatus}</dd>
+											</div>
+										</div>
+									</dir>
+								</dl>
 							<div class="tab-pane fade" id="productStructure">
 								<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
 									<input type="hidden" name="menuId" value="${menuId}" /> 
@@ -151,7 +136,6 @@
 									<input type="hidden" name="{bomPrimary.id" value="${bomPrimary.id}">
 									<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
 									<input type="hidden" name="tabID" value="productStructButt" />
-									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加产品</button>
 								</form>
 								<table class="table">
 									<thead>

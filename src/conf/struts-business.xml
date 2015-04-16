@@ -50,6 +50,7 @@
 		<action name="productStruct" class="com.zh.web.action.ProductStructAction">
 			<result name="success">/pages/business/bom/List.jsp</result>
 			<result name="editor">/pages/business/bom/edit.jsp</result>
+			<result name="view">/pages/business/bom/view.jsp</result>
 			<result name="editorSuccess" type="redirectAction">
 				<param name="actionName">productStruct</param>  
     			<param name="namespace">/business</param>
