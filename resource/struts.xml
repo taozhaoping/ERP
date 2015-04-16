@@ -26,4 +26,6 @@
 		===============================================
 	-->
 	<constant name="struts.ui.theme" value="simple" />
+	<!-- action names 的匹配 -->
+	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9._!/\-]*" />
 </struts>  

@@ -31,6 +31,8 @@ public class InterfaceProductsAction extends BaseAction {
 	
 	
 	private ProductsModel productsModel = new ProductsModel();
+	
+	private String _ ;
 
 	@Override
 	public String execute() throws Exception {
@@ -122,6 +124,14 @@ public class InterfaceProductsAction extends BaseAction {
 
 	public void setProductsModel(ProductsModel productsModel) {
 		this.productsModel = productsModel;
+	}
+
+	public String get_() {
+		return _;
+	}
+
+	public void set_(String _) {
+		this._ = _;
 	}
 
 }
