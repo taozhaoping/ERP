@@ -17,7 +17,7 @@ public class StoragePrimaryModel extends BaseModel {
 
 	private StorageDetail storageDetail = new StorageDetail();
 
-	private List<StorageDetail> StorageDetailList = new ArrayList<StorageDetail>();
+	private List<StorageDetail> storageDetailList = new ArrayList<StorageDetail>();
 
 	private List<Customer> customerList = new ArrayList<Customer>();
 
@@ -48,11 +48,11 @@ public class StoragePrimaryModel extends BaseModel {
 	}
 
 	public List<StorageDetail> getStorageDetailList() {
-		return StorageDetailList;
+		return storageDetailList;
 	}
 
 	public void setStorageDetailList(List<StorageDetail> storageDetailList) {
-		StorageDetailList = storageDetailList;
+		storageDetailList = storageDetailList;
 	}
 
 	public List<Customer> getCustomerList() {

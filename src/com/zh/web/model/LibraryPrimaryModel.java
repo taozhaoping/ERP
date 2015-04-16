@@ -17,7 +17,7 @@ public class LibraryPrimaryModel extends BaseModel {
 
 	private LibraryDetail libraryDetail = new LibraryDetail();
 
-	private List<LibraryDetail> LibraryDetailList = new ArrayList<LibraryDetail>();
+	private List<LibraryDetail> libraryDetailList = new ArrayList<LibraryDetail>();
 
 	private List<Customer> customerList = new ArrayList<Customer>();
 
@@ -48,11 +48,11 @@ public class LibraryPrimaryModel extends BaseModel {
 	}
 
 	public List<LibraryDetail> getLibraryDetailList() {
-		return LibraryDetailList;
+		return libraryDetailList;
 	}
 
 	public void setLibraryDetailList(List<LibraryDetail> libraryDetailList) {
-		LibraryDetailList = libraryDetailList;
+		this.libraryDetailList = libraryDetailList;
 	}
 
 	public List<Customer> getCustomerList() {

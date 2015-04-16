@@ -85,7 +85,7 @@
 			<li class="active">编辑</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="storagePrimary.id!=null&&storagePrimary.id!=''" />
+					value="libraryPrimary.id!=null&&libraryPrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -100,7 +100,7 @@
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
-									<i class="icon-ok"></i> 入库
+									<i class="icon-ok"></i> 出库
 								</button>
 							</s:if>
 						</div>
@@ -109,14 +109,14 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
+							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">出库清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade active" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${storagePrimary.id}"> 
-								<input type="hidden" name="storagePrimary.userID" value="${storagePrimary.userID}">
+								<input type="hidden" name="id" value="${libraryPrimary.id}"> 
+								<input type="hidden" name="libraryPrimary.userID" value="${libraryPrimary.userID}">
 								<input type="hidden" name="menuId" value="${menuId}"> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
@@ -126,7 +126,7 @@
 											<label class="control-label" for="inputorderNoID" style="">入库单号：</label>
 											<div class="controls">
 													<input type="text" maxlength="30" disabled="disabled"
-														id="inputorderNoID" value="${storagePrimary.orderNoID}" class="input-medium"></input>
+														id="inputorderNoID" value="${libraryPrimary.orderNoID}" class="input-medium"></input>
 												
 											</div>
 
@@ -134,11 +134,11 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
+											<label class="control-label" for="inputlibrarydate" style="">出库时间：</label>
 											<div class="controls">
-												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
+												<input size="16" id="inputlibrarydate" name="libraryPrimary.librarydate"
 													type="text" data-required="true"
-													value="${storagePrimary.storagedate}"
+													value="${libraryPrimary.storagedate}"
 													readonly class="form_datetime input-medium">
 											</div>
 										</div>
@@ -147,20 +147,20 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">收货人：</label>
+											<label class="control-label" for="inputuserID" style="">发货人：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="storagePrimary.userID" disabled="disabled"
-													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
+												<input type="text" maxlength="40" name="libraryPrimary.userID" disabled="disabled"
+													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %>" class="input-medium"></input>
 											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">发货客户：</label>
+											<label class="control-label" for="inputcustomerID" style="">接收客户：</label>
 											<div class="controls">
 												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name"
-													name="storagePrimary.customerID" cssClass="input-medium" placeholder="发货客户">
+													name="libraryPrimary.customerID" cssClass="input-medium" placeholder="发货客户">
 												</s:select>
 											</div>
 										</div>
@@ -169,20 +169,20 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputwarehouseID" style="">收入仓库：</label>
+											<label class="control-label" for="inputwarehouseID" style="">发货仓库：</label>
 											<div class="controls">
 												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
-													name="storagePrimary.warehouseID" cssClass="input-medium" placeholder="收入仓库">
+													name="libraryPrimary.warehouseID" cssClass="input-medium" placeholder="发货仓库">
 												</s:select>
 											</div>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstatus" style="">入库：</label>
+											<label class="control-label" for="inputstatus" style="">出库：</label>
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled" list=""
-													name="storagePrimary.status" class="input-medium" placeholder="是否入库" >
+													name="libraryPrimary.status" class="input-medium" placeholder="是否出库" >
 													<option value="0">否</option>
 													<option value="1">是</option>
 												</select>
@@ -195,8 +195,8 @@
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>
 											<div class="controls">
-												<input type="text" maxlength="500" name="storagePrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${storagePrimary.remarks}" class="input-xxlarge"></input>
+												<input type="text" maxlength="500" name="libraryPrimary.remarks"
+													placeholder="备注" id="inputremarks" value="${libraryPrimary.remarks}" class="input-xxlarge"></input>
 											</div>
 
 										</div>
@@ -205,17 +205,17 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="storagedetail">
-								<form id="storageDetailForm" class="form-horizontal" action="${menu2Id}!saveStorageDetail.jspa" method="post">
+							<div class="tab-pane fade" id="librarydetail">
+								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveLibraryDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="storagedetailButt" />
-								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="storageDetail.use" value="" />
-								<input type="hidden" id="detailremarks" name="storageDetail.remarks" value="" />
+								<input type="hidden" name="tabID" value="librarydetailButt" />
+								<input type="hidden" id="detaillibraryPrimaryID" name="libraryDetail.libraryPrimaryID" value="${libraryPrimary.id}" />
+								<input type="hidden" id="detailproductsID" name="libraryDetail.productsID" value="" />
+								<input type="hidden" id="detailqty" name="libraryDetail.storageNumber" value="" />
+								<input type="hidden" id="detailuse" name="libraryDetail.use" value="" />
+								<input type="hidden" id="detailremarks" name="libraryDetail.remarks" value="" />
 										<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
 							</form>
@@ -225,7 +225,7 @@
 									<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
-										<th>入库数量</th>
+										<th>出库数量</th>
 										<th>用途</th>
 										<th>备注</th>
 										<th>操作</th>
@@ -235,7 +235,7 @@
 								<tbody id="maillistSearch">
 									<tr>
 										<!-- 产品列表-->
-										<s:iterator value="StorageDetailList" var="tp" status="index">
+										<s:iterator value="libraryDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
@@ -244,7 +244,7 @@
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i
+												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
@@ -354,7 +354,7 @@
 	</form>
 	
 	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
-		<input id="formId" name="formId" value="${storagePrimary.id}" type="hidden"/>
+		<input id="formId" name="formId" value="${libraryPrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -377,7 +377,7 @@
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#inputstatus").val("${storagePrimary.status}")
+		$("#inputstatus").val("${libraryPrimary.status}")
 		.trigger("change");
 		
 		$("#formChangefirmBtn").click(function() {
@@ -466,7 +466,7 @@
 			$("#detailuse").val(Use);
 			$("#detailremarks").val(Remarks);
 			$('#popupfirm').modal('hide')
-			$("#storageDetailForm").submit();
+			$("#libraryDetailForm").submit();
 	});
 		
 		//进入指定的tbs

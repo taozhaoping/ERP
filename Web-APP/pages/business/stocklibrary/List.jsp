@@ -96,20 +96,20 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>入库单号</th>
-									<th>入库时间</th>
+									<th>出库单号</th>
+									<th>出库时间</th>
 									<th>签收人</th>
 									<th>仓库</th>
-									<th>发货客户</th>
+									<th>接收客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="storagePrimaryList" var="tp" status="index">
+								<s:iterator value="libraryPrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#tp.orderNoID"/></td>
-										<td><s:property value="#tp.storagedate"/></td>
+										<td><s:property value="#tp.librarydate"/></td>
 										<td>
 											<s:set id="userID" value="#tp.userID"></s:set>
 											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>

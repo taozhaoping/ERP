@@ -235,7 +235,7 @@
 								<tbody id="maillistSearch">
 									<tr>
 										<!-- 产品列表-->
-										<s:iterator value="StorageDetailList" var="tp" status="index">
+										<s:iterator value="storageDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
