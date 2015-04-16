@@ -3,6 +3,7 @@ package com.zh.web.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
@@ -13,6 +14,7 @@ import com.zh.web.service.LibraryPrimaryService;
 import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
+@Component("libraryPrimaryService")
 public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 
 	@Autowired

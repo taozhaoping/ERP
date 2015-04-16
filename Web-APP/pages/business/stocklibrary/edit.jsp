@@ -138,7 +138,7 @@
 											<div class="controls">
 												<input size="16" id="inputlibrarydate" name="libraryPrimary.librarydate"
 													type="text" data-required="true"
-													value="${libraryPrimary.storagedate}"
+													value="${libraryPrimary.librarydate}"
 													readonly class="form_datetime input-medium">
 											</div>
 										</div>
@@ -371,6 +371,7 @@
 		var menuId = '${menu2Id}';
 		var spaceId = '${spaceId}';
 		var url = $("#" + menuId).attr('url');
+		var id = '${libraryPrimary.id}';
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
@@ -493,26 +494,28 @@
 			$("#editForm").submit();
 		}
 		
-		$.jqPaginator('#pagination', {
-			//设置分页的总页数
-	        totalPages: totalPage,
-	        //设置分页的总条目数
-	        totalCounts:totalRow,
-	        pageSize:pageSize,
-	        //最多显示的页码
-	        visiblePages: 10,
-	        currentPage: curPage,
-	        onPageChange: function (num, type) {
-	           if("init"==type)
-	        	{
-	        	 	return false;  
-	        	}
-	           $('#curPage').val(num);
-	        	$('#queryForm').submit();
-	        	//document.getElementsByName("operateForm")[0].submit(); 
-	        }
-	    });
-		
+		if ("" != id)
+		{
+			$.jqPaginator('#pagination', {
+				//设置分页的总页数
+		        totalPages: totalPage,
+		        //设置分页的总条目数
+		        totalCounts:totalRow,
+		        pageSize:pageSize,
+		        //最多显示的页码
+		        visiblePages: 10,
+		        currentPage: curPage,
+		        onPageChange: function (num, type) {
+		           if("init"==type)
+		        	{
+		        	 	return false;  
+		        	}
+		           $('#curPage').val(num);
+		        	$('#queryForm').submit();
+		        	//document.getElementsByName("operateForm")[0].submit(); 
+		        }
+		    });
+		}
 	</script>
 </body>
 </html>
