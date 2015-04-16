@@ -47,36 +47,43 @@ public class ProductStructAction extends BaseAction {
 
 	}
 
+	/**
+	 * 编辑获取
+	 */
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		//Integer id = this.productStructModel.getId();
-		
-		/*if (null != id)
-		{
+		Integer id = this.productStructModel.getId();
+		if (null != id){
 			//查询信息
 			LOGGER.debug("editor ProductStructure id " + id );
-			BOMPrimary productStructure = this.productStructModel.getProductStructure();
-			productStructure.setId(Integer.valueOf(id));
-			BOMPrimary reult = productStructureService.query(productStructure);
-			this.productStructModel.setProductStructure(reult);
-			
-		}*/
+			BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
+			bomPrimary.setId(Integer.valueOf(id));
+			//查询结果
+			BomPrimary result = productStructureService.queryPrimary(bomPrimary);
+			LOGGER.debug("query bomPrimary:{}", result);
+			this.productStructModel.setBomPrimary(result);
+		}
 		
 		return Action.EDITOR;
 	}
 
+	/** 
+	 * 保存
+	 */
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
+		//头表的主键
 		Integer id = bomPrimary.getId();
+		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			bomPrimary.setId(id);
-			productStructureService.updatePrimary (bomPrimary);
-			LOGGER.debug("update productStructure id" + id);
+			productStructureService.updatePrimary(bomPrimary);
+			LOGGER.debug("update bomPrimary:{}", bomPrimary);
 		}else{
 			//新增
 			productStructureService.insertPrimary(bomPrimary);
-			LOGGER.debug("add productStructure");
+			LOGGER.debug("add bomPrimary:{}", bomPrimary);
 		}
 		return Action.EDITOR_SUCCESS;
 	}

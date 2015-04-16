@@ -51,7 +51,7 @@
 			<result name="success">/pages/business/bom/List.jsp</result>
 			<result name="editor">/pages/business/bom/edit.jsp</result>
 			<result name="editorSuccess" type="redirectAction">
-				<param name="actionName">productStructure</param>  
+				<param name="actionName">productStruct</param>  
     			<param name="namespace">/business</param>
     			<param name="menuId">${menuId}</param>
     			<param name="menu2Id">${menu2Id}</param>
