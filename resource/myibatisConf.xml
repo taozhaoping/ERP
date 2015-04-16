@@ -77,6 +77,12 @@
 		
 		<!-- 入库明细表 -->
 		<typeAlias alias="StorageDetail" type="com.zh.web.model.bean.StorageDetail"/>
+		
+		<!-- 出库头表 -->
+		<typeAlias alias="LibraryPrimary" type="com.zh.web.model.bean.LibraryPrimary"/>
+		
+		<!-- 出库明细表 -->
+		<typeAlias alias="LibraryDetail" type="com.zh.web.model.bean.LibraryDetail"/>
 	</typeAliases>
 
 	<plugins>

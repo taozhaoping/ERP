@@ -3,30 +3,34 @@ package com.zh.web.model.bean;
 import com.zh.core.base.model.StockObject;
 
 /**
-* @Title: StoragePrimary.java 
+* @Title: LibraryPrimary.java 
 * @Package com.zh.web.model.bean 
-* @Description: 入库信息表头
+* @Description: 出库信息表头
 * @date 2015年4月9日 下午5:26:55 
 * @author taozhaoping 26078
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public class StoragePrimary extends StockObject {
+public class LibraryPrimary extends StockObject {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6333019662890680692L;
+	private static final long serialVersionUID = 9027360111757364893L;
+	/**
+	 * 
+	 */
+	
 	private Integer id;
 	/**
-	 * 入库单号
+	 * 出库单号
 	 */
 	private String orderNoID;
 	
 	/**
-	 * 入库时间
+	 * 出库时间
 	 */
-	private String storagedate;
+	private String librarydate;
 	
 	/**
 	 * 对应单据
@@ -34,7 +38,7 @@ public class StoragePrimary extends StockObject {
 	private String purchaseOrderID;
 	
 	/**
-	 * 收货人
+	 * 发货人
 	 */
 	private Integer userID;
 	
@@ -54,7 +58,7 @@ public class StoragePrimary extends StockObject {
 	private String remarks;
 	
 	/**
-	 * 发货客户
+	 * 收货客户
 	 */
 	private Integer customerID;
 	
@@ -89,12 +93,13 @@ public class StoragePrimary extends StockObject {
 		this.orderNoID = orderNoID;
 	}
 
-	public String getStoragedate() {
-		return storagedate;
+
+	public String getLibrarydate() {
+		return librarydate;
 	}
 
-	public void setStoragedate(String storagedate) {
-		this.storagedate = storagedate;
+	public void setLibrarydate(String librarydate) {
+		this.librarydate = librarydate;
 	}
 
 	public String getPurchaseOrderID() {

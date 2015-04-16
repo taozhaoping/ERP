@@ -5,25 +5,25 @@ import com.zh.core.model.IDataObject;
 /**
 * @Title: StorageDetail.java 
 * @Package com.zh.web.model.bean 
-* @Description: 入库信息明细表
+* @Description: 出库信息明细表
 * @date 2015年4月9日 下午5:26:55 
 * @author taozhaoping 26078
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public class StorageDetail extends IDataObject {
+public class LibraryDetail extends IDataObject {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1764450071409870780L;
+	private static final long serialVersionUID = -726926002801037061L;
 
 	private Integer id;
 	
 	/**
 	 * 头表id
 	 */
-	private Integer storagePrimaryID;
+	private Integer libraryPrimaryID;
 	
 	/**
 	 * 入库产品
@@ -63,12 +63,12 @@ public class StorageDetail extends IDataObject {
 		this.id = id;
 	}
 
-	public Integer getStoragePrimaryID() {
-		return storagePrimaryID;
+	public Integer getLibraryPrimaryID() {
+		return libraryPrimaryID;
 	}
 
-	public void setStoragePrimaryID(Integer storagePrimaryID) {
-		this.storagePrimaryID = storagePrimaryID;
+	public void setLibraryPrimaryID(Integer libraryPrimaryID) {
+		this.libraryPrimaryID = libraryPrimaryID;
 	}
 
 	public Integer getProductsID() {

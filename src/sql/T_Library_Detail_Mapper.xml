@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Library_Detail">
+	<resultMap id="T_Library_Detail" type="LibraryDetail">
+		<id column="ID" property="id" />
+		<result column="LIBRARYPRIMARYID" property="libraryPrimaryID" />
+		<result column="PRODUCTS_ID" property="productsID" />
+		<result column="POSITION" property="position" />
+		<result column="STORAGE_NUMBER" property="storageNumber" />
+		<result column="use" property="use" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	  <resultMap id="T_Library_Detail_lIST" type="LibraryDetail" extends="T_Library_Detail">
+	  	<result column="PRODUCTS_NAME" property="productsName" jdbcType="VARCHAR" />
+	  </resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		LIBRARYPRIMARYID ,
+		PRODUCTS_ID ,
+		POSITION ,
+		STORAGE_NUMBER,
+		use ,
+		remarks 
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="libraryPrimaryID != null">
+				and LIBRARYPRIMARYID = #{libraryPrimaryID}
+			</if>
+			<if test="productsID != null">
+				and PRODUCTS_ID = #{productsID}
+			</if>
+			<if test="position != null">
+				and POSITION = #{position}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Storage_Detail" parameterType="StorageDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_LIBRARY_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Storage_Detail_lIST" parameterType="StorageDetail">
+
+		select
+		S.ID,
+		LIBRARYPRIMARYID ,
+		PRODUCTS_ID ,
+		T.POSITION ,
+		STORAGE_NUMBER,
+		use ,
+		S.remarks ,
+		name as PRODUCTS_NAME
+		from T_LIBRARY_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.PRODUCTS_ID
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="StorageDetail">
+		select
+		count(id)
+		from T_LIBRARY_DETAIL
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="StorageDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Storage_Detail.nextval from dual
+		</selectKey>
+		insert into T_LIBRARY_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="libraryPrimaryID != null">
+				LIBRARYPRIMARYID,
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="position != null">
+				POSITION,
+			</if>
+			<if test="storageNumber != null">
+				STORAGE_NUMBER,
+			</if>
+			<if test="use != null">
+				use,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="libraryPrimaryID != null">
+				#{libraryPrimaryID},
+			</if>
+			<if test="productsID != null">
+				#{productsID},
+			</if>
+			<if test="position != null">
+				#{position},
+			</if>
+			<if test="storageNumber != null">
+				#{storageNumber},
+			</if>
+			<if test="use != null">
+				#{use,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="StorageDetail">
+		update T_LIBRARY_DETAIL
+		<set>
+			<if test="libraryPrimaryID != null">
+				LIBRARYPRIMARYID = #{libraryPrimaryID},
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID = #{productsID},
+			</if>
+			<if test="position != null">
+				POSITION = #{position},
+			</if>
+			<if test="storageNumber != null">
+				STORAGE_NUMBER = #{storageNumber},
+			</if>
+			<if test="use != null">
+				use = #{use,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="StorageDetail">
+		delete from T_LIBRARY_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>

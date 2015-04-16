@@ -85,7 +85,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 			
 			//单据入库
 			StockUtil stockUtil = StockUtil.getInstance();
-			stockUtil.increaseStock(reult,StockUtil.INCREASE);
+			stockUtil.operationStock(reult,StockUtil.INCREASE);
 		}else
 		{
 			throw new ProjectException("单据号：" + reult.getOrderNoID() + "，已经入库!不允许重复入库");

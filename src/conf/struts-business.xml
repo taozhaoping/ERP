@@ -82,5 +82,29 @@
 				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 其他出库 -->
+		<action name="stockLibrary" class="com.zh.web.action.LibraryPrimaryAction">
+			<result name="success">/pages/business/stocklibrary/List.jsp</result>
+			<result name="editor">/pages/business/stocklibrary/edit.jsp</result>
+			<result name="view">/pages/business/stocklibrary/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">stockLibrary</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">stockLibrary</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>

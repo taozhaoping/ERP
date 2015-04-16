@@ -1,7 +1,6 @@
 package com.zh.web.action;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.WarehouseService;
-import com.zh.base.util.ConstantService;
 import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
@@ -22,7 +20,6 @@ import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.StorageDetailService;
 import com.zh.web.service.StoragePrimaryService;
-import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
 public class StoragePrimaryAction extends BaseAction {

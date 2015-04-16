@@ -577,7 +577,7 @@ create table t_library_Primary
    ID                   NUMBER               not null,
    Order_No_id        varchar2(50),
    Purchase_order_ID  varchar2(50),
-   Storage_Date       varchar2(20),
+   library_Date       varchar2(20),
    UserID             NUMBER,
    Warehouse_ID       NUMBER,
    mount_meoey        FLOAT,
@@ -600,7 +600,7 @@ comment on column t_library_Primary.Order_No_id is
 comment on column t_library_Primary.Purchase_order_ID is
 '对应单据';
 
-comment on column t_library_Primary.Storage_Date is
+comment on column t_library_Primary.library_Date is
 '出库时间';
 
 comment on column t_library_Primary.UserID is
@@ -636,7 +636,7 @@ alter table t_library_Primary
 create table t_library_DETAIL 
 (
    ID                   NUMBER               not null,
-   Order_No_id        varchar2(50),
+   LIBRARYPRIMARYID        varchar2(50),
    Products_ID        NUMBER,
    Position           NUMBER,
    Storage_number     NUMBER,
@@ -650,7 +650,7 @@ comment on table t_library_DETAIL is
 comment on column t_library_DETAIL.ID is
 '主键';
 
-comment on column t_library_DETAIL.Order_No_id is
+comment on column t_library_DETAIL.LIBRARYPRIMARYID is
 '出库单号';
 
 comment on column t_library_DETAIL.Products_ID is

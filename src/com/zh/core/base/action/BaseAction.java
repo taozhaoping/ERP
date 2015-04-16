@@ -21,7 +21,6 @@ import com.zh.base.service.DictionaryService;
 import com.zh.base.service.EnterpriseService;
 import com.zh.core.model.Pager;
 import com.zh.core.model.VariableUtil;
-import com.zh.web.util.StockUtil;
 
 public abstract class BaseAction extends ActionSupport implements
 		ModelDriven<Object> {

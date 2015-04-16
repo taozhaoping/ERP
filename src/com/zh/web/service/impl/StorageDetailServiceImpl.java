@@ -10,7 +10,6 @@ import com.zh.core.model.Pager;
 import com.zh.web.dao.StorageDetailDao;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.service.StorageDetailService;
-import com.zh.web.util.StockUtil;
 
 @Component("storageDetailService")
 @Scope("singleton")

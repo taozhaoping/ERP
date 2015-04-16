@@ -6,13 +6,14 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import com.zh.core.base.model.StockObject;
 import com.zh.core.exception.ProjectException;
+import com.zh.web.model.bean.LibraryPrimary;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.StockService;
 import com.zh.web.service.StorageDetailService;
-import com.zh.web.service.StoragePrimaryService;
 
 /**
  * 
@@ -32,7 +33,6 @@ public class StockUtil implements ApplicationContextAware {
 
 	private static StorageDetailService storageDetailService;
 
-	private static StoragePrimaryService storagePrimaryService;
 
 	private static StockService stockService;
 
@@ -72,8 +72,6 @@ public class StockUtil implements ApplicationContextAware {
 		if (stockUtil == null) {
 			storageDetailService = (StorageDetailService) ctx
 					.getBean("storageDetailService");
-			storagePrimaryService = (StoragePrimaryService) ctx
-					.getBean("storagePrimaryService");
 			stockService = (StockService) ctx.getBean("stockService");
 			stockUtil = (StockUtil) ctx.getBean("stockUtil");
 		}
@@ -81,22 +79,12 @@ public class StockUtil implements ApplicationContextAware {
 		return stockUtil;
 	}
 
-	/**
-	 * 验证
-	 */
-	private static void verification(Integer productsID, Integer warehouseID,
-			Integer StorageNumber) {
+	public synchronized void operationStock(StockObject sockObject, String type) {
 
-		if (productsID == null || "".equals(productsID.toString())) {
-			throw new ProjectException("产品编号不允许为null");
-		}
-
-		if (warehouseID == null || "".equals(warehouseID.toString())) {
-			throw new ProjectException("仓库ID不允许为null");
-		}
-
-		if (StorageNumber == null || "".equals(StorageNumber.toString())) {
-			throw new ProjectException("数量不允许为null");
+		if (type == INCREASE) {
+			this.increaseStock((StoragePrimary) sockObject);
+		} else if (type == REDUCE) {
+			this.reduceStock((LibraryPrimary) sockObject);
 		}
 	}
 
@@ -104,15 +92,16 @@ public class StockUtil implements ApplicationContextAware {
 	 * 
 	 * @Title: increaseStock
 	 * @Description: 增加库存
-	 * @param  storageDetail 参数
-	 * @param type 减少库存还是增加库存
+	 * @param storageDetail
+	 *            参数
+	 * @param type
+	 *            减少库存还是增加库存
 	 * @return void 返回类型
 	 * @throws
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	public synchronized void increaseStock(StoragePrimary storagePrimary,
-			String type) {
+	public synchronized void increaseStock(StoragePrimary storagePrimary) {
 
 		StorageDetail storageDetail = new StorageDetail();
 		storageDetail.setStoragePrimaryID(storagePrimary.getId());
@@ -129,11 +118,7 @@ public class StockUtil implements ApplicationContextAware {
 				throw new ProjectException("数据库不存在该产品编号");
 			}
 			Float stockNumber = reult.getStockNumber();
-			if (type == INCREASE) {
-				stockNumber += StorageNumber;
-			} else if (type == REDUCE) {
-				stockNumber -= StorageNumber;
-			}
+			stockNumber += StorageNumber;
 			stock = new Stock();
 			stock.setId(reult.getId());
 			stock.setStockNumber(stockNumber);
@@ -142,4 +127,43 @@ public class StockUtil implements ApplicationContextAware {
 
 	}
 
+	/**
+	 * 
+	 * @Title: increaseStock
+	 * @Description: 减少库存
+	 * @param storageDetail
+	 *            参数
+	 * @param type
+	 *            减少库存还是增加库存
+	 * @return void 返回类型
+	 * @throws
+	 * @author taozhaoping 26078
+	 * @author mail taozhaoping@gmail.com
+	 */
+	public synchronized void reduceStock(LibraryPrimary libraryPrimary) {
+
+		StorageDetail storageDetail = new StorageDetail();
+		storageDetail.setStoragePrimaryID(libraryPrimary.getId());
+		/*Integer warehouseID = libraryPrimary.getWarehouseID();
+		List<StorageDetail> storageDetailReult = storageDetailService
+				.queryList(storageDetail);
+		for (StorageDetail storageDetailInfo : storageDetailReult) {
+			Stock stock = new Stock();
+			stock.setProductsID(storageDetailInfo.getProductsID());
+			stock.setWarehouseID(warehouseID);
+			Integer StorageNumber = storageDetailInfo.getStorageNumber();
+			Stock reult = stockService.query(stock);
+			if (reult == null) {
+				throw new ProjectException("数据库不存在该产品编号");
+			}
+			Float stockNumber = reult.getStockNumber();
+
+			stockNumber -= StorageNumber;
+			stock = new Stock();
+			stock.setId(reult.getId());
+			stock.setStockNumber(stockNumber);
+			stockService.update(stock);
+		}*/
+
+	}
 }
