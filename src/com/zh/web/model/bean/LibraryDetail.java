@@ -54,6 +54,16 @@ public class LibraryDetail extends IDataObject {
 	 * 产品名称
 	 */
 	private String productsName;
+	
+	/**
+	 * 仓库
+	 */
+	private Integer warehouseID;
+	
+	/**
+	 * 库存数量
+	 */
+	private Float stockNumber;
 
 	public Integer getId() {
 		return id;
@@ -117,6 +127,22 @@ public class LibraryDetail extends IDataObject {
 
 	public void setProductsName(String productsName) {
 		this.productsName = productsName;
+	}
+
+	public Integer getWarehouseID() {
+		return warehouseID;
+	}
+
+	public void setWarehouseID(Integer warehouseID) {
+		this.warehouseID = warehouseID;
+	}
+
+	public Float getStockNumber() {
+		return stockNumber;
+	}
+
+	public void setStockNumber(Float stockNumber) {
+		this.stockNumber = stockNumber;
 	}
 
 

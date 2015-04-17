@@ -52,7 +52,7 @@
 		select
 		S.ID,
 		STORAGEPRIMARYID ,
-		PRODUCTS_ID ,
+		S.PRODUCTS_ID ,
 		T.POSITION ,
 		STORAGE_NUMBER,
 		use ,

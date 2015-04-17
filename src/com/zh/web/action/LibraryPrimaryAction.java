@@ -119,6 +119,8 @@ public class LibraryPrimaryAction extends BaseAction {
 			Pager page = this.libraryPrimaryModel.getPageInfo();
 			Integer count = libraryDetailService.count(libraryDetail);
 			page.setTotalRow(count);
+			
+			libraryDetail.setWarehouseID(reult.getWarehouseID());
 			List<LibraryDetail> list = libraryDetailService.queryList(
 					libraryDetail, page);
 			this.libraryPrimaryModel.setLibraryDetailList(list);

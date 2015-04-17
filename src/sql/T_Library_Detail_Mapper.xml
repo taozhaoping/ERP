@@ -13,6 +13,8 @@
 	
 	  <resultMap id="T_Library_Detail_lIST" type="LibraryDetail" extends="T_Library_Detail">
 	  	<result column="PRODUCTS_NAME" property="productsName" jdbcType="VARCHAR" />
+	  	<result column="WAREHOUSE_ID" property="warehouseID" />
+	  	<result column="STOCK_NUMBER" property="stockNumber" />
 	  </resultMap>
 	<sql id="Base_Column_List">
 		ID,
@@ -52,13 +54,15 @@
 		select
 		S.ID,
 		LIBRARYPRIMARYID ,
-		PRODUCTS_ID ,
+		S.PRODUCTS_ID ,
 		T.POSITION ,
 		STORAGE_NUMBER,
 		use ,
 		S.remarks ,
+		STOCK_NUMBER,
 		name as PRODUCTS_NAME
 		from T_LIBRARY_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.PRODUCTS_ID
+		LEFT JOIN T_STOCK K ON S.PRODUCTS_ID=K.PRODUCTS_ID AND K.WAREHOUSE_ID=#{warehouseID}
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}

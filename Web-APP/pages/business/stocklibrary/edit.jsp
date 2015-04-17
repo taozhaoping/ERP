@@ -227,6 +227,7 @@
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>出库数量</th>
+										<th>库存量</th>
 										<th>用途</th>
 										<th>备注</th>
 										<th>操作</th>
@@ -242,6 +243,16 @@
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
 											<td><s:property value="#tp.storageNumber" /></td>
+											<td>
+												<s:if test="#tp.storageNumber > #tp.stockNumber">
+													<span style="color: red">
+												</s:if>
+												<s:else>
+													<span>
+												</s:else>
+														<s:property value="#tp.stockNumber" />
+													</span>
+											</td>
 											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
