@@ -14,7 +14,7 @@
 	  <resultMap id="T_Library_Detail_lIST" type="LibraryDetail" extends="T_Library_Detail">
 	  	<result column="PRODUCTS_NAME" property="productsName" jdbcType="VARCHAR" />
 	  	<result column="WAREHOUSE_ID" property="warehouseID" />
-	  	<result column="STOCK_NUMBER" property="stockNumber" />
+	  	<result column="STOCK_NUMBER" property="stockNumber"/>
 	  </resultMap>
 	<sql id="Base_Column_List">
 		ID,

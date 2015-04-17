@@ -84,7 +84,7 @@ public final class DateUtil {
 	 */
 	public static String getCreated() {
 		DateFormat zulu = null;
-		zulu = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		zulu = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 		zulu.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		Date currentTime = new Date();
 		return zulu.format(currentTime);

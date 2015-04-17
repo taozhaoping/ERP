@@ -8,10 +8,12 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.zh.core.base.model.StockObject;
 import com.zh.core.exception.ProjectException;
+import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
+import com.zh.web.service.LibraryDetailService;
 import com.zh.web.service.StockService;
 import com.zh.web.service.StorageDetailService;
 
@@ -33,6 +35,7 @@ public class StockUtil implements ApplicationContextAware {
 
 	private static StorageDetailService storageDetailService;
 
+	private static LibraryDetailService libraryDetailService;
 
 	private static StockService stockService;
 
@@ -72,6 +75,8 @@ public class StockUtil implements ApplicationContextAware {
 		if (stockUtil == null) {
 			storageDetailService = (StorageDetailService) ctx
 					.getBean("storageDetailService");
+			libraryDetailService = (LibraryDetailService) ctx
+					.getBean("libraryDetailService");
 			stockService = (StockService) ctx.getBean("stockService");
 			stockUtil = (StockUtil) ctx.getBean("stockUtil");
 		}
@@ -142,16 +147,17 @@ public class StockUtil implements ApplicationContextAware {
 	 */
 	public synchronized void reduceStock(LibraryPrimary libraryPrimary) {
 
-		StorageDetail storageDetail = new StorageDetail();
-		storageDetail.setStoragePrimaryID(libraryPrimary.getId());
-		/*Integer warehouseID = libraryPrimary.getWarehouseID();
-		List<StorageDetail> storageDetailReult = storageDetailService
-				.queryList(storageDetail);
-		for (StorageDetail storageDetailInfo : storageDetailReult) {
+		LibraryDetail libraryDetail = new LibraryDetail();
+		libraryDetail.setLibraryPrimaryID(libraryPrimary.getId());
+		Integer warehouseID = libraryPrimary.getWarehouseID();
+		libraryDetail.setWarehouseID(warehouseID);
+		List<LibraryDetail> libraryDetailReult = libraryDetailService
+				.queryList(libraryDetail);
+		for (LibraryDetail libraryDetailInfo : libraryDetailReult) {
 			Stock stock = new Stock();
-			stock.setProductsID(storageDetailInfo.getProductsID());
+			stock.setProductsID(libraryDetailInfo.getProductsID());
 			stock.setWarehouseID(warehouseID);
-			Integer StorageNumber = storageDetailInfo.getStorageNumber();
+			Integer StorageNumber = libraryDetailInfo.getStorageNumber();
 			Stock reult = stockService.query(stock);
 			if (reult == null) {
 				throw new ProjectException("数据库不存在该产品编号");
@@ -163,7 +169,7 @@ public class StockUtil implements ApplicationContextAware {
 			stock.setId(reult.getId());
 			stock.setStockNumber(stockNumber);
 			stockService.update(stock);
-		}*/
+		}
 
 	}
 }

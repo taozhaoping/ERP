@@ -223,7 +223,7 @@
 							<table class="table ">
 								<thead>
 									<tr>
-									<th>序号</th>
+										<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>出库数量</th>

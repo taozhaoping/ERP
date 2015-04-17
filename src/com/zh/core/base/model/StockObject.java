@@ -18,31 +18,31 @@ public class StockObject extends IDataObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -4068023572629052599L;
-	private Integer id;
+	protected Integer id;
 	/**
 	 * 出入库单号
 	 */
-	private String orderNoID;
+	protected String orderNoID;
 	
 	/**
 	 * 出入库对应单据
 	 */
-	private String purchaseOrderID;
+	protected String purchaseOrderID;
 	
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	protected Integer warehouseID;
 	
 	/**
 	 * 发货客户或者接收客户
 	 */
-	private Integer customerID;
+	protected Integer customerID;
 	
 	/**
 	 * 入库状态
 	 */
-	private Integer status;
+	protected Integer status;
 
 	public Integer getId() {
 		return id;

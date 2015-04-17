@@ -84,8 +84,6 @@
 			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
 			<li class="active">查看</li>
 		</ul>
-		<s:set name="ProcessId"
-					value="storagePrimary.id!=null&&storagePrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -99,22 +97,24 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">出库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane active dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库单号：</dt>
-											<dd>${storagePrimary.orderNoID}</dd>
+											<dt>出库单号：</dt>
+											<dd>${libraryPrimary.orderNoID}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库时间：</dt>
-											<dd>${storagePrimary.storagedate}</dd>
+											<dt>出库时间：</dt>
+											<dd>
+												${libraryPrimary.librarydate}
+											</dd>
 										</div>
 									</div>
 								</dir>
@@ -122,16 +122,16 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>收货人：</dt>
-											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %></dd>
+											<dt>发货人：</dt>
+											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %></dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>发货客户：</dt>
+											<dt>接收客户：</dt>
 											<dd>
 												<s:iterator value="customerList" var="tp" status="index">
-													<s:if test="#tp.id == storagePrimary.customerID">
+													<s:if test="#tp.id == libraryPrimary.customerID">
 														<s:property value="#tp.name"/>
 													</s:if>
 												</s:iterator>
@@ -143,10 +143,10 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>收入仓库：</dt>
+											<dt>发货仓库：</dt>
 											<dd>
 												<s:iterator value="warehouseList" var="tp" status="index">
-													<s:if test="#tp.id == storagePrimary.warehouseID">
+													<s:if test="#tp.id == libraryPrimary.warehouseID">
 														<s:property value="#tp.name"/>
 													</s:if>
 												</s:iterator>
@@ -155,9 +155,9 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库：</dt>
+											<dt>出库：</dt>
 											<dd>
-												<s:if test="#storagePrimary.status==0">
+												<s:if test="#libraryPrimary.status==0">
 													否
 												</s:if>
 												<s:else>
@@ -172,7 +172,7 @@
 									<div class="span8">
 										<div class="control-group">
 											<dt>备注：</dt>
-											<dd>${storagePrimary.remarks}</dd>
+											<dd>${libraryPrimary.remarks}</dd>
 										</div>
 									</div>
 								</dir>
@@ -182,10 +182,11 @@
 								<table class="table ">
 									<thead>
 										<tr>
-										<th>序号</th>
+											<th>序号</th>
 											<th>产品编号</th>
 											<th>产品名称</th>
-											<th>入库数量</th>
+											<th>出库数量</th>
+											<th>库存量</th>
 											<th>用途</th>
 											<th>备注</th>
 										</tr>
@@ -194,16 +195,26 @@
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="StorageDetailList" var="tp" status="index">
-											<tr>
-												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsID" /></td>
-												<td><s:property value="#tp.productsName" /></td>
-												<td><s:property value="#tp.storageNumber" /></td>
-												<td><s:property value="#tp.use" /></td>
-												<td><s:property value="#tp.remarks" /></td>
-											</tr>
-											</s:iterator>
+										<s:iterator value="libraryDetailList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#index.index +1" /></td>
+											<td><s:property value="#tp.productsID" /></td>
+											<td><s:property value="#tp.productsName" /></td>
+											<td><s:property value="#tp.storageNumber" /></td>
+											<td>
+												<s:if test="#tp.storageNumber > #tp.stockNumber">
+													<span style="color: red">
+												</s:if>
+												<s:else>
+													<span>
+												</s:else>
+														<s:property value="#tp.stockNumber" />
+													</span>
+											</td>
+											<td><s:property value="#tp.use" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+										</tr>
+										</s:iterator>
 											
 										</tr>
 									</tbody>
@@ -243,7 +254,7 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
-		$("#inputstatus").val("${storagePrimary.status}")
+		$("#inputstatus").val("${libraryPrimary.status}")
 		.trigger("change");
 		
 		$.jqPaginator('#pagination', {
