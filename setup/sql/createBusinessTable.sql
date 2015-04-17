@@ -9,7 +9,11 @@ alter table T_BOM_DETAIL       drop primary key cascade;
 alter table T_BOM_SUB          drop primary key cascade;
 alter table t_library_Primary  drop primary key cascade;
 alter table t_library_DETAIL   drop primary key cascade;
+alter table T_SALES_ORDER_PRIMARY   drop primary key cascade;
+alter table T_Sales_order_DETAIL    drop primary key cascade;
 
+drop table T_Sales_order_DETAIL cascade constraints;
+drop table T_SALES_ORDER_PRIMARY cascade constraints;
 drop table t_library_DETAIL cascade constraints;
 drop table t_library_Primary cascade constraints;
 drop table T_BOM_SUB cascade constraints;
@@ -36,6 +40,7 @@ drop sequence SEQUENCE_T_BOM_DETAIL;
 drop sequence SEQUENCE_T_BOM_SUB;
 drop sequence SEQUENCE_t_library_Primary;
 drop sequence SEQUENCE_t_library_Detail;
+drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -119,6 +124,20 @@ start with 1
 order;
 
 create sequence SEQUENCE_t_library_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_SALES_ORDER_PRIMARY
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_Sales_order_DETAIL
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -670,3 +689,104 @@ comment on column t_library_DETAIL.Remarks is
 
 alter table t_library_DETAIL
    add constraint PK_T_LIBRARY_DETAIL primary key (ID);
+   
+/*==============================================================*/
+/* Table: 销售订单                                                                                                                                                  */
+/*==============================================================*/
+-- Create table
+create table T_SALES_ORDER_PRIMARY
+(
+  id             NUMBER not null,
+  order_id       VARCHAR2(50),
+  customer_id    NUMBER,
+  payment_term   NUMBER,
+  inspection     VARCHAR2(20),
+  lrddate        VARCHAR2(20),
+  container_type VARCHAR2(20),
+  loading_port   VARCHAR2(50),
+  discharge_port VARCHAR2(50),
+  status         NUMBER default 0,
+  price          FLOAT,
+  createdate     VARCHAR2(20),
+  updatedate     VARCHAR2(20),
+  remarks        VARCHAR2(500)
+)
+tablespace EPRVIEW
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+-- Add comments to the table 
+comment on table T_SALES_ORDER_PRIMARY
+  is '销售订单';
+-- Add comments to the columns 
+comment on column T_SALES_ORDER_PRIMARY.id
+  is '主键';
+comment on column T_SALES_ORDER_PRIMARY.order_id
+  is '销售订单';
+comment on column T_SALES_ORDER_PRIMARY.customer_id
+  is '客户主键';
+comment on column T_SALES_ORDER_PRIMARY.payment_term
+  is '付款方式';
+comment on column T_SALES_ORDER_PRIMARY.inspection
+  is '检查日期';
+comment on column T_SALES_ORDER_PRIMARY.lrddate
+  is '进港日期';
+comment on column T_SALES_ORDER_PRIMARY.container_type
+  is '集装箱号';
+comment on column T_SALES_ORDER_PRIMARY.loading_port
+  is '装货港口';
+comment on column T_SALES_ORDER_PRIMARY.discharge_port
+  is '卸货港口';
+comment on column T_SALES_ORDER_PRIMARY.status
+  is '订单状态';
+comment on column T_SALES_ORDER_PRIMARY.price
+  is '总价';
+comment on column T_SALES_ORDER_PRIMARY.createdate
+  is '创建时间';
+comment on column T_SALES_ORDER_PRIMARY.updatedate
+  is '修改时间';
+comment on column T_SALES_ORDER_PRIMARY.remarks
+  is '备注';
+
+/*==============================================================*/
+/* Table: T_Sales_order_DETAIL                                */
+/*==============================================================*/
+create table T_Sales_order_DETAIL 
+(
+   ID                   NUMBER               not null,
+   Sales_order_id     varchar2(20),
+   Products_ID        NUMBER,
+   Position           NUMBER,
+   Storage_number     NUMBER,
+   Unit_price         FLOAT,
+   Order_value        FLOAT,
+   FSC_type           VARCHAR2(100),
+   Remarks            varchar2(500)
+);
+
+comment on table T_Sales_order_DETAIL is
+'销售订单_明细表';
+
+comment on column T_Sales_order_DETAIL.ID is
+'主键';
+
+comment on column T_Sales_order_DETAIL.Sales_order_id is
+'入库单号';
+
+comment on column T_Sales_order_DETAIL.Products_ID is
+'产品编号';
+
+comment on column T_Sales_order_DETAIL.Position is
+'库位';
+
+comment on column T_Sales_order_DETAIL.Storage_number is
+'入库数量';
+
+comment on column T_Sales_order_DETAIL.FSC_type is
+'用途';
+
+comment on column T_Sales_order_DETAIL.Remarks is
+'备注';
+
+alter table T_Sales_order_DETAIL
+   add constraint PK_T_SALES_ORDER_DETAIL primary key (ID);
