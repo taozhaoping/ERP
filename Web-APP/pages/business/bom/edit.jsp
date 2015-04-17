@@ -95,17 +95,14 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<s:if test="#ProcessId">
-								<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
+							<s:if test="bomPrimary.productsId">
+								<li><a id="productStructButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
 								<input type="hidden" name="bomPrimary.id" value="${bomPrimary.id}">
-								<!-- 
-								<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
-								 -->
 								<input type="hidden" name="menuId" value="${menuId}">
 								<input type="hidden" name="menu2Id" value="${menu2Id}">
 								<input type="hidden" name="spaceId" value="${spaceId}">
@@ -147,8 +144,8 @@
 										<div class="control-group">
 											<label class="control-label" for="inputwideDegree">生效状态：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="products.effStatus" disabled="disabled"
-													placeholder="生效状态" id="inputEffStatus" value="${products.effStatus}" class="input-medium input-xlarge"></input>
+												<input type="text" maxlength="40" name="bomPrimary.effStatus" disabled="disabled"
+													placeholder="生效状态" id="inputEffStatus" value="${bomPrimary.effStatus}" class="input-medium input-xlarge"></input>
 											</div>
 										</div>
 									</div>
@@ -156,14 +153,21 @@
 								</form>
 							</div>
 							
-							<div class="tab-pane fade" id="productStructure">
-								<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+							<div class="tab-pane fade" id="productStructTab">
+								<form id="productStructDetailForm" class="form-horizontal" action="${menu2Id}!saveDetail.jspa" method="post">
 									<input type="hidden" name="menuId" value="${menuId}" /> 
 									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 									<input type="hidden" name="spaceId" value="${spaceId}">
-									<input type="hidden" name="{bomPrimary.id" value="${bomPrimary.id}">
-									<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
+									<input type="hidden" name="bomDetail.primaryId" value="${bomPrimary.id}">
+									<!-- 
+									<input type="hidden" name="bomDetail.id" value="${bomDetail.id}">
+									 -->
 									<input type="hidden" name="tabID" value="productStructButt" />
+									
+									<input type="hidden" name="bomDetail.subProductsId" id="bomDetailSubProductsId" value="">
+									<input type="hidden" name="bomDetail.isMainProducts" id="bomDetailIsMainProducts" value="">
+									<input type="hidden" name="bomDetail.qty" id="bomDetailQty" value="">
+									<input type="hidden" name="bomDetail.remarks" id="bomDetailRemarks" value="">
 									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加产品</button>
 								</form>
 								<table class="table">
@@ -186,7 +190,6 @@
 												<td><s:property value="#tp.subProductsId" /></td>
 												<td></td>
 												<td><s:property value="#tp.position" /></td>
-												<td><s:property value="#tp.products.sourceType" /></td>
 												<td><s:property value="#tp.isMainProducts" /></td>
 												<td><s:property value="#tp.qty" /></td>
 												<td><s:property value="#tp.remarks" /></td>
@@ -203,6 +206,69 @@
 						</div>
 					</div>
 				</div>
+		</div>
+	</div>
+	
+	<!-- 添加产品 -->
+	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="startModalLabel1">产品添加</h3>
+		</div>
+		<div class="modal-body">
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupProductsID">产品编号：</label>
+						<div class="controls">
+							<input id="popupProductsID" class="input-large">
+							</input>
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupQty">数量：</label>
+						<div class="controls">
+							<input type="text" id="popupQty" 
+							placeholder="数量" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupIsMainProducts">是否主要产品：</label>
+						<div class="controls">
+							<input type="text" id="popupIsMainProducts"
+							placeholder="是否主要产品" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupRemarks">备注：</label>
+						<div class="controls">
+							<input type="text" id="popupRemarks"
+							placeholder="备注" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-loading-text="正在保存" id="popupBtnConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 	
@@ -284,7 +350,7 @@
 				var n = min - input.length;
 				return "请最少输入" + n + "个字符";
 			},
-
+			
 			formatInputTooLong : function(input, max) {
 				var n = input.length - max;
 				return "请删掉" + n + "个字符";
@@ -293,7 +359,7 @@
 			formatSelectionTooBig : function(limit) {
 				return "你只能选择最多" + limit + "项";
 			},
-
+			
 			formatLoadMore : function(pageNumber) {
 				return "加载结果中...";
 			},
@@ -304,6 +370,107 @@
 		});
 		//设置初始化值
 		//$("#inputProductsId").val("${bomPrimary.productsId}").trigger("change");
+		
+		$("#popupBtnConfirm").click(function(x) {
+			var _ProductsID = $("#popupProductsID").val();
+			var _Qty = $("#popupQty").val();
+			var _IsMainProducts = $("#popupIsMainProducts").val();
+			var _Remarks = $("#popupRemarks").val();
+			
+			var ProductsID = $.trim(_ProductsID);
+			var Qty = $.trim(_Qty);
+			var IsMainProducts = $.trim(_IsMainProducts);
+			var Remarks = $.trim(_Remarks);
+			if (ProductsID == null || ProductsID == "") {
+				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				return;
+			} 
+			if (Qty == null || Qty == "") {
+				$("#popupQty").attr("title","数量必须填写!");
+				return;
+			}
+			alert("ProductsID: " + ProductsID + " Qty: " + Qty + " IsMainProducts:" + IsMainProducts + " Remarks:" + Remarks);
+			$("#bomDetailSubProductsId").val(ProductsID);
+			$("#bomDetailQty").val(Qty);
+			$("#bomDetailIsMainProducts").val(IsMainProducts);
+			$("#bomDetailRemarks").val(Remarks);
+			
+			$('#popupfirm').modal('hide');
+			//提交表单
+			$("#productStructDetailForm").submit();
+		})
+		
+		$("#popupProductsID").select2({
+			placeholder : "查询产品编号",
+			minimumInputLength : 3,
+			//multiple:true,
+			quietMillis : 3000,
+			ajax : {
+				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						"productsID" : term,
+						"pageInfo.curPage" : page
+					};
+				},
+				results : function(data, page) {
+					
+					var more = (page * 10) < data.total;
+					for ( var i = 0; i < data.rows.length; i++) {
+						var parts = data.rows[i];
+						parts.id = parts.id;
+						parts.text = parts.id + "(" + parts.name + ")";
+					}
+					partsArr = data.rows;
+					return {
+						results : data.rows,
+						more : more
+					};
+				}
+			},
+			/*
+			initSelection: function(element, callback) {
+		        // the input tag has a value attribute preloaded that points to a preselected repository's id
+		        // this function resolves that id attribute to an object that select2 can render
+		        // using its formatResult renderer - that way the repository name is shown preselected
+		        var id = "${bomPrimary.productsId}";
+		        if (id !== "") {
+		            $.ajax(basePath + "/interface/interfaceProducts!queryProducts.jspa", {
+		                dataType: "json",
+		                data : {
+							"id" : id
+						},
+		           	}).done(function(data) { callback({id:data.dataObject.id, text:data.dataObject.id + "(" + data.dataObject.name + ")"}); });
+				}
+		    },
+		    */
+			formatNoMatches : function() {
+				return "没有找到匹配项";
+			},
+
+			formatInputTooShort : function(input, min) {
+				var n = min - input.length;
+				return "请最少输入" + n + "个字符";
+			},
+			
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
+			},
+			
+			formatLoadMore : function(pageNumber) {
+				return "加载结果中...";
+			},
+
+			formatSearching : function() {
+				return "搜索中...";
+			}
+		});
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";

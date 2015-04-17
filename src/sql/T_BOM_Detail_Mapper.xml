@@ -32,7 +32,7 @@
 			<if test="subProductsId != null">
 				and SUB_PRODUCTS_ID = #{subProductsId}
 			</if>
-			<if test="groupID != null">
+			<if test="position != null">
 				and POSITION = #{position}
 			</if>
 			<if test="isMainProducts != null">

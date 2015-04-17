@@ -157,7 +157,6 @@
 												<td><s:property value="#tp.subProductsId" /></td>
 												<td></td>
 												<td><s:property value="#tp.position" /></td>
-												<td><s:property value="#tp.products.sourceType" /></td>
 												<td><s:property value="#tp.isMainProducts" /></td>
 												<td><s:property value="#tp.qty" /></td>
 												<td><s:property value="#tp.remarks" /></td>

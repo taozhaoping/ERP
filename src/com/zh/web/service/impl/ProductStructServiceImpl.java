@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zh.core.model.Pager;
+import com.zh.web.dao.BomDetailDao;
 import com.zh.web.dao.BomPrimaryDao;
+import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.service.ProductStructService;
 
@@ -15,6 +17,9 @@ public class ProductStructServiceImpl implements ProductStructService {
 
 	@Autowired
 	private BomPrimaryDao bomPrimaryDao;
+
+	@Autowired
+	private BomDetailDao bomDetailDao;
 	
 	@Override
 	public BomPrimary queryPrimary(BomPrimary bomPrimary) {
@@ -50,6 +55,42 @@ public class ProductStructServiceImpl implements ProductStructService {
 	@Override
 	public Integer insertPrimary(BomPrimary bomPrimary) {
 		return bomPrimaryDao.insert(bomPrimary);
+	}
+	
+	@Override
+	public BomDetail queryDetail(BomDetail bomDetail) {
+		return bomDetailDao.query(bomDetail);
+	}
+	
+	@Override
+	public void updateDetail(BomDetail bomDetail) {
+		bomDetailDao.update(bomDetail);
+	}
+	
+	@Override
+	public List<BomDetail> queryDetailList(BomDetail bomDetail) {
+		return bomDetailDao.queryList(bomDetail);
+	}
+	
+	@Override
+	public List<BomDetail> queryDetailList(BomDetail bomDetail,
+			Pager page) {
+		return bomDetailDao.queryList(bomDetail);
+	}
+	
+	@Override
+	public Integer countDetail(BomDetail bomDetail) {
+		return bomDetailDao.count(bomDetail);
+	}
+	
+	@Override
+	public void deleteDetail(BomDetail bomDetail) {
+		bomDetailDao.delete(bomDetail);
+	}
+	
+	@Override
+	public Integer insertDetail(BomDetail bomDetail) {
+		return bomDetailDao.insert(bomDetail);
 	}
 
 }
