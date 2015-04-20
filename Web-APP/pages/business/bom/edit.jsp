@@ -96,7 +96,7 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="bomPrimary.productsId">
-								<li><a id="productStructButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructTabButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -162,7 +162,7 @@
 									<!-- 
 									<input type="hidden" name="bomDetail.id" value="${bomDetail.id}">
 									 -->
-									<input type="hidden" name="tabID" value="productStructButt" />
+									<input type="hidden" name="tabID" value="productStructTabButt" />
 									
 									<input type="hidden" name="bomDetail.subProductsId" id="bomDetailSubProductsId" value="">
 									<input type="hidden" name="bomDetail.isMainProducts" id="bomDetailIsMainProducts" value="">
@@ -175,8 +175,9 @@
 									<input type="hidden" name="menuId" value="${menuId}" /> 
 									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="bomDetail.primaryId" value="${bomPrimary.id}">
 									
-									<input type="hidden" name="tabID" value="productStructButt" />
+									<input type="hidden" name="tabID" value="productStructTabButt" />
 									
 									<input type="hidden" name="bomDetail.id" id="delFormBomDetailId" value="">
 								</form>
@@ -431,7 +432,7 @@
 				$("#popupQty").attr("title","数量必须填写!");
 				return;
 			}
-			alert("ProductsID: " + ProductsID + " Qty: " + Qty + " IsMainProducts:" + IsMainProducts + " Remarks:" + Remarks);
+			//alert("ProductsID: " + ProductsID + " Qty: " + Qty + " IsMainProducts:" + IsMainProducts + " Remarks:" + Remarks);
 			$("#bomDetailSubProductsId").val(ProductsID);
 			$("#bomDetailQty").val(Qty);
 			$("#bomDetailIsMainProducts").val(IsMainProducts);
@@ -531,8 +532,7 @@
 		var tabID = "${tabID}";
 		if (null != tabID && "" != tabID) {
 			$("#" + tabID).parent().addClass("active");
-			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
-					.addClass("active");
+			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade").addClass("active");
 		} else {
 			tabID = "homeButt";
 			$("#tabID").val("homeButt");
@@ -575,14 +575,14 @@
         }
         
         //在页面初始化事件（onload）时注册的自定义事件
-        window.addEventListener("load", loadDemo, false);
+       // window.addEventListener("load", loadDemo, false);
 		
 	
 		/* 
 		$.validator.addMethod("queryProducts",function(value,element,params){
 			   return false;
 			},"必须是一个字母,且a-f");
- */
+ 		*/
 		
 	</script>
 </body>

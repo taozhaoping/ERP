@@ -54,6 +54,7 @@ public class ProductStructAction extends BaseAction {
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
 		Integer id = this.productStructModel.getId();
+		
 		if (null != id){
 			//查询信息
 			LOGGER.debug("editor ProductStruct id " + id );
@@ -124,6 +125,7 @@ public class ProductStructAction extends BaseAction {
 			productStructService.insertPrimary(bomPrimary);
 			LOGGER.debug("add bomPrimary:{}", bomPrimary);
 		}
+		this.productStructModel.setId(bomPrimary.getId());
 		return Action.EDITOR_SUCCESS;
 	}
 	
@@ -145,6 +147,7 @@ public class ProductStructAction extends BaseAction {
 			productStructService.insertDetail(bomDetail);
 			LOGGER.debug("add bomDetail:{}", bomDetail);
 		}
+		this.productStructModel.setId(bomDetail.getPrimaryId());
 		return Action.EDITOR_SAVE;
 	}
 	
@@ -154,6 +157,8 @@ public class ProductStructAction extends BaseAction {
 	public String deleteDetail() throws Exception {
 		LOGGER.debug("deleteDetail()");
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
+		//主表的id
+		int primaryId = bomDetail.getPrimaryId();
 		//明细表的主键
 		Integer id = bomDetail.getId();
 		if (null != id && !"".equals(id)){
@@ -163,6 +168,7 @@ public class ProductStructAction extends BaseAction {
 		}else{
 			LOGGER.debug("deleteDetail fail id is null");
 		}
+		this.productStructModel.setId(primaryId);
 		return Action.EDITOR_SAVE;
 	}
 
