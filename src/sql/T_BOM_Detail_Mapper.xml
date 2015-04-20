@@ -150,4 +150,10 @@
 		</set>
 		where ID = #{id}
 	</update>
+	
+	<select id="delete" resultMap="T_BomDetail" parameterType="BomDetail">
+		delete
+		from T_BOM_DETAIL
+		where ID = #{id}
+	</select>
 </mapper>

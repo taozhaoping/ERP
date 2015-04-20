@@ -170,6 +170,16 @@
 									<input type="hidden" name="bomDetail.remarks" id="bomDetailRemarks" value="">
 									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加产品</button>
 								</form>
+								
+								<form id="productStructDetailDelForm" class="form-horizontal" action="${menu2Id}!deleteDetail.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									
+									<input type="hidden" name="tabID" value="productStructButt" />
+									
+									<input type="hidden" name="bomDetail.id" id="delFormBomDetailId" value="">
+								</form>
 								<table class="table">
 									<thead>
 										<tr>
@@ -179,6 +189,7 @@
 											<th>主产品</th>
 											<th>数量</th>
 											<th>备注</th>
+											<th>操作</th>
 										</tr>
 									</thead>
 									
@@ -190,9 +201,20 @@
 												<td><s:property value="#tp.subProductsId" /></td>
 												<td></td>
 												<td><s:property value="#tp.position" /></td>
-												<td><s:property value="#tp.isMainProducts" /></td>
+												<td>
+													<s:if test="#tp.isMainProducts == 0">
+														否
+													</s:if>
+													<s:elseif test="#tp.isMainProducts == 1">
+														是
+													</s:elseif>
+												</td>
 												<td><s:property value="#tp.qty" /></td>
 												<td><s:property value="#tp.remarks" /></td>
+												<td>
+													<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />');"><i class="icon-pencil"></i></a>
+													<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
+												</td>
 											</tr>
 											</s:iterator>
 										</tr>
@@ -247,8 +269,14 @@
 					<div class="control-group">
 						<label class="control-label" for="popupIsMainProducts">是否主要产品：</label>
 						<div class="controls">
+							<select id="popupIsMainProducts" class="input-medium" placeholder="是否主要产品" >
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<!-- 
 							<input type="text" id="popupIsMainProducts"
 							placeholder="是否主要产品" class="input-large">
+							 -->
 						</div>
 					</div>
 				</div>
@@ -270,6 +298,20 @@
 			<button class="btn btn-danger" data-loading-text="正在保存" id="popupBtnConfirm">确认</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
+	</div>
+	
+	<div class="modal small hide fade" id="deleteDetailConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">删除产品</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>您确认要删除产品吗?</p>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn btn-danger" data-dismiss="modal" id="deleteDetailConfirmBtn">确认</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+	  </div>
 	</div>
 	
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
@@ -471,6 +513,19 @@
 				return "搜索中...";
 			}
 		});
+		
+		//删除确认
+		function deleteDetail(id){
+			$("#delFormBomDetailId").val(id);
+			$("#deleteDetailConfirm").modal('show');
+		}
+		
+		//确认删除
+		$("#deleteDetailConfirmBtn").click(function(){
+			//提交表单
+			$("#productStructDetailDelForm").submit();
+		});
+		
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";

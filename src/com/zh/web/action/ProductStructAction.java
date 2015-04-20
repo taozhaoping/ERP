@@ -133,7 +133,7 @@ public class ProductStructAction extends BaseAction {
 	public String saveDetail() throws Exception {
 		LOGGER.debug("saveDetail()");
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
-		//头表的主键
+		//明细表的主键
 		Integer id = bomDetail.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
@@ -144,6 +144,24 @@ public class ProductStructAction extends BaseAction {
 			//新增
 			productStructService.insertDetail(bomDetail);
 			LOGGER.debug("add bomDetail:{}", bomDetail);
+		}
+		return Action.EDITOR_SAVE;
+	}
+	
+	/** 
+	 * 删除结构明细记录
+	 */
+	public String deleteDetail() throws Exception {
+		LOGGER.debug("deleteDetail()");
+		BomDetail bomDetail = this.productStructModel.getBomDetail();
+		//明细表的主键
+		Integer id = bomDetail.getId();
+		if (null != id && !"".equals(id)){
+			bomDetail.setId(id);
+			productStructService.deleteDetail(bomDetail);
+			LOGGER.debug("deleteDetail() bomDetail:{}", bomDetail);
+		}else{
+			LOGGER.debug("deleteDetail fail id is null");
 		}
 		return Action.EDITOR_SAVE;
 	}
