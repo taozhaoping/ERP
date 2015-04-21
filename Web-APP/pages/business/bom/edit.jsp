@@ -268,7 +268,7 @@
 									</thead>
 									
 									<tbody id="maillistSearch">
-										<!-- 产品列表 -->
+										<!-- 替代料列表 -->
 										<s:iterator value="bomSubList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#tp.mainProductsId" /></td>
@@ -494,6 +494,20 @@
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn btn-danger" data-dismiss="modal" id="deleteDetailConfirmBtn">确认</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+	  </div>
+	</div>
+	
+	<div class="modal small hide fade" id="deleteSubConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">删除替代料</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>您确认要删除删除替代料吗?</p>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn btn-danger" data-dismiss="modal" id="deleteSubConfirmBtn">确认</button>
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 	  </div>
 	</div>
@@ -862,6 +876,18 @@
 			$("#bomSubRemarks").val(remarks);
 			//提交表单
 			$("#productStructSubForm").submit();
+		});
+		
+		//删除确认
+		function deleteSub(id){
+			$("#delFormBomSubId").val(id);
+			$("#deleteSubConfirm").modal('show');
+		}
+		
+		//确认删除
+		$("#deleteSubConfirmBtn").click(function(){
+			//提交表单
+			$("#productStructSubDelForm").submit();
 		});
 		
 		//进入指定的tbs
