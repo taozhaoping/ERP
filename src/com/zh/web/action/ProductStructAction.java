@@ -12,6 +12,7 @@ import com.zh.core.model.Pager;
 import com.zh.web.model.ProductStructModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
+import com.zh.web.model.bean.BomSub;
 import com.zh.web.service.ProductStructService;
 
 public class ProductStructAction extends BaseAction {
@@ -64,15 +65,25 @@ public class ProductStructAction extends BaseAction {
 			BomPrimary result = productStructService.queryPrimary(bomPrimary);
 			LOGGER.debug("query bomPrimary:{}", result);
 			this.productStructModel.setBomPrimary(result);
+		
 			//产品结构
 			BomDetail bomDetail = this.productStructModel.getBomDetail();
 			bomDetail.setPrimaryId(id);
-			LOGGER.debug("bomDetail: ", bomDetail);
-			Pager page = this.productStructModel.getPageInfo();
-			Integer count = productStructService.countDetail(bomDetail);
-			page.setTotalRow(count);
-			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
+			LOGGER.debug("bomDetail: {}", bomDetail);
+			//Pager page = this.productStructModel.getPageInfo();
+			//Integer count = productStructService.countDetail(bomDetail);
+			//page.setTotalRow(count);
+			//List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
+			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
 			this.productStructModel.setBomDetailList(bomDetailList);
+	
+			//替代料列表
+			BomSub bomSub = this.productStructModel.getBomSub();
+			bomSub.setPrimaryId(id);
+			LOGGER.debug("bomSub: {}", bomSub);
+			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+			this.productStructModel.setBomSubList(bomSubList);
+			
 		}
 		
 		return Action.EDITOR;
@@ -97,12 +108,20 @@ public class ProductStructAction extends BaseAction {
 			//产品结构
 			BomDetail bomDetail = this.productStructModel.getBomDetail();
 			bomDetail.setPrimaryId(id);
-			LOGGER.debug("bomDetail: ", bomDetail);
-			Pager page = this.productStructModel.getPageInfo();
-			Integer count = productStructService.countDetail(bomDetail);
-			page.setTotalRow(count);
-			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
+			LOGGER.debug("bomDetail: {}", bomDetail);
+//			Pager page = this.productStructModel.getPageInfo();
+//			Integer count = productStructService.countDetail(bomDetail);
+//			page.setTotalRow(count);
+//			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
+			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
 			this.productStructModel.setBomDetailList(bomDetailList);
+			
+			//替代料列表
+			BomSub bomSub = this.productStructModel.getBomSub();
+			bomSub.setPrimaryId(id);
+			LOGGER.debug("bomSub: {}", bomSub);
+			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+			this.productStructModel.setBomSubList(bomSubList);
 		}
 		return Action.VIEW;
 	}
@@ -167,6 +186,49 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("deleteDetail() bomDetail:{}", bomDetail);
 		}else{
 			LOGGER.debug("deleteDetail fail id is null");
+		}
+		this.productStructModel.setId(primaryId);
+		return Action.EDITOR_SAVE;
+	}
+	
+	/** 
+	 * 保存主料替代料
+	 */
+	public String saveSub() throws Exception {
+		LOGGER.debug("saveSub()");
+		BomSub bomSub = this.productStructModel.getBomSub();
+		//明细表的主键
+		Integer id = bomSub.getId();
+		//主键为空，则是插入，不为空，更新
+		if (null != id && !"".equals(id)){
+			bomSub.setId(id);
+			productStructService.updateSub(bomSub);
+			LOGGER.debug("update bomSub:{}", bomSub);
+		}else{
+			//新增
+			productStructService.insertSub(bomSub);
+			LOGGER.debug("add bomSub:{}", bomSub);
+		}
+		this.productStructModel.setId(bomSub.getPrimaryId());
+		return Action.EDITOR_SAVE;
+	}
+	
+	/** 
+	 * 删除主料替代料
+	 */
+	public String deleteSub() throws Exception {
+		LOGGER.debug("deleteSub()");
+		BomSub bomSub = this.productStructModel.getBomSub();
+		//主表的id
+		int primaryId = bomSub.getPrimaryId();
+		//明细表的主键
+		Integer id = bomSub.getId();
+		if (null != id && !"".equals(id)){
+			bomSub.setId(id);
+			productStructService.deleteSub(bomSub);
+			LOGGER.debug("deleteSub() bomSub:{}", bomSub);
+		}else{
+			LOGGER.debug("deleteSub fail id is null");
 		}
 		this.productStructModel.setId(primaryId);
 		return Action.EDITOR_SAVE;

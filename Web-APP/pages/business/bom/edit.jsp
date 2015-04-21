@@ -97,6 +97,7 @@
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="bomPrimary.productsId">
 								<li><a id="productStructTabButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -169,7 +170,7 @@
 									<input type="hidden" name="bomDetail.isMainProducts" id="bomDetailIsMainProducts" value="">
 									<input type="hidden" name="bomDetail.qty" id="bomDetailQty" value="">
 									<input type="hidden" name="bomDetail.remarks" id="bomDetailRemarks" value="">
-									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加产品</button>
+									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加组件</button>
 								</form>
 								
 								<form id="productStructDetailDelForm" class="form-horizontal" action="${menu2Id}!deleteDetail.jspa" method="post">
@@ -185,41 +186,40 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th>产品编号</th>
+											<th>组件编号</th>
 											<th>名称</th>
 											<th>库位号</th>
 											<th>主产品</th>
 											<th>数量</th>
 											<th>备注</th>
-											<th>操作</th>
+											<th style="width: 60px;">操作</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomDetailList" var="tp" status="index">
 										<tr>
-											<!-- 产品列表 -->
-											<s:iterator value="bomDetailList" var="tp" status="index">
-											<tr>
-												<td><s:property value="#tp.subProductsId" /></td>
-												<td></td>
-												<td><s:property value="#tp.position" /></td>
-												<td>
-													<s:if test="#tp.isMainProducts == 0">
-														否
-													</s:if>
-													<s:elseif test="#tp.isMainProducts == 1">
-														是
-													</s:elseif>
-												</td>
-												<td><s:property value="#tp.qty" /></td>
-												<td><s:property value="#tp.remarks" /></td>
-												<td>
-													<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
-													<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
-												</td>
-											</tr>
-											</s:iterator>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.position" /></td>
+											<td>
+												<s:if test="#tp.isMainProducts == 0">
+													否
+												</s:if>
+												<s:elseif test="#tp.isMainProducts == 1">
+													是
+												</s:elseif>
+											</td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+											<td>
+												<a title="添加替代料" style="margin: 0px 3px;" href="javascript:addSub('<s:property value="#tp.primaryId" />', '<s:property value="#tp.subProductsId" />');"><i class="icon-plus"></i></a>
+												<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
+												<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
+											</td>
 										</tr>
+										</s:iterator>
 									</tbody>
 								</table>
 								<div class="pagination">
@@ -227,6 +227,71 @@
 									</ul>
 								</div>
 							</div>
+							
+							<div class="tab-pane fade" id="productStructSubTab">
+								<form id="productStructSubForm" class="form-horizontal" action="${menu2Id}!saveSub.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="bomSub.primaryId" value="${bomPrimary.id}">
+								
+									<input type="hidden" name="tabID" value="productStructSubTabButt" />
+									
+									<input type="hidden" name="bomSub.id" id="bomSubId" value="">
+									<input type="hidden" name="bomSub.subProductsId" id="bomSubProductsId" value="">
+									<input type="hidden" name="bomSub.mainProductsId" id="bomMainProductsId" value="">
+									<input type="hidden" name="bomSub.qty" id="bomSubQty" value="">
+									<input type="hidden" name="bomSub.remarks" id="bomSubRemarks" value="">
+								</form>
+								
+								<form id="productStructSubDelForm" class="form-horizontal" action="${menu2Id}!deleteSub.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="bomSub.primaryId" value="${bomPrimary.id}">
+									
+									<input type="hidden" name="tabID" value="productStructSubTabButt" />
+									
+									<input type="hidden" name="bomSub.id" id="delFormBomSubId" value="">
+								</form>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>主料编号</th>
+											<th>替代料编号</th>
+											<th>替代料名称</th>
+											<th>替代料库位号</th>
+											<th>替代料数量</th>
+											<th>替代料备注</th>
+											<th style="width: 40px;">操作</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomSubList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#tp.mainProductsId" /></td>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.position" /></td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+											<td>
+												<a title="修改" style="margin: 0px 3px;" href="javascript:editSub('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
+												<a title="删除" style="margin: 0px 3px;" href="javascript:deleteSub('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
+											</td>
+										</tr>
+										</s:iterator>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
+							</div>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -297,6 +362,64 @@
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-loading-text="正在保存" id="popupBtnConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<!-- 添加替代料-->
+	<div class="modal small hide fade" id="popupBomSubfirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="startModalLabel1">添加替代料</h3>
+		</div>
+		<div class="modal-body">
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupSubMainProductsId">主料产品编号：</label>
+						<div class="controls">
+							<input type="text" id="popupSubMainProductsId" class="input-large"  disabled="disabled">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupsubProductsId">替代料产品编号：</label>
+						<div class="controls">
+							<input id="popupsubProductsId" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupSubQty">数量：</label>
+						<div class="controls">
+							<input type="text" id="popupSubQty" placeholder="数量" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupSubRemarks">备注：</label>
+						<div class="controls">
+							<input type="text" id="popupSubRemarks" placeholder="备注" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-loading-text="正在保存" id="popupBomSubBtnConfirm">确认</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
@@ -575,6 +698,62 @@
 			}
 		});
 		
+		$("#popupsubProductsId").select2({
+			placeholder : "查询产品编号",
+			minimumInputLength : 3,
+			//multiple:true,
+			quietMillis : 3000,
+			ajax : {
+				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						"productsID" : term,
+						"pageInfo.curPage" : page
+					};
+				},
+				results : function(data, page) {
+					
+					var more = (page * 10) < data.total;
+					for ( var i = 0; i < data.rows.length; i++) {
+						var parts = data.rows[i];
+						parts.id = parts.id;
+						parts.text = parts.id + "(" + parts.name + ")";
+					}
+					partsArr = data.rows;
+					return {
+						results : data.rows,
+						more : more
+					};
+				}
+			},
+			formatNoMatches : function() {
+				return "没有找到匹配项";
+			},
+
+			formatInputTooShort : function(input, min) {
+				var n = min - input.length;
+				return "请最少输入" + n + "个字符";
+			},
+			
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
+			},
+			
+			formatLoadMore : function(pageNumber) {
+				return "加载结果中...";
+			},
+
+			formatSearching : function() {
+				return "搜索中...";
+			}
+		});
+		
 		//编辑页面打开，初始化数据
 		/*
 		$('#popupDetailEdit').on('show', function () {
@@ -648,6 +827,41 @@
 			$("#bomDetailRemarks").val(Remarks);
 			//提交编辑表单
 			$("#productStructDetailForm").submit();
+		});
+		
+		//添加替代料
+		function addSub(primaryId, subProductsId){
+			$("#popupSubMainProductsId").val(subProductsId);
+			
+			$("#popupBomSubfirm").modal('show');
+		}
+		
+		//保存替代料
+		$("#popupBomSubBtnConfirm").click(function(){
+			var _SubMainProductsId = $("#popupSubMainProductsId").val();
+			var _subProductsId = $("#popupsubProductsId").val();
+			var _Qty = $("#popupSubQty").val();
+			var _Remarks = $("#popupSubRemarks").val();
+			
+			var subMainProductsId = $.trim(_SubMainProductsId);
+			var subProductsId = $.trim(_subProductsId);
+			var qty = $.trim(_Qty);
+			var remarks = $.trim(_Remarks);
+			if (subProductsId == null || subProductsId == "") {
+				$("#popupBtnConfirml").attr("title","替代料产品编号必须选择 !");
+				return;
+			} 
+			if (qty == null || qty == "") {
+				$("#popupQty").attr("title","数量必须填写!");
+				return;
+			}
+			//设置表单的值
+			$("#bomSubProductsId").val(subProductsId);
+			$("#bomMainProductsId").val(subMainProductsId);
+			$("#bomSubQty").val(qty);
+			$("#bomSubRemarks").val(remarks);
+			//提交表单
+			$("#productStructSubForm").submit();
 		});
 		
 		//进入指定的tbs

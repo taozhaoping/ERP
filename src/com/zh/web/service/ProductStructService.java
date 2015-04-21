@@ -5,6 +5,7 @@ import java.util.List;
 import com.zh.core.model.Pager;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
+import com.zh.web.model.bean.BomSub;
 
 /**
  * 
@@ -109,4 +110,50 @@ public interface ProductStructService {
 	 * @param 
 	 */
 	public Integer insertDetail(BomDetail bomDetail);
+	
+	/**
+	 * 查询替代料表信息
+	 * @param 
+	 * @return
+	 */
+	public BomSub querySub(BomSub bomSub);
+	
+	/**
+	 * 修改替代料表
+	 * @param 
+	 */
+	public void updateSub(BomSub bomSub);
+	
+	/**
+	 * 查询替代料表列表
+	 * @param 
+	 * @return
+	 */
+	public List<BomSub> querySubList(BomSub bomSub);
+	
+	/**
+	 * 查询替代料表列表，带分页
+	 * @param 
+	 * @return
+	 */
+	public List<BomSub> querySubList(BomSub bomSub , Pager page);
+	
+	/**
+	 * 查询替代料表数量
+	 * @param 
+	 * @return
+	 */
+	public Integer countSub(BomSub bomSub);
+	
+	/**
+	 * 删除替代料表
+	 * @param 
+	 */
+	public void deleteSub(BomSub bomSub);
+	
+	/**
+	 * 新增替代料表
+	 * @param 
+	 */
+	public Integer insertSub(BomSub bomSub);
 }

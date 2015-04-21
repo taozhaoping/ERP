@@ -152,4 +152,10 @@
 		</set>
 		where ID = #{id}
 	</update>
+	
+	<select id="delete" resultMap="T_BomSub" parameterType="BomSub">
+		delete
+		from T_BOM_SUB
+		where ID = #{id}
+	</select>
 </mapper>

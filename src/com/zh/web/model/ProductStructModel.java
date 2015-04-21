@@ -34,6 +34,11 @@ public class ProductStructModel extends BaseModel {
 	 * 结构明细列表
 	 */
 	private List<BomDetail> bomDetailList = new ArrayList<BomDetail>();
+	
+	/**
+	 * 替代料列表
+	 */
+	private List<BomSub> bomSubList = new ArrayList<BomSub>();
 
 	public BomPrimary getBomPrimary() {
 		return bomPrimary;
@@ -74,4 +79,13 @@ public class ProductStructModel extends BaseModel {
 	public void setBomPrimaryList(List<BomPrimary> bomPrimaryList) {
 		this.bomPrimaryList = bomPrimaryList;
 	}
+
+	public List<BomSub> getBomSubList() {
+		return bomSubList;
+	}
+
+	public void setBomSubList(List<BomSub> bomSubList) {
+		this.bomSubList = bomSubList;
+	}
+	
 }

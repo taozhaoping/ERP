@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import com.zh.core.model.Pager;
 import com.zh.web.dao.BomDetailDao;
 import com.zh.web.dao.BomPrimaryDao;
+import com.zh.web.dao.BomSubDao;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
+import com.zh.web.model.bean.BomSub;
 import com.zh.web.service.ProductStructService;
 
 @Component("productStructureService")
@@ -20,6 +22,9 @@ public class ProductStructServiceImpl implements ProductStructService {
 
 	@Autowired
 	private BomDetailDao bomDetailDao;
+	
+	@Autowired
+	private BomSubDao bomSubDao; 
 	
 	@Override
 	public BomPrimary queryPrimary(BomPrimary bomPrimary) {
@@ -91,6 +96,42 @@ public class ProductStructServiceImpl implements ProductStructService {
 	@Override
 	public Integer insertDetail(BomDetail bomDetail) {
 		return bomDetailDao.insert(bomDetail);
+	}
+	
+	@Override
+	public BomSub querySub(BomSub bomSub) {
+		return bomSubDao.query(bomSub);
+	}
+	
+	@Override
+	public void updateSub(BomSub bomSub) {
+		bomSubDao.update(bomSub);
+	}
+	
+	@Override
+	public List<BomSub> querySubList(BomSub bomSub) {
+		return bomSubDao.queryList(bomSub);
+	}
+	
+	@Override
+	public List<BomSub> querySubList(BomSub bomSub,
+			Pager page) {
+		return bomSubDao.queryList(bomSub);
+	}
+	
+	@Override
+	public Integer countSub(BomSub bomSub) {
+		return bomSubDao.count(bomSub);
+	}
+	
+	@Override
+	public void deleteSub(BomSub bomSub) {
+		bomSubDao.delete(bomSub);
+	}
+	
+	@Override
+	public Integer insertSub(BomSub bomSub) {
+		return bomSubDao.insert(bomSub);
 	}
 
 }

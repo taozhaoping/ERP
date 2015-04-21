@@ -93,54 +93,47 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
+							<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane active dl-horizontal" id="home">
-									<dir class="row">
-										<div class="span4">
-											<div class="control-group">
-												<dt>产品编号：</dt>
-												<dd>${bomPrimary.productsId}</dd>
-											</div>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>产品编号：</dt>
+											<dd>${bomPrimary.productsId}</dd>
 										</div>
-										
-										<div class="span4">
-											<div class="control-group">
-												<dt>描述：</dt>
-												<dd>${bomPrimary.descr}</dd>
-											</div>
-										</div>
-									</dir>
+									</div>
 									
-									<dir class="row">
-										<div class="span4">
-											<div class="control-group">
-												<dt>生效日期：</dt>
-												<dd>${bomPrimary.effdt}</dd>
-											</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>描述：</dt>
+											<dd>${bomPrimary.descr}</dd>
 										</div>
-										
-										<div class="span4">
-											<div class="control-group">
-												<dt>生效状态：</dt>
-												<dd>${products.effStatus}</dd>
-											</div>
+									</div>
+								</dir>
+									
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>生效日期：</dt>
+											<dd>${bomPrimary.effdt}</dd>
 										</div>
-									</dir>
-								</dl>
+									</div>
+									
+									<div class="span4">
+										<div class="control-group">
+											<dt>生效状态：</dt>
+											<dd>${products.effStatus}</dd>
+										</div>
+									</div>
+								</dir>
+							</dl>
 							<div class="tab-pane fade" id="productStructure">
-								<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
-									<input type="hidden" name="menuId" value="${menuId}" /> 
-									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-									<input type="hidden" name="spaceId" value="${spaceId}">
-									<input type="hidden" name="{bomPrimary.id" value="${bomPrimary.id}">
-									<input type="hidden" name="bomPrimary.productsId" value="${bomPrimary.productsId}">
-									<input type="hidden" name="tabID" value="productStructButt" />
-								</form>
 								<table class="table">
 									<thead>
 										<tr>
-											<th>产品编号</th>
+											<th>组件编号</th>
 											<th>名称</th>
 											<th>库位号</th>
 											<th>主产品</th>
@@ -150,19 +143,50 @@
 									</thead>
 									
 									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomDetailList" var="tp" status="index">
 										<tr>
-											<!-- 产品列表 -->
-											<s:iterator value="bomDetailList" var="tp" status="index">
-											<tr>
-												<td><s:property value="#tp.subProductsId" /></td>
-												<td></td>
-												<td><s:property value="#tp.position" /></td>
-												<td><s:property value="#tp.isMainProducts" /></td>
-												<td><s:property value="#tp.qty" /></td>
-												<td><s:property value="#tp.remarks" /></td>
-											</tr>
-											</s:iterator>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.position" /></td>
+											<td><s:property value="#tp.isMainProducts" /></td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
 										</tr>
+										</s:iterator>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="productStructSubTab">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>主料编号</th>
+											<th>替代料编号</th>
+											<th>替代料名称</th>
+											<th>替代料库位号</th>
+											<th>替代料数量</th>
+											<th>替代料备注</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomSubList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#tp.mainProductsId" /></td>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.position" /></td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+										</tr>
+										</s:iterator>
 									</tbody>
 								</table>
 								<div class="pagination">
@@ -202,76 +226,6 @@
 		
 		$("select").select2();
 		
-		$("#inputProductsId").select2({
-			placeholder : "查询产品编号",
-			minimumInputLength : 3,
-			//multiple:true,
-			quietMillis : 3000,
-			ajax : {
-				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
-				dataType : 'json',
-				data : function(term, page) {
-					return {
-						"productsID" : term,
-						"pageInfo.curPage" : page
-					};
-				},
-				results : function(data, page) {
-					
-					var more = (page * 10) < data.total;
-					for ( var i = 0; i < data.rows.length; i++) {
-						var parts = data.rows[i];
-						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
-					}
-					partsArr = data.rows;
-					return {
-						results : data.rows,
-						more : more
-					};
-				}
-			},
-			
-			initSelection: function(element, callback) {
-		        // the input tag has a value attribute preloaded that points to a preselected repository's id
-		        // this function resolves that id attribute to an object that select2 can render
-		        // using its formatResult renderer - that way the repository name is shown preselected
-		        var id = "${bomPrimary.productsId}";
-		        if (id !== "") {
-		            $.ajax(basePath + "/interface/interfaceProducts!queryProducts.jspa", {
-		                dataType: "json",
-		                data : {
-							"id" : id
-						},
-		           	}).done(function(data) { callback({id:data.dataObject.id, text:data.dataObject.id + "(" + data.dataObject.name + ")"}); });
-				}
-		    },
-			formatNoMatches : function() {
-				return "没有找到匹配项";
-			},
-
-			formatInputTooShort : function(input, min) {
-				var n = min - input.length;
-				return "请最少输入" + n + "个字符";
-			},
-
-			formatInputTooLong : function(input, max) {
-				var n = input.length - max;
-				return "请删掉" + n + "个字符";
-			},
-
-			formatSelectionTooBig : function(limit) {
-				return "你只能选择最多" + limit + "项";
-			},
-
-			formatLoadMore : function(pageNumber) {
-				return "加载结果中...";
-			},
-
-			formatSearching : function() {
-				return "搜索中...";
-			}
-		});
 		//设置初始化值
 		//$("#inputProductsId").val("${bomPrimary.productsId}").trigger("change");
 		
@@ -330,7 +284,7 @@
 		$.validator.addMethod("queryProducts",function(value,element,params){
 			   return false;
 			},"必须是一个字母,且a-f");
- */
+ 		*/
 		
 	</script>
 </body>
