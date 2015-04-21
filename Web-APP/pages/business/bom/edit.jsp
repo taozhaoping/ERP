@@ -164,6 +164,7 @@
 									 -->
 									<input type="hidden" name="tabID" value="productStructTabButt" />
 									
+									<input type="hidden" name="bomDetail.id" id="bomDetailId" value="">
 									<input type="hidden" name="bomDetail.subProductsId" id="bomDetailSubProductsId" value="">
 									<input type="hidden" name="bomDetail.isMainProducts" id="bomDetailIsMainProducts" value="">
 									<input type="hidden" name="bomDetail.qty" id="bomDetailQty" value="">
@@ -213,7 +214,7 @@
 												<td><s:property value="#tp.qty" /></td>
 												<td><s:property value="#tp.remarks" /></td>
 												<td>
-													<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />');"><i class="icon-pencil"></i></a>
+													<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
 													<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
 												</td>
 											</tr>
@@ -247,7 +248,6 @@
 						<label class="control-label" for="popupProductsID">产品编号：</label>
 						<div class="controls">
 							<input id="popupProductsID" class="input-large">
-							</input>
 						</div>
 					</div>
 				</div>
@@ -297,6 +297,66 @@
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-loading-text="正在保存" id="popupBtnConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<!-- 编辑产品 -->
+	<div class="modal small hide fade" id="popupDetailEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="detailEditModalLabel">产品编辑</h3>
+		</div>
+		<div class="modal-body">
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="detailEditProductId">产品编号：</label>
+						<div class="controls">
+							<input type="text" id="detailEditProductId" class="input-large" disabled="disabled">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="detailEditQty">数量：</label>
+						<div class="controls">
+							<input type="text" id="detailEditQty" placeholder="数量" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="detailEditIsMainProducts">是否主要产品：</label>
+						<div class="controls">
+							<select id="detailEditIsMainProducts" class="input-medium" placeholder="是否主要产品" >
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="detailEditRemarks">备注：</label>
+						<div class="controls">
+							<input type="text" id="detailEditRemarks" placeholder="备注" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-loading-text="正在保存" id="detailEditBtnConfirm">确认</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
@@ -515,6 +575,24 @@
 			}
 		});
 		
+		//编辑页面打开，初始化数据
+		/*
+		$('#popupDetailEdit').on('show', function () {
+			//初始化产品编号
+			var id = $("#bomDetailSubProductsId").val();
+			$("#detailEditProductId").val(id);
+
+			//初始化数量
+			
+			
+			//初始化是否主要产品
+			
+			
+			//初始化备注
+			
+		});
+		*/
+		
 		//删除确认
 		function deleteDetail(id){
 			$("#delFormBomDetailId").val(id);
@@ -527,6 +605,50 @@
 			$("#productStructDetailDelForm").submit();
 		});
 		
+		//编辑产品
+		function editDetail(id, productId, isMainProducts, qty, remarks){
+			//产品结构明细的id
+			$("#bomDetailId").val(id);
+			//初始化产品编号
+			$("#detailEditProductId").val(productId);
+
+			//初始化是否主要产品
+			$("#detailEditIsMainProducts").val(isMainProducts).trigger("change");;
+			
+			//初始化数量
+			$("#detailEditQty").val(qty);
+			
+			//初始化备注
+			$("#detailEditRemarks").val(remarks);
+			
+			$("#popupDetailEdit").modal('show');
+		}
+		//保存编辑
+		$("#detailEditBtnConfirm").click(function(){
+			var _ProductsID = $("#detailEditProductId").val();
+			var _Qty = $("#detailEditQty").val();
+			var _IsMainProducts = $("#detailEditIsMainProducts").val();
+			var _Remarks = $("#detailEditRemarks").val();
+			
+			var ProductsID = $.trim(_ProductsID);
+			var Qty = $.trim(_Qty);
+			var IsMainProducts = $.trim(_IsMainProducts);
+			var Remarks = $.trim(_Remarks);
+			if (ProductsID == null || ProductsID == "") {
+				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				return;
+			} 
+			if (Qty == null || Qty == "") {
+				$("#popupQty").attr("title","数量必须填写!");
+				return;
+			}
+			$("#bomDetailSubProductsId").val(ProductsID);
+			$("#bomDetailQty").val(Qty);
+			$("#bomDetailIsMainProducts").val(IsMainProducts);
+			$("#bomDetailRemarks").val(Remarks);
+			//提交编辑表单
+			$("#productStructDetailForm").submit();
+		});
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";
