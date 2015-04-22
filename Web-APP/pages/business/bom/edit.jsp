@@ -113,8 +113,12 @@
 										<div class="control-group">
 											<label class="control-label" for="inputId" style="">产品编号：</label>
 											<div class="controls">
-												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true"
-													id="inputProductsId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
+												<s:if test="bomPrimary.productsId">
+												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true" readonly="readonly" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
+												</s:if>
+												<s:else>
+												<input type="text" maxlength="20" name="bomPrimary.productsId" data-required="true" id="inputProductsId" value="${bomPrimary.productsId}" class="input-medium input-xlarge"></input>
+												</s:else>
 											</div>
 
 										</div>
