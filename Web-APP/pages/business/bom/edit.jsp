@@ -672,7 +672,7 @@
 		});
 		//设置初始化值
 		//$("#inputProductsId").val("${bomPrimary.productsId}").trigger("change");
-		
+		//添加产品组件
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
 			var _Qty = $("#popupQty").val();
@@ -684,12 +684,18 @@
 			var IsMainProducts = $.trim(_IsMainProducts);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				//$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else {
+				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","数量必须填写!");
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			} else {
+				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			//alert("ProductsID: " + ProductsID + " Qty: " + Qty + " IsMainProducts:" + IsMainProducts + " Remarks:" + Remarks);
 			$("#bomDetailSubProductsId").val(ProductsID);
@@ -890,12 +896,19 @@
 			var IsMainProducts = $.trim(_IsMainProducts);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				//$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				$("#detailEditProductId").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else {
+				$("#detailEditProductId").closest('div').parents('div').removeClass('error').addClass('success');
+				
+			}
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","数量必须填写!");
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#detailEditQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			} else {
+				$("#detailEditQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			$("#bomDetailSubProductsId").val(ProductsID);
 			$("#bomDetailQty").val(Qty);
@@ -924,12 +937,18 @@
 			var qty = $.trim(_Qty);
 			var remarks = $.trim(_Remarks);
 			if (subProductsId == null || subProductsId == "") {
-				$("#popupBtnConfirml").attr("title","替代料产品编号必须选择 !");
+				//$("#popupBtnConfirml").attr("title","替代料产品编号必须选择 !");
+				$("#popupsubProductsId").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else {
+				$("#popupsubProductsId").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			if (qty == null || qty == "") {
-				$("#popupQty").attr("title","数量必须填写!");
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#popupSubQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			} else {
+				$("#popupSubQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			//设置表单的值
 			$("#bomMainProductsId").val(subMainProductsId);
@@ -972,12 +991,18 @@
 			var qty = $.trim(_Qty);
 			var remarks = $.trim(_Remarks);
 			if (subProductsId == null || subProductsId == "") {
-				$("#popupBtnConfirml").attr("title","替代料产品编号必须选择 !");
+				//$("#popupBtnConfirml").attr("title","替代料产品编号必须选择 !");
+				$("#popupEditsubProductsId").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else {
+				$("#popupEditsubProductsId").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			if (qty == null || qty == "") {
-				$("#popupQty").attr("title","数量必须填写!");
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#popupEditSubQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			} else {
+				$("#popupEditSubQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			//设置表单的值
 			$("#bomMainProductsId").val(subMainProductsId);
