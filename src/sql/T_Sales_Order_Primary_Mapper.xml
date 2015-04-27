@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Sales_Order_Primary">
+	<resultMap id="T_Sales_Order_Primary" type="SalesOrderPrimary">
+		<id column="ID" property="id" />
+		<result column="order_id" property="orderID" jdbcType="VARCHAR" />
+		<result column="contractNumber" property="contractNumber"
+			jdbcType="VARCHAR" />
+		<result column="purchase_order_id" property="purchaseOrderID"
+			jdbcType="VARCHAR" />
+		<result column="Customer_ID" property="customerID" />
+		<result column="currency_payment" property="paymentTerm"
+			jdbcType="VARCHAR" />
+		<result column="Inspection" property="inspection" jdbcType="VARCHAR" />
+		<result column="LRDDATE" property="lrddate" />
+		<result column="Container_type" property="containerType"
+			jdbcType="VARCHAR" />
+		<result column="Loading_port" property="loadingPort" jdbcType="VARCHAR" />
+		<result column="Discharge_port" property="dischargePort"
+			jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" />
+		<result column="Price" property="price" jdbcType="DOUBLE" />
+		<result column="createdate" property="createdate" jdbcType="VARCHAR" />
+		<result column="updatedate" property="updatedate" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="userID" property="userID" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		order_id,
+		Customer_ID,
+		Payment_term,
+		Inspection,
+		LRDDATE,
+		Container_type,
+		Loading_port,
+		Discharge_port,
+		STATUS,
+		Price,
+		createDate,
+		updateDate,
+		Remarks,
+		currency_payment,
+		contractNumber,
+		userID
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="orderID != null">
+				and order_id = #{orderID}
+			</if>
+			<if test="contractNumber != null">
+				and contractNumber = #{contractNumber}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Sales_Order_Primary"
+		parameterType="SalesOrderPrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_SALES_ORDER_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Sales_Order_Primary"
+		parameterType="SalesOrderPrimary">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_SALES_ORDER_PRIMARY
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="SalesOrderPrimary">
+		select
+		count(id)
+		from T_SALES_ORDER_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="SalesOrderPrimary">
+		insert into T_SALES_ORDER_PRIMARY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderID != null">
+				order_id,
+			</if>
+			<if test="customerID != null">
+				Customer_ID,
+			</if>
+			<if test="paymentTerm != null">
+				Payment_term,
+			</if>
+			<if test="inspection != null">
+				Inspection,
+			</if>
+			<if test="lrddate != null">
+				LRDDATE,
+			</if>
+			<if test="containerType != null">
+				Container_type,
+			</if>
+			<if test="loadingPort != null">
+				Loading_port,
+			</if>
+			<if test="dischargePort != null">
+				Discharge_port,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="price != null">
+				Price,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+			<if test="currencyPayment != null">
+				currency_payment,
+			</if>
+			<if test="contractNumber != null">
+				contractNumber
+			</if>
+			<if test="userID != null">
+				userID
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="orderID != null">
+				#{orderID,jdbcType=VARCHAR},
+			</if>
+			<if test="customerID != null">
+				#{customerID},
+			</if>
+			<if test="paymentTerm != null">
+				#{paymentTerm},
+			</if>
+			<if test="inspection != null">
+				#{inspection,jdbcType=VARCHAR},
+			</if>
+			<if test="lrddate != null">
+				#{lrddate,jdbcType=VARCHAR},
+			</if>
+			<if test="containerType != null">
+				#{containerType,jdbcType=VARCHAR},
+			</if>
+			<if test="loadingPort != null">
+				#{loadingPort,jdbcType=VARCHAR},
+			</if>
+			<if test="dischargePort != null">
+				#{dischargePort,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=Double},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="currencyPayment != null">
+				#{currencyPayment,jdbcType=VARCHAR},
+			</if>
+			<if test="contractNumber != null">
+				#{contractNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="SalesOrderPrimary">
+		update T_SALES_ORDER_PRIMARY
+		<set>
+			<if test="orderID != null">
+				order_id = #{orderID},
+			</if>
+			<if test="customerID != null">
+				Customer_ID = #{customerID},
+			</if>
+			<if test="paymentTerm != null">
+				Payment_term = #{paymentTerm},
+			</if>
+			<if test="inspection != null">
+				Inspection = #{inspection,jdbcType=VARCHAR},
+			</if>
+			<if test="lrddate != null">
+				LRDDATE = #{lrddate,jdbcType=VARCHAR},
+			</if>
+			<if test="containerType != null">
+				Container_type = #{containerType,jdbcType=VARCHAR},
+			</if>
+			<if test="loadingPort != null">
+				Loading_port = #{loadingPort,jdbcType=VARCHAR},
+			</if>
+			<if test="dischargePort != null">
+				Discharge_port = #{dischargePort,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="price != null">
+				Price = #{price,jdbcType=Double},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="currencyPayment != null">
+				currency_payment = #{currencyPayment},
+			</if>
+			<if test="contractNumber != null">
+				contractNumber = #{contractNumber,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

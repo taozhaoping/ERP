@@ -9,7 +9,7 @@ alter table T_BOM_DETAIL       drop primary key cascade;
 alter table T_BOM_SUB          drop primary key cascade;
 alter table t_library_Primary  drop primary key cascade;
 alter table t_library_DETAIL   drop primary key cascade;
-alter table T_SALES_ORDER_PRIMARY   drop primary key cascade;
+alter table T_SALES_ORDER_PRIMARY drop primary key cascade;
 alter table T_Sales_order_DETAIL    drop primary key cascade;
 
 drop table T_Sales_order_DETAIL cascade constraints;
@@ -693,60 +693,81 @@ alter table t_library_DETAIL
 /*==============================================================*/
 /* Table: 销售订单                                                                                                                                                  */
 /*==============================================================*/
--- Create table
-create table T_SALES_ORDER_PRIMARY
+create table T_SALES_ORDER_PRIMARY 
 (
-  id             NUMBER not null,
-  order_id       VARCHAR2(50),
-  customer_id    NUMBER,
-  payment_term   NUMBER,
-  inspection     VARCHAR2(20),
-  lrddate        VARCHAR2(20),
-  container_type VARCHAR2(20),
-  loading_port   VARCHAR2(50),
-  discharge_port VARCHAR2(50),
-  status         NUMBER default 0,
-  price          FLOAT,
-  createdate     VARCHAR2(20),
-  updatedate     VARCHAR2(20),
-  remarks        VARCHAR2(500)
-)
-tablespace EPRVIEW
-  pctfree 10
-  initrans 1
-  maxtrans 255;
--- Add comments to the table 
-comment on table T_SALES_ORDER_PRIMARY
-  is '销售订单';
--- Add comments to the columns 
-comment on column T_SALES_ORDER_PRIMARY.id
-  is '主键';
-comment on column T_SALES_ORDER_PRIMARY.order_id
-  is '销售订单';
-comment on column T_SALES_ORDER_PRIMARY.customer_id
-  is '客户主键';
-comment on column T_SALES_ORDER_PRIMARY.payment_term
-  is '付款方式';
-comment on column T_SALES_ORDER_PRIMARY.inspection
-  is '检查日期';
-comment on column T_SALES_ORDER_PRIMARY.lrddate
-  is '进港日期';
-comment on column T_SALES_ORDER_PRIMARY.container_type
-  is '集装箱号';
-comment on column T_SALES_ORDER_PRIMARY.loading_port
-  is '装货港口';
-comment on column T_SALES_ORDER_PRIMARY.discharge_port
-  is '卸货港口';
-comment on column T_SALES_ORDER_PRIMARY.status
-  is '订单状态';
-comment on column T_SALES_ORDER_PRIMARY.price
-  is '总价';
-comment on column T_SALES_ORDER_PRIMARY.createdate
-  is '创建时间';
-comment on column T_SALES_ORDER_PRIMARY.updatedate
-  is '修改时间';
-comment on column T_SALES_ORDER_PRIMARY.remarks
-  is '备注';
+   ID                   NUMBER               not null,
+   order_id           VARCHAR(50),
+   Customer_ID        NUMBER,
+   Payment_term       NUMBER,
+   Inspection         VARCHAR(20),
+   LRDDATE              VARCHAR(20),
+   Container_type     VARCHAR(20),
+   Loading_port       VARCHAR(50),
+   Discharge_port     VARCHAR(50),
+   STATUS               NUMBER,
+   Price              FLOAT,
+   createDate         VARCHAR(20),
+   updateDate         VARCHAR(20),
+   Remarks            varchar2(500),
+   currency_payment   NUMBER,
+   userID             NUMBER,
+   contractNumber     VARCHAR(50)
+);
+
+comment on table T_SALES_ORDER_PRIMARY is
+'销售订单';
+
+comment on column T_SALES_ORDER_PRIMARY.ID is
+'主键';
+
+comment on column T_SALES_ORDER_PRIMARY.order_id is
+'销售订单';
+
+comment on column T_SALES_ORDER_PRIMARY.Customer_ID is
+'客户主键';
+
+comment on column T_SALES_ORDER_PRIMARY.Payment_term is
+'付款方式';
+
+comment on column T_SALES_ORDER_PRIMARY.Inspection is
+'检查日期';
+
+comment on column T_SALES_ORDER_PRIMARY.LRDDATE is
+'进港日期';
+
+comment on column T_SALES_ORDER_PRIMARY.Container_type is
+'集装箱号';
+
+comment on column T_SALES_ORDER_PRIMARY.Loading_port is
+'装货港口';
+
+comment on column T_SALES_ORDER_PRIMARY.Discharge_port is
+'卸货港口';
+
+comment on column T_SALES_ORDER_PRIMARY.STATUS is
+'订单状态';
+
+comment on column T_SALES_ORDER_PRIMARY.Price is
+'总价';
+
+comment on column T_SALES_ORDER_PRIMARY.createDate is
+'创建时间';
+
+comment on column T_SALES_ORDER_PRIMARY.updateDate is
+'修改时间';
+
+comment on column T_SALES_ORDER_PRIMARY.Remarks is
+'备注';
+
+comment on column T_SALES_ORDER_PRIMARY.currency_payment is
+'付款货币';
+
+comment on column T_SALES_ORDER_PRIMARY.contractNumber is
+'合同单号';
+
+alter table T_SALES_ORDER_PRIMARY
+   add constraint PK_T_SALES_ORDER_PRIMARY primary key (ID);
+
 
 /*==============================================================*/
 /* Table: T_Sales_order_DETAIL                                */

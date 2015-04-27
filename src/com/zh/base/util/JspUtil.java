@@ -94,7 +94,7 @@ public class JspUtil implements ApplicationContextAware {
 
 	public static String queryUserName(String id) {
 
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 		User user = new User();
@@ -114,7 +114,7 @@ public class JspUtil implements ApplicationContextAware {
 	 * @author mail taozhaoping@gmail.com
 	 */
 	public static String queryBasiType(String id) {
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 
@@ -140,7 +140,7 @@ public class JspUtil implements ApplicationContextAware {
 	 * @author mail taozhaoping@gmail.com
 	 */
 	public static String queryDictionary(String id) {
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 
@@ -185,7 +185,7 @@ public class JspUtil implements ApplicationContextAware {
 	* @author mail taozhaoping@gmail.com
 	 */
 	public static String queryEnterprise(String id) {
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 
@@ -210,7 +210,7 @@ public class JspUtil implements ApplicationContextAware {
 	* @author mail taozhaoping@gmail.com
 	 */
 	public static String queryCustomer(String id) {
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 
@@ -236,7 +236,7 @@ public class JspUtil implements ApplicationContextAware {
 	* @author mail taozhaoping@gmail.com
 	 */
 	public static String queryWarehouse(String id) {
-		if (null == id) {
+		if (null == id || "null".equals(id)) {
 			return "";
 		}
 

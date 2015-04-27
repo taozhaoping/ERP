@@ -83,6 +83,9 @@
 		
 		<!-- 出库明细表 -->
 		<typeAlias alias="LibraryDetail" type="com.zh.web.model.bean.LibraryDetail"/>
+		
+		<!-- 销售订单主表-->
+		<typeAlias alias="SalesOrderPrimary" type="com.zh.web.model.bean.SalesOrderPrimary"/>
 	</typeAliases>
 
 	<plugins>
