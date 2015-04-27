@@ -131,10 +131,10 @@
 				currency_payment,
 			</if>
 			<if test="contractNumber != null">
-				contractNumber
+				contractNumber,
 			</if>
 			<if test="userID != null">
-				userID
+				userID,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">

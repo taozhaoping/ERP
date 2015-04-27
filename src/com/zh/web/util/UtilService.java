@@ -41,4 +41,16 @@ public interface UtilService {
 	 * 其他出库
 	 */
 	public static String LIBRARY_TYPE = "QTCK";
+	
+	/**
+	 * 销售订单
+	 */
+	public static String SALES_ORDER_TYPE = "XSDD";
+	
+	/**
+	 * 发起
+	 */
+	public static Integer SALES_ORDER_ONE = 0;
+	
+	
 }

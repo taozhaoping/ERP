@@ -1,94 +1,98 @@
 package com.zh.web.model.bean;
 
 import com.zh.core.model.IDataObject;
+
 /**
-* @Title: SalesOrderPrimary.java 
-* @Package com.zh.web.model.bean 
-* @Description: 销售订单
-* @date 2015年4月27日 上午11:32:24 
-* @author taozhaoping 26078
-* @author mail taozhaoping@gmail.com
-* @version V1.0
+ * @Title: SalesOrderPrimary.java
+ * @Package com.zh.web.model.bean
+ * @Description: 销售订单
+ * @date 2015年4月27日 上午11:32:24
+ * @author taozhaoping 26078
+ * @author mail taozhaoping@gmail.com
+ * @version V1.0
  */
 public class SalesOrderPrimary extends IDataObject {
 
-	 /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -329763143033086853L;
 
 	private Integer id;
-	 
-	 /**
-	  * 销售订单
-	  */
-	 private String orderID;
-	 
-	 /**
-	  * 合同单号
-	  */
-	 private String contractNumber;
-	 
-	 /**
-	  * 客户主键
-	  */
-	 private Integer customerID;
-	 
-	 /**
-	  * 付款方式
-	  */
-	 private Integer paymentTerm;  
-	 
-	 /**
-	  * 检查日期
-	  */
-	 private String inspection; 
-	 
-	 /**
-	  * 进港日期
-	  */
-	 private String lrddate;
-	 
-	 /**
-	  * 集装箱号
-	  */
-	 private String containerType;
-	 
-	 /**
-	  * 装货港口
-	  */
-	 private String loadingPort;
-	 
-	 /**
-	  * 卸货港口
-	  */
-	 private String dischargePort;
-	 
-	 /**
-	  * 订单状态
-	  */
-	 private Integer status;
-	 
-	 /**
-	  * 总价
-	  */
-	 private Double price;
-	 
-	 private String createdate;
-	 
-	 private String updatedate;
-	 
-	 /**
-	  * 付款货币
-	  */
-	 private Integer currencyPayment;
-	 
-	 /**
-	  * 备注
-	  */
-	 private String remarks;
-	 
-	 private Integer userID;
+
+	/**
+	 * 销售订单
+	 */
+	private String orderID;
+
+	/**
+	 * 合同单号
+	 */
+	private String contractNumber;
+
+	/**
+	 * 客户主键
+	 */
+	private Integer customerID;
+
+	/**
+	 * 付款方式
+	 */
+	private Integer paymentTerm;
+
+	/**
+	 * 检查日期
+	 */
+	private String inspection;
+
+	/**
+	 * 进港日期
+	 */
+	private String lrddate;
+
+	/**
+	 * 集装箱号
+	 */
+	private String containerType;
+
+	/**
+	 * 装货港口
+	 */
+	private String loadingPort;
+
+	/**
+	 * 卸货港口
+	 */
+	private String dischargePort;
+
+	/**
+	 * 订单状态
+	 */
+	private Integer status;
+
+	/**
+	 * 总价
+	 */
+	private Double price;
+
+	private String createdate;
+
+	private String updatedate;
+
+	/**
+	 * 付款货币
+	 */
+	private Integer currencyPayment;
+
+	/**
+	 * 备注
+	 */
+	private String remarks;
+
+	/**
+	 * 发起人
+	 */
+	private Integer userID;
 
 	public Integer getId() {
 		return id;
@@ -226,5 +230,4 @@ public class SalesOrderPrimary extends IDataObject {
 		this.userID = userID;
 	}
 
-	 
 }

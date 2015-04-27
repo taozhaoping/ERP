@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.zh.core.model.Pager;
+import com.zh.core.util.DateUtil;
 import com.zh.web.dao.SalesOrderPrimaryDao;
 import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.service.SalesOrderPrimaryService;
+import com.zh.web.util.UtilService;
 
 @Component("salesOrderPrimaryService")
 public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
@@ -42,7 +45,6 @@ public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
 
 	@Override
 	public Integer count(SalesOrderPrimary salesOrderPrimary) {
-		// TODO Auto-generated method stub
 		return salesOrderPrimaryDao.count(salesOrderPrimary);
 	}
 
@@ -54,7 +56,11 @@ public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
 
 	@Override
 	public Integer insert(SalesOrderPrimary salesOrderPrimary, String type) {
-		// TODO Auto-generated method stub
+		Integer id = Integer.valueOf(salesOrderPrimaryDao.getSequence(SEQUENCE_STORAGE_PRIMARY).toString());
+		String dateStr = DateUtil.getToday();
+		salesOrderPrimary.setId(id);
+		salesOrderPrimary.setOrderID(UtilService.SALES_ORDER_TYPE + dateStr + id);
+		salesOrderPrimary.setStatus(UtilService.SALES_ORDER_ONE);
 		return salesOrderPrimaryDao.insert(salesOrderPrimary);
 	}
 

@@ -52,6 +52,16 @@ public interface BasiTypeService {
 	public static final Integer PAINT_COLR = 10;
 	
 	/**
+	 * 付款方式
+	 */
+	public static final Integer PAYMENT_TERM = 12;
+	
+	/**
+	 * 付款货币
+	 */
+	public static final Integer CURRENCY_PAYMENT = 13;
+	
+	/**
 	 * 查询信息
 	 * 
 	 * @param

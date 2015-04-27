@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Warehouse;
+import com.zh.base.service.BasiTypeService;
 import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
@@ -57,7 +59,14 @@ public class SalesOrderAction extends BaseAction {
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
 		Integer id = this.salesOrderModel.getId();
-
+		
+		//付款方式
+		List<Dictionary> paymentTermList = queryDictionaryList(BasiTypeService.PAYMENT_TERM);
+		this.salesOrderModel.setPaymentTermList(paymentTermList);
+		//付款货币
+		List<Dictionary> currencyPaymentList = queryDictionaryList(BasiTypeService.CURRENCY_PAYMENT);
+		this.salesOrderModel.setCurrencyPaymentList(currencyPaymentList);
+		
 		if (null != id) {
 			// 查询信息
 			LOGGER.debug("editor StoragePrimary id " + id);

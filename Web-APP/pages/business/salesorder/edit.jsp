@@ -107,7 +107,7 @@
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
-							<li><a id="homeButt" href="#home" data-toggle="tab">销售信息</a></li>
+							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
 							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">销售清单</a></li>
 							</s:if>
@@ -149,7 +149,7 @@
 											<label class="control-label" for="inputuserID" style="">创建人：</label>
 											<div class="controls">
 												<input type="text" maxlength="40" name="salesOrderPrimary.userID" disabled="disabled"
-													placeholder="创建人" id="inputuserID" value="<%=userName.queryCustomer(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %>" class="input-medium"></input>
+													placeholder="创建人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %>" class="input-medium"></input>
 											</div>
 
 										</div>
@@ -158,7 +158,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputpaymentTerm" style="">付款方式：</label>
 											<div class="controls">
-												<s:select id="inputpaymentTerm"  list="customerList" listKey="id" listValue="name"
+												<s:select id="inputpaymentTerm"  list="paymentTermList" listKey="key" listValue="descr"
 													name="salesOrderPrimary.paymentTerm" cssClass="input-medium" placeholder="发货客户">
 												</s:select>
 											</div>
@@ -170,7 +170,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputcurrencyPayment" style="">付款货币：</label>
 											<div class="controls">
-												<s:select id="inputcurrencyPayment" data-required="true"  list="warehouseList" listKey="id" listValue="name"
+												<s:select id="inputcurrencyPayment" data-required="true"  list="currencyPaymentList" listKey="key" listValue="descr"
 													name="salesOrderPrimary.currencyPayment" cssClass="input-medium" placeholder="发货仓库">
 												</s:select>
 											</div>
@@ -183,7 +183,7 @@
 												<input size="16" id="inputinspection" name="salesOrderPrimary.inspection"
 													type="text" data-required="true"
 													value="${salesOrderPrimary.inspection}"
-													readonly class="form_datetime input-medium">
+													readonly class="form_datetime input-medium"> 
 											</div>
 										</div>
 									</div>
@@ -207,7 +207,7 @@
 												<input size="16" id="inputcontainerType" name="salesOrderPrimary.containerType"
 													type="text" data-required="true"
 													value="${salesOrderPrimary.containerType}"
-													readonly class="form_datetime input-medium">
+													class="input-medium">
 											</div>
 										</div>
 									</div>
@@ -220,7 +220,7 @@
 												<input size="16" id="inputloadingPort" name="salesOrderPrimary.loadingPort"
 													type="text" data-required="true"
 													value="${salesOrderPrimary.loadingPort}"
-													readonly class="form_datetime input-medium">
+													class="input-medium">
 											</div>
 										</div>
 									</div>
@@ -231,7 +231,7 @@
 												<input size="16" id="inputdischargePort" name="salesOrderPrimary.dischargePort"
 													type="text" data-required="true"
 													value="${salesOrderPrimary.dischargePort}"
-													readonly class="form_datetime input-medium">
+													class="input-medium">
 											</div>
 										</div>
 									</div>
@@ -241,10 +241,13 @@
 										<div class="control-group">
 											<label class="control-label" for="inputloadingPort" style="">状态：</label>
 											<div class="controls">
-												<select id="inputstatus"  disabled="disabled" list=""
+												<select id="inputstatus"  disabled="disabled"
 													name="storagePrimary.status" class="input-medium" placeholder="是否入库" >
-													<option value="0">未审批</option>
-													<option value="1">审批</option>
+													<option value="0">发起</option>
+													<option value="1">进行中</option>
+													<option value="2">交付</option>
+													<option value="3">未结账</option>
+													<option value="4">完成</option>
 												</select>
 											</div>
 										</div>
@@ -254,9 +257,9 @@
 											<label class="control-label" for="inputprice" style="">总价：</label>
 											<div class="controls">
 												<input size="16" id="inputprice" name="salesOrderPrimary.price"
-													type="text" data-required="true"
+													type="text" readonly
 													value="${salesOrderPrimary.price}"
-													readonly class="form_datetime input-medium">
+													class="input-medium">
 											</div>
 										</div>
 									</div>
