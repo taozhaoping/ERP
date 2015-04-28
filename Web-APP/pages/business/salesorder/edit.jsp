@@ -553,17 +553,26 @@
 			var FSCType = $.trim(_fSCType);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			}else
+			{
+				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","销售数量必须填写!");
+				$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			}else
+			{
+				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			
 			if (UnitPrice == null || UnitPrice == "") {
-				$("#popupQty").attr("title","销售单价必须填写!");
+				$("#unitPrice").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			}else
+			{
+				$("#unitPrice").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			
 			$("#detailproductsID").val(ProductsID);

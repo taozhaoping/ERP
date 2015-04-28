@@ -280,7 +280,7 @@
 						<div class="control-group">
 							<label class="control-label" for="popupProductsID">产品编号：</label>
 							<div class="controls">
-								<input id="popupProductsID" class="input-large">
+								<input id="popupProductsID" data-required="true" class="input-large">
 								</input>
 							</div>
 						</div>
@@ -292,7 +292,7 @@
 						<div class="control-group">
 							<label class="control-label" for="popupQty">数量：</label>
 							<div class="controls">
-								<input type="text" id="popupQty" 
+								<input type="text" id="popupQty" data-required="true"
 								placeholder="数量" class="input-large">
 							</div>
 						</div>
@@ -467,12 +467,19 @@
 			var Use = $.trim(_Use);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else
+			{
+				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
+			}
+			
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","入库数量必须填写!");
+				$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			}else
+			{
+				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			
 			

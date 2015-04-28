@@ -100,6 +100,7 @@
 									<th>出库时间</th>
 									<th>签收人</th>
 									<th>仓库</th>
+									<th>状态</th>
 									<th>接收客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
@@ -117,6 +118,14 @@
 										<td>
 											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
 											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
+										</td>
+										<td>
+											<s:if test="#tp.status==0">
+												未入库
+											</s:if>
+											<s:else>
+												入库
+											</s:else>
 										</td>
 										<td>
 											<s:set id="customerID" value="#tp.customerID"></s:set>

@@ -123,7 +123,7 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">入库单号：</label>
+											<label class="control-label" for="inputorderNoID" style="">出库单号：</label>
 											<div class="controls">
 													<input type="text" maxlength="30" disabled="disabled"
 														id="inputorderNoID" value="${libraryPrimary.orderNoID}" class="input-medium"></input>
@@ -465,12 +465,18 @@
 			var Use = $.trim(_Use);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
-				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
+				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
-			} 
+			} else
+			{
+				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","入库数量必须填写!");
+$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
+			}else
+			{
+				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			
 			
