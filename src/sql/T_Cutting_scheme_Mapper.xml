@@ -4,6 +4,7 @@
 	<resultMap id="T_Cutting_Scheme" type="CuttingScheme">
 		<id column="ID" property="id" />
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="raw_Materials" property="rawMaterials" />
 		<result column="main_products" property="mainProducts" />
 		<result column="MAN_NUMBER" property="manNumber" />
 		<result column="By_product" property="byProducts" />
@@ -11,7 +12,7 @@
 		<result column="enabled" property="enabled" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, NAME, main_products,MAN_NUMBER,By_product,By_NUMBER,enabled
+		ID, NAME, raw_Materials,main_products,MAN_NUMBER,By_product,By_NUMBER,enabled
 	</sql>
 	<sql id="where">
 		<where>
@@ -65,6 +66,9 @@
 			<if test="name != null">
 				NAME,
 			</if>
+			<if test="rawMaterials != null">
+				raw_Materials,
+			</if>
 			<if test="mainProducts != null">
 				main_products,
 			</if>
@@ -88,6 +92,9 @@
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
+			<if test="rawMaterials != null">
+				#{rawMaterials},
+			</if>
 			<if test="mainProducts != null">
 				#{mainProducts},
 			</if>
@@ -110,6 +117,9 @@
 		<set>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="rawMaterials != null">
+				#{raw_Materials},
 			</if>
 			<if test="mainProducts != null">
 				main_products = #{mainProducts},

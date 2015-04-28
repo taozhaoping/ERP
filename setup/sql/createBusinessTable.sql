@@ -836,6 +836,7 @@ create table T_Cutting_scheme
 (
    ID                   NUMBER               not null,
    NAME                 VARCHAR(30),
+   RAW_MATERIALS      NUMBER,
    main_products      NUMBER,
    MAN_NUMBER           NUMBER,
    By_product         NUMBER,
@@ -851,6 +852,9 @@ comment on column T_Cutting_scheme.ID is
 
 comment on column T_Cutting_scheme.NAME is
 '方案名称';
+
+comment on column T_Cutting_scheme.RAW_MATERIALS is
+'原材料';
 
 comment on column T_Cutting_scheme.main_products is
 '主产品编号';

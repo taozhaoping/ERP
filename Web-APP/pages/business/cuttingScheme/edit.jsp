@@ -85,7 +85,7 @@
 			<li class="active">编辑</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="salesOrderPrimary.id!=null&&salesOrderPrimary.id!=''" />
+					value="cuttingScheme.id!=null&&cuttingScheme.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -100,7 +100,7 @@
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
-									<i class="icon-ok"></i> 审批
+									<i class="icon-ok"></i> 激活
 								</button>
 							</s:if>
 						</div>
@@ -108,37 +108,33 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<s:if test="#ProcessId">
-							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">销售清单</a></li>
-							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade" id="home">
+							<div class="tab-pane active" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${salesOrderPrimary.id}"> 
-								<input type="hidden" name="salesOrderPrimary.userID" value="${salesOrderPrimary.userID}">
+								<input type="hidden" name="id" value="${cuttingScheme.id}"> 
 								<input type="hidden" name="menuId" value="${menuId}"> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">消耗单号：</label>
+											<label class="control-label" for="inputID" style="">编号：</label>
 											<div class="controls">
 													<input type="text" maxlength="30" disabled="disabled"
-														id="inputorderNoID" value="${salesOrderPrimary.orderID}" class="input-medium"></input>
+														id="inputID" value="${cuttingScheme.id}" class="input-large"></input>
 												
 											</div>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcontractNumber" style="">合同单号：</label>
+											<label class="control-label" for="inputname" style="">名称：</label>
 											<div class="controls">
-												<input size="16" id="inputcontractNumber" name="salesOrderPrimary.contractNumber"
+												<input size="16" id="inputname" name="cuttingScheme.contractNumber"
 													type="text" data-required="true"
-													value="${salesOrderPrimary.contractNumber}"
-													class="input-medium">
+													value="${cuttingScheme.name}"
+													class="input-large">
 											</div>
 										</div>
 									</div>
@@ -146,284 +142,83 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">创建人：</label>
+											<label class="control-label" for="inputrawMaterials" style="">原材料：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="salesOrderPrimary.userID" disabled="disabled"
-													placeholder="创建人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %>" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputpaymentTerm" style="">付款方式：</label>
-											<div class="controls">
-												<s:select id="inputpaymentTerm"  list="paymentTermList" listKey="key" listValue="descr"
-													name="salesOrderPrimary.paymentTerm" cssClass="input-medium" placeholder="付款方式">
-												</s:select>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputcurrencyPayment" style="">付款货币：</label>
-											<div class="controls">
-												<s:select id="inputcurrencyPayment" data-required="true"  list="currencyPaymentList" listKey="key" listValue="descr"
-													name="salesOrderPrimary.currencyPayment" cssClass="input-medium" placeholder="付款货币">
-												</s:select>
-											</div>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputinspection" style="">检查日期：</label>
-											<div class="controls">
-												<input size="16" id="inputinspection" name="salesOrderPrimary.inspection"
+												<input size="16" id="inputrawMaterials" name="cuttingScheme.rawMaterials"
 													type="text" data-required="true"
-													value="${salesOrderPrimary.inspection}"
-													readonly class="form_datetime input-medium"> 
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputlrddate" style="">进港日期：</label>
-											<div class="controls">
-												<input size="16" id="inputlrddate" name="salesOrderPrimary.lrddate"
-													type="text" data-required="true"
-													value="${salesOrderPrimary.lrddate}"
-													readonly class="form_datetime input-medium">
+													value="${cuttingScheme.rawMaterials}"
+													class="input-large">
 											</div>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcontainerType" style="">集装箱号：</label>
+											<label class="control-label" for="inputenabled" style="">状态：</label>
 											<div class="controls">
-												<input size="16" id="inputcontainerType" name="salesOrderPrimary.containerType"
-													type="text" data-required="true"
-													value="${salesOrderPrimary.containerType}"
-													class="input-medium">
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputloadingPort" style="">装货港口：</label>
-											<div class="controls">
-												<input size="16" id="inputloadingPort" name="salesOrderPrimary.loadingPort"
-													type="text" data-required="true"
-													value="${salesOrderPrimary.loadingPort}"
-													class="input-medium">
-											</div>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputdischargePort" style="">卸货港口：</label>
-											<div class="controls">
-												<input size="16" id="inputdischargePort" name="salesOrderPrimary.dischargePort"
-													type="text" data-required="true"
-													value="${salesOrderPrimary.dischargePort}"
-													class="input-medium">
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputloadingPort" style="">状态：</label>
-											<div class="controls">
-												<select id="inputstatus"  disabled="disabled"
-													name="storagePrimary.status" class="input-medium" placeholder="状态" >
-													<option value="0">发起</option>
-													<option value="1">进行中</option>
-													<option value="2">交付</option>
-													<option value="3">未结账</option>
-													<option value="4">完成</option>
+												<select id="inputenabled"  disabled="disabled"
+													name="cuttingScheme.enabled" class="input-large" placeholder="状态" >
+													<option value="0">无效</option>
+													<option value="1">有效</option>
 												</select>
 											</div>
 										</div>
 									</div>
+								</dir>
+								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputprice" style="">总价：</label>
+											<label class="control-label" for="inputmainProducts" style="">主产品编号：</label>
 											<div class="controls">
-												<input size="16" id="inputprice" name="salesOrderPrimary.price"
-													type="text" readonly
-													value="${salesOrderPrimary.price}"
-													class="input-medium">
+												
+												<input id="inputmainProducts"  data-required="true"
+													name="cuttingScheme.mainProducts" class="input-large" placeholder="产品编号">
+												</input>
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputmanNumber" style="">主产品数量：</label>
+											<div class="controls">
+												<input size="16" id="inputmanNumber" name="cuttingScheme.manNumber"
+													type="number" data-required="true"
+													value="${cuttingScheme.manNumber}"
+													class="input-large">
 											</div>
 										</div>
 									</div>
 								</dir>
 								<dir class="row">
-									<div class="span8">
+									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputremarks" >备注：</label>
+											<label class="control-label" for="inputbyProducts" style="">副产品编号：</label>
 											<div class="controls">
-												<input type="text" maxlength="500" name="salesOrderPrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${salesOrderPrimary.remarks}" class="input-xxlarge"></input>
+												
+												<input id="inputbyProducts"  data-required="true"
+													name="cuttingScheme.byProducts" class="input-large" placeholder="产品编号">
+												</input>
 											</div>
-
 										</div>
 									</div>
-								
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputbyNumber" style="">副产品数量：</label>
+											<div class="controls">
+												<input size="16" id="inputbyNumber" name="cuttingScheme.byNumber"
+													type="number" data-required="true"
+													value="${cuttingScheme.byNumber}"
+													class="input-large">
+											</div>
+										</div>
+									</div>
 								</dir>
+								
 								</form>
 							</div>
-							<div class="tab-pane fade" id="librarydetail">
-								<form id="salesOrderDetailForm" class="form-horizontal" action="${menu2Id}!saveSalesOrderDetail.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="librarydetailButt" />
-								<input type="hidden" name="formId" value="${salesOrderPrimary.id}" />
-								<input type="hidden" id="detailsalesOrderID" name="salesOrderDetail.salesOrderID" value="${salesOrderPrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="salesOrderDetail.productsID" value="" />
-								<input type="hidden" id="detailstorageNumber" name="salesOrderDetail.storageNumber" value="" />
-								<input type="hidden" id="detailunitPrice" name="salesOrderDetail.unitPrice" value="" />
-								<input type="hidden" id="detailorderValue" name="salesOrderDetail.orderValue" value="" />
-								<input type="hidden" id="detailfSCType" name="salesOrderDetail.fSCType" value="" />
-								<input type="hidden" id="detailremarks" name="salesOrderDetail.remarks" value="" />
-										<button class="btn btn-small btn-primary" type="button"
-										data-toggle="modal" data-target="#popupfirm">添加产品</button>
-							</form>
-							<table class="table ">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>产品编号</th>
-										<th>产品名称</th>
-										<th>产品销价</th>
-										<th>销售数量</th>
-										<th>单价</th>
-										<th>总价</th>
-										<th>FSC</th>
-										<th>备注</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表-->
-										 <s:iterator value="salesOrderDetailList" var="tp" status="index">
-										<tr>
-											<td><s:property value="#index.index +1" /></td>
-											<td><s:property value="#tp.productsID" /></td>
-											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.salesPrice" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
-											<td>
-												<s:property value="#tp.unitPrice" />
-											</td>
-											<td>
-												<s:property value="#tp.orderValue" />
-											</td>
-											<td><s:property value="#tp.fSCType" /></td>
-											<td><s:property value="#tp.remarks" /></td>
-											<td>
-												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&formId=${salesOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
-												class="icon-remove"></i></a>
-											</td>
-										</tr>
-										</s:iterator>
-										
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
-							</div>
-							</div>
+							
 						</div>
 					</div>
 				</div>
-		</div>
-	</div>
-	
-	<!-- 添加产品 -->
-	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="startModalLabel1">产品添加</h3>
-		</div>
-		<div class="modal-body">
-			 	
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupProductsID">产品编号：</label>
-							<div class="controls">
-								<input id="popupProductsID" class="input-large">
-								</input>
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupQty">数量：</label>
-							<div class="controls">
-								<input type="number" id="popupQty" 
-								placeholder="数量" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="unitPrice">单价：</label>
-							<div class="controls">
-								<input type="number" id="unitPrice"
-								placeholder="单价" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="fSCType">FSC：</label>
-							<div class="controls">
-								<input type="text" id="fSCType"
-								placeholder="FSC" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupRemarks">备注：</label>
-							<div class="controls">
-								<input type="text" id="popupRemarks"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-danger" data-loading-text="正在保存"
-				id="popupBtnConfirm">确认</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 	
@@ -436,12 +231,12 @@
 		</div>
 		<div class="modal-body">
 			<p class="error-text">
-				<i class="icon-warning-sign modal-icon "></i>当前单据更新到库存后将不可更改.继续请按."更新" 否则请按 "取消"
+				<i class="icon-warning-sign modal-icon "></i>是否启用当前切割方案.继续请按."确定" 否则请按 "取消"
 			</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-dismiss="modal"
-				id="formChangefirmBtn">更新</button>
+				id="formChangefirmBtn">确定</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
@@ -449,10 +244,6 @@
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
-	</form>
-	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
-		<input id="formId" name="formId" value="${salesOrderPrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -469,21 +260,74 @@
 		var menuId = '${menu2Id}';
 		var spaceId = '${spaceId}';
 		var url = $("#" + menuId).attr('url');
-		var id = '${salesOrderPrimary.id}';
+		var id = '${cuttingScheme.id}';
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#inputstatus").val("${salesOrderPrimary.status}")
+		$("#inputstatus").val("${cuttingScheme.enabled}")
 		.trigger("change");
 		
-		$("#formChangefirmBtn").click(function() {
-			$("#increaseStockForm").submit();
+		$("#inputrawMaterials").select2({
+			placeholder : "查询产品编号",
+			minimumInputLength : 3,
+			//multiple:true,
+			quietMillis : 3000,
+			ajax : {
+				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						"productsID" : term,
+						"products.productType" : '144',
+						"pageInfo.curPage" : page
+					};
+				},
+				results : function(data, page) {
+					
+					var more = (page * 10) < data.total;
+					for ( var i = 0; i < data.rows.length; i++) {
+						var parts = data.rows[i];
+						parts.id = parts.id;
+						parts.text = parts.id + "(" + parts.name + ")";
+					}
+					partsArr = data.rows;
+					return {
+						results : data.rows,
+						more : more
+					};
+				}
+			},
+			formatNoMatches : function() {
+				return "没有找到匹配项";
+			},
+
+			formatInputTooShort : function(input, min) {
+				var n = min - input.length;
+				return "请最少输入" + n + "个字符";
+			},
+
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
+			},
+
+			formatLoadMore : function(pageNumber) {
+				return "加载结果中...";
+			},
+
+			formatSearching : function() {
+				return "搜索中...";
+			}
 		});
 		
-		$("#popupProductsID").select2({
+		$("#inputmainProducts").select2({
 			placeholder : "查询产品编号",
 			minimumInputLength : 3,
 			//multiple:true,
@@ -539,67 +383,64 @@
 			}
 		});
 		
-		
-		$("#popupBtnConfirm").click(function(x) {
-			var _ProductsID = $("#popupProductsID").val();
-			var _Qty = $("#popupQty").val();
-			var _unitPrice = $("#unitPrice").val();
-			var _fSCType = $("#fSCType").val();
-			var _Remarks = $("#popupRemarks").val();
-			
-			var ProductsID = $.trim(_ProductsID);
-			var Qty = $.trim(_Qty);
-			var UnitPrice = $.trim(_unitPrice);
-			var FSCType = $.trim(_fSCType);
-			var Remarks = $.trim(_Remarks);
-			if (ProductsID == null || ProductsID == "") {
-				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
-				return;
-			}else
-			{
-				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
+		$("#inputbyProducts").select2({
+			placeholder : "查询产品编号",
+			minimumInputLength : 3,
+			//multiple:true,
+			quietMillis : 3000,
+			ajax : {
+				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						"productsID" : term,
+						"pageInfo.curPage" : page
+					};
+				},
+				results : function(data, page) {
+					
+					var more = (page * 10) < data.total;
+					for ( var i = 0; i < data.rows.length; i++) {
+						var parts = data.rows[i];
+						parts.id = parts.id;
+						parts.text = parts.id + "(" + parts.name + ")";
+					}
+					partsArr = data.rows;
+					return {
+						results : data.rows,
+						more : more
+					};
+				}
+			},
+			formatNoMatches : function() {
+				return "没有找到匹配项";
+			},
+
+			formatInputTooShort : function(input, min) {
+				var n = min - input.length;
+				return "请最少输入" + n + "个字符";
+			},
+
+			formatInputTooLong : function(input, max) {
+				var n = input.length - max;
+				return "请删掉" + n + "个字符";
+			},
+
+			formatSelectionTooBig : function(limit) {
+				return "你只能选择最多" + limit + "项";
+			},
+
+			formatLoadMore : function(pageNumber) {
+				return "加载结果中...";
+			},
+
+			formatSearching : function() {
+				return "搜索中...";
 			}
-			if (Qty == null || Qty == "") {
-				$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
-				return;
-			}else
-			{
-				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
-			}
-			
-			if (UnitPrice == null || UnitPrice == "") {
-				$("#unitPrice").closest('div').parents('div').removeClass('success').addClass('error');
-				return;
-			}else
-			{
-				$("#unitPrice").closest('div').parents('div').removeClass('error').addClass('success');
-			}
-			
-			$("#detailproductsID").val(ProductsID);
-			$("#detailstorageNumber").val(Qty);
-			$("#detailunitPrice").val(UnitPrice);
-			$("#detailfSCType").val(FSCType);
-			$("#detailremarks").val(Remarks);
-			$('#popupfirm').modal('hide')
-			$("#salesOrderDetailForm").submit();
-	});
-		
-		//进入指定的tbs
-		var tabID = "${tabID}";
-		if (null != tabID && "" != tabID) {
-			$("#" + tabID).parent().addClass("active");
-			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
-					.addClass("active");
-		} else {
-			tabID = "homeButt";
-			$("#tabID").val("homeButt");
-			$("#homeButt").parent().addClass("active");
-			$("#home").removeClass("fade").addClass("active");
-		}
+		});
 		
 		//提交按钮
 		$("#formButton").click(function() {
-			currTab = $("#tabID").val();
 			saveForm();
 		});
 		
@@ -608,28 +449,6 @@
 			$("#editForm").submit();
 		}
 		
-		if ("" != id)
-		{
-			$.jqPaginator('#pagination', {
-				//设置分页的总页数
-		        totalPages: totalPage,
-		        //设置分页的总条目数
-		        totalCounts:totalRow,
-		        pageSize:pageSize,
-		        //最多显示的页码
-		        visiblePages: 10,
-		        currentPage: curPage,
-		        onPageChange: function (num, type) {
-		           if("init"==type)
-		        	{
-		        	 	return false;  
-		        	}
-		           $('#curPage').val(num);
-		        	$('#queryForm').submit();
-		        	//document.getElementsByName("operateForm")[0].submit(); 
-		        }
-		    });
-		}
 	</script>
 </body>
 </html>

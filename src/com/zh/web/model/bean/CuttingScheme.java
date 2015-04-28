@@ -26,6 +26,11 @@ public class CuttingScheme extends IDataObject {
 	private String name;
 	
 	/**
+	 * 原材料
+	 */
+	private Integer rawMaterials;
+	
+	/**
 	 * 主产品物料数量
 	 */
 	private Integer mainProducts;
@@ -104,6 +109,14 @@ public class CuttingScheme extends IDataObject {
 
 	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
+	}
+
+	public Integer getRawMaterials() {
+		return rawMaterials;
+	}
+
+	public void setRawMaterials(Integer rawMaterials) {
+		this.rawMaterials = rawMaterials;
 	}
 	
 	

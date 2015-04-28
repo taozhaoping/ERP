@@ -96,29 +96,29 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>销售订单</th>
-									<th>合同单号</th>
-									<th>客户</th>
-									<th>检查日期</th>
-									<th>装货港口</th>
-									<th>订单状态</th>
+									<th>名称</th>
+									<th>原料</th>
+									<th>主产品编号</th>
+									<th>主产品名称</th>
+									<th>副产片编号</th>
+									<th>副产片名称</th>
+									<th>状态</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="salesOrderPrimaryList" var="tp" status="index">
+								<s:iterator value="cuttingSchemeList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.orderID"/></td>
-										<td><s:property value="#tp.contractNumber"/></td>
+										<td><s:property value="#tp.name"/></td>
+										<td><s:property value="#tp.rawMaterials"/></td>
+										<td><s:property value="#tp.mainProducts"/></td>
 										<td>
-											<s:set id="customerID" value="#tp.customerID"></s:set>
-											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+										<s:property value="#tp.manNumbertd"/>
 										</td>
-										<td><s:property value="#tp.inspection"/></td>
-										<td><s:property value="#tp.loadingPort"/></td>
-										<td><s:property value="#tp.status"/></td>
-										
+										<td><s:property value="#tp.byProducts"/></td>
+										<td><s:property value="#tp.byNumber"/></td>
+										<td><s:property value="#tp.enabled"/></td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 

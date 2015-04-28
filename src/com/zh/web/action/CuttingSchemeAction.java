@@ -16,9 +16,11 @@ import com.zh.core.model.Pager;
 import com.zh.web.model.CuttingSchemeModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.CuttingScheme;
+import com.zh.web.model.bean.Products;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CuttingSchemeService;
+import com.zh.web.service.ProductsService;
 import com.zh.web.util.UtilService;
 
 public class CuttingSchemeAction extends BaseAction {
@@ -34,7 +36,9 @@ public class CuttingSchemeAction extends BaseAction {
 	@Autowired
 	private CuttingSchemeService cuttingSchemeService;
 	
-
+	@Autowired
+	private ProductsService productsService;
+	
 	private CuttingSchemeModel cuttingSchemeModel = new CuttingSchemeModel();
 
 	@Override
