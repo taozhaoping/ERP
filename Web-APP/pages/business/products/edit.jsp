@@ -305,17 +305,6 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="productstructure">
-							<form id="productStructureForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${products.id}" />
-								<input type="hidden" name="tabID" value="productStructureButt" />
-								<input type="hidden" id="mailListName" name="mailList.name" value="" />
-								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
-								<button class="btn btn-small btn-primary" type="button"
-								data-toggle="modal" data-target="#popupfirm">添加产品</button>
-							</form>
 							<table class="table">
 								<thead>
 									<tr>
