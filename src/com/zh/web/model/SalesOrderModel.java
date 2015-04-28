@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zh.base.model.bean.Dictionary;
 import com.zh.core.base.model.BaseModel;
+import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.model.bean.SalesOrderPrimary;
 
@@ -21,6 +22,8 @@ public class SalesOrderModel extends BaseModel {
 	private List<Dictionary> paymentTermList = new ArrayList<Dictionary>();
 	
 	private List<Dictionary> currencyPaymentList = new ArrayList<Dictionary>();
+	
+	private List<Customer> customerList = new ArrayList<Customer>();
 	
 	public SalesOrderPrimary getSalesOrderPrimary() {
 		return salesOrderPrimary;
@@ -69,6 +72,14 @@ public class SalesOrderModel extends BaseModel {
 
 	public void setSalesOrderDetailList(List<SalesOrderDetail> salesOrderDetailList) {
 		this.salesOrderDetailList = salesOrderDetailList;
+	}
+
+	public List<Customer> getCustomerList() {
+		return customerList;
+	}
+
+	public void setCustomerList(List<Customer> customerList) {
+		this.customerList = customerList;
 	}
 
 
