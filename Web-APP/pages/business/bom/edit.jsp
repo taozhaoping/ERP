@@ -192,7 +192,6 @@
 										<tr>
 											<th>组件编号</th>
 											<th>名称</th>
-											<th>库位号</th>
 											<th>主产品</th>
 											<th>数量</th>
 											<th>备注</th>
@@ -206,7 +205,6 @@
 										<tr>
 											<td><s:property value="#tp.subProductsId" /></td>
 											<td></td>
-											<td><s:property value="#tp.position" /></td>
 											<td>
 												<s:if test="#tp.isMainProducts == 0">
 													否
@@ -264,7 +262,6 @@
 											<th>主料编号</th>
 											<th>替代料编号</th>
 											<th>替代料名称</th>
-											<th>替代料库位号</th>
 											<th>替代料数量</th>
 											<th>替代料备注</th>
 											<th style="width: 40px;">操作</th>
@@ -278,7 +275,6 @@
 											<td><s:property value="#tp.mainProductsId" /></td>
 											<td><s:property value="#tp.subProductsId" /></td>
 											<td></td>
-											<td><s:property value="#tp.position" /></td>
 											<td><s:property value="#tp.qty" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
