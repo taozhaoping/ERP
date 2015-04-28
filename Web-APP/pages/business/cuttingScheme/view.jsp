@@ -104,16 +104,16 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>销售单号：</dt>
-											<dd>${salesOrderPrimary.orderID}</dd>
+											<dt>出库单号：</dt>
+											<dd>${libraryPrimary.orderNoID}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>合同单号：</dt>
+											<dt>出库时间：</dt>
 											<dd>
-												${salesOrderPrimary.contractNumber}
+												${libraryPrimary.librarydate}
 											</dd>
 										</div>
 									</div>
@@ -122,10 +122,31 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>客户：</dt>
+											<dt>发货人：</dt>
+											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %></dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>接收客户：</dt>
 											<dd>
 												<s:iterator value="customerList" var="tp" status="index">
-													<s:if test="#tp.id == salesOrderPrimary.customerID">
+													<s:if test="#tp.id == libraryPrimary.customerID">
+														<s:property value="#tp.name"/>
+													</s:if>
+												</s:iterator>
+											</dd>
+										</div>
+									</div>
+								</dir>
+								
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>发货仓库：</dt>
+											<dd>
+												<s:iterator value="warehouseList" var="tp" status="index">
+													<s:if test="#tp.id == libraryPrimary.warehouseID">
 														<s:property value="#tp.name"/>
 													</s:if>
 												</s:iterator>
@@ -134,114 +155,24 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>付款方式：</dt>
+											<dt>出库：</dt>
 											<dd>
-												
-												<s:iterator value="paymentTermList" var="tp" status="index">
-													<s:if test="#tp.key == salesOrderPrimary.paymentTerm">
-														<s:property value="#tp.descr"/>
-													</s:if>
-												</s:iterator>
+												<s:if test="#libraryPrimary.status==0">
+													否
+												</s:if>
+												<s:else>
+													是
+												</s:else>
 											</dd>
 										</div>
 									</div>
 								</dir>
 								
 								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>付款货币：</dt>
-											<dd>
-												<s:iterator value="currencyPaymentList" var="tp" status="index">
-													<s:if test="#tp.key == salesOrderPrimary.currencyPayment">
-														<s:property value="#tp.descr"/>
-													</s:if>
-												</s:iterator>
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>检查日期：</dt>
-											<dd>
-												<s:date name="salesOrderPrimary.inspection" format="yyyy-MM-dd" />
-											</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>进港日期：</dt>
-											<dd>
-												${salesOrderPrimary.lrddate}
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>集装箱号：</dt>
-											<dd>
-												${salesOrderPrimary.containerType}
-											</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>装货港口：</dt>
-											<dd>
-												${salesOrderPrimary.loadingPort}
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>卸货港口：</dt>
-											<dd>
-												${salesOrderPrimary.dischargePort}
-											</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>状态：</dt>
-											<dd>
-												<s:if test="0 == salesOrderPrimary.status">发起</s:if>
-												<s:elseif test="1 == salesOrderPrimary.status">进行中</s:elseif>
-												<s:elseif test="2 == salesOrderPrimary.status">交付</s:elseif>
-												<s:elseif test="3 == salesOrderPrimary.status">未结账</s:elseif>
-												<s:elseif test="4 == salesOrderPrimary.status">完成</s:elseif>
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>总价：</dt>
-											<dd>
-												${salesOrderPrimary.price}
-											</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>创建人：</dt>
-											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %></dd>
-										</div>
-									</div>
 									<div class="span8">
 										<div class="control-group">
 											<dt>备注：</dt>
-											<dd>${salesOrderPrimary.remarks}</dd>
+											<dd>${libraryPrimary.remarks}</dd>
 										</div>
 									</div>
 								</dir>
@@ -250,42 +181,43 @@
 							<div class="tab-pane fade" id="storagedetail">
 								<table class="table ">
 									<thead>
-									<tr>
-										<th>序号</th>
-										<th>产品编号</th>
-										<th>产品名称</th>
-										<th>产品销价</th>
-										<th>销售数量</th>
-										<th>单价</th>
-										<th>总价</th>
-										<th>FSC</th>
-										<th>备注</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表-->
-										 <s:iterator value="salesOrderDetailList" var="tp" status="index">
+										<tr>
+											<th>序号</th>
+											<th>产品编号</th>
+											<th>产品名称</th>
+											<th>出库数量</th>
+											<th>库存量</th>
+											<th>用途</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<tr>
+											<!-- 产品列表-->
+										<s:iterator value="libraryDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.salesPrice" /></td>
 											<td><s:property value="#tp.storageNumber" /></td>
 											<td>
-												<s:property value="#tp.unitPrice" />
+												<s:if test="#tp.storageNumber > #tp.stockNumber">
+													<span style="color: red">
+												</s:if>
+												<s:else>
+													<span>
+												</s:else>
+														<s:property value="#tp.stockNumber" />
+													</span>
 											</td>
-											<td>
-												<s:property value="#tp.orderValue" />
-											</td>
-											<td><s:property value="#tp.fSCType" /></td>
+											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 										</tr>
 										</s:iterator>
-										
-									</tr>
-								</tbody>
+											
+										</tr>
+									</tbody>
 								</table>
 								<div class="pagination">
 									<ul id="pagination">
@@ -322,7 +254,7 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
-		$("#inputstatus").val("${salesOrderPrimary.status}")
+		$("#inputstatus").val("${libraryPrimary.status}")
 		.trigger("change");
 		
 		$.jqPaginator('#pagination', {

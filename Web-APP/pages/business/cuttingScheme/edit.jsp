@@ -123,7 +123,7 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">销售单号：</label>
+											<label class="control-label" for="inputorderNoID" style="">消耗单号：</label>
 											<div class="controls">
 													<input type="text" maxlength="30" disabled="disabled"
 														id="inputorderNoID" value="${salesOrderPrimary.orderID}" class="input-medium"></input>
@@ -146,12 +146,12 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">客户：</label>
+											<label class="control-label" for="inputuserID" style="">创建人：</label>
 											<div class="controls">
-												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name"
-													name="salesOrderPrimary.customerID" cssClass="input-medium" placeholder="客户">
-												</s:select>
+												<input type="text" maxlength="40" name="salesOrderPrimary.userID" disabled="disabled"
+													placeholder="创建人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %>" class="input-medium"></input>
 											</div>
+
 										</div>
 									</div>
 									<div class="span4">
@@ -265,16 +265,6 @@
 									</div>
 								</dir>
 								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">创建人：</label>
-											<div class="controls">
-												<input type="text" maxlength="40" name="salesOrderPrimary.userID" disabled="disabled"
-													placeholder="创建人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %>" class="input-medium"></input>
-											</div>
-
-										</div>
-									</div>
 									<div class="span8">
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>

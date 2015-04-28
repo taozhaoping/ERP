@@ -11,7 +11,9 @@ alter table t_library_Primary  drop primary key cascade;
 alter table t_library_DETAIL   drop primary key cascade;
 alter table T_SALES_ORDER_PRIMARY drop primary key cascade;
 alter table T_Sales_order_DETAIL    drop primary key cascade;
+alter table T_Cutting_scheme     drop primary key cascade;
 
+drop table T_Cutting_scheme cascade constraints;
 drop table T_Sales_order_DETAIL cascade constraints;
 drop table T_SALES_ORDER_PRIMARY cascade constraints;
 drop table t_library_DETAIL cascade constraints;
@@ -42,6 +44,7 @@ drop sequence SEQUENCE_t_library_Primary;
 drop sequence SEQUENCE_t_library_Detail;
 drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
 drop sequence SEQUENCE_T_Sales_order_DETAIL
+drop sequence SEQUENCE_T_Cutting_scheme
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -139,6 +142,13 @@ start with 1
 order;
 
 create sequence SEQUENCE_T_Sales_order_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_Cutting_scheme
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -818,3 +828,44 @@ comment on column T_Sales_order_DETAIL.Order_value is
 
 alter table T_Sales_order_DETAIL
    add constraint PK_T_SALES_ORDER_DETAIL primary key (ID);
+   
+/*==============================================================*/
+/* Table: 切割方案					                                */
+/*==============================================================*/
+create table T_Cutting_scheme 
+(
+   ID                   NUMBER               not null,
+   NAME                 VARCHAR(30),
+   main_products      NUMBER,
+   MAN_NUMBER           NUMBER,
+   By_product         NUMBER,
+   By_NUMBER          NUMBER,
+   enabled            NUMBER
+);
+
+comment on table T_Cutting_scheme is
+'切割方案';
+
+comment on column T_Cutting_scheme.ID is
+'方案编报';
+
+comment on column T_Cutting_scheme.NAME is
+'方案名称';
+
+comment on column T_Cutting_scheme.main_products is
+'主产品编号';
+
+comment on column T_Cutting_scheme.MAN_NUMBER is
+'主产品数量';
+
+comment on column T_Cutting_scheme.By_product is
+'副产品';
+
+comment on column T_Cutting_scheme.By_NUMBER is
+'副产品数量';
+
+comment on column T_Cutting_scheme.enabled is
+'状态';
+alter table T_Cutting_scheme
+   add constraint PK_T_Cutting_scheme primary key (ID);
+

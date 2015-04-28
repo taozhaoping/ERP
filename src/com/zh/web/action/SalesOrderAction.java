@@ -19,6 +19,7 @@ import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
+import com.zh.web.service.CustomerService;
 import com.zh.web.service.SalesOrderDetailService;
 import com.zh.web.service.SalesOrderPrimaryService;
 import com.zh.web.util.UtilService;
@@ -38,6 +39,9 @@ public class SalesOrderAction extends BaseAction {
 	
 	@Autowired
 	private SalesOrderDetailService salesOrderDetailService;
+	
+	@Autowired
+	private CustomerService customerService;
 
 	private SalesOrderModel salesOrderModel = new SalesOrderModel();
 
@@ -70,6 +74,13 @@ public class SalesOrderAction extends BaseAction {
 		//付款货币
 		List<Dictionary> currencyPaymentList = queryDictionaryList(BasiTypeService.CURRENCY_PAYMENT);
 		this.salesOrderModel.setCurrencyPaymentList(currencyPaymentList);
+		
+		// 客户信息
+		Customer customer = new Customer();
+		customer.setType(UtilService.CUSTOMER_TYPE_CUSTO);
+		customer.setEnabled(UtilService.ENABLED_EFFECTIVE);
+		List<Customer> customerList = customerService.queryList(customer);
+		this.salesOrderModel.setCustomerList(customerList);
 		
 		if (null != id) {
 			// 查询信息

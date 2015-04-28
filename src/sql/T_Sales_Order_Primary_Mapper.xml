@@ -9,7 +9,9 @@
 		<result column="purchase_order_id" property="purchaseOrderID"
 			jdbcType="VARCHAR" />
 		<result column="Customer_ID" property="customerID" />
-		<result column="currency_payment" property="paymentTerm"
+		<result column="Payment_term" property="paymentTerm"
+			jdbcType="VARCHAR" />
+		<result column="currency_payment" property="currencyPayment"
 			jdbcType="VARCHAR" />
 		<result column="Inspection" property="inspection" jdbcType="VARCHAR" />
 		<result column="LRDDATE" property="lrddate" />

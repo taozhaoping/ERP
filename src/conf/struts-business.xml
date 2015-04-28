@@ -141,5 +141,19 @@
 				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 切割方案-->
+		<action name="cuttingSchemeConfig" class="com.zh.web.action.CuttingSchemeAction">
+			<result name="success">/pages/business/cuttingScheme/List.jsp</result>
+			<result name="editor">/pages/business/cuttingScheme/edit.jsp</result>
+			<result name="view">/pages/business/cuttingScheme/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">cuttingSchemeConfig</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>

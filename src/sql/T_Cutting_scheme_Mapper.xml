@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Cutting_Scheme">
+	<resultMap id="T_Cutting_Scheme" type="CuttingScheme">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="main_products" property="mainProducts" />
+		<result column="MAN_NUMBER" property="manNumber" />
+		<result column="By_product" property="byProducts" />
+		<result column="By_NUMBER" property="byNumber" />
+		<result column="enabled" property="enabled" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, main_products,MAN_NUMBER,By_product,By_NUMBER,enabled
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="mainProducts != null">
+				and main_products = #{mainProducts}
+			</if>
+			<if test="byProducts != null">
+				and By_product = #{byProducts}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Cutting_Scheme" parameterType="CuttingScheme">
+		select
+		<include refid="Base_Column_List" />
+		from T_Cutting_scheme
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Cutting_Scheme" parameterType="CuttingScheme">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_Cutting_scheme
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="CuttingScheme">
+		select
+		count(id)
+		from T_Cutting_scheme
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="CuttingScheme">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Cutting_scheme.nextval from dual
+		</selectKey>
+		insert into T_Cutting_scheme
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="mainProducts != null">
+				main_products,
+			</if>
+			<if test="manNumber != null">
+				MAN_NUMBER,
+			</if>
+			<if test="byProducts != null">
+				By_product,
+			</if>
+			<if test="byNumber != null">
+				By_NUMBER,
+			</if>
+			<if test="enabled != null">
+				enabled,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="mainProducts != null">
+				#{mainProducts},
+			</if>
+			<if test="manNumber != null">
+				#{manNumber},
+			</if>
+			<if test="byProducts != null">
+				#{byProducts},
+			</if>
+			<if test="byNumber != null">
+				#{byNumber},
+			</if>
+			<if test="enabled != null">
+				#{enabled},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="CuttingScheme">
+		update T_Cutting_scheme
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="mainProducts != null">
+				main_products = #{mainProducts},
+			</if>
+			<if test="manNumber != null">
+				MAN_NUMBER = #{manNumber},
+			</if>
+			<if test="byProducts != null">
+				By_product = #{byProducts},
+			</if>
+			<if test="byNumber != null">
+				By_NUMBER = #{byNumber},
+			</if>
+			<if test="enabled != null">
+				enabled= #{enabled},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
