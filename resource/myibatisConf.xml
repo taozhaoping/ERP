@@ -86,6 +86,9 @@
 		
 		<!-- 销售订单主表-->
 		<typeAlias alias="SalesOrderPrimary" type="com.zh.web.model.bean.SalesOrderPrimary"/>
+		
+		<!-- 销售订单明细-->
+		<typeAlias alias="SalesOrderDetail" type="com.zh.web.model.bean.SalesOrderDetail"/>
 	</typeAliases>
 
 	<plugins>

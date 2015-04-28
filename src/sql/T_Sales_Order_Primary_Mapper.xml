@@ -169,7 +169,7 @@
 				#{status},
 			</if>
 			<if test="price != null">
-				#{price,jdbcType=Double},
+				#{price,jdbcType=DOUBLE},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -216,7 +216,7 @@
 				STATUS = #{status},
 			</if>
 			<if test="price != null">
-				Price = #{price,jdbcType=Double},
+				Price = #{price,jdbcType=DOUBLE},
 			</if>
 			<if test="remarks != null">
 				Remarks = #{remarks,jdbcType=VARCHAR},

@@ -15,9 +15,11 @@ import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.SalesOrderModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
+import com.zh.web.service.SalesOrderDetailService;
 import com.zh.web.service.SalesOrderPrimaryService;
 import com.zh.web.util.UtilService;
 
@@ -33,7 +35,9 @@ public class SalesOrderAction extends BaseAction {
 
 	@Autowired
 	private SalesOrderPrimaryService salesOrderPrimaryService;
-
+	
+	@Autowired
+	private SalesOrderDetailService salesOrderDetailService;
 
 	private SalesOrderModel salesOrderModel = new SalesOrderModel();
 
@@ -76,21 +80,21 @@ public class SalesOrderAction extends BaseAction {
 			SalesOrderPrimary reult = salesOrderPrimaryService.query(salesOrderPrimary);
 			this.salesOrderModel.setSalesOrderPrimary(reult);
 
-			// 查询入库明细
-//			StorageDetail storageDetail = this.storagePrimaryModel
-//					.getStorageDetail();
-//			storageDetail.setStoragePrimaryID(id);
-//			Pager page = this.storagePrimaryModel.getPageInfo();
-//			Integer count = storageDetailService.count(storageDetail);
-//			page.setTotalRow(count);
-//			List<StorageDetail> list = storageDetailService.queryList(
-//					storageDetail, page);
-//			this.storagePrimaryModel.setStorageDetailList(list);
+			// 销售明细列表
+			SalesOrderDetail salesOrderDetail = this.salesOrderModel
+					.getSalesOrderDetail();
+			salesOrderDetail.setSalesOrderID(id);
+			Pager page = this.salesOrderModel.getPageInfo();
+			Integer count = salesOrderDetailService.count(salesOrderDetail);
+			page.setTotalRow(count);
+			List<SalesOrderDetail> list = salesOrderDetailService.queryList(
+					salesOrderDetail, page);
+			this.salesOrderModel.setSalesOrderDetailList(list);
 
 			// 判断是否已经入库，入库状态下，只进入查看页面
 			Integer status = reult.getStatus();
 			String view = this.salesOrderModel.getView();
-			if (status == 1 || "view".equals(view)) {
+			if (status != 0 || "view".equals(view)) {
 				return Action.VIEW;
 			}
 		} else {
@@ -100,9 +104,25 @@ public class SalesOrderAction extends BaseAction {
 		return Action.EDITOR;
 	}
 
-	public String saveStorageDetail() {
+	public String saveSalesOrderDetail() {
 		LOGGER.debug("save StorageDetail ()");
-		
+		SalesOrderDetail salesOrderDetail = this.salesOrderModel.getSalesOrderDetail();
+		Integer id = this.salesOrderModel.getId();
+		if (null == id || "".equals(id)) {
+			// 新增
+			Integer storageNumber = salesOrderDetail.getStorageNumber();
+			Double unitPrice = salesOrderDetail.getUnitPrice();
+			Double orderValue = unitPrice * storageNumber;
+			salesOrderDetail.setOrderValue(orderValue);
+			salesOrderDetailService.insert(salesOrderDetail);
+		} else {
+			// 修改
+			salesOrderDetail = new SalesOrderDetail();
+			salesOrderDetail.setId(id);
+			salesOrderDetailService.delete(salesOrderDetail);
+		}
+		String formId = this.salesOrderModel.getFormId();
+		this.salesOrderModel.setFormId(formId);
 		return Action.EDITOR_SAVE;
 
 	}

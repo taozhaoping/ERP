@@ -159,7 +159,7 @@
 											<label class="control-label" for="inputpaymentTerm" style="">付款方式：</label>
 											<div class="controls">
 												<s:select id="inputpaymentTerm"  list="paymentTermList" listKey="key" listValue="descr"
-													name="salesOrderPrimary.paymentTerm" cssClass="input-medium" placeholder="发货客户">
+													name="salesOrderPrimary.paymentTerm" cssClass="input-medium" placeholder="付款方式">
 												</s:select>
 											</div>
 										</div>
@@ -171,7 +171,7 @@
 											<label class="control-label" for="inputcurrencyPayment" style="">付款货币：</label>
 											<div class="controls">
 												<s:select id="inputcurrencyPayment" data-required="true"  list="currencyPaymentList" listKey="key" listValue="descr"
-													name="salesOrderPrimary.currencyPayment" cssClass="input-medium" placeholder="发货仓库">
+													name="salesOrderPrimary.currencyPayment" cssClass="input-medium" placeholder="付款货币">
 												</s:select>
 											</div>
 										</div>
@@ -242,7 +242,7 @@
 											<label class="control-label" for="inputloadingPort" style="">状态：</label>
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled"
-													name="storagePrimary.status" class="input-medium" placeholder="是否入库" >
+													name="storagePrimary.status" class="input-medium" placeholder="状态" >
 													<option value="0">发起</option>
 													<option value="1">进行中</option>
 													<option value="2">交付</option>
@@ -280,17 +280,19 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="librarydetail">
-								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveLibraryDetail.jspa" method="post">
+								<form id="salesOrderDetailForm" class="form-horizontal" action="${menu2Id}!saveSalesOrderDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="tabID" value="librarydetailButt" />
 								<input type="hidden" name="formId" value="${salesOrderPrimary.id}" />
-								<input type="hidden" id="detailsalesOrderPrimaryID" name="libraryDetail.salesOrderPrimaryID" value="${salesOrderPrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="libraryDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="libraryDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="libraryDetail.use" value="" />
-								<input type="hidden" id="detailremarks" name="libraryDetail.remarks" value="" />
+								<input type="hidden" id="detailsalesOrderID" name="salesOrderDetail.salesOrderID" value="${salesOrderPrimary.id}" />
+								<input type="hidden" id="detailproductsID" name="salesOrderDetail.productsID" value="" />
+								<input type="hidden" id="detailstorageNumber" name="salesOrderDetail.storageNumber" value="" />
+								<input type="hidden" id="detailunitPrice" name="salesOrderDetail.unitPrice" value="" />
+								<input type="hidden" id="detailorderValue" name="salesOrderDetail.orderValue" value="" />
+								<input type="hidden" id="detailfSCType" name="salesOrderDetail.fSCType" value="" />
+								<input type="hidden" id="detailremarks" name="salesOrderDetail.remarks" value="" />
 										<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
 							</form>
@@ -300,9 +302,11 @@
 										<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
-										<th>出库数量</th>
-										<th>库存量</th>
-										<th>用途</th>
+										<th>产品销价</th>
+										<th>销售数量</th>
+										<th>单价</th>
+										<th>总价</th>
+										<th>FSC</th>
 										<th>备注</th>
 										<th>操作</th>
 									</tr>
@@ -311,30 +315,27 @@
 								<tbody id="maillistSearch">
 									<tr>
 										<!-- 产品列表-->
-										<!-- <s:iterator value="libraryDetailList" var="tp" status="index">
+										 <s:iterator value="salesOrderDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
+											<td><s:property value="#tp.salesPrice" /></td>
 											<td><s:property value="#tp.storageNumber" /></td>
 											<td>
-												<s:if test="#tp.storageNumber > #tp.stockNumber">
-													<span style="color: red">
-												</s:if>
-												<s:else>
-													<span>
-												</s:else>
-														<s:property value="#tp.stockNumber" />
-													</span>
+												<s:property value="#tp.unitPrice" />
 											</td>
-											<td><s:property value="#tp.use" /></td>
+											<td>
+												<s:property value="#tp.orderValue" />
+											</td>
+											<td><s:property value="#tp.fSCType" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
 												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&formId=${salesOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
-										</s:iterator> -->
+										</s:iterator>
 										
 									</tr>
 								</tbody>
@@ -377,7 +378,7 @@
 						<div class="control-group">
 							<label class="control-label" for="popupQty">数量：</label>
 							<div class="controls">
-								<input type="text" id="popupQty" 
+								<input type="number" id="popupQty" 
 								placeholder="数量" class="input-large">
 							</div>
 						</div>
@@ -387,10 +388,21 @@
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
-							<label class="control-label" for="popupUse">用途：</label>
+							<label class="control-label" for="unitPrice">单价：</label>
 							<div class="controls">
-								<input type="text" id="popupUse"
-								placeholder="备注" class="input-large">
+								<input type="number" id="unitPrice"
+								placeholder="单价" class="input-large">
+							</div>
+						</div>
+					</div>
+				</dir>
+				<dir class="row">
+					<div class="span3">
+						<div class="control-group">
+							<label class="control-label" for="fSCType">FSC：</label>
+							<div class="controls">
+								<input type="text" id="fSCType"
+								placeholder="FSC" class="input-large">
 							</div>
 						</div>
 					</div>
@@ -531,29 +543,36 @@
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
 			var _Qty = $("#popupQty").val();
-			var _Use = $("#popupUse").val();
+			var _unitPrice = $("#unitPrice").val();
+			var _fSCType = $("#fSCType").val();
 			var _Remarks = $("#popupRemarks").val();
 			
 			var ProductsID = $.trim(_ProductsID);
 			var Qty = $.trim(_Qty);
-			var Use = $.trim(_Use);
+			var UnitPrice = $.trim(_unitPrice);
+			var FSCType = $.trim(_fSCType);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
 				$("#popupBtnConfirml").attr("title","产品编号必须选择 !");
 				return;
 			} 
 			if (Qty == null || Qty == "") {
-				$("#popupQty").attr("title","入库数量必须填写!");
+				$("#popupQty").attr("title","销售数量必须填写!");
 				return;
 			}
 			
+			if (UnitPrice == null || UnitPrice == "") {
+				$("#popupQty").attr("title","销售单价必须填写!");
+				return;
+			}
 			
 			$("#detailproductsID").val(ProductsID);
-			$("#detailqty").val(Qty);
-			$("#detailuse").val(Use);
+			$("#detailstorageNumber").val(Qty);
+			$("#detailunitPrice").val(UnitPrice);
+			$("#detailfSCType").val(FSCType);
 			$("#detailremarks").val(Remarks);
 			$('#popupfirm').modal('hide')
-			$("#libraryDetailForm").submit();
+			$("#salesOrderDetailForm").submit();
 	});
 		
 		//进入指定的tbs

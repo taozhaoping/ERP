@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Sales_Order_Detail">
+	<resultMap id="T_Sales_Order_Detail" type="SalesOrderDetail">
+		<id column="ID" property="id" />
+		<result column="Sales_order_id" property="salesOrderID" />
+		<result column="Products_ID" property="productsID" />
+		<result column="Storage_number" property="storageNumber" />
+		<result column="Unit_price" property="unitPrice" jdbcType="DOUBLE" />
+		<result column="Order_value" property="orderValue" jdbcType="DOUBLE" />
+		<result column="FSC_type" property="FSCType" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="T_Sales_Order_Detail_lIST" type="SalesOrderDetail"
+		extends="T_Sales_Order_Detail">
+		<result column="PRODUCTS_NAME" property="productsName"
+			jdbcType="VARCHAR" />
+		<result column="SALES_PRICE" property="salesPrice" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		Sales_order_id ,
+		Products_ID ,
+		Storage_number,
+		Unit_price ,
+		round(Order_value,1) Order_value,
+		FSC_type,
+		remarks
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="salesOrderID != null">
+				and Sales_order_id = #{salesOrderID}
+			</if>
+			<if test="productsID != null">
+				and PRODUCTS_ID = #{productsID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Sales_Order_Detail"
+		parameterType="SalesOrderDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_Sales_order_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Sales_Order_Detail_lIST"
+		parameterType="SalesOrderDetail">
+		select
+			S.ID,
+			Sales_order_id ,
+			S.Products_ID ,
+			Storage_number,
+			Unit_price ,
+			round(Order_value,1) Order_value,
+			FSC_type,
+			S.remarks,
+			name as PRODUCTS_NAME,
+			SALES_PRICE
+		from T_Sales_order_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.PRODUCTS_ID
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="SalesOrderDetail">
+		select
+		count(id)
+		from T_Sales_order_DETAIL
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="SalesOrderDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_Sales_order_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_Sales_order_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="salesOrderID != null">
+				Sales_order_id ,
+			</if>
+			<if test="productsID != null">
+				Products_ID ,
+			</if>
+			<if test="storageNumber != null">
+				Storage_number,
+			</if>
+			<if test="unitPrice != null">
+				Unit_price ,
+			</if>
+			<if test="orderValue != null">
+				Order_value,
+			</if>
+			<if test="FSCType != null">
+				FSC_type,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="salesOrderID != null">
+				#{salesOrderID},
+			</if>
+			<if test="productsID != null">
+				#{productsID},
+			</if>
+			<if test="storageNumber != null">
+				#{storageNumber},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="orderValue != null">
+				#{orderValue,jdbcType=DOUBLE},
+			</if>
+			<if test="FSCType != null">
+				#{FSCType,jdbcType=DOUBLE},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="SalesOrderDetail">
+		update T_Sales_order_DETAIL
+		<set>
+			<if test="productsID != null">
+				Products_ID = #{productsID},
+			</if>
+			<if test="storageNumber != null">
+				Storage_number = #{storageNumber},
+			</if>
+			<if test="unitPrice != null">
+				Unit_price = #{unitPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="orderValue != null">
+				Order_value = #{orderValue,jdbcType=DOUBLE},
+			</if>
+			<if test="FSCType != null">
+				FSC_type = #{FSCType,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="SalesOrderDetail">
+		delete from
+		T_Sales_order_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>

@@ -41,6 +41,7 @@ drop sequence SEQUENCE_T_BOM_SUB;
 drop sequence SEQUENCE_t_library_Primary;
 drop sequence SEQUENCE_t_library_Detail;
 drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
+drop sequence SEQUENCE_T_Sales_order_DETAIL
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -808,6 +809,12 @@ comment on column T_Sales_order_DETAIL.FSC_type is
 
 comment on column T_Sales_order_DETAIL.Remarks is
 '备注';
+
+comment on column T_Sales_order_DETAIL.Unit_price is
+'单价';
+
+comment on column T_Sales_order_DETAIL.Order_value is
+'总价';
 
 alter table T_Sales_order_DETAIL
    add constraint PK_T_SALES_ORDER_DETAIL primary key (ID);
