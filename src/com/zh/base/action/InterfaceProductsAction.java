@@ -64,7 +64,6 @@ public class InterfaceProductsAction extends BaseAction {
 		List<Products> table = productsService.queryList(products, page);
 		
 		jsonMap.put("rows", table);
-		
 		return "products";
 	}
 	

@@ -30,10 +30,14 @@ public class CuttingScheme extends IDataObject {
 	 */
 	private Integer rawMaterials;
 	
+	private String rawName;
+	
 	/**
 	 * 主产品物料数量
 	 */
 	private Integer mainProducts;
+	
+	private String mainName;
 	
 	/**
 	 * 主产品物料数量
@@ -44,6 +48,8 @@ public class CuttingScheme extends IDataObject {
 	 * 副产品物料
 	 */
 	private Integer byProducts;
+	
+	private String byName;
 	
 	/**
 	 * 副产品物料数量
@@ -117,6 +123,30 @@ public class CuttingScheme extends IDataObject {
 
 	public void setRawMaterials(Integer rawMaterials) {
 		this.rawMaterials = rawMaterials;
+	}
+
+	public String getRawName() {
+		return rawName;
+	}
+
+	public void setRawName(String rawName) {
+		this.rawName = rawName;
+	}
+
+	public String getMainName() {
+		return mainName;
+	}
+
+	public void setMainName(String mainName) {
+		this.mainName = mainName;
+	}
+
+	public String getByName() {
+		return byName;
+	}
+
+	public void setByName(String byName) {
+		this.byName = byName;
 	}
 	
 	

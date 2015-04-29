@@ -99,9 +99,9 @@
 									<th>名称</th>
 									<th>原料</th>
 									<th>主产品编号</th>
-									<th>主产品名称</th>
+									<th>数量</th>
 									<th>副产片编号</th>
-									<th>副产片名称</th>
+									<th>数量</th>
 									<th>状态</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
@@ -111,14 +111,20 @@
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#tp.name"/></td>
-										<td><s:property value="#tp.rawMaterials"/></td>
-										<td><s:property value="#tp.mainProducts"/></td>
+										<td><s:property value="#tp.rawMaterials"/>(<s:property value="#tp.rawName"/>)</td>
+										<td><s:property value="#tp.mainProducts"/>(<s:property value="#tp.mainName"/>)</td>
 										<td>
-										<s:property value="#tp.manNumbertd"/>
-										</td>
-										<td><s:property value="#tp.byProducts"/></td>
+										<s:property value="#tp.manNumber"/></td>
+										<td><s:property value="#tp.byProducts"/>(<s:property value="#tp.byName"/>)</td>
 										<td><s:property value="#tp.byNumber"/></td>
-										<td><s:property value="#tp.enabled"/></td>
+										<td>
+											<s:if test="#tp.enabled ==0">
+												未激活
+											</s:if>
+											<s:elseif test="#tp.enabled ==1">
+												激活
+											</s:elseif>
+										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 

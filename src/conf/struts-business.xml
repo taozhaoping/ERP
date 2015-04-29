@@ -70,6 +70,7 @@
 			</result>
 			<result name="verifyDetail" type="json">
 			    <param name="root">productStructModel.dataMap</param>
+			    <param name="includeProperties">*</param>
 			</result>
 		</action>
 		
@@ -156,6 +157,15 @@
     			<param name="menuId">${menuId}</param>
     			<param name="menu2Id">${menu2Id}</param>
     			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">cuttingSchemeConfig</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
 	</package>

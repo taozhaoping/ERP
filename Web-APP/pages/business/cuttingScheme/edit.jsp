@@ -170,7 +170,7 @@
 											<label class="control-label" for="inputmainProducts" style="">主产品编号：</label>
 											<div class="controls">
 												
-												<input id="inputmainProducts"  data-required="true"
+												<input id="inputmainProducts"  data-required="true" value="${cuttingScheme.mainProducts}"
 													name="cuttingScheme.mainProducts" class="input-large" placeholder="产品编号">
 												</input>
 											</div>
@@ -194,7 +194,7 @@
 											<label class="control-label" for="inputbyProducts" style="">副产品编号：</label>
 											<div class="controls">
 												
-												<input id="inputbyProducts"  data-required="true"
+												<input id="inputbyProducts"  data-required="true" value="${cuttingScheme.byProducts}"
 													name="cuttingScheme.byProducts" class="input-large" placeholder="产品编号">
 												</input>
 											</div>
@@ -275,6 +275,9 @@
 			minimumInputLength : 3,
 			//multiple:true,
 			quietMillis : 3000,
+			initSelection: function (element, callback) { 
+	            callback({id: element.val(), text: element.val()});//这里初始化 
+	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
 				dataType : 'json',
@@ -332,6 +335,10 @@
 			minimumInputLength : 3,
 			//multiple:true,
 			quietMillis : 3000,
+			initSelection: function (element, callback) { 
+	            var data = [{id: element.val(), text: element.val()}]; 
+	            callback({id: element.val(), text: element.val()});//这里初始化 
+	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
 				dataType : 'json',
@@ -388,6 +395,10 @@
 			minimumInputLength : 3,
 			//multiple:true,
 			quietMillis : 3000,
+			initSelection: function (element, callback) { 
+	            var data = [{id: element.val(), text: element.val()}]; 
+	            callback({id: element.val(), text: element.val()});//这里初始化 
+	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
 				dataType : 'json',
@@ -438,6 +449,7 @@
 				return "搜索中...";
 			}
 		});
+		
 		
 		//提交按钮
 		$("#formButton").click(function() {

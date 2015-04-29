@@ -11,13 +11,21 @@
 		<result column="By_NUMBER" property="byNumber" />
 		<result column="enabled" property="enabled" />
 	</resultMap>
+	
+	<resultMap id="T_Cutting_Scheme_lIST" type="CuttingScheme" extends="T_Cutting_Scheme">
+	  	<result column="raw_name" property="rawName" jdbcType="VARCHAR" />
+	  	<result column="main_name" property="mainName" jdbcType="VARCHAR" />
+	  	<result column="by_name" property="byName" jdbcType="VARCHAR"/>
+	</resultMap>
+	  
 	<sql id="Base_Column_List">
-		ID, NAME, raw_Materials,main_products,MAN_NUMBER,By_product,By_NUMBER,enabled
+		ID, NAME,
+		raw_Materials,main_products,MAN_NUMBER,By_product,By_NUMBER,enabled
 	</sql>
 	<sql id="where">
 		<where>
 			<if test="id != null">
-				and id = #{id}
+				and c.id = #{id}
 			</if>
 			<if test="mainProducts != null">
 				and main_products = #{mainProducts}
@@ -28,18 +36,41 @@
 		</where>
 	</sql>
 
-	<select id="select" resultMap="T_Cutting_Scheme" parameterType="CuttingScheme">
-		select
-		<include refid="Base_Column_List" />
-		from T_Cutting_scheme
+	<select id="select" resultMap="T_Cutting_Scheme_lIST" parameterType="CuttingScheme">
+				select c.ID,
+		c.NAME,
+		raw_Materials,
+		p.name as raw_name,
+		main_products,
+		p1.name as main_name,
+		MAN_NUMBER,
+		By_product,
+		p2.name as by_name,
+		By_NUMBER,
+		enabled
+		from T_Cutting_scheme c left join t_products p on p.id=c.raw_materials
+		left join t_products p1 on p1.id=c.main_products left join t_products
+		p2 on p2.id=c.by_product
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_Cutting_Scheme" parameterType="CuttingScheme">
+	<select id="list" resultMap="T_Cutting_Scheme_lIST" parameterType="CuttingScheme">
 
-		select
-		<include refid="Base_Column_List" />
-		from T_Cutting_scheme
+		select c.ID,
+		c.NAME,
+		raw_Materials,
+		p.name as raw_name,
+		main_products,
+		p1.name as main_name,
+		MAN_NUMBER,
+		By_product,
+		p2.name as by_name,
+		By_NUMBER,
+		enabled
+		from T_Cutting_scheme c left join t_products p on p.id=c.raw_materials
+		left join t_products p1 on p1.id=c.main_products left join t_products
+		p2 on p2.id=c.by_product
+
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -49,7 +80,7 @@
 	<select id="count" resultType="Integer" parameterType="CuttingScheme">
 		select
 		count(id)
-		from T_Cutting_scheme
+		from T_Cutting_scheme c
 		<include refid="where" />
 	</select>
 
