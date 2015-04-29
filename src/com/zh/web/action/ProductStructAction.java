@@ -170,7 +170,7 @@ public class ProductStructAction extends BaseAction {
 		//添加本身
 		if (productsId != null && productsId.equals(subProductsId)) {
 			dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
-			dataMap.put(ConstantService.MESSAGE, "添加本身");
+			dataMap.put(ConstantService.MESSAGE, "不允许添加本身");
 			
 		} else {
 			BomDetail tempBomDetail = new BomDetail();
@@ -188,7 +188,7 @@ public class ProductStructAction extends BaseAction {
 			if (bortherFlag) {
 				//存在和兄弟节点相同
 				dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
-				dataMap.put(ConstantService.MESSAGE, "存在和兄弟节点相同");
+				dataMap.put(ConstantService.MESSAGE, "不允许添加已经存在的组件");
 				
 			} else {
 				boolean parentFlag = false;
@@ -203,14 +203,13 @@ public class ProductStructAction extends BaseAction {
 				//存在和直系祖先相同
 				if (parentFlag) {
 					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
-					dataMap.put(ConstantService.MESSAGE, "存在和直系祖先相同");
+					dataMap.put(ConstantService.MESSAGE, "不允许添加上级的产品，会导致递归");
 				} else {
 					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_SUCCESS);
 					dataMap.put(ConstantService.MESSAGE, "success");
 				}
 			}
 		}
-//		this.productStructModel.setDataMap(dataMap);
 		return "verifyDetail";
 	}
 	
@@ -300,4 +299,12 @@ public class ProductStructAction extends BaseAction {
 		return Action.EDITOR_SAVE;
 	}
 
+	public ProductStructModel getProductStructModel() {
+		return productStructModel;
+	}
+
+	public void setProductStructModel(ProductStructModel productStructModel) {
+		this.productStructModel = productStructModel;
+	}
+	
 }

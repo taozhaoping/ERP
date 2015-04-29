@@ -309,6 +309,12 @@
 		<div class="modal-body">
 			<dir class="row">
 				<div class="span3">
+					<label class="control-label" style="color: red;" id="addProductPrompt"></label>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="popupProductsID">产品编号：</label>
 						<div class="controls">
@@ -434,6 +440,12 @@
 			<h3 id="startModalLabel1">添加替代料</h3>
 		</div>
 		<div class="modal-body">
+			<dir class="row">
+				<div class="span3">
+					<label class="control-label" style="color: red;" id="addBomSubPrompt"></label>
+				</div>
+			</dir>
+		
 			<dir class="row">
 				<div class="span3">
 					<div class="control-group">
@@ -701,12 +713,17 @@
 			
 			//判断要添加的组件是否会形成死循环
 			var ret = verifyBomDetail(ProductsID);
-			alert(ret);
-			$('#popupfirm').modal('hide');
-			//提交表单
-			$("#productStructDetailForm").submit();
+			if(ret.status == '1'){
+				$('#popupfirm').modal('hide');
+				//提交表单
+				$("#productStructDetailForm").submit();
+				
+			} else {
+				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
+				$("#addProductPrompt").html(ret.message);
+				//alert(ret.message);
+			}
 		})
-		
 		
 		/**
 		 * 添加产品组件前，判断是否会形成死循环
@@ -719,7 +736,7 @@
 
 			$.ajax({
 				type : "POST", //访问WebService使用Post方式请求
-				async : true,//同步操作
+				async : false,//同步操作
 				url : basePath + "/business/productStruct!verifySaveDetail.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
 				data : {
 					"bomDetail.primaryId":bomPrimaryId,
@@ -729,10 +746,10 @@
 				dataType : 'json', //WebService 会返回Json类型
 				traditional : false, //不要序列化参数
 				error : function(err, textStatus) {
-					alert("error: " + err + " textStatus: " + textStatus);
+					//alert("error: " + err + " textStatus: " + textStatus);
 				},
 				success : function(result) {//回调函数，result，返回值
-					alert("result: "+result);
+					//alert("result: "+result);
 					auditRet = result;
 				}
 			});
