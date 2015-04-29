@@ -68,6 +68,9 @@
 				<param name="tabID">${tabID}</param>
 				<param name="spaceId">${spaceId}</param>
 			</result>
+			<result name="verifyDetail" type="json">
+			    <param name="root">productStructModel.dataMap</param>
+			</result>
 		</action>
 		
 		<!-- 其他入库 -->

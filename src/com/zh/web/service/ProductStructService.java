@@ -86,6 +86,13 @@ public interface ProductStructService {
 	public List<BomDetail> queryDetailList(BomDetail bomDetail);
 	
 	/**
+	 * 查询直系的祖先
+	 * @param 组件的编号
+	 * @return 祖先编号的集合
+	 */
+	public List<BomDetail> queryParentList(Integer productsId);
+	
+	/**
 	 * 查询明细表列表，带分页
 	 * @param 
 	 * @return

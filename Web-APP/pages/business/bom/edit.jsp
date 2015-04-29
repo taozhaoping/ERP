@@ -699,10 +699,46 @@
 			$("#bomDetailIsMainProducts").val(IsMainProducts);
 			$("#bomDetailRemarks").val(Remarks);
 			
+			//判断要添加的组件是否会形成死循环
+			var ret = verifyBomDetail(ProductsID);
+			alert(ret);
 			$('#popupfirm').modal('hide');
 			//提交表单
 			$("#productStructDetailForm").submit();
 		})
+		
+		
+		/**
+		 * 添加产品组件前，判断是否会形成死循环
+		 * 
+		 */
+		function verifyBomDetail(subProductsId) {
+			var bomPrimaryId = "${bomPrimary.id}";
+			var productsId = "${bomPrimary.productsId}";
+			var auditRet;
+
+			$.ajax({
+				type : "POST", //访问WebService使用Post方式请求
+				async : true,//同步操作
+				url : basePath + "/business/productStruct!verifySaveDetail.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
+				data : {
+					"bomDetail.primaryId":bomPrimaryId,
+					"bomDetail.productsId":productsId,
+					"bomDetail.subProductsId":subProductsId
+					}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
+				dataType : 'json', //WebService 会返回Json类型
+				traditional : false, //不要序列化参数
+				error : function(err, textStatus) {
+					alert("error: " + err + " textStatus: " + textStatus);
+				},
+				success : function(result) {//回调函数，result，返回值
+					alert("result: "+result);
+					auditRet = result;
+				}
+			});
+			
+			return auditRet;
+		}
 		
 		$("#popupProductsID").select2({
 			placeholder : "查询产品编号",

@@ -14,10 +14,25 @@ public interface ConstantService {
 	/**
 	 * 返回状态
 	 */
-	public static final String STATUS="status";
+	public static final String STATUS = "status";
 	
 	/**
 	 * 返回对象
 	 */
 	public static final String REULT_OBJECT = "dataObject";
+	
+	/**
+	 * 成功
+	 */
+	public static final String RESULT_SUCCESS = "1";
+	
+	/**
+	 * 失败
+	 */
+	public static final String RESULT_FAILURE = "0";
+	
+	/**
+	 * 消息
+	 */
+	public static final String MESSAGE = "message";
 }

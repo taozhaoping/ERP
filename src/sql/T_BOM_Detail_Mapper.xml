@@ -4,6 +4,7 @@
 	<resultMap id="T_BomDetail" type="BomDetail">
 		<id column="ID" property="id" />
 		<result column="PRIMARY_ID" property="primaryId" />
+		<result column="PRODUCTS_ID" property="productsId" />
 		<result column="SUB_PRODUCTS_ID" property="subProductsId" />
 		<result column="POSITION" property="position" />
 		<result column="IS_MAIN_PRODUCTS" property="isMainProducts" />
@@ -53,6 +54,21 @@
 		<include refid="Base_Column_List" />
 		from T_BOM_DETAIL
 		<include refid="where" />
+	</select>
+	
+	<!-- 查询结构的直系祖先 -->
+	<select id="listParents" resultMap="T_BomDetail" parameterType="Integer">
+		select ID, PRODUCTS_ID as productsId, SUB_PRODUCTS_ID as subProductsId
+		  from (
+		        select 
+		        	p.id, 
+		        	p.products_id, 
+		        	d.sub_products_id
+		          from T_BOM_PRIMARY p, t_bom_detail d
+		         where p.id = d.primary_id
+		         )
+		connect by prior products_id = sub_products_id
+		 start with sub_products_id = #{id}
 	</select>
 
 	<select id="list" resultMap="T_BomDetail" parameterType="BomDetail">

@@ -76,6 +76,11 @@ public class ProductStructServiceImpl implements ProductStructService {
 	public List<BomDetail> queryDetailList(BomDetail bomDetail) {
 		return bomDetailDao.queryList(bomDetail);
 	}
+
+	@Override
+	public List<BomDetail> queryParentList(Integer productsId) {
+		return bomDetailDao.queryParentList(productsId);
+	}
 	
 	@Override
 	public List<BomDetail> queryDetailList(BomDetail bomDetail,

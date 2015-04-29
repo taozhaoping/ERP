@@ -1,11 +1,13 @@
 package com.zh.web.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zh.base.util.ConstantService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
@@ -146,6 +148,70 @@ public class ProductStructAction extends BaseAction {
 		}
 		this.productStructModel.setId(bomPrimary.getId());
 		return Action.EDITOR_SUCCESS;
+	}
+	
+	/***
+	 * 添加产品结构的控制，防止添加上级死循环
+	 *	4.1、不能添加本身
+	 *	4.2、不能添加同一层级中已经存在的
+	 *	4.3、不能添加直系的祖先
+	 * @return json信息
+	 */
+	public String verifySaveDetail(){
+		BomDetail bomDetail = this.productStructModel.getBomDetail();
+		//产品id
+		Integer primaryId = bomDetail.getPrimaryId();
+		//产品编号
+		Integer productsId = bomDetail.getProductsId();
+		//组件编号
+		Integer subProductsId = bomDetail.getSubProductsId();
+		//返回值
+		Map<String, Object> dataMap = productStructModel.getDataMap();
+		//添加本身
+		if (productsId != null && productsId.equals(subProductsId)) {
+			dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+			dataMap.put(ConstantService.MESSAGE, "添加本身");
+			
+		} else {
+			BomDetail tempBomDetail = new BomDetail();
+			tempBomDetail.setPrimaryId(primaryId);
+			boolean bortherFlag = false;
+			List<BomDetail> bortherList= productStructService.queryDetailList(tempBomDetail);
+			for(BomDetail bd : bortherList ){
+				//存在和兄弟相同
+				if(bd.getSubProductsId().equals(subProductsId)){
+					bortherFlag = true;
+					break;
+				}
+			}
+			
+			if (bortherFlag) {
+				//存在和兄弟节点相同
+				dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+				dataMap.put(ConstantService.MESSAGE, "存在和兄弟节点相同");
+				
+			} else {
+				boolean parentFlag = false;
+				List<BomDetail> parentList = productStructService.queryParentList(productsId);
+				for(BomDetail bd : parentList ){
+					//存在和直系祖先相同
+					if(bd.getProductsId().equals(subProductsId)){
+						parentFlag = true;
+						break;
+					}
+				}
+				//存在和直系祖先相同
+				if (parentFlag) {
+					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+					dataMap.put(ConstantService.MESSAGE, "存在和直系祖先相同");
+				} else {
+					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_SUCCESS);
+					dataMap.put(ConstantService.MESSAGE, "success");
+				}
+			}
+		}
+//		this.productStructModel.setDataMap(dataMap);
+		return "verifyDetail";
 	}
 	
 	/** 

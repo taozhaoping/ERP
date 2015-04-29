@@ -114,6 +114,15 @@ public abstract class BaseDao<IdataObject> {
 	{
 		return queryList("list", data);
 	}
+
+	/**
+	 * 查询直系的祖先
+	 * @param data
+	 * @return
+	 */
+	public List<IdataObject> queryParentList(Integer productsId){
+		return sqlSessionTemplate.selectList(namespace + "listParents", productsId);
+	}
 	
 	/**
 	 * 查询数据列表

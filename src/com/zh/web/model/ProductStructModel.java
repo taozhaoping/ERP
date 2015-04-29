@@ -39,6 +39,8 @@ public class ProductStructModel extends BaseModel {
 	 * 替代料列表
 	 */
 	private List<BomSub> bomSubList = new ArrayList<BomSub>();
+	
+	
 
 	public BomPrimary getBomPrimary() {
 		return bomPrimary;
