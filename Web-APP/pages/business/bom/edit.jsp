@@ -1004,9 +1004,51 @@
 			$("#bomSubProductsId").val(subProductsId);
 			$("#bomSubQty").val(qty);
 			$("#bomSubRemarks").val(remarks);
-			//提交表单
-			$("#productStructSubForm").submit();
+			//判断要添加替代料
+			var ret = verifyBomSub(subMainProductsId, subProductsId);
+			if(ret.status == '1'){
+				//提交表单
+				$("#productStructSubForm").submit();
+				
+			} else {
+				$("#bomSubProductsId").closest('div').parents('div').removeClass('success').addClass('error');
+				$("#addBomSubPrompt").html(ret.message);
+			}
+			
 		});
+		
+		/**
+		 * 添加产品组件前，判断是否会形成死循环
+		 * 
+		 */
+		function verifyBomSub(subMainProductsId, subProductsId) {
+			//产品的料号
+			var productsId = "${bomPrimary.productsId}";
+			var auditRet;
+
+			$.ajax({
+				type : "POST", //访问WebService使用Post方式请求
+				async : false,//同步操作
+				url : basePath + "/business/productStruct!verifySaveSub.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
+				data : {
+					"BomSub.productsId":productsId,
+					"BomSub.mainProductsId":subMainProductsId,
+					"BomSub.subProductsId":subProductsId
+					}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
+				dataType : 'json', //WebService 会返回Json类型
+				traditional : false, //不要序列化参数
+				error : function(err, textStatus) {
+					//alert("error: " + err + " textStatus: " + textStatus);
+				},
+				success : function(result) {//回调函数，result，返回值
+					//alert("result: "+result);
+					auditRet = result;
+				}
+			});
+			
+			return auditRet;
+		}
+		
 		
 		//编辑替代料
 		function editSub(id, mainProductsId, subProductsId, qty, remarks){

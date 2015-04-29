@@ -72,6 +72,9 @@
 			    <param name="root">productStructModel.dataMap</param>
 			    <param name="includeProperties">*</param>
 			</result>
+			<result name="verifySub" type="json">
+			    <param name="root">productStructModel.dataMap</param>
+			</result>
 		</action>
 		
 		<!-- 其他入库 -->

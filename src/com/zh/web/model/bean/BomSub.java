@@ -29,12 +29,17 @@ public class BomSub extends IDataObject {
 	private Integer primaryId;
 	
 	/**
-	 * 主料主键
+	 * 产品id
+	 */
+	private Integer productsId;
+	
+	/**
+	 * 主料编号
 	 */
 	private Integer mainProductsId;
 
 	/**
-	 * 替代料主键
+	 * 替代料编号
 	 */
 	private Integer subProductsId;
 	
@@ -67,6 +72,14 @@ public class BomSub extends IDataObject {
 
 	public void setPrimaryId(Integer primaryId) {
 		this.primaryId = primaryId;
+	}
+
+	public Integer getProductsId() {
+		return productsId;
+	}
+
+	public void setProductsId(Integer productsId) {
+		this.productsId = productsId;
 	}
 
 	public Integer getMainProductsId() {

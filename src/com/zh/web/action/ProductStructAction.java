@@ -170,7 +170,7 @@ public class ProductStructAction extends BaseAction {
 		//添加本身
 		if (productsId != null && productsId.equals(subProductsId)) {
 			dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
-			dataMap.put(ConstantService.MESSAGE, "不允许添加本身");
+			dataMap.put(ConstantService.MESSAGE, "不允许添加自己");
 			
 		} else {
 			BomDetail tempBomDetail = new BomDetail();
@@ -276,6 +276,54 @@ public class ProductStructAction extends BaseAction {
 		}
 		this.productStructModel.setId(bomSub.getPrimaryId());
 		return Action.EDITOR_SAVE;
+	}
+	
+	/**
+	 * 5、添加替代料的控制，防止添加本身以及上级
+	 * 5.1、不能添加本身
+	 * 5.2、不能添加上级
+	 * 5.3、不能添加同一层级中已经存在的
+	 * @return
+	 */
+	public String verifySaveSub(){
+		BomSub bomSub = this.productStructModel.getBomSub();
+		Integer mainProductsId = bomSub.getMainProductsId();
+		Integer subProductsId = bomSub.getSubProductsId();
+		Integer productsId = bomSub.getProductsId();
+		//返回值
+		Map<String, Object> dataMap = productStructModel.getDataMap();
+		if(subProductsId != null){
+			if(subProductsId.equals(mainProductsId)){
+				dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+				dataMap.put(ConstantService.MESSAGE, "不允许添加自己");
+			} else if(subProductsId.equals(productsId)){
+				dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+				dataMap.put(ConstantService.MESSAGE, "不允许添加上级产品");
+			} else {
+				BomSub queryBomSub = new BomSub();
+				queryBomSub.setMainProductsId(mainProductsId);
+				boolean brotherFlag = false;
+				List<BomSub> bortherList = productStructService.querySubList(queryBomSub);
+				for(BomSub bs : bortherList){
+					if(bs.getSubProductsId().equals(subProductsId)){
+						brotherFlag = true;
+						break;
+					}
+				}
+				
+				if (brotherFlag) {
+					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+					dataMap.put(ConstantService.MESSAGE, "不允许添加已经存在的替代料");
+				} else {
+					dataMap.put(ConstantService.STATUS, ConstantService.RESULT_SUCCESS);
+					dataMap.put(ConstantService.MESSAGE, "success");
+				}
+			}
+		}else{
+			dataMap.put(ConstantService.STATUS, ConstantService.RESULT_FAILURE);
+			dataMap.put(ConstantService.MESSAGE, "替代料为空");
+		}
+		return "verifySub";
 	}
 	
 	/** 
