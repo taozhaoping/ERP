@@ -239,10 +239,6 @@
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
 	<script src="<%=path%>/js/common.js"></script>
-	<script src="<%=path%>/js/jquery-validate.js"></script>
-	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script src="<%=path%>/js/select2/select2.js"></script>
-	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var id = '${menuId}';
@@ -253,9 +249,6 @@
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
-		$("select").select2();
-		$("#inputstatus").val("${libraryPrimary.status}")
-		.trigger("change");
 		
 		$.jqPaginator('#pagination', {
 			//设置分页的总页数

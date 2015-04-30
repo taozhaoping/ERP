@@ -97,23 +97,22 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">出库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane active dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>出库单号：</dt>
-											<dd>${libraryPrimary.orderNoID}</dd>
+											<dt>编号：</dt>
+											<dd>${cuttingScheme.id}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>出库时间：</dt>
+											<dt>名称：</dt>
 											<dd>
-												${libraryPrimary.librarydate}
+												${cuttingScheme.name}
 											</dd>
 										</div>
 									</div>
@@ -122,46 +121,19 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>发货人：</dt>
-											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %></dd>
+											<dt>原材料：</dt>
+											<dd>${cuttingScheme.rawMaterials} (${cuttingScheme.rawName})</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>接收客户：</dt>
+											<dt>状态：</dt>
 											<dd>
-												<s:iterator value="customerList" var="tp" status="index">
-													<s:if test="#tp.id == libraryPrimary.customerID">
-														<s:property value="#tp.name"/>
-													</s:if>
-												</s:iterator>
-											</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>发货仓库：</dt>
-											<dd>
-												<s:iterator value="warehouseList" var="tp" status="index">
-													<s:if test="#tp.id == libraryPrimary.warehouseID">
-														<s:property value="#tp.name"/>
-													</s:if>
-												</s:iterator>
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>出库：</dt>
-											<dd>
-												<s:if test="#libraryPrimary.status==0">
-													否
+												<s:if test="#cuttingScheme.status==0">
+													无效
 												</s:if>
 												<s:else>
-													是
+													有效
 												</s:else>
 											</dd>
 										</div>
@@ -169,80 +141,54 @@
 								</dir>
 								
 								<dir class="row">
-									<div class="span8">
+									<div class="span4">
 										<div class="control-group">
-											<dt>备注：</dt>
-											<dd>${libraryPrimary.remarks}</dd>
+											<dt>主产品编号：</dt>
+											<dd>
+												${cuttingScheme.mainProducts}(${cuttingScheme.mainName})
+											</dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>主产品数量：</dt>
+											<dd>
+												${cuttingScheme.manNumber}
+											</dd>
+										</div>
+									</div>
+								</dir>
+								
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>副产品编号：</dt>
+											<dd>
+												${cuttingScheme.byProducts}(${cuttingScheme.byName})
+											</dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>副产品数量：</dt>
+											<dd>
+												${cuttingScheme.byNumber}
+											</dd>
 										</div>
 									</div>
 								</dir>
 							</dl>
-							
-							<div class="tab-pane fade" id="storagedetail">
-								<table class="table ">
-									<thead>
-										<tr>
-											<th>序号</th>
-											<th>产品编号</th>
-											<th>产品名称</th>
-											<th>出库数量</th>
-											<th>库存量</th>
-											<th>用途</th>
-											<th>备注</th>
-										</tr>
-									</thead>
-									
-									<tbody id="maillistSearch">
-										<tr>
-											<!-- 产品列表-->
-										<s:iterator value="libraryDetailList" var="tp" status="index">
-										<tr>
-											<td><s:property value="#index.index +1" /></td>
-											<td><s:property value="#tp.productsID" /></td>
-											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
-											<td>
-												<s:if test="#tp.storageNumber > #tp.stockNumber">
-													<span style="color: red">
-												</s:if>
-												<s:else>
-													<span>
-												</s:else>
-														<s:property value="#tp.stockNumber" />
-													</span>
-											</td>
-											<td><s:property value="#tp.use" /></td>
-											<td><s:property value="#tp.remarks" /></td>
-										</tr>
-										</s:iterator>
-											
-										</tr>
-									</tbody>
-								</table>
-								<div class="pagination">
-									<ul id="pagination">
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 		</div>
 	</div>
 	
-	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
-		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
-		<input type="hidden" name="spaceId" value="${spaceId}">
-	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
 	<script src="<%=path%>/js/common.js"></script>
-	<script src="<%=path%>/js/jquery-validate.js"></script>
-	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script src="<%=path%>/js/select2/select2.js"></script>
-	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var id = '${menuId}';
@@ -253,29 +199,7 @@
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
-		$("select").select2();
-		$("#inputstatus").val("${libraryPrimary.status}")
-		.trigger("change");
 		
-		$.jqPaginator('#pagination', {
-			//设置分页的总页数
-	        totalPages: totalPage,
-	        //设置分页的总条目数
-	        totalCounts:totalRow,
-	        pageSize:pageSize,
-	        //最多显示的页码
-	        visiblePages: 10,
-	        currentPage: curPage,
-	        onPageChange: function (num, type) {
-	           if("init"==type)
-	        	{
-	        	 	return false;  
-	        	}
-	           $('#curPage').val(num);
-	        	$('#queryForm').submit();
-	        	//document.getElementsByName("operateForm")[0].submit(); 
-	        }
-	    });
 	</script>
 </body>
 </html>
