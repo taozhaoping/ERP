@@ -27,6 +27,11 @@ public class BomPrimary extends IDataObject {
 	 * 主产品编号
 	 */
 	private Integer productsId;
+
+	/**
+	 * 主产品编号
+	 */
+	private String productsName;
 	
 	/**
 	 * 描述
@@ -83,11 +88,20 @@ public class BomPrimary extends IDataObject {
 		this.effStatus = effStatus;
 	}
 
+	public String getProductsName() {
+		return productsName;
+	}
+
+	public void setProductsName(String productsName) {
+		this.productsName = productsName;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("id:").append(id)
 		.append(" productsId:").append(productsId)
+		.append(" productsName:").append(productsName)
 		.append(" descr:").append(descr)
 		.append(" effdt:").append(effdt)
 		.append(" effStatus:").append(effStatus);

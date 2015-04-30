@@ -95,6 +95,7 @@
 							<thead>
 								<tr>
 									<th>产品编号</th>
+									<th>产品名称</th>
 									<th>描述</th>
 									<th>生效日期</th>
 									<th>生效状态</th>
@@ -105,6 +106,7 @@
 								<s:iterator value="bomPrimaryList" var="tp" status="index">
 									<tr>
 										<td><s:property value="#tp.productsId"/></td>
+										<td><s:property value="#tp.productsName"/></td>
 										<td><s:property value="#tp.descr"/></td>
 										<td><s:property value="#tp.effdt"/></td>
 										<td>

@@ -52,6 +52,13 @@ public class ProductStructAction extends BaseAction {
 		Pager page = this.productStructModel.getPageInfo();
 		page.setTotalRow(count);
 		List<BomPrimary> bomPrimaryList = productStructService.queryPrimaryList(bomPrimary, page);
+		for(BomPrimary bp : bomPrimaryList){
+			int productId = bp.getProductsId();
+			Products products = new Products();
+			products.setId(productId);
+			products = productsService.query(products);
+			bp.setProductsName(products.getName());
+		}
 		this.productStructModel.setBomPrimaryList(bomPrimaryList);
 		return Action.SUCCESS;
 
