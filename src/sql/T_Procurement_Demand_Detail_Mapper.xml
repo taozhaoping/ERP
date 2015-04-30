@@ -37,7 +37,7 @@
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_Procurement_Detail_lIST" parameterType="ProcurementDemandDetail">
+	<select id="list" resultMap="T_Procurement_Detail" parameterType="ProcurementDemandDetail">
 
 		select
 		<include refid="Base_Column_List" />

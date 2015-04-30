@@ -96,11 +96,11 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>出库单号</th>
-									<th>出库时间</th>
-									<th>签收人</th>
-									<th>仓库</th>
+									<th>申请时间</th>
+									<th>期限</th>
+									<th>申请人</th>
 									<th>状态</th>
+									<th>备注</th>
 									<th>接收客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
