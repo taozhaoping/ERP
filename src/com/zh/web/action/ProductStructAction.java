@@ -3,6 +3,7 @@ package com.zh.web.action;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,10 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("bomSub: {}", bomSub);
 			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
 			this.productStructModel.setBomSubList(bomSubList);
-			
+			//判断是否生效
+			if(result != null && "1".equalsIgnoreCase(result.getEffStatus())){
+				return Action.VIEW;
+			}
 		}
 		
 		return Action.EDITOR;
@@ -147,6 +151,26 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("add bomPrimary:{}", bomPrimary);
 		}
 		this.productStructModel.setId(bomPrimary.getId());
+		return Action.EDITOR_SUCCESS;
+	}
+	
+	/** 
+	 * 审核生效状态
+	 */
+	public String auditStatus() throws Exception {
+		LOGGER.debug("auditStatus()");
+		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
+		//头表的主键
+		Integer id = bomPrimary.getId();
+		//主键为空，则是插入，不为空，更新
+		if (null != id && !"".equals(id)){
+			//生效
+			bomPrimary.setEffStatus("1");
+			productStructService.updatePrimary(bomPrimary);
+			LOGGER.debug("auditStatus bomPrimary:{}", bomPrimary);
+		}else{
+			throw new ParameterException("产品结构编号不允许为空!");
+		}
 		return Action.EDITOR_SUCCESS;
 	}
 	

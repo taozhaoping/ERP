@@ -91,6 +91,14 @@
 						</button>
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
+						
+						<div class="pull-right">
+							<s:if test="bomPrimary.productsId">
+								<button class="btn btn-danger" type="button" id="approveBtn" data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 审核
+								</button>
+							</s:if>
+						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
@@ -149,8 +157,14 @@
 										<div class="control-group">
 											<label class="control-label" for="inputwideDegree">生效状态：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="bomPrimary.effStatus" disabled="disabled"
-													placeholder="生效状态" id="inputEffStatus" value="${bomPrimary.effStatus}" class="input-medium input-xlarge"></input>
+												<s:if test="#bomPrimary.effStatus == 1">
+													<input type="text" maxlength="40" name="bomPrimary.effStatus" disabled="disabled"
+														placeholder="生效状态" id="inputEffStatus" value="已生效" class="input-medium input-xlarge"></input>
+												</s:if>
+												<s:else>
+													<input type="text" maxlength="40" name="bomPrimary.effStatus" disabled="disabled"
+														placeholder="生效状态" id="inputEffStatus" value="未生效" class="input-medium input-xlarge"></input>
+												</s:else>
 											</div>
 										</div>
 									</div>
@@ -582,8 +596,29 @@
 	  </div>
 	</div>
 	
-	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
-		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+	<!-- 审核产品结构 -->
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>审核后结构将不可更改.继续请按."确认" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal" id="formChangefirmBtn">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<!-- 审核生效 -->
+	<form action="${menu2Id}!auditStatus.jspa" id="auditForm" method="post">
+		<input type="hidden" name="bomPrimary.id" value="${bomPrimary.id}">
+		<input type="hidden" name="menuId" value="${menuId}">
+		<input type="hidden" name="menu2Id" value="${menu2Id}">
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
 	
@@ -1114,6 +1149,12 @@
 		$("#deleteSubConfirmBtn").click(function(){
 			//提交表单
 			$("#productStructSubDelForm").submit();
+		});
+		
+		//审核生效状态
+		$("#formChangefirmBtn").click(function(){
+			//提交表单
+			$("#auditForm").submit();
 		});
 		
 		//进入指定的tbs

@@ -124,7 +124,14 @@
 									<div class="span4">
 										<div class="control-group">
 											<dt>生效状态：</dt>
-											<dd>${products.effStatus}</dd>
+											<dd>
+												<s:if test="bomPrimary.effStatus == 1">
+												已生效
+												</s:if>
+												<s:else>
+												未生效
+												</s:else>
+											</dd>
 										</div>
 									</div>
 								</dir>
