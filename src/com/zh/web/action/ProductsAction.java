@@ -93,6 +93,13 @@ public class ProductsAction extends BaseAction {
 				bomDetail.setPrimaryId(primaryId);
 				LOGGER.debug("bomDetail: {}", bomDetail);
 				List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
+				for(BomDetail bd : bomDetailList){
+					int productId = bd.getSubProductsId();
+					Products ps = new Products();
+					ps.setId(productId);
+					ps = productsService.query(ps);
+					bd.setSubProductsName(ps.getName());
+				}
 				this.productsModel.setBomDetailList(bomDetailList);
 				
 				//替代料列表
@@ -100,6 +107,13 @@ public class ProductsAction extends BaseAction {
 				bomSub.setPrimaryId(primaryId);
 				LOGGER.debug("bomSub: {}", bomSub);
 				List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+				for(BomSub bs : bomSubList){
+					int productId = bs.getSubProductsId();
+					Products ps = new Products();
+					ps.setId(productId);
+					ps = productsService.query(ps);
+					bs.setSubProductsName(ps.getName());
+				}
 				this.productsModel.setBomSubList(bomSubList);
 			}
 		}

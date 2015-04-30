@@ -42,6 +42,11 @@ public class BomSub extends IDataObject {
 	 * 替代料编号
 	 */
 	private Integer subProductsId;
+
+	/**
+	 * 替代料名称
+	 */
+	private String subProductsName;
 	
 	/**
 	 * 库位号
@@ -122,6 +127,14 @@ public class BomSub extends IDataObject {
 		this.remarks = remarks;
 	}
 	
+	public String getSubProductsName() {
+		return subProductsName;
+	}
+
+	public void setSubProductsName(String subProductsName) {
+		this.subProductsName = subProductsName;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -130,6 +143,7 @@ public class BomSub extends IDataObject {
 		.append(" mainProductsId:").append(mainProductsId)
 		.append(" position:").append(position)
 		.append(" subProductsId:").append(subProductsId)
+		.append(" subProductsName:").append(subProductsName)
 		.append(" qty:").append(qty)
 		.append(" remarks:").append(remarks);
 		return sb.toString();

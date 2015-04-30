@@ -16,7 +16,9 @@ import com.zh.web.model.ProductStructModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
+import com.zh.web.model.bean.Products;
 import com.zh.web.service.ProductStructService;
+import com.zh.web.service.ProductsService;
 
 public class ProductStructAction extends BaseAction {
 
@@ -33,6 +35,9 @@ public class ProductStructAction extends BaseAction {
 	
 	@Autowired
 	private ProductStructService productStructService;
+	
+	@Autowired
+	private ProductsService productsService;
 	
 	@Override
 	public Object getModel() {
@@ -73,11 +78,14 @@ public class ProductStructAction extends BaseAction {
 			BomDetail bomDetail = this.productStructModel.getBomDetail();
 			bomDetail.setPrimaryId(id);
 			LOGGER.debug("bomDetail: {}", bomDetail);
-			//Pager page = this.productStructModel.getPageInfo();
-			//Integer count = productStructService.countDetail(bomDetail);
-			//page.setTotalRow(count);
-			//List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
 			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
+			for(BomDetail bd : bomDetailList){
+				int productId = bd.getSubProductsId();
+				Products products = new Products();
+				products.setId(productId);
+				products = productsService.query(products);
+				bd.setSubProductsName(products.getName());
+			}
 			this.productStructModel.setBomDetailList(bomDetailList);
 	
 			//替代料列表
@@ -85,6 +93,13 @@ public class ProductStructAction extends BaseAction {
 			bomSub.setPrimaryId(id);
 			LOGGER.debug("bomSub: {}", bomSub);
 			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+			for(BomSub bs : bomSubList){
+				int productId = bs.getSubProductsId();
+				Products products = new Products();
+				products.setId(productId);
+				products = productsService.query(products);
+				bs.setSubProductsName(products.getName());
+			}
 			this.productStructModel.setBomSubList(bomSubList);
 			//判断是否生效
 			if(result != null && "1".equalsIgnoreCase(result.getEffStatus())){
@@ -115,11 +130,14 @@ public class ProductStructAction extends BaseAction {
 			BomDetail bomDetail = this.productStructModel.getBomDetail();
 			bomDetail.setPrimaryId(id);
 			LOGGER.debug("bomDetail: {}", bomDetail);
-//			Pager page = this.productStructModel.getPageInfo();
-//			Integer count = productStructService.countDetail(bomDetail);
-//			page.setTotalRow(count);
-//			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail, page);
 			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
+			for(BomDetail bd : bomDetailList){
+				int productId = bd.getSubProductsId();
+				Products products = new Products();
+				products.setId(productId);
+				products = productsService.query(products);
+				bd.setSubProductsName(products.getName());
+			}
 			this.productStructModel.setBomDetailList(bomDetailList);
 			
 			//替代料列表
@@ -127,6 +145,13 @@ public class ProductStructAction extends BaseAction {
 			bomSub.setPrimaryId(id);
 			LOGGER.debug("bomSub: {}", bomSub);
 			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+			for(BomSub bs : bomSubList){
+				int productId = bs.getSubProductsId();
+				Products products = new Products();
+				products.setId(productId);
+				products = productsService.query(products);
+				bs.setSubProductsName(products.getName());
+			}
 			this.productStructModel.setBomSubList(bomSubList);
 		}
 		return Action.VIEW;

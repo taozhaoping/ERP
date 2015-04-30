@@ -153,8 +153,15 @@
 										<s:iterator value="bomDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#tp.subProductsId" /></td>
-											<td></td>
-											<td><s:property value="#tp.isMainProducts" /></td>
+											<td><s:property value="#tp.subProductsName" /></td>
+											<td>
+												<s:if test="#tp.isMainProducts == 0">
+													否
+												</s:if>
+												<s:elseif test="#tp.isMainProducts == 1">
+													是
+												</s:elseif>
+											</td>
 											<td><s:property value="#tp.qty" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 										</tr>
@@ -185,7 +192,7 @@
 										<tr>
 											<td><s:property value="#tp.mainProductsId" /></td>
 											<td><s:property value="#tp.subProductsId" /></td>
-											<td></td>
+											<td><s:property value="#tp.subProductsName" /></td>
 											<td><s:property value="#tp.qty" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 										</tr>

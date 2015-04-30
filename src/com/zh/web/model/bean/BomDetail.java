@@ -37,6 +37,11 @@ public class BomDetail extends IDataObject {
 	 * 子产品主键
 	 */
 	private Integer subProductsId;
+
+	/**
+	 * 子产品名称
+	 */
+	private String subProductsName;
 	
 	/**
 	 * 库位号
@@ -122,6 +127,14 @@ public class BomDetail extends IDataObject {
 		this.remarks = remarks;
 	}
 	
+	public String getSubProductsName() {
+		return subProductsName;
+	}
+
+	public void setSubProductsName(String subProductsName) {
+		this.subProductsName = subProductsName;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -129,6 +142,7 @@ public class BomDetail extends IDataObject {
 		.append(" primaryId:").append(primaryId)
 		.append(" productsId:").append(productsId)
 		.append(" subProductsId:").append(subProductsId)
+		.append(" subProductsName:").append(subProductsName)
 		.append(" position:").append(position)
 		.append(" isMainProducts:").append(isMainProducts)
 		.append(" qty:").append(qty)
