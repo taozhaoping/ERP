@@ -131,7 +131,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputname" style="">名称：</label>
 											<div class="controls">
-												<input size="16" id="inputname" name="cuttingScheme.contractNumber"
+												<input size="16" id="inputname" name="cuttingScheme.name"
 													type="text" data-required="true"
 													value="${cuttingScheme.name}"
 													class="input-large">
@@ -246,6 +246,12 @@
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
 	
+	<form action="${menu2Id}!save.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="id" name="id" value="${cuttingScheme.id}" type="hidden"/>
+		<input id="view" name="view" value="enabled" type="hidden"/>
+		<input id="enabled" name="enabled" value="${cuttingScheme.enabled}" type="hidden"/>
+	</form>
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
@@ -267,7 +273,7 @@
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#inputstatus").val("${cuttingScheme.enabled}")
+		$("#inputenabled").val("${cuttingScheme.enabled}")
 		.trigger("change");
 		
 		$("#inputrawMaterials").select2({
@@ -276,7 +282,7 @@
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 
-	            callback({id: element.val(), text: element.val()});//这里初始化 
+	            callback({id: element.val(), text: element.val() + "(${cuttingScheme.rawName})"});//这里初始化 
 	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
@@ -336,8 +342,7 @@
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 
-	            var data = [{id: element.val(), text: element.val()}]; 
-	            callback({id: element.val(), text: element.val()});//这里初始化 
+	            callback({id: element.val(), text: element.val() + "(${cuttingScheme.mainName})"});//这里初始化 
 	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
@@ -396,8 +401,7 @@
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 
-	            var data = [{id: element.val(), text: element.val()}]; 
-	            callback({id: element.val(), text: element.val()});//这里初始化 
+	            callback({id: element.val(), text: element.val() + "(${cuttingScheme.byName})"});//这里初始化 
 	        },
 			ajax : {
 				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
@@ -460,6 +464,10 @@
 		function saveForm() {
 			$("#editForm").submit();
 		}
+		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 		
 	</script>
 </body>

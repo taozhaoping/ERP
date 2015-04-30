@@ -150,7 +150,7 @@
 				NAME = #{name,jdbcType=VARCHAR},
 			</if>
 			<if test="rawMaterials != null">
-				#{raw_Materials},
+				raw_Materials = #{rawMaterials},
 			</if>
 			<if test="mainProducts != null">
 				main_products = #{mainProducts},

@@ -88,6 +88,18 @@ public class CuttingSchemeAction extends BaseAction {
 				.getCuttingScheme();
 		Integer id = this.cuttingSchemeModel.getId();
 		if (null != id && !"".equals(id)) {
+			String view = this.cuttingSchemeModel.getView();
+			if (null != view && "enabled".equals(view)) {
+				String enabled = this.cuttingSchemeModel.getEnabled();
+				cuttingScheme = new CuttingScheme();
+				if ("0".equals(enabled)) {
+					cuttingScheme.setEnabled(1);
+				} else {
+					cuttingScheme.setEnabled(0);
+				}
+				LOGGER.debug("update warehouse enabled "
+						+ cuttingScheme.getEnabled());
+			}
 			cuttingScheme.setId(id);
 			cuttingSchemeService.update(cuttingScheme);
 			LOGGER.debug("update storagePrimary id" + id);
