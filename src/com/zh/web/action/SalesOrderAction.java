@@ -2,6 +2,7 @@ package com.zh.web.action;
 
 import java.util.List;
 
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,36 @@ public class SalesOrderAction extends BaseAction {
 			this.salesOrderModel.getSalesOrderPrimary().setUserID(userID);
 		}
 		return Action.EDITOR;
+	}
+	
+	/**
+	 * 
+	* @Title: examineSalesOrder 
+	* @Description: 审核（修改订单状态和计算采购需求需求数量） 
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 * @throws ParameterException 
+	 */
+	public String examineSalesOrder() throws ParameterException
+	{
+		LOGGER.debug("examine SalesOrder ()");
+		Integer id = this.salesOrderModel.getId();
+		if (null == id || "".equals(id)) {
+			throw new ParameterException("审核的单据号不允许为空!");
+		}
+		
+		//计算销售订单的采购需求清单和修改头表状态 已下代码需要跟采购需求单计算放在一个事物里面，防止失败
+		SalesOrderPrimary salesOrderPrimary = this.salesOrderModel
+				.getSalesOrderPrimary();
+		salesOrderPrimary.setId(id);
+		salesOrderPrimary.setStatus(1);
+		salesOrderPrimaryService.update(salesOrderPrimary);
+		//============结束==================
+		this.salesOrderModel.setFormId(String.valueOf(id));
+		return Action.EDITOR_SAVE;
 	}
 
 	public String saveSalesOrderDetail() {

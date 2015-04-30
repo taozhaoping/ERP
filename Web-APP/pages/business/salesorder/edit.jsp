@@ -244,10 +244,11 @@
 												<select id="inputstatus"  disabled="disabled"
 													name="storagePrimary.status" class="input-medium" placeholder="状态" >
 													<option value="0">发起</option>
-													<option value="1">进行中</option>
-													<option value="2">交付</option>
-													<option value="3">未结账</option>
-													<option value="4">完成</option>
+													<option value="1">采购</option>
+													<option value="2">生产</option>
+													<option value="3">交付</option>
+													<option value="4">未结账</option>
+													<option value="5">完成</option>
 												</select>
 											</div>
 										</div>
@@ -461,8 +462,8 @@
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
 	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
-		<input id="formId" name="formId" value="${salesOrderPrimary.id}" type="hidden"/>
+	<form action="${menu2Id}!examineSalesOrder.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="id" name="id" value="${salesOrderPrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>

@@ -117,7 +117,14 @@
 										</td>
 										<td><s:property value="#tp.inspection"/></td>
 										<td><s:property value="#tp.loadingPort"/></td>
-										<td><s:property value="#tp.status"/></td>
+										<td>
+											<s:if test="#tp.status == 0">发起</s:if>
+											<s:elseif test="#tp.status == 1">采购</s:elseif>
+											<s:elseif test="#tp.status == 2">生产</s:elseif>
+											<s:elseif test="#tp.status == 3">交付</s:elseif>
+											<s:elseif test="#tp.status == 4">未结账</s:elseif>
+											<s:elseif test="#tp.status == 5">完成</s:elseif>
+										</td>
 										
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
