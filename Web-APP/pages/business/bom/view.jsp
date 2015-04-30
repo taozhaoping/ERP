@@ -92,7 +92,7 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="productStructButt" href="#productStructure" data-toggle="tab">产品结构</a></li>
+							<li><a id="productStructButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
 							<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -136,7 +136,7 @@
 									</div>
 								</dir>
 							</dl>
-							<div class="tab-pane fade" id="productStructure">
+							<div class="tab-pane fade" id="productStructTab">
 								<table class="table">
 									<thead>
 										<tr>

@@ -25,6 +25,13 @@ public interface ProductStructService {
 	 * @return
 	 */
 	public BomPrimary queryPrimary(BomPrimary bomPrimary);
+
+	/**
+	 * 查询最新发放的主表信息
+	 * @param 
+	 * @return
+	 */
+	public BomPrimary queryReleasePrimary(BomPrimary bomPrimary);
 	
 	/**
 	 * 修改主表

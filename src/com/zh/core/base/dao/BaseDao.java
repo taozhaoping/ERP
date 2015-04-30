@@ -88,6 +88,15 @@ public abstract class BaseDao<IdataObject> {
 	}
 	
 	/**
+	 * 查询最新发放的数据
+	 * @param data
+	 * @return
+	 */
+	public IdataObject queryRelease(IdataObject data) {
+		return sqlSessionTemplate.selectOne(namespace + "selectRelease", data);
+	}
+	
+	/**
 	 * 查询数据
 	 * @param data
 	 * @return

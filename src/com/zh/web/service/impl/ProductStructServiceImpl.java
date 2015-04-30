@@ -30,6 +30,11 @@ public class ProductStructServiceImpl implements ProductStructService {
 	public BomPrimary queryPrimary(BomPrimary bomPrimary) {
 		return bomPrimaryDao.query(bomPrimary);
 	}
+	
+	@Override
+	public BomPrimary queryReleasePrimary(BomPrimary bomPrimary) {
+		return bomPrimaryDao.queryRelease(bomPrimary);
+	}
 
 	@Override
 	public void updatePrimary(BomPrimary bomPrimary) {

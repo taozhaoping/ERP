@@ -99,7 +99,8 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-								<li><a id="productstructureButt" href="#productstructure" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructTabButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
+								<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -304,45 +305,68 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="productstructure">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>编号</th>
-										<th>名称</th>
-										<th>产品类型</th>
-										<th>来源</th>
-										<th>主产品</th>
-										<th>组</th>
-										<th>主料/替代料</th>
-										<th>数量</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表 -->
-										<s:iterator value="productStructureList" var="tp" status="index">
+							
+							<div class="tab-pane fade" id="productStructTab">
+								<table class="table">
+									<thead>
 										<tr>
-											<td><s:property value="#tp.id" /></td>
-											<td><s:property value="#tp.products.name" /></td>
-											<td><s:property value="#tp.products.productType" /></td>
-											<td><s:property value="#tp.products.sourceType" /></td>
-											<td><s:property value="#tp.products.ismainproducts" /></td>
-											<td><s:property value="#tp.products.groupID" /></td>
-											<td><s:property value="#tp.products.maAlMeterials" /></td>
-											<td><s:property value="#tp.products.productsNumber" /></td>
+											<th>组件编号</th>
+											<th>名称</th>
+											<th>主产品</th>
+											<th>数量</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomDetailList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.isMainProducts" /></td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
 										</tr>
 										</s:iterator>
-										
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
 							</div>
-						</div>
+							
+							<div class="tab-pane fade" id="productStructSubTab">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>主料编号</th>
+											<th>替代料编号</th>
+											<th>替代料名称</th>
+											<th>替代料数量</th>
+											<th>替代料备注</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表 -->
+										<s:iterator value="bomSubList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#tp.mainProductsId" /></td>
+											<td><s:property value="#tp.subProductsId" /></td>
+											<td></td>
+											<td><s:property value="#tp.qty" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+										</tr>
+										</s:iterator>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

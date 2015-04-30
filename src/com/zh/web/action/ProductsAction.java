@@ -12,6 +12,9 @@ import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductsModel;
+import com.zh.web.model.bean.BomDetail;
+import com.zh.web.model.bean.BomPrimary;
+import com.zh.web.model.bean.BomSub;
 import com.zh.web.model.bean.Products;
 import com.zh.web.service.ProductStructService;
 import com.zh.web.service.ProductsService;
@@ -31,7 +34,7 @@ public class ProductsAction extends BaseAction {
 	private ProductsService productsService;
 	
 	@Autowired
-	private ProductStructService productStructureService;
+	private ProductStructService productStructService;
 	
 	@Override
 	public Object getModel() {
@@ -70,8 +73,7 @@ public class ProductsAction extends BaseAction {
 		//颜色
 		List<Dictionary> paintList = queryDictionaryList(BasiTypeService.PAINT_COLR);
 		this.productsModel.setPaintList(paintList);
-		if (null != id)
-		{
+		if (null != id){
 			//查询信息
 			LOGGER.debug("editor Products id " + id );
 			Products products = this.productsModel.getProducts();
@@ -79,14 +81,27 @@ public class ProductsAction extends BaseAction {
 			Products reult = productsService.query(products);
 			this.productsModel.setProducts(reult);
 			
-			//获取产品结构
-//			BOMPrimary productStructure = new BOMPrimary();
-//			productStructure.setProductsid(id);
-//			Integer count = productStructureService.count(productStructure);
-//			Pager page = this.productsModel.getPageInfo();
-//			page.setTotalRow(count);
-//			List<BOMPrimary> productStructureList = productStructureService.queryList(productStructure, page);
-//			this.productsModel.setProductStructureList(productStructureList);
+			BomPrimary bomPrimary = new BomPrimary();
+			bomPrimary.setProductsId(id);
+			bomPrimary = productStructService.queryReleasePrimary(bomPrimary);
+			if(null != bomPrimary && null != bomPrimary.getId()){
+				//结构头表id
+				Integer primaryId = bomPrimary.getId();
+				
+				//产品结构明细
+				BomDetail bomDetail = this.productsModel.getBomDetail();
+				bomDetail.setPrimaryId(primaryId);
+				LOGGER.debug("bomDetail: {}", bomDetail);
+				List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
+				this.productsModel.setBomDetailList(bomDetailList);
+				
+				//替代料列表
+				BomSub bomSub = this.productsModel.getBomSub();
+				bomSub.setPrimaryId(primaryId);
+				LOGGER.debug("bomSub: {}", bomSub);
+				List<BomSub> bomSubList = productStructService.querySubList(bomSub);
+				this.productsModel.setBomSubList(bomSubList);
+			}
 		}
 		
 		return Action.EDITOR;
