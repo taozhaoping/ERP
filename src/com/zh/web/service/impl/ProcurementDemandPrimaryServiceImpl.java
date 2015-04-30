@@ -51,7 +51,7 @@ public class ProcurementDemandPrimaryServiceImpl implements ProcurementDemandPri
 	}
 
 	@Override
-	public Integer insert(ProcurementDemandPrimary procurementDemandPrimary,String type) {
+	public Integer insert(ProcurementDemandPrimary procurementDemandPrimary) {
 		// TODO Auto-generated method stub
 		return procurementDemandPrimaryDao.insert(procurementDemandPrimary);
 	}

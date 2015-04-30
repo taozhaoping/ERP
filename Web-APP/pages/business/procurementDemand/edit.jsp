@@ -85,7 +85,7 @@
 			<li class="active">编辑</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="libraryPrimary.id!=null&&libraryPrimary.id!=''" />
+					value="procurementDemandPrimary.id!=null&&procurementDemandPrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -96,37 +96,29 @@
 						</button>
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
-						<div class="pull-right">
-							<s:if test="#ProcessId">
-								<button class="btn btn-danger" type="button" id="approveBtn"
-								data-toggle="modal" data-target="#forMchangefirm">
-									<i class="icon-ok"></i> 出库
-								</button>
-							</s:if>
-						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">出库清单</a></li>
+							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">需求清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${libraryPrimary.id}"> 
-								<input type="hidden" name="libraryPrimary.userID" value="${libraryPrimary.userID}">
+								<input type="hidden" name="id" value="${procurementDemandPrimary.id}"> 
+								<input type="hidden" name="procurementDemandPrimary.userID" value="${procurementDemandPrimary.userID}">
 								<input type="hidden" name="menuId" value="${menuId}"> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">出库单号：</label>
+											<label class="control-label" for="inputorderNoID" style="">编号：</label>
 											<div class="controls">
-													<input type="text" maxlength="30" disabled="disabled"
-														id="inputorderNoID" value="${libraryPrimary.orderNoID}" class="input-medium"></input>
+													<input type="text" maxlength="30" disabled="disabled" name = "procurementDemandPrimary.id"
+														id="inputID" value="${procurementDemandPrimary.id}" class="input-medium"></input>
 												
 											</div>
 
@@ -134,57 +126,48 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputlibrarydate" style="">出库时间：</label>
+											<label class="control-label" for="inputUserID" style="">申请人：</label>
 											<div class="controls">
-												<input size="16" id="inputlibrarydate" name="libraryPrimary.librarydate"
+												<input size="16" id="inputUserID" name="procurementDemandPrimary.userID"
+													type="text" data-required="true" disabled="disabled"
+													value="<%=userName.queryUserName(String.valueOf(request.getAttribute("procurementDemandPrimary.userID"))) %>"
+													class="input-medium">
+											</div>
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputlcreateDate" style="">申请时间：</label>
+											<div class="controls">
+												<input size="16" id="inputlcreateDate" name="procurementDemandPrimary.createDate"
 													type="text" data-required="true"
-													value="${libraryPrimary.librarydate}"
+													value="${procurementDemandPrimary.createDate}"
 													readonly class="form_datetime input-medium">
 											</div>
 										</div>
 									</div>
-								</dir>
-								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">发货人：</label>
+											<label class="control-label" for="inputlimitDate" style="">期限：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="libraryPrimary.userID" disabled="disabled"
-													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %>" class="input-medium"></input>
+												<input type="text" maxlength="40" name="procurementDemandPrimary.limitDate"
+													placeholder="期限" id="inputlimitDate"  class="form_datetime input-medium"></input>
 											</div>
 
 										</div>
 									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">接收客户：</label>
-											<div class="controls">
-												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name"
-													name="libraryPrimary.customerID" cssClass="input-medium" placeholder="发货客户">
-												</s:select>
-											</div>
-										</div>
-									</div>
 								</dir>
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputwarehouseID" style="">发货仓库：</label>
+											<label class="control-label" for="inputstatus" style="">状态：</label>
 											<div class="controls">
-												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
-													name="libraryPrimary.warehouseID" cssClass="input-medium" placeholder="发货仓库">
-												</s:select>
-											</div>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputstatus" style="">出库：</label>
-											<div class="controls">
-												<select id="inputstatus"  disabled="disabled" list=""
-													name="libraryPrimary.status" class="input-medium" placeholder="是否出库" >
-													<option value="0">否</option>
-													<option value="1">是</option>
+												<select id="inputstatus"  disabled="disabled"
+													name="procurementDemandPrimary.status" class="input-medium" placeholder="状态" >
+													<option value="0" selected="selected">处理中</option>
+													<option value="1">完成</option>
 												</select>
 											</div>
 										</div>
@@ -195,8 +178,8 @@
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>
 											<div class="controls">
-												<input type="text" maxlength="500" name="libraryPrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${libraryPrimary.remarks}" class="input-xxlarge"></input>
+												<input type="text" maxlength="500" name="procurementDemandPrimary.remarks"
+													placeholder="备注" id="inputremarks" value="${procurementDemandPrimary.remarks}" class="input-xxlarge"></input>
 											</div>
 
 										</div>
@@ -206,17 +189,16 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="librarydetail">
-								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveLibraryDetail.jspa" method="post">
+								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveProcurementDemandDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="tabID" value="librarydetailButt" />
-								<input type="hidden" name="formId" value="${libraryPrimary.id}" />
-								<input type="hidden" id="detaillibraryPrimaryID" name="libraryDetail.libraryPrimaryID" value="${libraryPrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="libraryDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="libraryDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="libraryDetail.use" value="" />
-								<input type="hidden" id="detailremarks" name="libraryDetail.remarks" value="" />
+								<input type="hidden" name="formId" value="${procurementDemandPrimary.id}" />
+								<input type="hidden" id="detailprocurementID" name="procurementDemandDetail.procurementID" value="${procurementDemandPrimary.id}" />
+								<input type="hidden" id="detailproductsID" name="procurementDemandDetail.productsID" value="" />
+								<input type="hidden" id="detailqty" name="procurementDemandDetail.demandNumber" value="" />
+								<input type="hidden" id="detailremarks" name="procurementDemandDetail.remarks" value="" />
 										<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
 							</form>
@@ -226,9 +208,10 @@
 										<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
-										<th>出库数量</th>
-										<th>库存量</th>
-										<th>用途</th>
+										<th>单位</th>
+										<th>数量</th>
+										<th>下单数</th>
+										<th>入库数</th>
 										<th>备注</th>
 										<th>操作</th>
 									</tr>
@@ -237,26 +220,20 @@
 								<tbody id="maillistSearch">
 									<tr>
 										<!-- 产品列表-->
-										<s:iterator value="libraryDetailList" var="tp" status="index">
+										<s:iterator value="procurementDemandDetailList" var="tp" status="index">
 										<tr>
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
+											<td><s:property value="#tp.measurementCompany" /></td>
 											<td>
-												<s:if test="#tp.storageNumber > #tp.stockNumber">
-													<span style="color: red">
-												</s:if>
-												<s:else>
-													<span>
-												</s:else>
-														<s:property value="#tp.stockNumber" />
-													</span>
+												<s:property value="#tp.demandNumber" />
 											</td>
-											<td><s:property value="#tp.use" /></td>
+											<td><s:property value="#tp.placeOrderNumber" /></td>
+											<td><s:property value="#tp.storageNumber" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&formId=${libraryPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
+												<a title="状态" href="${menu2Id}!saveProcurementDemandDetail.jspa?id=<s:property value='#tp.id'/>&formId=${procurementDemandPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
@@ -313,17 +290,6 @@
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
-							<label class="control-label" for="popupUse">用途：</label>
-							<div class="controls">
-								<input type="text" id="popupUse"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
 							<label class="control-label" for="popupRemarks">备注：</label>
 							<div class="controls">
 								<input type="text" id="popupRemarks"
@@ -341,32 +307,9 @@
 		</div>
 	</div>
 	
-	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="myModalLabel">提示</h3>
-		</div>
-		<div class="modal-body">
-			<p class="error-text">
-				<i class="icon-warning-sign modal-icon "></i>当前单据更新到库存后将不可更改.继续请按."更新" 否则请按 "取消"
-			</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-danger" data-dismiss="modal"
-				id="formChangefirmBtn">更新</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-		</div>
-	</div>
-	
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
-	</form>
-	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
-		<input id="formId" name="formId" value="${libraryPrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -383,19 +326,15 @@
 		var menuId = '${menu2Id}';
 		var spaceId = '${spaceId}';
 		var url = $("#" + menuId).attr('url');
-		var id = '${libraryPrimary.id}';
+		var id = '${procurementDemandPrimary.id}';
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#inputstatus").val("${libraryPrimary.status}")
+		$("#inputstatus").val("${procurementDemandPrimary.status}")
 		.trigger("change");
-		
-		$("#formChangefirmBtn").click(function() {
-			$("#increaseStockForm").submit();
-		});
 		
 		$("#popupProductsID").select2({
 			placeholder : "查询产品编号",
@@ -482,7 +421,6 @@ $("#popupQty").closest('div').parents('div').removeClass('success').addClass('er
 			
 			$("#detailproductsID").val(ProductsID);
 			$("#detailqty").val(Qty);
-			$("#detailuse").val(Use);
 			$("#detailremarks").val(Remarks);
 			$('#popupfirm').modal('hide')
 			$("#libraryDetailForm").submit();

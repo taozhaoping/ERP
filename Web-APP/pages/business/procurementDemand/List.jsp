@@ -101,35 +101,29 @@
 									<th>申请人</th>
 									<th>状态</th>
 									<th>备注</th>
-									<th>接收客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="libraryPrimaryList" var="tp" status="index">
+								<s:iterator value="procurementDemandPrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.orderNoID"/></td>
-										<td><s:property value="#tp.librarydate"/></td>
+										<td><s:property value="#tp.createDate"/></td>
+										<td><s:property value="#tp.limitDate"/></td>
 										<td>
 											<s:set id="userID" value="#tp.userID"></s:set>
 											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
 										</td>
 										<td>
-											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
-											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
-										</td>
-										<td>
 											<s:if test="#tp.status==0">
-												未入库
+												处理中
 											</s:if>
 											<s:else>
-												入库
+												完成
 											</s:else>
 										</td>
 										<td>
-											<s:set id="customerID" value="#tp.customerID"></s:set>
-											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+											<s:property value="#tp.remarks"/>
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 

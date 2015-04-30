@@ -31,9 +31,29 @@ public class ProcurementDemandDetail extends IDataObject {
 	private Integer productsID;
 	
 	/**
+	 * 产品名称
+	 */
+	private String productsName;
+	
+	/**
+	 * 计量单位
+	 */
+	private Integer measurementCompany;
+	
+	/**
 	 * 数量
 	 */
 	private Integer demandNumber;
+	
+	/**
+	 * 下单数
+	 */
+	private Integer placeOrderNumber;
+	
+	/**
+	 * 入库数
+	 */
+	private Integer storageNumber;
 	
 	/**
 	 * 备注
@@ -78,6 +98,38 @@ public class ProcurementDemandDetail extends IDataObject {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getProductsName() {
+		return productsName;
+	}
+
+	public void setProductsName(String productsName) {
+		this.productsName = productsName;
+	}
+
+	public Integer getMeasurementCompany() {
+		return measurementCompany;
+	}
+
+	public void setMeasurementCompany(Integer measurementCompany) {
+		this.measurementCompany = measurementCompany;
+	}
+
+	public Integer getPlaceOrderNumber() {
+		return placeOrderNumber;
+	}
+
+	public void setPlaceOrderNumber(Integer placeOrderNumber) {
+		this.placeOrderNumber = placeOrderNumber;
+	}
+
+	public Integer getStorageNumber() {
+		return storageNumber;
+	}
+
+	public void setStorageNumber(Integer storageNumber) {
+		this.storageNumber = storageNumber;
 	}
 	
 }

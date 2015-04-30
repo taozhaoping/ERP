@@ -103,7 +103,7 @@
 				#{limitDate,jdbcType=VARCHAR},
 			</if>
 			<if test="userID != null">
-				#{UserID} ,
+				#{userID} ,
 			</if>
 			<if test="orderID != null">
 				#{order_id,jdbcType=VARCHAR},
@@ -112,7 +112,7 @@
 				#{status},
 			</if>
 			<if test="remarks != null">
-				#{Remarks,jdbcType=VARCHAR},
+				#{remarks,jdbcType=VARCHAR},
 			</if>
 			
 		</trim>

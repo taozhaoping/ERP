@@ -2,25 +2,19 @@ package com.zh.web.action;
 
 import java.util.List;
 
-import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.zh.base.model.bean.Warehouse;
-import com.zh.base.service.WarehouseService;
 import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProcurementDemandModel;
-import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.ProcurementDemandDetail;
 import com.zh.web.model.bean.ProcurementDemandPrimary;
-import com.zh.web.service.CustomerService;
 import com.zh.web.service.ProcurementDemandDetailService;
 import com.zh.web.service.ProcurementDemandPrimaryService;
-import com.zh.web.util.UtilService;
 
 public class ProcurementDemandAction extends BaseAction {
 
@@ -72,7 +66,7 @@ public class ProcurementDemandAction extends BaseAction {
 			ProcurementDemandPrimary reult = procurementDemandPrimaryService.query(procurementDemandPrimary);
 			this.procurementDemandModel.setProcurementDemandPrimary(reult);
 
-			// 查询入库明细
+			// 查询需求清单明细
 			ProcurementDemandDetail procurementDemandDetail = this.procurementDemandModel
 					.getProcurementDemandDetail();
 			procurementDemandDetail.setProcurementID(id);
@@ -83,7 +77,7 @@ public class ProcurementDemandAction extends BaseAction {
 					procurementDemandDetail, page);
 			this.procurementDemandModel.setProcurementDemandDetailList(list);
 
-			// 判断是否已经入库，入库状态下，只进入查看页面
+			// 判断是否完成，完成状态下，只进入查看页面
 			Integer status = reult.getStatus();
 			String view = this.procurementDemandModel.getView();
 			if (status == 1 || "view".equals(view)) {
@@ -128,8 +122,7 @@ public class ProcurementDemandAction extends BaseAction {
 			LOGGER.debug("update procurementDemandPrimary id" + id);
 		} else {
 			// 新增
-			procurementDemandPrimaryService.insert(procurementDemandPrimary,
-					UtilService.STORAGE_TYPE);
+			procurementDemandPrimaryService.insert(procurementDemandPrimary);
 			LOGGER.debug("add procurementDemandPrimary");
 		}
 		this.procurementDemandModel.setFormId(procurementDemandPrimary.getId().toString());

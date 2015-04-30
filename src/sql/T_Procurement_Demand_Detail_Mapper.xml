@@ -9,6 +9,11 @@
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	 <resultMap id="T_Procurement_Detail_lIST" type="ProcurementDemandDetail" extends="T_Procurement_Detail">
+	  	<result column="PRODUCTS_NAME" property="productsName" jdbcType="VARCHAR" />
+	  	<result column="MEASUREMENT_COMPANY" property="measurementCompany" jdbcType="VARCHAR" />
+	  </resultMap>
+	  
 	<sql id="Base_Column_List">
 		ID,
 		ProcuremenID ,
@@ -37,11 +42,17 @@
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_Procurement_Detail" parameterType="ProcurementDemandDetail">
+	<select id="list" resultMap="T_Procurement_Detail_lIST" parameterType="ProcurementDemandDetail">
 
 		select
-		<include refid="Base_Column_List" />
-		from T_Procurement_Demand_DETAIL
+		S.ID,
+		ProcuremenID ,
+		ProductsID ,
+		Demand_Number ,
+    s.Remarks,
+    name as PRODUCTS_NAME,
+    MEASUREMENT_COMPANY
+    from T_Procurement_Demand_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.ProductsID
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -92,7 +103,7 @@
 				${demandNumber},
 			</if>
 			<if test="remarks != null">
-				#{Remarks,jdbcType=VARCHAR},
+				#{remarks,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>

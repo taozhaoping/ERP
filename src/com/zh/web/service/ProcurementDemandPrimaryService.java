@@ -60,6 +60,6 @@ public interface ProcurementDemandPrimaryService {
 	 * 新增
 	 * @param 
 	 */
-	public Integer insert(ProcurementDemandPrimary procurementDemandPrimary,String type);
+	public Integer insert(ProcurementDemandPrimary procurementDemandPrimary);
 
 }
