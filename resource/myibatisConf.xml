@@ -90,6 +90,12 @@
 
 		<!-- 切割方案 -->
 		<typeAlias alias="CuttingScheme" type="com.zh.web.model.bean.CuttingScheme" />
+		
+		<!-- 需求清单头表 -->
+		<typeAlias alias="ProcurementDemandPrimary" type="com.zh.web.model.bean.ProcurementDemandPrimary" />
+		
+		<!-- 需求清单明细-->
+		<typeAlias alias="ProcurementDemandDetail" type="com.zh.web.model.bean.ProcurementDemandDetail" />
 	</typeAliases>
 
 	<plugins>

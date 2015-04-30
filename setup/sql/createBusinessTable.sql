@@ -12,7 +12,11 @@ alter table t_library_DETAIL   drop primary key cascade;
 alter table T_SALES_ORDER_PRIMARY drop primary key cascade;
 alter table T_Sales_order_DETAIL    drop primary key cascade;
 alter table T_Cutting_scheme     drop primary key cascade;
+alter table T_Procurement_Demand_PRIMARY drop primary key cascade;
+alter table T_Procurement_Demand_DETAIL drop primary key cascade;
 
+drop table T_Procurement_Demand_DETAIL cascade constraints;
+drop table T_Procurement_Demand_PRIMARY cascade constraints;
 drop table T_Cutting_scheme cascade constraints;
 drop table T_Sales_order_DETAIL cascade constraints;
 drop table T_SALES_ORDER_PRIMARY cascade constraints;
@@ -45,6 +49,8 @@ drop sequence SEQUENCE_t_library_Detail;
 drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
 drop sequence SEQUENCE_T_Sales_order_DETAIL
 drop sequence SEQUENCE_T_Cutting_scheme
+drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY
+drop sequence SEQUENCE_T_Procurement_DETAIL
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -149,6 +155,20 @@ start with 1
 order;
 
 create sequence SEQUENCE_T_Cutting_scheme
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_Procurement_PRIMARY
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_Procurement_DETAIL
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -408,7 +428,7 @@ create table T_Storage_Primary
    Customer_ID        NUMBER,
    createDate         varchar2(20),
    updateDate         varchar2(20),
-  status            NUMBER
+  status            NUMBER default 0
 );
 alter table T_Storage_Primary
    add constraint PK_T_STORAGE_HEADER primary key (ID);
@@ -615,7 +635,7 @@ create table t_library_Primary
    Customer_ID        NUMBER,
    createDate         varchar2(20),
    updateDate         varchar2(20),
-   STATUS               NUMBER
+   STATUS               NUMBER default 0
 );
 
 comment on table t_library_Primary is
@@ -715,7 +735,7 @@ create table T_SALES_ORDER_PRIMARY
    Container_type     VARCHAR(20),
    Loading_port       VARCHAR(50),
    Discharge_port     VARCHAR(50),
-   STATUS               NUMBER,
+   STATUS               NUMBER default 0,
    Price              FLOAT,
    createDate         VARCHAR(20),
    updateDate         VARCHAR(20),
@@ -841,7 +861,7 @@ create table T_Cutting_scheme
    MAN_NUMBER           NUMBER,
    By_product         NUMBER,
    By_NUMBER          NUMBER,
-   enabled            NUMBER
+   enabled            NUMBER default 0
 );
 
 comment on table T_Cutting_scheme is
@@ -873,3 +893,76 @@ comment on column T_Cutting_scheme.enabled is
 alter table T_Cutting_scheme
    add constraint PK_T_Cutting_scheme primary key (ID);
 
+/*==============================================================*/
+/* Table: 采购需求清单头表					                        */
+/*==============================================================*/
+create table T_Procurement_Demand_PRIMARY 
+(
+   ID                   NUMBER               not null,
+   createDate         VARCHAR(30),
+   limitDate          VARCHAR(30),
+   UserID             NUMBER,
+   order_id           VARCHAR(50),
+   STATUS               NUMBER,
+   Remarks            varchar(500) default 0
+);
+
+comment on table T_Procurement_Demand_PRIMARY is
+'采购需求清单头表';
+
+comment on column T_Procurement_Demand_PRIMARY.ID is
+'主键';
+
+comment on column T_Procurement_Demand_PRIMARY.createDate is
+'申请日期';
+
+comment on column T_Procurement_Demand_PRIMARY.limitDate is
+'期限';
+
+comment on column T_Procurement_Demand_PRIMARY.UserID is
+'创建人';
+
+comment on column T_Procurement_Demand_PRIMARY.order_id is
+'单据号';
+
+comment on column T_Procurement_Demand_PRIMARY.STATUS is
+'状态';
+
+comment on column T_Procurement_Demand_PRIMARY.Remarks is
+'备注';
+
+alter table T_Procurement_Demand_PRIMARY
+   add constraint PK_T_PROCUREMENT_DEMAND_PRIMAR primary key (ID);
+   
+/*==============================================================*/
+/* Table: 采购需求清单明细					                        */
+/*==============================================================*/
+create table T_Procurement_Demand_DETAIL 
+(
+   id                 NUMBER               not null,
+   ProcuremenID       NUMBER,
+   ProductsID         NUMBER,
+   Demand_Number      NUMBER,
+   Remarks            varchar2(500)
+);
+
+comment on table T_Procurement_Demand_DETAIL is
+'采购需求清单明细表';
+
+comment on column T_Procurement_Demand_DETAIL.id is
+'主键';
+
+comment on column T_Procurement_Demand_DETAIL.ProcuremenID is
+'采购需求头表ID';
+
+comment on column T_Procurement_Demand_DETAIL.ProductsID is
+'产品编号';
+
+comment on column T_Procurement_Demand_DETAIL.Demand_Number is
+'数量';
+
+comment on column T_Procurement_Demand_DETAIL.Remarks is
+'备注';
+
+alter table T_Procurement_Demand_DETAIL
+   add constraint PK_T_PROCUREMENT_DEMAND_DETAIL primary key (id);

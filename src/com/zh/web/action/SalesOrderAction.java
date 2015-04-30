@@ -25,6 +25,16 @@ import com.zh.web.service.SalesOrderDetailService;
 import com.zh.web.service.SalesOrderPrimaryService;
 import com.zh.web.util.UtilService;
 
+/**
+ * 
+* @Title: SalesOrderAction.java 
+* @Package com.zh.web.action 
+* @Description: 销售订单
+* @date 2015年4月30日 上午10:29:28 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class SalesOrderAction extends BaseAction {
 
 	/**

@@ -171,5 +171,29 @@
 				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 采购需求清单 -->
+		<action name="procurementDemand" class="com.zh.web.action.ProcurementDemandAction">
+			<result name="success">/pages/business/procurementDemand/List.jsp</result>
+			<result name="editor">/pages/business/procurementDemand/edit.jsp</result>
+			<result name="view">/pages/business/procurementDemand/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">procurementDemand</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">procurementDemand</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
