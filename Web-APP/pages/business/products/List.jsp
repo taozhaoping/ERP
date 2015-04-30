@@ -101,6 +101,7 @@
 									<th>预估价</th>
 									<th>销售价格</th>
 									<th>安全库存</th>
+									<th>操作</th>
 									<th style="width: 26px;"></th>
 								</tr>
 							</thead>
