@@ -120,6 +120,12 @@ public interface ProductStructService {
 	public void deleteDetail(BomDetail bomDetail);
 	
 	/**
+	 * 删除明细表以及关联的替代料
+	 * @param 
+	 */
+	public void deleteDetail(BomDetail bomDetail, BomSub bomSub);
+	
+	/**
 	 * 新增明细表
 	 * @param 
 	 */

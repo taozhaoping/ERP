@@ -200,6 +200,7 @@
 									<input type="hidden" name="tabID" value="productStructTabButt" />
 									
 									<input type="hidden" name="bomDetail.id" id="delFormBomDetailId" value="">
+									<input type="hidden" name="bomDetail.subProductsId" id="delFormBomDetailSubProductsId" value="">
 								</form>
 								<table class="table">
 									<thead>
@@ -232,7 +233,7 @@
 											<td>
 												<a title="添加替代料" style="margin: 0px 3px;" href="javascript:addSub('<s:property value="#tp.primaryId" />', '<s:property value="#tp.subProductsId" />');"><i class="icon-plus"></i></a>
 												<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
-												<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />');"><i class="icon-remove"></i></a>
+												<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />');"><i class="icon-remove"></i></a>
 											</td>
 										</tr>
 										</s:iterator>
@@ -939,8 +940,9 @@
 		*/
 		
 		//删除确认
-		function deleteDetail(id){
+		function deleteDetail(id, subProductsId){
 			$("#delFormBomDetailId").val(id);
+			$("#delFormBomDetailSubProductsId").val(subProductsId);
 			$("#deleteDetailConfirm").modal('show');
 		}
 		
@@ -1059,6 +1061,7 @@
 		function verifyBomSub(subMainProductsId, subProductsId) {
 			//产品的料号
 			var productsId = "${bomPrimary.productsId}";
+			var primaryId = "${bomPrimary.id}";
 			var auditRet;
 
 			$.ajax({
@@ -1068,7 +1071,8 @@
 				data : {
 					"BomSub.productsId":productsId,
 					"BomSub.mainProductsId":subMainProductsId,
-					"BomSub.subProductsId":subProductsId
+					"BomSub.subProductsId":subProductsId,
+					"BomSub.primaryId":primaryId
 					}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
 				dataType : 'json', //WebService 会返回Json类型
 				traditional : false, //不要序列化参数

@@ -267,12 +267,20 @@ public class ProductStructAction extends BaseAction {
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
 		//主表的id
 		int primaryId = bomDetail.getPrimaryId();
+		//删除组件的编号
+		Integer subProductsId = bomDetail.getSubProductsId();
+		
+		//替代料 主料料号以及BOM头表的主键编号
+		BomSub bomSub = new BomSub();
+		bomSub.setPrimaryId(primaryId);
+		bomSub.setMainProductsId(subProductsId);
+		
 		//明细表的主键
 		Integer id = bomDetail.getId();
 		if (null != id && !"".equals(id)){
 			bomDetail.setId(id);
-			productStructService.deleteDetail(bomDetail);
-			LOGGER.debug("deleteDetail() bomDetail:{}", bomDetail);
+			productStructService.deleteDetail(bomDetail, bomSub);
+			LOGGER.debug("deleteDetail() bomDetail:{}, bomSub{}", bomDetail, bomSub);
 		}else{
 			LOGGER.debug("deleteDetail fail id is null");
 		}
@@ -314,6 +322,7 @@ public class ProductStructAction extends BaseAction {
 		Integer mainProductsId = bomSub.getMainProductsId();
 		Integer subProductsId = bomSub.getSubProductsId();
 		Integer productsId = bomSub.getProductsId();
+		Integer primaryId = bomSub.getPrimaryId();
 		//返回值
 		Map<String, Object> dataMap = productStructModel.getDataMap();
 		if(subProductsId != null){
@@ -326,6 +335,7 @@ public class ProductStructAction extends BaseAction {
 			} else {
 				BomSub queryBomSub = new BomSub();
 				queryBomSub.setMainProductsId(mainProductsId);
+				queryBomSub.setPrimaryId(primaryId);
 				boolean brotherFlag = false;
 				List<BomSub> bortherList = productStructService.querySubList(queryBomSub);
 				for(BomSub bs : bortherList){

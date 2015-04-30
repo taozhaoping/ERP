@@ -104,6 +104,15 @@ public class ProductStructServiceImpl implements ProductStructService {
 	}
 	
 	@Override
+	public void deleteDetail(BomDetail bomDetail, BomSub bomSub){
+		List<BomSub> bomSubList = bomSubDao.queryList(bomSub);
+		for(BomSub bs : bomSubList){
+			bomSubDao.delete(bs);
+		}
+		bomDetailDao.delete(bomDetail);
+	}
+	
+	@Override
 	public Integer insertDetail(BomDetail bomDetail) {
 		return bomDetailDao.insert(bomDetail);
 	}
