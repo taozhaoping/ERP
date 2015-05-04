@@ -225,7 +225,10 @@
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.measurementCompany" /></td>
+											<td>
+												<s:set id="measurementCompany" value="#tp.measurementCompany"></s:set>
+												<%=userName.queryDictionary(String.valueOf(request.getAttribute("measurementCompany"))) %>
+											</td>
 											<td>
 												<s:property value="#tp.demandNumber" />
 											</td>
