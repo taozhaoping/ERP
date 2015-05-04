@@ -48,6 +48,11 @@ public interface UtilService {
 	public static String SALES_ORDER_TYPE = "XSDD";
 	
 	/**
+	 * 采购订单
+	 */
+	public static String PURCHASE_ORDER_TYPE = "CGDD";
+	
+	/**
 	 * 发起
 	 */
 	public static Integer SALES_ORDER_ONE = 0;

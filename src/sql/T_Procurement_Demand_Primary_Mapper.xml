@@ -63,7 +63,7 @@
 		<include refid="where" />
 	</select>
 
-	<insert id="insert" parameterType="StoragePrimary">
+	<insert id="insert" parameterType="ProcurementDemandPrimary">
 	    <selectKey keyProperty="id" resultType="Integer" order="BEFORE">
 			select
 			SEQUENCE_T_Procurement_PRIMARY.nextval from dual

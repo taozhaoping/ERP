@@ -15,10 +15,14 @@
 		select
 		SEQUENCE_t_library_Primary.nextval from dual
 	</select>
-	
+
 	<select id="SEQUENCE_SALES_ORDER_PRIMARY" resultType="Long">
 		select
 		SEQUENCE_T_SALES_ORDER_PRIMARY.nextval from dual
 	</select>
-	
+
+	<select id="SEQUENCE_PURCHASE_PRIMARY" resultType="Long">
+		select
+		SEQUENCE_T_purchase_PRIMARY.nextval from dual
+	</select>
 </mapper>

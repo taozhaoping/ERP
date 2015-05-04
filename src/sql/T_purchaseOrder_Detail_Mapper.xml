@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_PurchaseOrder_Detail">
+	<resultMap id="T_PurchaseOrder_Detail" type="PurchaseOrderDetail">
+		<id column="ID" property="id" />
+		<result column="purchaseOrderID" property="purchaseOrderID" />
+		<result column="ProductsID" property="productsID" />
+		<result column="purchase_Number" property="purchaseNumber" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="ProcurementID" property="procurementID" />
+	</resultMap>
+
+	<resultMap id="T_PurchaseOrder_Detail_lIST" type="PurchaseOrderDetail"
+		extends="T_PurchaseOrder_Detail">
+		<result column="PRODUCTS_NAME" property="productsName"
+			jdbcType="VARCHAR" />
+		<result column="MEASUREMENT_COMPANY" property="measurementCompany"
+			jdbcType="VARCHAR" />
+		<result column="Estimated_price" property="estimatedPrice"
+			jdbcType="DOUBLE" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		purchaseOrderID ,
+		ProductsID ,
+		purchase_Number ,
+		price,
+		Remarks,
+		ProcurementID
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="purchaseOrderID != null">
+				and purchaseOrderID = #{purchaseOrderID}
+			</if>
+			<if test="procurementID != null">
+				and ProcurementID = #{procurementID}
+			</if>
+			<if test="productsID != null">
+				and ProductsID = #{productsID}
+			</if>
+			<if test="productsID != null">
+				and ProductsID = #{productsID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_PurchaseOrder_Detail"
+		parameterType="PurchaseOrderDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_PURCHASEORDER_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_PurchaseOrder_Detail_lIST"
+		parameterType="PurchaseOrderDetail">
+		select
+		S.ID,
+		purchaseOrderID ,
+		ProductsID ,
+		purchase_Number ,
+		s.price,
+		s.Remarks,
+		ProcurementID,
+		name as PRODUCTS_NAME,
+		MEASUREMENT_COMPANY,
+		Estimated_price
+		from T_PURCHASEORDER_DETAIL S LEFT JOIN T_PRODUCTS T ON T.ID=S.ProductsID
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="PurchaseOrderDetail">
+		select
+		count(id)
+		from T_PURCHASEORDER_DETAIL
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="PurchaseOrderDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_purchase_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_PURCHASEORDER_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="purchaseOrderID != null">
+				purchaseOrderID,
+			</if>
+			<if test="productsID != null">
+				ProductsID,
+			</if>
+			<if test="purchaseNumber != null">
+				purchase_Number,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="procurementID != null">
+				ProcurementID,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="purchaseOrderID != null">
+				#{purchaseOrderID},
+			</if>
+			<if test="productsID != null">
+				#{productsID},
+			</if>
+			<if test="purchaseNumber != null">
+				#{purchaseNumber},
+			</if>
+			<if test="price != null">
+				#{remarks,jdbcType=DOUBLE},
+			</if>
+			<if test="procurementID != null">
+				#{procurementID},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="PurchaseOrderDetail">
+		update T_PURCHASEORDER_DETAIL
+		<set>
+			<if test="purchaseOrderID != null">
+				purchaseOrderID = #{purchaseOrderID},
+			</if>
+			<if test="productsID != null">
+				ProductsID = #{productsID},
+			</if>
+			<if test="purchaseNumber != null">
+				purchase_Number = #{purchaseNumber},
+			</if>
+			<if test="price != null">
+				price= #{remarks,jdbcType=DOUBLE},
+			</if>
+			<if test="procurementID != null">
+				ProcurementID = #{procurementID},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="PurchaseOrderDetail">
+		delete from
+		T_PURCHASEORDER_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>

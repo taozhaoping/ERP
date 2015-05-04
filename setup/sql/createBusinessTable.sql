@@ -14,7 +14,11 @@ alter table T_Sales_order_DETAIL    drop primary key cascade;
 alter table T_Cutting_scheme     drop primary key cascade;
 alter table T_Procurement_Demand_PRIMARY drop primary key cascade;
 alter table T_Procurement_Demand_DETAIL drop primary key cascade;
+alter table T_purchaseOrder_PRIMARY    drop primary key cascade;
+alter table T_purchaseOrder_DETAIL     drop primary key cascade;
 
+drop table T_purchaseOrder_DETAIL cascade constraints;
+drop table T_purchaseOrder_PRIMARY cascade constraints;
 drop table T_Procurement_Demand_DETAIL cascade constraints;
 drop table T_Procurement_Demand_PRIMARY cascade constraints;
 drop table T_Cutting_scheme cascade constraints;
@@ -51,6 +55,7 @@ drop sequence SEQUENCE_T_Sales_order_DETAIL
 drop sequence SEQUENCE_T_Cutting_scheme
 drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY
 drop sequence SEQUENCE_T_Procurement_DETAIL
+drop sequence SEQUENCE_T_purchaseOrder_PRIMARY
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -174,6 +179,22 @@ start with 1
  minvalue 1
  cache 10
 order;
+
+create sequence SEQUENCE_T_purchase_PRIMARY
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_purchase_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+
 /*==============================================================*/
 /* Table: 客户资料                                            */
 /*==============================================================*/
@@ -903,8 +924,8 @@ create table T_Procurement_Demand_PRIMARY
    limitDate          VARCHAR(30),
    UserID             NUMBER,
    order_id           VARCHAR(50),
-   STATUS               NUMBER,
-   Remarks            varchar(500) default 0
+   STATUS               NUMBER default 0,
+   Remarks            varchar(500) 
 );
 
 comment on table T_Procurement_Demand_PRIMARY is
@@ -966,3 +987,102 @@ comment on column T_Procurement_Demand_DETAIL.Remarks is
 
 alter table T_Procurement_Demand_DETAIL
    add constraint PK_T_PROCUREMENT_DEMAND_DETAIL primary key (id);
+   
+/*==============================================================*/
+/* Table: 采购订单表头					                             */
+/*==============================================================*/
+create table T_purchaseOrder_PRIMARY 
+(
+   ID                   NUMBER               not null,
+   purchaseOrderID    VARCHAR(50),
+   purchaseDate       VARCHAR(30),
+   arrivalDate        VARCHAR(30),
+   Customer_ID        NUMBER,
+   UserID             NUMBER,
+   Warehouse_ID       NUMBER,
+   Remarks            VARCHAR(500),
+   createDate         VARCHAR(30),
+   updateDate         VARCHAR(30),
+   status             NUMBER default 0
+);
+
+comment on table T_purchaseOrder_PRIMARY is
+'采购和销售订单_头表';
+
+comment on column T_purchaseOrder_PRIMARY.ID is
+'主键';
+
+comment on column T_purchaseOrder_PRIMARY.purchaseOrderID is
+'采购编号';
+
+comment on column T_purchaseOrder_PRIMARY.purchaseDate is
+'订单日期';
+
+comment on column T_purchaseOrder_PRIMARY.arrivalDate is
+'到货日期';
+
+comment on column T_purchaseOrder_PRIMARY.Customer_ID is
+'供应商';
+
+comment on column T_purchaseOrder_PRIMARY.UserID is
+'采购员';
+
+comment on column T_purchaseOrder_PRIMARY.Warehouse_ID is
+'仓库';
+
+comment on column T_purchaseOrder_PRIMARY.Remarks is
+'备注';
+
+comment on column T_purchaseOrder_PRIMARY.createDate is
+'创建时间';
+
+comment on column T_purchaseOrder_PRIMARY.updateDate is
+'修改时间';
+
+comment on column T_purchaseOrder_PRIMARY.status is
+'状态';
+
+alter table T_purchaseOrder_PRIMARY
+   add constraint PK_T_PURCHASEORDER_PRIMARY primary key (ID);
+   
+/*==============================================================*/
+/* Table: 采购订单明细					                              */
+/*==============================================================*/
+create table T_purchaseOrder_DETAIL 
+(
+   ID                   NUMBER               not null,
+   purchaseOrderID    NUMBER,
+   ProductsID         NUMBER,
+   purchase_Number    NUMBER,
+   price              FLOAT,
+   Remarks            VARCHAR(500),
+   ProcurementID      NUMBER
+);
+
+comment on table T_purchaseOrder_DETAIL is
+'采购和销售订单_明细';
+
+comment on column T_purchaseOrder_DETAIL.ID is
+'编号';
+
+comment on column T_purchaseOrder_DETAIL.purchaseOrderID is
+'采购订单头表ID';
+
+comment on column T_purchaseOrder_DETAIL.ProductsID is
+'产品编号';
+
+comment on column T_purchaseOrder_DETAIL.purchase_Number is
+'数量';
+
+comment on column T_purchaseOrder_DETAIL.price is
+'价格';
+
+comment on column T_purchaseOrder_DETAIL.Remarks is
+'备注';
+
+comment on column T_purchaseOrder_DETAIL.ProcurementID is
+'对应需求清单明细ID';
+
+alter table T_purchaseOrder_DETAIL
+   add constraint PK_T_PURCHASEORDER_DETAIL primary key (ID);
+

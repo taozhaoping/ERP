@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_purchaseOrder_Primary">
+	<resultMap id="T_purchaseOrder_Primary" type="PurchaseOrderPrimary">
+		<id column="ID" property="id" />
+		<result column="purchaseOrderID" property="purchaseOrderID"
+			jdbcType="VARCHAR" />
+		<result column="purchaseDate" property="purchaseDate" jdbcType="VARCHAR" />
+		<result column="arrivalDate" property="arrivalDate" jdbcType="VARCHAR" />
+		<result column="Customer_ID" property="customerID" />
+		<result column="UserID" property="userID" />
+		<result column="Warehouse_ID" property="warehouseID" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="updateDate" property="updateDate" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		purchaseOrderID ,
+		purchaseDate ,
+		arrivalDate ,
+		Customer_ID
+		,
+		UserID ,
+		Warehouse_ID,
+		Remarks,
+		createDate,
+		updateDate,
+		STATUS
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="purchaseOrderID != null">
+				and purchaseOrderID =
+				#{purchaseOrderID,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseDate != null">
+				and purchaseDate = #{purchaseDate,jdbcType=VARCHAR},
+			</if>
+			<if test="arrivalDate != null">
+				and arrivalDate = #{arrivalDate,jdbcType=VARCHAR},
+			</if>
+			<if test="customerID != null">
+				and Customer_ID = #{customerID}
+			</if>
+			<if test="userID != null">
+				and UserID = #{userID}
+			</if>
+			<if test="warehouseID != null">
+				and Warehouse_ID = #{warehouseID}
+			</if>
+			<if test="status != null">
+				and STATUS = #{status}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_purchaseOrder_Primary"
+		parameterType="PurchaseOrderPrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_purchaseOrder_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_purchaseOrder_Primary"
+		parameterType="PurchaseOrderPrimary">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_purchaseOrder_PRIMARY
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="PurchaseOrderPrimary">
+		select
+		count(id)
+		from T_purchaseOrder_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="PurchaseOrderPrimary">
+		insert into T_purchaseOrder_PRIMARY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="purchaseOrderID != null">
+				purchaseOrderID ,
+			</if>
+			<if test="purchaseDate != null">
+				purchaseDate ,
+			</if>
+			<if test="arrivalDate != null">
+				arrivalDate ,
+			</if>
+			<if test="customerID != null">
+				Customer_ID ,
+			</if>
+			<if test="userID != null">
+				UserID ,
+			</if>
+			<if test="warehouseID != null">
+				Warehouse_ID ,
+			</if>
+			<if test="remarks != null">
+				Remarks ,
+			</if>
+			<if test="createDate != null">
+				createDate ,
+			</if>
+			<if test="updateDate != null">
+				updateDate ,
+			</if>
+			<if test="status != null">
+				STATUS ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="purchaseOrderID != null">
+				#{purchaseOrderID,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseDate != null">
+				#{purchaseDate,jdbcType=VARCHAR},
+			</if>
+			<if test="arrivalDate != null">
+				#{arrivalDate,jdbcType=VARCHAR},
+			</if>
+			<if test="customerID != null">
+				#{customerID},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+			<if test="warehouseID != null">
+				#{warehouseID},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="PurchaseOrderPrimary">
+		update T_purchaseOrder_PRIMARY
+		<set>
+			<if test="purchaseOrderID != null">
+				purchaseOrderID = #{purchaseOrderID,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseDate != null">
+				purchaseDate = #{purchaseDate,jdbcType=VARCHAR},
+			</if>
+			<if test="arrivalDate != null">
+				arrivalDate= #{arrivalDate,jdbcType=VARCHAR},
+			</if>
+			<if test="customerID != null">
+				Customer_ID = #{customerID},
+			</if>
+			<if test="userID != null">
+				UserID = #{userID},
+			</if>
+			<if test="warehouseID != null">
+				Warehouse_ID = #{warehouseID},
+			</if>
+			<if test="remarks != null">
+				Remarks= #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				createDate = #{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				updateDate= #{updateDate,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
