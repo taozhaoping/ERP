@@ -7,6 +7,7 @@
 		<result column="ProductsID" property="productsID" />
 		<result column="purchase_Number" property="purchaseNumber" />
 		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="orderValue" property="orderValue" jdbcType="DOUBLE" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="ProcurementID" property="procurementID" />
 	</resultMap>
@@ -27,6 +28,7 @@
 		ProductsID ,
 		purchase_Number ,
 		price,
+		orderValue,
 		Remarks,
 		ProcurementID
 	</sql>
@@ -66,6 +68,7 @@
 		ProductsID ,
 		purchase_Number ,
 		s.price,
+		s.orderValue,
 		s.Remarks,
 		ProcurementID,
 		name as PRODUCTS_NAME,
@@ -107,6 +110,9 @@
 			<if test="price != null">
 				price,
 			</if>
+			<if test="orderValue != null">
+				orderValue,
+			</if>
 			<if test="procurementID != null">
 				ProcurementID,
 			</if>
@@ -128,7 +134,10 @@
 				#{purchaseNumber},
 			</if>
 			<if test="price != null">
-				#{remarks,jdbcType=DOUBLE},
+				#{price,jdbcType=DOUBLE},
+			</if>
+			<if test="orderValue != null">
+				#{orderValue,jdbcType=DOUBLE},
 			</if>
 			<if test="procurementID != null">
 				#{procurementID},
@@ -152,6 +161,9 @@
 			</if>
 			<if test="price != null">
 				price= #{remarks,jdbcType=DOUBLE},
+			</if>
+			<if test="orderValue != null">
+				orderValue = #{orderValue,jdbcType=DOUBLE},
 			</if>
 			<if test="procurementID != null">
 				ProcurementID = #{procurementID},

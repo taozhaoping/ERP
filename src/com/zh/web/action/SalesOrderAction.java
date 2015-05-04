@@ -197,4 +197,40 @@ public class SalesOrderAction extends BaseAction {
 		this.salesOrderModel.setFormId(salesOrderPrimary.getId().toString());
 		return Action.EDITOR_SAVE;
 	}
+
+	public SalesOrderPrimaryService getSalesOrderPrimaryService() {
+		return salesOrderPrimaryService;
+	}
+
+	public void setSalesOrderPrimaryService(
+			SalesOrderPrimaryService salesOrderPrimaryService) {
+		this.salesOrderPrimaryService = salesOrderPrimaryService;
+	}
+
+	public SalesOrderDetailService getSalesOrderDetailService() {
+		return salesOrderDetailService;
+	}
+
+	public void setSalesOrderDetailService(
+			SalesOrderDetailService salesOrderDetailService) {
+		this.salesOrderDetailService = salesOrderDetailService;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	public SalesOrderModel getSalesOrderModel() {
+		return salesOrderModel;
+	}
+
+	public void setSalesOrderModel(SalesOrderModel salesOrderModel) {
+		this.salesOrderModel = salesOrderModel;
+	}
+	
+	
 }

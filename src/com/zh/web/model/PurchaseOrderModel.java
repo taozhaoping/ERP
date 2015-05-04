@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zh.core.base.model.BaseModel;
+import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
 
@@ -17,6 +18,8 @@ public class PurchaseOrderModel extends BaseModel {
 	
 	private List<PurchaseOrderDetail> PurchaseOrderDetailList = new ArrayList<PurchaseOrderDetail>();
 
+	List<Customer> customerList = new ArrayList<Customer>();
+	
 	public PurchaseOrderPrimary getPurchaseOrderPrimary() {
 		return PurchaseOrderPrimary;
 	}
@@ -51,5 +54,12 @@ public class PurchaseOrderModel extends BaseModel {
 		PurchaseOrderDetailList = purchaseOrderDetailList;
 	}
 
-	
+	public List<Customer> getCustomerList() {
+		return customerList;
+	}
+
+	public void setCustomerList(List<Customer> customerList) {
+		this.customerList = customerList;
+	}
+
 }

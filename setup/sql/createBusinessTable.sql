@@ -1055,6 +1055,7 @@ create table T_purchaseOrder_DETAIL
    ProductsID         NUMBER,
    purchase_Number    NUMBER,
    price              FLOAT,
+   orderValue         FLOAT,
    Remarks            VARCHAR(500),
    ProcurementID      NUMBER
 );

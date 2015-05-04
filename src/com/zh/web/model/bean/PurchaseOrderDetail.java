@@ -42,6 +42,11 @@ public class PurchaseOrderDetail extends IDataObject {
 	private Double  price;
 	
 	/**
+	 * 总价
+	 */
+	private Double orderValue;
+	
+	/**
 	 * 备注
 	 */
 	private Integer  remarks;
@@ -144,6 +149,14 @@ public class PurchaseOrderDetail extends IDataObject {
 
 	public void setEstimatedPrice(Double estimatedPrice) {
 		this.estimatedPrice = estimatedPrice;
+	}
+
+	public Double getOrderValue() {
+		return orderValue;
+	}
+
+	public void setOrderValue(Double orderValue) {
+		this.orderValue = orderValue;
 	}
 
 }
