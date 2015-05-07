@@ -197,6 +197,8 @@
 								<input type="hidden" name="formId" value="${procurementDemandPrimary.id}" />
 								<input type="hidden" id="detailprocurementID" name="procurementDemandDetail.procurementID" value="${procurementDemandPrimary.id}" />
 								<input type="hidden" id="detailproductsID" name="procurementDemandDetail.productsID" value="" />
+								<input type="hidden" id="detailisMainProducts" name="procurementDemandDetail.isMainProducts" value="" />
+								
 								<input type="hidden" id="detailqty" name="procurementDemandDetail.demandNumber" value="" />
 								<input type="hidden" id="detailremarks" name="procurementDemandDetail.remarks" value="" />
 										<button class="btn btn-small btn-primary" type="button"
@@ -209,6 +211,7 @@
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>单位</th>
+										<th>主要材料</th>
 										<th>数量</th>
 										<th>下单数</th>
 										<th>入库数</th>
@@ -228,6 +231,15 @@
 											<td>
 												<s:set id="measurementCompany" value="#tp.measurementCompany"></s:set>
 												<%=userName.queryDictionary(String.valueOf(request.getAttribute("measurementCompany"))) %>
+											</td>
+											<td>
+												<s:if test="#tp.isMainProducts == 1">
+													是
+												</s:if>
+												<s:else>
+													否
+												</s:else>
+												
 											</td>
 											<td>
 												<s:property value="#tp.demandNumber" />
@@ -286,6 +298,20 @@
 								<input type="text" id="popupQty" 
 								placeholder="数量" class="input-large">
 							</div>
+						</div>
+					</div>
+
+				</dir>
+				<dir class="row">
+					<div class="span3">
+						<div class="control-group">
+							<label class="control-label" for="popupisMainProducts">主要材料：</label>
+							<div class="controls">
+						<select id="popupisMainProducts"   class="input-medium" placeholder="主要材料" >
+													<option value="0" selected="selected">否</option>
+													<option value="1">是</option>
+												</select>
+				</div>
 						</div>
 					</div>
 
@@ -401,11 +427,14 @@
 			var _Qty = $("#popupQty").val();
 			var _Use = $("#popupUse").val();
 			var _Remarks = $("#popupRemarks").val();
+			var _isMainProducts = $("#popupisMainProducts").val();
 			
 			var ProductsID = $.trim(_ProductsID);
 			var Qty = $.trim(_Qty);
 			var Use = $.trim(_Use);
 			var Remarks = $.trim(_Remarks);
+			var isMainProducts = $.trim(_isMainProducts);
+			
 			if (ProductsID == null || ProductsID == "") {
 				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
@@ -423,6 +452,7 @@ $("#popupQty").closest('div').parents('div').removeClass('success').addClass('er
 			
 			
 			$("#detailproductsID").val(ProductsID);
+			$("#detailisMainProducts").val(isMainProducts);
 			$("#detailqty").val(Qty);
 			$("#detailremarks").val(Remarks);
 			$('#popupfirm').modal('hide')
