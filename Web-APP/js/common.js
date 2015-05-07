@@ -12,12 +12,12 @@ $(function() {
 	$("#menu2Name").text(headText);
 	$("#navigation").text(headText);
 	//导航链接
-	$("#navigation").attr("href", url + "?menuId=" + id + "&menu2Id=" + menuId + "&spaceId=" + spaceId);
+	$("#navigation").attr("href", url + "?menuId=" + menuId + "&menu2Id=" + menu2Id + "&spaceId=" + spaceId);
 	// 返回按钮
-	$("#backList").attr("href", url + "?menuId=" + id + "&menu2Id=" + menuId + "&spaceId=" + spaceId);
+	$("#backList").attr("href", url + "?menuId=" + menuId + "&menu2Id=" + menu2Id + "&spaceId=" + spaceId);
 
 	// 展开一级菜单
-	collapseMenu(id);
+	collapseMenu(menuId);
 
 	// 验证
 	$('form').validate( {

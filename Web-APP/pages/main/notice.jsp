@@ -119,8 +119,8 @@
 
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
-		var id = '${menuId}';
-		var menuId = '${menu2Id}';
+		var menuId = '${menuId}';
+		var menu2Id = '${menu2Id}';
 		var url = $("#" + menuId).attr('url');
 
 		$("#inputroleId").select2();

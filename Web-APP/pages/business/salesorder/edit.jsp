@@ -476,8 +476,8 @@
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
-		var id = '${menuId}';
-		var menuId = '${menu2Id}';
+		var menuId = '${menuId}';
+		var menu2Id = '${menu2Id}';
 		var spaceId = '${spaceId}';
 		var url = $("#" + menuId).attr('url');
 		var id = '${salesOrderPrimary.id}';
