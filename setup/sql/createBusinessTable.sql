@@ -963,6 +963,7 @@ create table T_Procurement_Demand_DETAIL
    id                 NUMBER               not null,
    ProcuremenID       NUMBER,
    ProductsID         NUMBER,
+   isMainProducts      NUMBER,
    Demand_Number      NUMBER,
    Remarks            varchar2(500)
 );
@@ -978,6 +979,9 @@ comment on column T_Procurement_Demand_DETAIL.ProcuremenID is
 
 comment on column T_Procurement_Demand_DETAIL.ProductsID is
 '产品编号';
+
+comment on column T_Procurement_Demand_DETAIL.isMainProducts is
+'是否主要材料';
 
 comment on column T_Procurement_Demand_DETAIL.Demand_Number is
 '数量';

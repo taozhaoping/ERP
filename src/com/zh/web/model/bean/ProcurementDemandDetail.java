@@ -41,6 +41,11 @@ public class ProcurementDemandDetail extends IDataObject {
 	private Integer measurementCompany;
 	
 	/**
+	 * 是否主要产品
+	 */
+	private Integer isMainProducts;
+	
+	/**
 	 * 数量
 	 */
 	private Integer demandNumber;
@@ -130,6 +135,14 @@ public class ProcurementDemandDetail extends IDataObject {
 
 	public void setStorageNumber(Integer storageNumber) {
 		this.storageNumber = storageNumber;
+	}
+
+	public Integer getIsMainProducts() {
+		return isMainProducts;
+	}
+
+	public void setIsMainProducts(Integer isMainProducts) {
+		this.isMainProducts = isMainProducts;
 	}
 	
 }

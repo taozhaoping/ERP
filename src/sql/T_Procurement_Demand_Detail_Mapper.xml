@@ -6,6 +6,7 @@
 		<result column="ProcuremenID" property="procurementID" />
 		<result column="ProductsID" property="productsID" />
 		<result column="Demand_Number" property="demandNumber" />
+		<result column="isMainProducts" property="isMainProducts" />
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -18,6 +19,7 @@
 		ID,
 		ProcuremenID ,
 		ProductsID ,
+		isMainProducts,
 		Demand_Number ,
 		Remarks
 	</sql>
@@ -48,6 +50,7 @@
 		S.ID,
 		ProcuremenID ,
 		ProductsID ,
+		isMainProducts,
 		Demand_Number ,
     s.Remarks,
     name as PRODUCTS_NAME,
@@ -82,6 +85,9 @@
 			<if test="productsID != null">
 				ProductsID,
 			</if>
+			<if test="isMainProducts != null">
+				isMainProducts,
+			</if>
 			<if test="demandNumber != null">
 				Demand_Number,
 			</if>
@@ -99,6 +105,9 @@
 			<if test="productsID != null">
 				${productsID},
 			</if>
+			<if test="isMainProducts != null">
+				${isMainProducts},
+			</if>
 			<if test="demandNumber != null">
 				${demandNumber},
 			</if>
@@ -115,6 +124,9 @@
 			</if>
 			<if test="productsID != null">
 				ProductsID = #{productsID},
+			</if>
+			<if test="isMainProducts != null">
+				isMainProducts = ${isMainProducts},
 			</if>
 			<if test="demandNumber != null">
 				Demand_Number = #{demandNumber},
