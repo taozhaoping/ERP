@@ -8,7 +8,7 @@ $(function() {
 	$('.demo-cancel-click').click(function() {
 		return false;
 	});
-	var headText = $("#" + menuId).text();
+	var headText = $("#" + menu2Id).text();
 	$("#menu2Name").text(headText);
 	$("#navigation").text(headText);
 	//导航链接

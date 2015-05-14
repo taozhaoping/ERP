@@ -121,7 +121,7 @@
 		$("[rel=tooltip]").tooltip();
 		var menuId = '${menuId}';
 		var menu2Id = '${menu2Id}';
-		var url = $("#" + menuId).attr('url');
+		var url = $("#" + menu2Id).attr('url');
 
 		$("#inputroleId").select2();
 		$("#inputroleId").val("${userInfo.roleId}").trigger("change");

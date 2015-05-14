@@ -292,7 +292,7 @@
 		var menuId = '${menuId}';
 		var menu2Id = '${menu2Id}';
 		var spaceId = '${spaceId}';
-		var url = $("#" + menuId).attr('url');
+		var url = $("#" + menu2Id).attr('url');
 
 		$("#inputroleId").select2();
 		
