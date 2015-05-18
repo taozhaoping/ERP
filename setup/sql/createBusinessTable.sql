@@ -11,6 +11,7 @@ alter table t_library_Primary  drop primary key cascade;
 alter table t_library_DETAIL   drop primary key cascade;
 alter table T_SALES_ORDER_PRIMARY drop primary key cascade;
 alter table T_Sales_order_DETAIL    drop primary key cascade;
+alter table T_SALES_ORDER_BOM    drop primary key cascade;
 alter table T_Cutting_scheme     drop primary key cascade;
 alter table T_Procurement_Demand_PRIMARY drop primary key cascade;
 alter table T_Procurement_Demand_DETAIL drop primary key cascade;
@@ -23,6 +24,7 @@ drop table T_Procurement_Demand_DETAIL cascade constraints;
 drop table T_Procurement_Demand_PRIMARY cascade constraints;
 drop table T_Cutting_scheme cascade constraints;
 drop table T_Sales_order_DETAIL cascade constraints;
+drop table T_SALES_ORDER_BOM cascade constraints;
 drop table T_SALES_ORDER_PRIMARY cascade constraints;
 drop table t_library_DETAIL cascade constraints;
 drop table t_library_Primary cascade constraints;
@@ -52,6 +54,7 @@ drop sequence SEQUENCE_t_library_Primary;
 drop sequence SEQUENCE_t_library_Detail;
 drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
 drop sequence SEQUENCE_T_Sales_order_DETAIL
+drop sequence SEQUENCE_T_SALES_ORDER_BOM
 drop sequence SEQUENCE_T_Cutting_scheme
 drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY
 drop sequence SEQUENCE_T_Procurement_DETAIL
@@ -154,6 +157,13 @@ order;
 
 create sequence SEQUENCE_T_Sales_order_DETAIL
 start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_SALES_ORDER_BOM
+start with 10000
  maxvalue 999999999
  minvalue 1
  cache 10
@@ -869,6 +879,68 @@ comment on column T_Sales_order_DETAIL.Order_value is
 
 alter table T_Sales_order_DETAIL
    add constraint PK_T_SALES_ORDER_DETAIL primary key (ID);
+   
+/*==============================================================*/
+/* Table: 销售订单产品结构                                                                                                                                                */
+/*==============================================================*/
+create table T_SALES_ORDER_BOM 
+(
+   ID                 NUMBER      not null,
+   ORDER_ID           VARCHAR(50),
+   PRODUCTS_ID		  NUMBER,
+   QTY				  NUMBER,
+   IS_MAIN_PRODUCTS   NUMBER,
+   MAIN_PRODUCTS_ID	  NUMBER,
+   PARENT_ID 		  NUMBER,
+   TIER			  	  NUMBER,
+   MAIN_SUB			  VARCHAR2(1),
+   SOURCE_TYPE		  NUMBER,
+   CREATE_DATE        VARCHAR(20),
+   UPDATE_DATE        VARCHAR(20)
+);
+
+comment on table T_SALES_ORDER_BOM is
+'销售订单产品结构';
+
+comment on column T_SALES_ORDER_BOM.ID is
+'主键';
+
+comment on column T_SALES_ORDER_BOM.ORDER_ID is
+'销售订单号';
+
+comment on column T_SALES_ORDER_BOM.PRODUCTS_ID is
+'产品编号';
+
+comment on column T_SALES_ORDER_BOM.QTY is
+'数量';
+
+comment on column T_SALES_ORDER_BOM.IS_MAIN_PRODUCTS is
+'是否主要材料';
+
+comment on column T_SALES_ORDER_BOM.MAIN_PRODUCTS_ID is
+'主料ID';
+
+comment on column T_SALES_ORDER_BOM.PARENT_ID is
+'父节点ID';
+
+comment on column T_SALES_ORDER_BOM.TIER is
+'层级';
+
+comment on column T_SALES_ORDER_BOM.MAIN_SUB is
+'主料(Y),替代料(N),没有替代关系为空';
+
+comment on column T_SALES_ORDER_BOM.SOURCE_TYPE is
+'来源,如采购，委外加工，自加工，';
+
+comment on column T_SALES_ORDER_BOM.CREATE_DATE is
+'创建时间';
+
+comment on column T_SALES_ORDER_BOM.UPDATE_DATE is
+'修改时间';
+
+alter table T_SALES_ORDER_BOM
+   add constraint PK_T_SALES_ORDER_BOM primary key (ID);
+
    
 /*==============================================================*/
 /* Table: 切割方案					                                */
