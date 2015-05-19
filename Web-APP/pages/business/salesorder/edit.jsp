@@ -342,7 +342,7 @@
 											<td><s:property value="#tp.fSCType" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!saveLibraryDetail.jspa?id=<s:property value='#tp.id'/>&formId=${salesOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
+												<a title="状态" href="${menu2Id}!saveSalesOrderDetail.jspa?id=<s:property value='#tp.id'/>&formId=${salesOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=librarydetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
