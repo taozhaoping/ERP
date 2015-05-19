@@ -854,7 +854,7 @@ comment on column T_Sales_order_DETAIL.ID is
 '主键';
 
 comment on column T_Sales_order_DETAIL.Sales_order_id is
-'入库单号';
+'销售单号';
 
 comment on column T_Sales_order_DETAIL.Products_ID is
 '产品编号';
@@ -863,7 +863,7 @@ comment on column T_Sales_order_DETAIL.Position is
 '库位';
 
 comment on column T_Sales_order_DETAIL.Storage_number is
-'入库数量';
+'销售数量';
 
 comment on column T_Sales_order_DETAIL.FSC_type is
 '用途';
