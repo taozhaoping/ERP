@@ -1083,7 +1083,7 @@ create table T_purchaseOrder_PRIMARY
 );
 
 comment on table T_purchaseOrder_PRIMARY is
-'采购和销售订单_头表';
+'采购订单_头表';
 
 comment on column T_purchaseOrder_PRIMARY.ID is
 '主键';
@@ -1137,7 +1137,7 @@ create table T_purchaseOrder_DETAIL
 );
 
 comment on table T_purchaseOrder_DETAIL is
-'采购和销售订单_明细';
+'采购订单_明细';
 
 comment on column T_purchaseOrder_DETAIL.ID is
 '编号';

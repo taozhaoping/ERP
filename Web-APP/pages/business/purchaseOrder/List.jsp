@@ -127,13 +127,12 @@
 										</td>
 										<td>
 											<s:if test="#tp.status==0">
-												未审核
+												未完成
 											</s:if>
-											<s:elseif test="#tp.status==1"></s:elseif>
-												审核
-											<s:else>
+											<s:elseif test="#tp.status==1">
 												完成
-											</s:else>
+											</s:elseif>
+												
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 

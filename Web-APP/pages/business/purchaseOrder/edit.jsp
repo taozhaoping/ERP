@@ -109,7 +109,7 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="purchaseOrderDetailButt" href="#purchaseOrderDetail" data-toggle="tab">出库清单</a></li>
+							<li><a id="purchaseOrderDetailButt" href="#purchaseOrderDetail" data-toggle="tab">产品清单</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -195,8 +195,8 @@
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled" list=""
 													name="purchaseOrderPrimary.status" class="input-medium" placeholder="" >
-													<option value="0">完成</option>
-													<option value="1">未完成</option>
+													<option value="0">未完成</option>
+													<option value="1">完成</option>
 												</select>
 											</div>
 										</div>
@@ -229,8 +229,10 @@
 								<input type="hidden" id="detailqty" name="purchaseOrderDetail.storageNumber" value="" />
 								<input type="hidden" id="detailuse" name="purchaseOrderDetail.use" value="" />
 								<input type="hidden" id="detailremarks" name="purchaseOrderDetail.remarks" value="" />
-										<button class="btn btn-small btn-primary" type="button"
+								<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
+								<button class="btn btn-small btn-primary" type="button"
+										data-toggle="modal" data-target="">需求单添加产品</button>
 							</form>
 							<table class="table ">
 								<thead>
