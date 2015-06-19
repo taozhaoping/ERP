@@ -356,7 +356,7 @@
 	</div>
 	
 	<!-- 选择需求清单 -->
-	<div class="modal  hide fade" id="DemandList" tabindex="-1"
+	<div class="modal hide fade" id="DemandList" tabindex="-1" style="width: 820px"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -371,10 +371,11 @@
 									<th>销售单号</th>
 									<th>需求单号</th>
 									<th>产品编号</th>
+									<th>产品名称</th>
 									<th>采购数量</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="modalTbody">
 								<tr class="">
 									<td>
 										<label class="checkbox">
@@ -393,184 +394,12 @@
 									<td>
 										650
 									</td>
-								</tr>
-								<tr>
 									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-								</tr>
-								<tr class="info">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
+										111
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="pagination">
-								<ul id="pagination1">
-								</ul>
-							</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-loading-text="正在保存"
@@ -627,6 +456,36 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
+		
+		$('#DemandList').on('show', function () {
+			$.ajax({     
+				    url:'${menu2Id}!popList.jspa',     
+				    type:'post',     
+				    data:null,     
+				    async : false, //默认为true 异步     
+				    error:function(){     
+				       alert('error');     
+				    },     
+				    success:function(data){    
+				    	for(var obj in data){
+				    		addRow(data[obj]); 
+				    	}
+				    }  
+				}); 
+
+		});
+		
+		function addRow(data)
+		{
+			var tr=$('<tr></tr>');
+			tr.append("<td><label class='checkbox'><input type='checkbox' onchange='changeBox(this)'></label></d>");
+			tr.append("<td>" + data.orderID + "</d>");
+			tr.append("<td>" + data.procurementID + "</d>");
+			tr.append("<td>" + data.productsID + "</d>");
+			tr.append("<td>" + data.productsName + "</d>");
+			tr.append("<td>" + data.demandNumber + "</d>");
+			$("#modalTbody").append(tr);
+		}
 		
 		function changeBox(box)
 		{
@@ -786,25 +645,7 @@ $("#popupQty").closest('div').parents('div').removeClass('success').addClass('er
 		        	//document.getElementsByName("operateForm")[0].submit(); 
 		        }
 		    });
-			$.jqPaginator('#pagination1', {
-				//设置分页的总页数
-		        totalPages: totalPage,
-		        //设置分页的总条目数
-		        totalCounts:totalRow,
-		        pageSize:pageSize,
-		        //最多显示的页码
-		        visiblePages: 10,
-		        currentPage: curPage,
-		        onPageChange: function (num, type) {
-		           if("init"==type)
-		        	{
-		        	 	return false;  
-		        	}
-		           $('#curPage').val(num);
-		        	$('#queryForm').submit();
-		        	//document.getElementsByName("operateForm")[0].submit(); 
-		        }
-		    });
+			
 		}
 	</script>
 </body>

@@ -201,6 +201,11 @@
 			<result name="success">/pages/business/purchaseOrder/List.jsp</result>
 			<result name="editor">/pages/business/purchaseOrder/edit.jsp</result>
 			<result name="view">/pages/business/purchaseOrder/view.jsp</result>
+			<!-- 采购需求单列表 -->
+			<result name="popList">/pages/business/purchaseOrder/popList.jsp</result>
+			<result name="popListJson" type="json">
+				<param name="root">purchaseOrderModel.procurementDemandDetailList</param>
+			</result>
 			<result name="editorSuccess" type="redirectAction">
 				<param name="actionName">purchaseOrder</param>  
     			<param name="namespace">/business</param>

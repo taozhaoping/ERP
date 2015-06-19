@@ -6,6 +6,7 @@ import java.util.List;
 import com.zh.base.model.bean.Warehouse;
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.ProcurementDemandDetail;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
 
@@ -22,6 +23,9 @@ public class PurchaseOrderModel extends BaseModel {
 	private List<Customer> customerList = new ArrayList<Customer>();
 	
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
+	
+	//需求清单
+	private List<ProcurementDemandDetail> procurementDemandDetailList = new ArrayList<ProcurementDemandDetail>();
 	
 
 	public PurchaseOrderPrimary getPurchaseOrderPrimary() {
@@ -74,5 +78,14 @@ public class PurchaseOrderModel extends BaseModel {
 		this.warehouseList = warehouseList;
 	}
 
-	
+	public List<ProcurementDemandDetail> getProcurementDemandDetailList() {
+		return procurementDemandDetailList;
+	}
+
+	public void setProcurementDemandDetailList(
+			List<ProcurementDemandDetail> procurementDemandDetailList) {
+		this.procurementDemandDetailList = procurementDemandDetailList;
+	}
+
+
 }

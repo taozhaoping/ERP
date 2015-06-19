@@ -64,6 +64,11 @@ public class ProcurementDemandDetail extends IDataObject {
 	 * 备注
 	 */
 	private String remarks;
+	
+	/**
+	 * 销售单号
+	 */
+	private String orderID;
 
 	public Integer getId() {
 		return id;

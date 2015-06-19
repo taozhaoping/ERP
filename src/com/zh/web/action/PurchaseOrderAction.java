@@ -14,9 +14,11 @@ import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.PurchaseOrderModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.ProcurementDemandDetail;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.service.CustomerService;
+import com.zh.web.service.ProcurementDemandDetailService;
 import com.zh.web.service.PurchaseOrderDetailService;
 import com.zh.web.service.PurchaseOrderPrimaryService;
 import com.zh.web.util.UtilService;
@@ -53,6 +55,9 @@ public class PurchaseOrderAction extends BaseAction {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private ProcurementDemandDetailService procurementDemandDetailService;
 
 	@Override
 	public Object getModel() {
@@ -124,6 +129,14 @@ public class PurchaseOrderAction extends BaseAction {
 			this.purchaseOrderModel.getPurchaseOrderPrimary().setUserID(userID);
 		}
 		return Action.EDITOR;
+	}
+	
+	public String popList()
+	{
+		ProcurementDemandDetail procurementDemandDetail = new ProcurementDemandDetail();
+		List<ProcurementDemandDetail> list = procurementDemandDetailService.queryList(procurementDemandDetail);
+		this.purchaseOrderModel.setProcurementDemandDetailList(list);
+		return "popListJson";
 	}
 
 	/**
