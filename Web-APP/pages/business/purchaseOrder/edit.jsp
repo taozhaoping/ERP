@@ -356,7 +356,7 @@
 	</div>
 	
 	<!-- 选择需求清单 -->
-	<div class="modal hide fade" id="DemandList" tabindex="-1" style="width: 820px"
+	<div class="modal hide fade" id="DemandList" tabindex="-1" style="width: 1024px"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -374,6 +374,8 @@
 									<th>产品名称</th>
 									<th>下单数量</th>
 									<th>采购数量</th>
+									<th>采购价</th>
+									<th>预估价</th>
 								</tr>
 							</thead>
 							<tbody id="modalTbody">
@@ -400,6 +402,12 @@
 									</td>
 									<td>
 										111
+									</td>
+									<td>
+										<input type="number" data-required="true" class="input-mini"  />
+									</td>
+									<td>
+										150
 									</td>
 								</tr>
 							</tbody>
