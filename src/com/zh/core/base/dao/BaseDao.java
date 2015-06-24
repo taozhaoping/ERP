@@ -149,7 +149,6 @@ public abstract class BaseDao<IdataObject> {
 		return selectPageList("list", data, page);
 	}
 	
-	
 	/**
 	 * 根据权限查询列表(创建者、或者审批者)
 	 * @param data

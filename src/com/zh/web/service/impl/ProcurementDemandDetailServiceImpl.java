@@ -39,7 +39,7 @@ public class ProcurementDemandDetailServiceImpl implements ProcurementDemandDeta
 		// TODO Auto-generated method stub
 		return procurementDemandDetailDao.queryPageList(procurementDemandDetail, page);
 	}
-
+	
 	@Override
 	public Integer count(ProcurementDemandDetail procurementDemandDetail) {
 		// TODO Auto-generated method stub

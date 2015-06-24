@@ -16,8 +16,7 @@
 		extends="T_PurchaseOrder_Detail">
 		<result column="PRODUCTS_NAME" property="productsName"
 			jdbcType="VARCHAR" />
-		<result column="MEASUREMENT_COMPANY" property="measurementCompany"
-			jdbcType="VARCHAR" />
+		<result column="MEASUREMENT_COMPANY" property="measurementCompany" />
 		<result column="Estimated_price" property="estimatedPrice"
 			jdbcType="DOUBLE" />
 	</resultMap>
@@ -66,7 +65,7 @@
 		S.ID,
 		purchaseOrderID ,
 		ProductsID ,
-		purchase_Number ,
+		purchase_Number,
 		s.price,
 		s.orderValue,
 		s.Remarks,

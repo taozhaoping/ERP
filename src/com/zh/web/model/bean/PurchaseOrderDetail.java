@@ -49,7 +49,7 @@ public class PurchaseOrderDetail extends IDataObject {
 	/**
 	 * 备注
 	 */
-	private Integer  remarks;
+	private String  remarks;
 	
 	/**
 	 * 需求清单明细ID
@@ -62,9 +62,9 @@ public class PurchaseOrderDetail extends IDataObject {
 	private String productsName;
 	
 	/**
-	 * 规格
+	 * 计量单位
 	 */
-	private String measurementCompany;
+	private Integer measurementCompany;
 	
 	/**
 	 * 产品采购价格
@@ -111,11 +111,11 @@ public class PurchaseOrderDetail extends IDataObject {
 		this.price = price;
 	}
 
-	public Integer getRemarks() {
+	public String getRemarks() {
 		return remarks;
 	}
 
-	public void setRemarks(Integer remarks) {
+	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
 
@@ -135,11 +135,11 @@ public class PurchaseOrderDetail extends IDataObject {
 		this.productsName = productsName;
 	}
 
-	public String getMeasurementCompany() {
+	public Integer getMeasurementCompany() {
 		return measurementCompany;
 	}
 
-	public void setMeasurementCompany(String measurementCompany) {
+	public void setMeasurementCompany(Integer measurementCompany) {
 		this.measurementCompany = measurementCompany;
 	}
 

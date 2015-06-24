@@ -51,9 +51,16 @@ public class ProcurementDemandDetail extends IDataObject {
 	private Integer demandNumber;
 	
 	/**
+	 * 预估价
+	 */
+	private Integer estimatedPrice;
+	
+	/**
 	 * 下单数
 	 */
 	private Integer placeOrderNumber;
+	
+	private Integer notPlaceOrderNumber;
 	
 	/**
 	 * 入库数
@@ -148,6 +155,30 @@ public class ProcurementDemandDetail extends IDataObject {
 
 	public void setIsMainProducts(Integer isMainProducts) {
 		this.isMainProducts = isMainProducts;
+	}
+
+	public Integer getEstimatedPrice() {
+		return estimatedPrice;
+	}
+
+	public void setEstimatedPrice(Integer estimatedPrice) {
+		this.estimatedPrice = estimatedPrice;
+	}
+
+	public Integer getNotPlaceOrderNumber() {
+		return notPlaceOrderNumber;
+	}
+
+	public void setNotPlaceOrderNumber(Integer notPlaceOrderNumber) {
+		this.notPlaceOrderNumber = notPlaceOrderNumber;
+	}
+
+	public String getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
 	}
 	
 }

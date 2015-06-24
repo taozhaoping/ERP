@@ -258,7 +258,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputestimatedPrice" >采购价：</label>
 											<div class="controls">
-												<input type="number" maxlength="20" name="products.estimatedPrice"
+												<input type="number" maxlength="20" name="products.estimatedPrice" data-required="true"
 													placeholder="预估价" id="inputestimatedPrice" value="${products.estimatedPrice}" class="input-medium"></input>
 											</div>
 

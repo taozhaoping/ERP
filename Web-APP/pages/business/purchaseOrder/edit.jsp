@@ -232,7 +232,7 @@
 								<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
 								<button class="btn btn-small btn-primary" type="button"
-										data-toggle="modal" data-target="#DemandList">需求单添加产品</button>
+										data-toggle="modal" data-target="#DemandList" data-backdrop="static">需求单添加产品</button>
 							</form>
 							<table class="table ">
 								<thead>
@@ -240,7 +240,7 @@
 										<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
-										<th>出库数量</th>
+										<th>采购数量</th>
 										<th>库存量</th>
 										<th>用途</th>
 										<th>备注</th>
@@ -256,7 +256,7 @@
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
+											<td><s:property value="#tp.purchaseNumber" /></td>
 											<td>
 												<s:if test="#tp.storageNumber > #tp.stockNumber">
 													<span style="color: red">
@@ -372,6 +372,7 @@
 									<th>需求单号</th>
 									<th>产品编号</th>
 									<th>产品名称</th>
+									<th>下单数量</th>
 									<th>采购数量</th>
 								</tr>
 							</thead>
@@ -393,6 +394,9 @@
 									</td>
 									<td>
 										650
+									</td>
+									<td>
+										<input type="number" data-required="true" class="input-mini"  />
 									</td>
 									<td>
 										111
@@ -479,10 +483,13 @@
 		{
 			var tr=$('<tr></tr>');
 			tr.append("<td><label class='checkbox'><input type='checkbox' onchange='changeBox(this)'></label></d>");
-			tr.append("<td>" + data.orderID + "</d>");
+			var orderID = data.orderID==null ?  '&nbsp;' :data.orderID;
+			tr.append("<td>" +  orderID + "</d>");
 			tr.append("<td>" + data.procurementID + "</d>");
 			tr.append("<td>" + data.productsID + "</d>");
 			tr.append("<td>" + data.productsName + "</d>");
+			tr.append("<td><input type='number' data-required='true' class='input-mini'  /></d>");
+			
 			tr.append("<td>" + data.demandNumber + "</d>");
 			$("#modalTbody").append(tr);
 		}
