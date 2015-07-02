@@ -266,7 +266,7 @@
 											</td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="状态" href="${menu2Id}!savepurchaseOrderDetail.jspa?id=<s:property value='#tp.id'/>&formId=${purchaseOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=purchaseOrderDetailButt"><i
+												<a title="状态" href="${menu2Id}!savePurchaseOrderDetail.jspa?id=<s:property value='#tp.id'/>&formId=${purchaseOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=purchaseOrderDetailButt"><i
 												class="icon-remove"></i></a>
 											</td>
 										</tr>
