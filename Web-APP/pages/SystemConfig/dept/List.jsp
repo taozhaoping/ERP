@@ -199,7 +199,7 @@
 		
 		function addObject(name)
 		{
-			var url=url + "?menuId="+id+"&menu2Id="+menuId;
+			var url=url + "?menuId="+menuId+"&menu2Id="+menu2Id;
 			
 		}
 		

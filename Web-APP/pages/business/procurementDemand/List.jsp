@@ -151,8 +151,8 @@
 	<script src="<%=path %>/js/collapsePulg.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
-		var id='${menuId}';
-		var menuid='${menu2Id}';
+		var menuId='${menuId}';
+		var menu2Id='${menu2Id}';
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
@@ -191,7 +191,7 @@
 		
 		function addObject(name)
 		{
-			var url=url + "?menuId="+id+"&menu2Id="+menuId;
+			var url=url + "?menuId="+menuId+"&menu2Id="+menu2Id;
 			
 		}
 		

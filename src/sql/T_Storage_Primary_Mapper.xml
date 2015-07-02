@@ -32,6 +32,9 @@
 	</sql>
 	<sql id="where">
 		<where>
+		    <if test="isStorage == 1">
+		       and  purchase_order_id is not null
+		    </if>
 			<if test="id != null">
 				and id = #{id}
 			</if>

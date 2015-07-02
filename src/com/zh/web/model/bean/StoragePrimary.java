@@ -72,6 +72,11 @@ public class StoragePrimary extends StockObject {
 	 * 入库状态
 	 */
 	private Integer status;
+	
+	/**
+	 * 是否订单入库(1订单入库，0为其他入库)
+	 */
+	private Integer isStorage;
 
 	public Integer getId() {
 		return id;
@@ -167,6 +172,14 @@ public class StoragePrimary extends StockObject {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getIsStorage() {
+		return isStorage;
+	}
+
+	public void setIsStorage(Integer isStorage) {
+		this.isStorage = isStorage;
 	}
 	
 }

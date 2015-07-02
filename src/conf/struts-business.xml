@@ -224,5 +224,29 @@
 				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 订单入库 -->
+		<action name="orderStorage" class="com.zh.web.action.OrderStorageAction">
+			<result name="success">/pages/business/orderStorage/List.jsp</result>
+			<result name="editor">/pages/business/orderStorage/edit.jsp</result>
+			<result name="view">/pages/business/orderStorage/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">orderStorage</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">orderStorage</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>

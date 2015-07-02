@@ -151,8 +151,8 @@
 	<script src="<%=path %>/js/collapsePulg.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
-		var id='${menuId}';
-		var menuid='${menu2Id}';
+		var menuId='${menuId}';
+		var menu2Id='${menu2Id}';
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
@@ -161,11 +161,11 @@
 			$('.demo-cancel-click').click(function() {
 				return false;
 			});
-			var headText = $("#" + menuid).text();
+			var headText = $("#" + menu2Id).text();
 			$("#menu2Name").text(headText);
 			$("#navigation").text(headText);
 			//展开一级菜单
-			collapseMenu(id);
+			collapseMenu(menuId);
 			
 			$.jqPaginator('#pagination', {
 				//设置分页的总页数
@@ -191,7 +191,7 @@
 		
 		function addObject(name)
 		{
-			var url=url + "?menuId="+id+"&menu2Id="+menuId;
+			var url=url + "?menuId="+menuId+"&menu2Id="+menu2Id;
 			
 		}
 		
