@@ -89,8 +89,7 @@
 						<button class="btn btn-primary" type="submit">
 							<i class="icon-save"></i> 保存
 						</button>
-						<a class="btn" id="backList" href="">
-							返回</a>
+						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -132,12 +131,13 @@
 		<script src="<%=path %>/js/collapsePulg.js"></script>
 		<script src="<%=path %>/js/common.js"></script>
 		<script src="<%=path %>/js/jquery-validate.js"></script>
+		<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
-			var id='${menuId}';
-			var menuId='${menu2Id}';
+			var menuId = '${menuId}';
+			var menu2Id = '${menu2Id}';
 			var spaceId = '${spaceId}';
-			var url=$("#"+menuId).attr('url');
+			var url=$("#"+menu2Id).attr('url');
 			
 			
 		</script>

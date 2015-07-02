@@ -151,12 +151,13 @@
 		<script src="<%=path %>/js/jquery-validate.js"></script>
 		<script src="<%=path%>/js/select2/select2.js"></script>
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
+			<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
-			var id='${menuId}';
-			var menuId='${menu2Id}';
+			var menuId='${menuId}';
+			var menu2Id='${menu2Id}';
 			var spaceId = '${spaceId}';
-			var url=$("#"+menuId).attr('url');
+			var url=$("#"+menu2Id).attr('url');
 			
 			$("select").select2();
 			var enabled ='${dept.enabled}';

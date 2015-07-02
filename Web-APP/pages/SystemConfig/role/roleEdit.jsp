@@ -204,10 +204,10 @@
 		<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
-			var id='${menuId}';
-			var menuId='${menu2Id}';
+			var menuId='${menuId}';
+			var menu2Id='${menu2Id}';
 			var spaceId = '${spaceId}';
-			var url=$("#"+menuId).attr("url");
+			var url=$("#"+menu2Id).attr("url");
 			
 			var localObj = window.location;
 			var contextPath = localObj.pathname.split("/")[1];

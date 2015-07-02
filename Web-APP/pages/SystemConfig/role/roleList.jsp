@@ -159,11 +159,11 @@
 			$('.demo-cancel-click').click(function() {
 				return false;
 			});
-			var headText = $("#" + menuid).text();
+			var headText = $("#" + menu2Id).text();
 			$("#menu2Name").text(headText);
 			$("#navigation").text(headText);
 			//展开一级菜单
-			collapseMenu(id);
+			collapseMenu(menuId);
 
 			$.jqPaginator('#pagination', {
 				//设置分页的总页数
