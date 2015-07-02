@@ -56,70 +56,98 @@
 	<select id="list" resultMap="T_Procurement_Detail_lIST"
 		parameterType="ProcurementDemandDetail">
 		select ID,
-       ProcuremenID,
-       orderID,
-       ProductsID,
-       isMainProducts,
-       Demand_Number,
-       placeOrderNumber,
-       notPlaceOrderNumber,
-       Remarks,
-       PRODUCTS_NAME,
-       MEASUREMENT_COMPANY,
-       estimatedPrice
-		  from (select S.ID,
-		               ProcuremenID,
-		               p.order_id as orderID,
-		               s.ProductsID,
-		               isMainProducts,
-		               Demand_Number,
-		               CASE
-		                 WHEN o.purchase_number is null then
-		                  0
-		                 when o.purchase_number is not null then
-		                  o.purchase_number
-		               end as placeOrderNumber,
-		               CASE
-		                 WHEN o.purchase_number is null THEN
-		                  s.demand_number
-		                 WHEN o.purchase_number is not null THEN
-		                  s.demand_number - o.purchase_number
-		               END as notPlaceOrderNumber,
-		               s.Remarks,
-		               name as PRODUCTS_NAME,
-		               MEASUREMENT_COMPANY,
-		               t.ESTIMATED_PRICE as estimatedPrice
-		          from T_Procurement_Demand_DETAIL S
-		          LEFT JOIN t_Procurement_Demand_Primary p
-		            on s.productsid = p.id
-		          LEFT JOIN T_PRODUCTS T
-		            ON T.ID = S.ProductsID
-		          left join t_purchaseorder_detail o
-		            on s.id = o.procurementid)
-		 where NOTPLACEORDERNUMBER > 0
-		    <if test="notPlaceOrderNumber != null">
-				and NOTPLACEORDERNUMBER = #{notPlaceOrderNumber}
-			</if>
-			
-			<if test="id != null">
-				and id = #{id}
-			</if>
-			<if test="procurementID != null">
-				and ProcuremenID = #{procurementID}
-			</if>
-			<if test="productsID != null">
-				and s.ProductsID = #{productsID}
-			</if>
-			<if test="orderByClause != null">
-				order by ${orderByClause}
-			</if>
+		ProcuremenID,
+		orderID,
+		ProductsID,
+		isMainProducts,
+		Demand_Number,
+		placeOrderNumber,
+		notPlaceOrderNumber,
+		Remarks,
+		PRODUCTS_NAME,
+		MEASUREMENT_COMPANY,
+		estimatedPrice
+		from (select S.ID,
+		ProcuremenID,
+		p.order_id as orderID,
+		s.ProductsID,
+		isMainProducts,
+		Demand_Number,
+		CASE
+		WHEN o.purchase_number is null then
+		0
+		when o.purchase_number is not null then
+		o.purchase_number
+		end as placeOrderNumber,
+		CASE
+		WHEN o.purchase_number is null THEN
+		s.demand_number
+		WHEN o.purchase_number is not null THEN
+		s.demand_number - o.purchase_number
+		END as notPlaceOrderNumber,
+		s.Remarks,
+		name as PRODUCTS_NAME,
+		MEASUREMENT_COMPANY,
+		t.ESTIMATED_PRICE as estimatedPrice
+		from T_Procurement_Demand_DETAIL S
+		LEFT JOIN t_Procurement_Demand_Primary p
+		on s.productsid = p.id
+		LEFT JOIN T_PRODUCTS T
+		ON T.ID = S.ProductsID
+		left join ( select procurementid,productsid,sum(purchase_number)
+		purchase_number from t_purchaseorder_detail group by
+		procurementid,productsid) o
+		on s.id = o.procurementid)
+		<where>
+		<if test="notPlaceOrderNumber != null">
+			and NOTPLACEORDERNUMBER > #{notPlaceOrderNumber}
+		</if>
+
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="procurementID != null">
+			and ProcuremenID = #{procurementID}
+		</if>
+		<if test="productsID != null">
+			and s.ProductsID = #{productsID}
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		</where>
 	</select>
 
 	<select id="count" resultType="Integer" parameterType="ProcurementDemandDetail">
-		select
-		count(id)
-		from T_Procurement_Demand_DETAIL s
-		<include refid="where" />
+		select count(S.ID)
+
+		from T_Procurement_Demand_DETAIL S
+		LEFT JOIN t_Procurement_Demand_Primary p
+		on s.productsid = p.id
+		LEFT JOIN T_PRODUCTS T
+		ON T.ID = S.ProductsID
+		left join ( select procurementid,productsid,sum(purchase_number)
+		purchase_number from t_purchaseorder_detail group by
+		procurementid,productsid) o
+		on s.id = o.procurementid
+		<where>
+		<if test="notPlaceOrderNumber != null">
+			and NOTPLACEORDERNUMBER = #{notPlaceOrderNumber}
+		</if>
+
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="procurementID != null">
+			and ProcuremenID = #{procurementID}
+		</if>
+		<if test="productsID != null">
+			and s.ProductsID = #{productsID}
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		</where>
 	</select>
 
 	<insert id="insert" parameterType="ProcurementDemandDetail">

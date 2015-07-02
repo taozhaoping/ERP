@@ -470,9 +470,9 @@
 			tr.append("<td>" + data.procurementID + "</d>");
 			tr.append("<td>" + data.productsID + "</d>");
 			tr.append("<td>" + data.productsName + "</d>");
-			tr.append("<td><input type='number' value='" + data.demandNumber + "' data-required='true' class='input-mini'  /></d>");
+			tr.append("<td><input type='number' value='" + data.notPlaceOrderNumber + "' data-required='true' class='input-mini'  /></d>");
 			
-			tr.append("<td>" + data.demandNumber + "</d>");
+			tr.append("<td>" + data.notPlaceOrderNumber + "</d>");
 			tr.append("<td><input type='number' value='" + data.estimatedPrice + "' data-required='true' class='input-mini'  /></d>");
 			
 			tr.append("<td>" + data.estimatedPrice + "</d>");
