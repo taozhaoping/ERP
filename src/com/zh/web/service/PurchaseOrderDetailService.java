@@ -1,6 +1,8 @@
 package com.zh.web.service;
 
 import java.util.List;
+
+import com.zh.core.model.IDataObject;
 import com.zh.core.model.Pager;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 
@@ -61,4 +63,11 @@ public interface PurchaseOrderDetailService {
 	 * @param 
 	 */
 	public Integer insert(PurchaseOrderDetail purchaseOrderDetail);
+	
+	/**
+	 * 批量新增
+	 * @param 
+	 */
+	public void insertList(List<IDataObject> purchaseOrderDetailList);
+
 }

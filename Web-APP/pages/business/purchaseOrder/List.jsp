@@ -127,8 +127,11 @@
 										</td>
 										<td>
 											<s:if test="#tp.status==0">
-												未完成
+												发起
 											</s:if>
+											<s:elseif test="#tp.status==1">
+												运输
+											</s:elseif>
 											<s:elseif test="#tp.status==1">
 												完成
 											</s:elseif>

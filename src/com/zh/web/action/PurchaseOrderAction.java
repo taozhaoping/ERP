@@ -11,7 +11,9 @@ import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.WarehouseService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
+import com.zh.core.model.IDataObject;
 import com.zh.core.model.Pager;
+import com.zh.core.util.JSONUtil;
 import com.zh.web.model.PurchaseOrderModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.ProcurementDemandDetail;
@@ -142,7 +144,7 @@ public class PurchaseOrderAction extends BaseAction {
 	/**
 	 * 
 	 * @Title: examineSalesOrder
-	 * @Description: 审核（修改订单状态和计算采购需求需求数量）
+	 * @Description: 审核（修改订单状态）
 	 * @param @return 参数
 	 * @return String 返回类型
 	 * @throws
@@ -167,8 +169,30 @@ public class PurchaseOrderAction extends BaseAction {
 		this.purchaseOrderModel.setFormId(String.valueOf(id));
 		return Action.EDITOR_SAVE;
 	}
+	
+	/**
+	* @Title: servSalesOrderDetailList 
+	* @Description: 保存采购明细列表（获取的是采购需求单） 
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public String savePurchaseOrderDetailList()
+	{
+		LOGGER.debug("save SalesOrderDetail List!");
+		String jsonList = this.purchaseOrderModel.getJsonList();
+		System.out.println( "需要保存的列表清单：" + jsonList);
+		List<IDataObject> list = JSONUtil.jsonArrToListObject(jsonList, PurchaseOrderDetail.class);
+		if(list.size() > 0 )
+		{
+			purchaseOrderDetailService.insertList(list);
+		}
+		return Action.EDITOR_SAVE;
+	}
 
-	public String saveSalesOrderDetail() {
+	public String savePurchaseOrderDetail() {
 		LOGGER.debug("save StorageDetail ()");
 		PurchaseOrderDetail purchaseOrderDetail = this.purchaseOrderModel
 				.getPurchaseOrderDetail();

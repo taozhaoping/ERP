@@ -96,11 +96,11 @@
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
-							<li class="active"><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
+							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">销售清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<dl class="tab-pane active dl-horizontal" id="home">
+							<dl class="tab-pane fade dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
@@ -298,15 +298,18 @@
 		</div>
 	</div>
 	
-	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="view" value="view">
+		<input type="hidden" name="id" value="${salesOrderPrimary.id}">
+		<input type="hidden" name="tabID" value="storagedetailButt">
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
-	<script src="<%=path%>/js/common.js"></script>
+	<script src="<%=path%>/js/querycommon.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var menuId = '${menuId}';
@@ -317,26 +320,7 @@
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
-		
-		$.jqPaginator('#pagination', {
-			//设置分页的总页数
-	        totalPages: totalPage,
-	        //设置分页的总条目数
-	        totalCounts:totalRow,
-	        pageSize:pageSize,
-	        //最多显示的页码
-	        visiblePages: 10,
-	        currentPage: curPage,
-	        onPageChange: function (num, type) {
-	           if("init"==type)
-	        	{
-	        	 	return false;  
-	        	}
-	           $('#curPage').val(num);
-	        	$('#queryForm').submit();
-	        	//document.getElementsByName("operateForm")[0].submit(); 
-	        }
-	    });
+		var tabID = "${tabID}";
 	</script>
 </body>
 </html>

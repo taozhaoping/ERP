@@ -152,7 +152,7 @@
 										<div class="control-group">
 											<label class="control-label" for="inputlimitDate" style="">期限：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="procurementDemandPrimary.limitDate"
+												<input type="text" maxlength="40" name="procurementDemandPrimary.limitDate" value="${procurementDemandPrimary.limitDate}"
 													placeholder="期限" id="inputlimitDate"  class="form_datetime input-medium"></input>
 											</div>
 
@@ -336,11 +336,12 @@
 		</div>
 	</div>
 	
-	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="id" value="${procurementDemandPrimary.id}">
 		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="tabID" value="librarydetailButt">
 	</form>
-	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>

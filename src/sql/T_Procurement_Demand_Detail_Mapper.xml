@@ -97,7 +97,6 @@
 		          left join t_purchaseorder_detail o
 		            on s.id = o.procurementid)
 		 where NOTPLACEORDERNUMBER > 0
-		<where>
 		    <if test="notPlaceOrderNumber != null">
 				and NOTPLACEORDERNUMBER = #{notPlaceOrderNumber}
 			</if>
@@ -114,7 +113,6 @@
 			<if test="orderByClause != null">
 				order by ${orderByClause}
 			</if>
-		</where>
 	</select>
 
 	<select id="count" resultType="Integer" parameterType="ProcurementDemandDetail">

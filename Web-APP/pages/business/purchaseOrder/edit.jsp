@@ -195,8 +195,9 @@
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled" list=""
 													name="purchaseOrderPrimary.status" class="input-medium" placeholder="" >
-													<option value="0">未完成</option>
-													<option value="1">完成</option>
+													<option value="0">发起</option>
+													<option value="1">运输</option>
+													<option value="2">完成</option>
 												</select>
 											</div>
 										</div>
@@ -218,16 +219,16 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="purchaseOrderDetail">
-								<form id="purchaseOrderDetailForm" class="form-horizontal" action="${menu2Id}!savepurchaseOrderDetail.jspa" method="post">
+								<form id="purchaseOrderDetailForm" class="form-horizontal" action="${menu2Id}!savePurchaseOrderDetail.jspa" method="post">
 								<input type="hidden" name="menuId" value="${menuId}" /> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<input type="hidden" name="tabID" value="purchaseOrderDetailButt" />
 								<input type="hidden" name="formId" value="${purchaseOrderPrimary.id}" />
-								<input type="hidden" id="detailpurchaseOrderPrimaryID" name="purchaseOrderDetail.purchaseOrderPrimaryID" value="${purchaseOrderPrimary.id}" />
+								<input type="hidden" id="detailpurchaseOrderID" name="purchaseOrderDetail.purchaseOrderID" value="${purchaseOrderPrimary.id}" />
 								<input type="hidden" id="detailproductsID" name="purchaseOrderDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="purchaseOrderDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="purchaseOrderDetail.use" value="" />
+								<input type="hidden" id="detailqty" name="purchaseOrderDetail.purchaseNumber" value="" />
+								<input type="hidden" id="detailPrice" name="purchaseOrderDetail.price" value="" />
 								<input type="hidden" id="detailremarks" name="purchaseOrderDetail.remarks" value="" />
 								<button class="btn btn-small btn-primary" type="button"
 										data-toggle="modal" data-target="#popupfirm">添加产品</button>
@@ -241,8 +242,8 @@
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>采购数量</th>
-										<th>库存量</th>
-										<th>用途</th>
+										<th>价格</th>
+										<th>总价</th>
 										<th>备注</th>
 										<th>操作</th>
 									</tr>
@@ -258,16 +259,11 @@
 											<td><s:property value="#tp.productsName" /></td>
 											<td><s:property value="#tp.purchaseNumber" /></td>
 											<td>
-												<s:if test="#tp.storageNumber > #tp.stockNumber">
-													<span style="color: red">
-												</s:if>
-												<s:else>
-													<span>
-												</s:else>
-														<s:property value="#tp.stockNumber" />
-													</span>
+												<s:property value="#tp.price" />
 											</td>
-											<td><s:property value="#tp.use" /></td>
+											<td>
+												<s:property value="#tp.orderValue" />
+											</td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
 												<a title="状态" href="${menu2Id}!savepurchaseOrderDetail.jspa?id=<s:property value='#tp.id'/>&formId=${purchaseOrderPrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=purchaseOrderDetailButt"><i
@@ -327,10 +323,10 @@
 				<dir class="row">
 					<div class="span3">
 						<div class="control-group">
-							<label class="control-label" for="popupUse">用途：</label>
+							<label class="control-label" for="popupUse">价格：</label>
 							<div class="controls">
-								<input type="text" id="popupUse"
-								placeholder="备注" class="input-large">
+								<input type="text" id="price"
+								placeholder="价格" class="input-large">
 							</div>
 						</div>
 					</div>
@@ -356,7 +352,7 @@
 	</div>
 	
 	<!-- 选择需求清单 -->
-	<div class="modal hide fade" id="DemandList" tabindex="-1" style="width: 1024px"
+	<div class="modal hide fade" id="DemandList" tabindex="-1" style="width:800px;left:400px;"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -364,7 +360,7 @@
 			<h3 id="startModalLabel1">产品添加</h3>
 		</div>
 		<div class="modal-body">
-			 	<table class="table table-bordered table-hover">
+			 	<table class="table table-bordered table-hover table-condensed">
 							<thead>
 								<tr>
 									<th>  </th>
@@ -379,43 +375,13 @@
 								</tr>
 							</thead>
 							<tbody id="modalTbody">
-								<tr class="">
-									<td>
-										<label class="checkbox">
-											<input type="checkbox" onchange="changeBox(this)">
-										</label>
-									</td>
-									<td>
-										XSDD201501011
-									</td>
-									<td>
-										XQDD201501011
-									</td>
-									<td>
-										521468
-									</td>
-									<td>
-										650
-									</td>
-									<td>
-										<input type="number" data-required="true" class="input-mini"  />
-									</td>
-									<td>
-										111
-									</td>
-									<td>
-										<input type="number" data-required="true" class="input-mini"  />
-									</td>
-									<td>
-										150
-									</td>
-								</tr>
+								
 							</tbody>
 						</table>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-loading-text="正在保存"
-				id="popupBtnConfirm">确认</button>
+				id="popupTableConfirm">确认</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
@@ -439,13 +405,19 @@
 		</div>
 	</div>
 	
-	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="id" value="${purchaseOrderPrimary.id}">
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
 	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+	<form action="${menu2Id}!savePurchaseOrderDetailList.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="updatePurchaseOrderListForm" method="post">
 		<input id="formId" name="formId" value="${purchaseOrderPrimary.id}" type="hidden"/>
+		<input type="hidden" id="jsonList" name="jsonList" value="">
+	</form>
+	
+	<form action="${menu2Id}!examineSalesOrder.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="id" name="id" value="${purchaseOrderPrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -456,6 +428,7 @@
 	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script src="<%=path%>/js/select2/select2.js"></script>
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
+	<script src="<%=path%>/js/json2.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var menuId = '${menuId}';
@@ -479,6 +452,7 @@
 				       alert('error');     
 				    },     
 				    success:function(data){    
+				    	$("#modalTbody tr").remove();
 				    	for(var obj in data){
 				    		addRow(data[obj]); 
 				    	}
@@ -490,17 +464,46 @@
 		function addRow(data)
 		{
 			var tr=$('<tr></tr>');
-			tr.append("<td><label class='checkbox'><input type='checkbox' onchange='changeBox(this)'></label></d>");
+			tr.append("<td><label class='checkbox'><input productsID='" + data.productsID + "' objID='" + data.id + "' type='checkbox' onchange='changeBox(this)'></label></d>");
 			var orderID = data.orderID==null ?  '&nbsp;' :data.orderID;
 			tr.append("<td>" +  orderID + "</d>");
 			tr.append("<td>" + data.procurementID + "</d>");
 			tr.append("<td>" + data.productsID + "</d>");
 			tr.append("<td>" + data.productsName + "</d>");
-			tr.append("<td><input type='number' data-required='true' class='input-mini'  /></d>");
+			tr.append("<td><input type='number' value='" + data.demandNumber + "' data-required='true' class='input-mini'  /></d>");
 			
 			tr.append("<td>" + data.demandNumber + "</d>");
+			tr.append("<td><input type='number' value='" + data.estimatedPrice + "' data-required='true' class='input-mini'  /></d>");
+			
+			tr.append("<td>" + data.estimatedPrice + "</d>");
 			$("#modalTbody").append(tr);
 		}
+		
+		$("#popupTableConfirm").click(function(x) {
+			var checkbox = $("#modalTbody input[type='checkbox']:first-child");
+			var row = checkbox.size();
+			var arrayObj = new Array(); 
+			for(var i = 0;i<row;i++)
+			{
+				var check = checkbox.eq(i);
+				//获取所有选择的行数
+				if(check.is(':checked'))
+				{
+					var obj = new Object();
+					obj.purchaseOrderID = id;
+					obj.procurementID = check.attr("objID");
+					obj.productsID = check.attr("productsID");
+					obj.purchaseNumber = check.parents('tr').find('input[type=number]').first().val();
+					obj.price = check.parents('tr').find('input[type=number]').last().val();
+					arrayObj.push(obj);
+				}
+			}
+			if(arrayObj.length > 0)
+			{
+				$("#jsonList").val(JSON2.stringify(arrayObj));
+				$("#updatePurchaseOrderListForm").submit();
+			}
+		});
 		
 		function changeBox(box)
 		{
@@ -584,12 +587,12 @@
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
 			var _Qty = $("#popupQty").val();
-			var _Use = $("#popupUse").val();
+			var _price = $("#price").val();
 			var _Remarks = $("#popupRemarks").val();
 			
 			var ProductsID = $.trim(_ProductsID);
 			var Qty = $.trim(_Qty);
-			var Use = $.trim(_Use);
+			var Price = $.trim(_price);
 			var Remarks = $.trim(_Remarks);
 			if (ProductsID == null || ProductsID == "") {
 				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
@@ -609,7 +612,7 @@ $("#popupQty").closest('div').parents('div').removeClass('success').addClass('er
 			
 			$("#detailproductsID").val(ProductsID);
 			$("#detailqty").val(Qty);
-			$("#detailuse").val(Use);
+			$("#detailPrice").val(Price);
 			$("#detailremarks").val(Remarks);
 			$('#popupfirm').modal('hide')
 			$("#purchaseOrderDetailForm").submit();
