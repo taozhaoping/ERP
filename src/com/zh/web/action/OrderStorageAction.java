@@ -15,9 +15,11 @@ import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.StoragePrimaryModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CustomerService;
+import com.zh.web.service.PurchaseOrderPrimaryService;
 import com.zh.web.service.StorageDetailService;
 import com.zh.web.service.StoragePrimaryService;
 import com.zh.web.util.UtilService;
@@ -48,8 +50,8 @@ public class OrderStorageAction extends BaseAction {
 	private StorageDetailService storageDetailService;
 
 	@Autowired
-	private CustomerService customerService;
-
+	private PurchaseOrderPrimaryService purchaseOrderPrimaryService;
+	
 	@Autowired
 	private WarehouseService warehouseService;
 
@@ -99,12 +101,11 @@ public class OrderStorageAction extends BaseAction {
 		LOGGER.debug("editor()");
 		Integer id = this.storagePrimaryModel.getId();
 
-		// 供应商信息
-		Customer customer = new Customer();
-		customer.setType(UtilService.CUSTOMER_TYPE_SUPPLIER);
-		customer.setEnabled(UtilService.ENABLED_EFFECTIVE);
-		List<Customer> customerList = customerService.queryList(customer);
-		this.storagePrimaryModel.setCustomerList(customerList);
+		// 采购订单
+		PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
+		purchaseOrderPrimary.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_OPEN);
+		List<PurchaseOrderPrimary> purchaseOrderPrimaryList = purchaseOrderPrimaryService.queryList(purchaseOrderPrimary);
+		this.storagePrimaryModel.setPurchaseOrderPrimaryList(purchaseOrderPrimaryList);
 
 		// 获取仓库信息
 		Warehouse warehouse = new Warehouse();
@@ -178,7 +179,7 @@ public class OrderStorageAction extends BaseAction {
 		} else {
 			// 新增
 			storagePrimaryService.insert(storagePrimary,
-					UtilService.STORAGE_TYPE);
+					UtilService.ORDER_STORAGE_TYPE);
 			LOGGER.debug("add storagePrimary");
 		}
 		this.storagePrimaryModel.setFormId(storagePrimary.getId().toString());

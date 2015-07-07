@@ -22,6 +22,15 @@ import com.zh.web.service.LibraryDetailService;
 import com.zh.web.service.LibraryPrimaryService;
 import com.zh.web.util.UtilService;
 
+/**
+* @Description: 其他出库
+* @Title: LibraryPrimaryAction.java 
+* @Package com.zh.web.action 
+* @date 2015年7月7日 下午7:06:57 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class LibraryPrimaryAction extends BaseAction {
 
 	/**

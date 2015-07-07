@@ -22,6 +22,15 @@ import com.zh.web.service.StorageDetailService;
 import com.zh.web.service.StoragePrimaryService;
 import com.zh.web.util.UtilService;
 
+/**
+* @Description: 其他入库
+* @Title: StoragePrimaryAction.java 
+* @Package com.zh.web.action 
+* @date 2015年7月7日 下午7:07:11 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class StoragePrimaryAction extends BaseAction {
 
 	/**

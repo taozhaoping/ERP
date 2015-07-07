@@ -134,12 +134,17 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
+											<label class="control-label" for="inputcustomerID" style="">采购订单：</label>
 											<div class="controls">
-												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
-													type="text" data-required="true"
-													value="${storagePrimary.storagedate}"
-													readonly class="form_datetime input-medium">
+												<s:if test="#ProcessId">
+													<input type="text" maxlength="30" disabled="disabled"
+														id="purchaseOrderID" name="storagePrimary.purchaseOrderID" value="${storagePrimary.purchaseOrderID}" class="input-medium"></input>
+												</s:if>
+												<s:else>
+												<s:select id="inputcustomerID"  list="purchaseOrderPrimaryList" data-required="true" listKey="purchaseOrderID" listValue="purchaseOrderID"
+													name="storagePrimary.purchaseOrderID" cssClass="input-medium" placeholder="采购订单">
+												</s:select>
+												</s:else>
 											</div>
 										</div>
 									</div>
@@ -157,11 +162,12 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">发货客户：</label>
+											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
 											<div class="controls">
-												<s:select id="inputcustomerID"  list="customerList" listKey="id" listValue="name"
-													name="storagePrimary.customerID" cssClass="input-medium" placeholder="发货客户">
-												</s:select>
+												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
+													type="text" 
+													value="${storagePrimary.storagedate}"
+													readonly class="input-medium">
 											</div>
 										</div>
 									</div>
@@ -206,20 +212,6 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="storage">
-								<form id="storageDetailForm" class="form-horizontal" action="${menu2Id}!saveStorageDetail.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="storageButt" />
-								<input type="hidden" name="formId" value="${storagePrimary.id}" />
-								<input type="hidden" id="detailstoragePrimaryID" name="storageDetail.storagePrimaryID" value="${storagePrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="storageDetail.productsID" value="" />
-								<input type="hidden" id="detailqty" name="storageDetail.storageNumber" value="" />
-								<input type="hidden" id="detailuse" name="storageDetail.use" value="" />
-								<input type="hidden" id="detailremarks" name="storageDetail.remarks" value="" />
-										<button class="btn btn-small btn-primary" type="button"
-										data-toggle="modal" data-target="#popupfirm">添加产品</button>
-							</form>
 							<table class="table ">
 								<thead>
 									<tr>
@@ -227,9 +219,7 @@
 										<th>产品编号</th>
 										<th>产品名称</th>
 										<th>入库数量</th>
-										<th>用途</th>
 										<th>备注</th>
-										<th>操作</th>
 									</tr>
 								</thead>
 								
@@ -242,12 +232,7 @@
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
 											<td><s:property value="#tp.storageNumber" /></td>
-											<td><s:property value="#tp.use" /></td>
 											<td><s:property value="#tp.remarks" /></td>
-											<td>
-												<a title="状态" href="${menu2Id}!saveStorageDetail.jspa?id=<s:property value='#tp.id'/>&formId=${storagePrimary.id}&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storageButt"><i
-												class="icon-remove"></i></a>
-											</td>
 										</tr>
 										</s:iterator>
 										
@@ -262,71 +247,6 @@
 						</div>
 					</div>
 				</div>
-		</div>
-	</div>
-	
-	<!-- 添加产品 -->
-	<div class="modal small hide fade" id="popupfirm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="startModalLabel1">产品添加</h3>
-		</div>
-		<div class="modal-body">
-			 	
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupProductsID">产品编号：</label>
-							<div class="controls">
-								<input id="popupProductsID" data-required="true" class="input-large">
-								</input>
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupQty">数量：</label>
-							<div class="controls">
-								<input type="text" id="popupQty" data-required="true"
-								placeholder="数量" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupUse">用途：</label>
-							<div class="controls">
-								<input type="text" id="popupUse"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-				</dir>
-				<dir class="row">
-					<div class="span3">
-						<div class="control-group">
-							<label class="control-label" for="popupRemarks">备注：</label>
-							<div class="controls">
-								<input type="text" id="popupRemarks"
-								placeholder="备注" class="input-large">
-							</div>
-						</div>
-					</div>
-
-				</dir>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-danger" data-loading-text="正在保存"
-				id="popupBtnConfirm">确认</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 	
@@ -400,98 +320,6 @@
 		$("#formChangefirmBtn").click(function() {
 			$("#increaseStockForm").submit();
 		});
-		
-		$("#popupProductsID").select2({
-			placeholder : "查询产品编号",
-			minimumInputLength : 3,
-			//multiple:true,
-			quietMillis : 3000,
-			ajax : {
-				url : basePath + "/interface/interfaceProducts!queryProductsList.jspa",
-				dataType : 'json',
-				data : function(term, page) {
-					return {
-						"productsID" : term,
-						"pageInfo.curPage" : page
-					};
-				},
-				results : function(data, page) {
-					
-					var more = (page * 10) < data.total;
-					for ( var i = 0; i < data.rows.length; i++) {
-						var parts = data.rows[i];
-						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
-					}
-					partsArr = data.rows;
-					return {
-						results : data.rows,
-						more : more
-					};
-				}
-			},
-			formatNoMatches : function() {
-				return "没有找到匹配项";
-			},
-
-			formatInputTooShort : function(input, min) {
-				var n = min - input.length;
-				return "请最少输入" + n + "个字符";
-			},
-
-			formatInputTooLong : function(input, max) {
-				var n = input.length - max;
-				return "请删掉" + n + "个字符";
-			},
-
-			formatSelectionTooBig : function(limit) {
-				return "你只能选择最多" + limit + "项";
-			},
-
-			formatLoadMore : function(pageNumber) {
-				return "加载结果中...";
-			},
-
-			formatSearching : function() {
-				return "搜索中...";
-			}
-		});
-		
-		
-		$("#popupBtnConfirm").click(function(x) {
-			var _ProductsID = $("#popupProductsID").val();
-			var _Qty = $("#popupQty").val();
-			var _Use = $("#popupUse").val();
-			var _Remarks = $("#popupRemarks").val();
-			
-			var ProductsID = $.trim(_ProductsID);
-			var Qty = $.trim(_Qty);
-			var Use = $.trim(_Use);
-			var Remarks = $.trim(_Remarks);
-			if (ProductsID == null || ProductsID == "") {
-				$("#popupProductsID").closest('div').parents('div').removeClass('success').addClass('error');
-				return;
-			} else
-			{
-				$("#popupProductsID").closest('div').parents('div').removeClass('error').addClass('success');
-			}
-			
-			if (Qty == null || Qty == "") {
-				$("#popupQty").closest('div').parents('div').removeClass('success').addClass('error');
-				return;
-			}else
-			{
-				$("#popupQty").closest('div').parents('div').removeClass('error').addClass('success');
-			}
-			
-			
-			$("#detailproductsID").val(ProductsID);
-			$("#detailqty").val(Qty);
-			$("#detailuse").val(Use);
-			$("#detailremarks").val(Remarks);
-			$('#popupfirm').modal('hide')
-			$("#storageDetailForm").submit();
-	});
 		
 		//提交按钮
 		$("#formButton").click(function() {

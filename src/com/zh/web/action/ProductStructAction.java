@@ -20,6 +20,15 @@ import com.zh.web.model.bean.Products;
 import com.zh.web.service.ProductStructService;
 import com.zh.web.service.ProductsService;
 
+/**
+* @Description: 产品结构
+* @Title: ProductStructAction.java 
+* @Package com.zh.web.action 
+* @date 2015年7月7日 下午7:07:22 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class ProductStructAction extends BaseAction {
 
 	/**

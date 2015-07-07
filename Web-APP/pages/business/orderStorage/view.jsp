@@ -113,8 +113,10 @@
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库时间：</dt>
-											<dd>${storagePrimary.storagedate}</dd>
+											<dt>采购订单：</dt>
+											<dd>
+												<dd>${storagePrimary.purchaseOrderID}</dd>
+											</dd>
 										</div>
 									</div>
 								</dir>
@@ -128,14 +130,8 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>发货客户：</dt>
-											<dd>
-												<s:iterator value="customerList" var="tp" status="index">
-													<s:if test="#tp.id == storagePrimary.customerID">
-														<s:property value="#tp.name"/>
-													</s:if>
-												</s:iterator>
-											</dd>
+											<dt>入库时间：</dt>
+											<dd>${storagePrimary.storagedate}</dd>
 										</div>
 									</div>
 								</dir>
@@ -186,7 +182,6 @@
 											<th>产品编号</th>
 											<th>产品名称</th>
 											<th>入库数量</th>
-											<th>用途</th>
 											<th>备注</th>
 										</tr>
 									</thead>
@@ -200,7 +195,6 @@
 												<td><s:property value="#tp.productsID" /></td>
 												<td><s:property value="#tp.productsName" /></td>
 												<td><s:property value="#tp.storageNumber" /></td>
-												<td><s:property value="#tp.use" /></td>
 												<td><s:property value="#tp.remarks" /></td>
 											</tr>
 											</s:iterator>

@@ -6,6 +6,7 @@ import java.util.List;
 import com.zh.base.model.bean.Warehouse;
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.Customer;
+import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
 
@@ -18,10 +19,14 @@ public class StoragePrimaryModel extends BaseModel {
 	private StorageDetail storageDetail = new StorageDetail();
 
 	private List<StorageDetail> storageDetailList = new ArrayList<StorageDetail>();
-
+	
 	private List<Customer> customerList = new ArrayList<Customer>();
 
+	private List<PurchaseOrderPrimary> purchaseOrderPrimaryList = new ArrayList<PurchaseOrderPrimary>();
+
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
+	
+	
 
 	public StoragePrimary getStoragePrimary() {
 		return storagePrimary;
@@ -56,12 +61,13 @@ public class StoragePrimaryModel extends BaseModel {
 		this.storageDetailList = storageDetailList;
 	}
 
-	public List<Customer> getCustomerList() {
-		return customerList;
+	public List<PurchaseOrderPrimary> getPurchaseOrderPrimaryList() {
+		return purchaseOrderPrimaryList;
 	}
 
-	public void setCustomerList(List<Customer> customerList) {
-		this.customerList = customerList;
+	public void setPurchaseOrderPrimaryList(
+			List<PurchaseOrderPrimary> purchaseOrderPrimaryList) {
+		this.purchaseOrderPrimaryList = purchaseOrderPrimaryList;
 	}
 
 	public List<Warehouse> getWarehouseList() {
@@ -70,6 +76,14 @@ public class StoragePrimaryModel extends BaseModel {
 
 	public void setWarehouseList(List<Warehouse> warehouseList) {
 		this.warehouseList = warehouseList;
+	}
+
+	public List<Customer> getCustomerList() {
+		return customerList;
+	}
+
+	public void setCustomerList(List<Customer> customerList) {
+		this.customerList = customerList;
 	}
 
 	

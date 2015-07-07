@@ -43,6 +43,11 @@ public interface UtilService {
 	public static String LIBRARY_TYPE = "QTCK";
 	
 	/**
+	 * 其他入库
+	 */
+	public static String ORDER_STORAGE_TYPE = "DDRK";
+	
+	/**
 	 * 销售订单
 	 */
 	public static String SALES_ORDER_TYPE = "XSDD";
@@ -57,5 +62,13 @@ public interface UtilService {
 	 */
 	public static Integer SALES_ORDER_ONE = 0;
 	
+	/**
+	 * 采购订单状态（运输）
+	 */
+	public static Integer PURCHASEORDERPRIMARY_STATUS_OPEN = 1;
 	
+	/**
+	 * 采购订单状态（完成）
+	 */
+	public static Integer PURCHASEORDERPRIMARY_STATUS_END = 2;
 }

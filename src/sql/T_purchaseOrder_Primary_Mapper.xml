@@ -36,13 +36,13 @@
 			</if>
 			<if test="purchaseOrderID != null">
 				and purchaseOrderID =
-				#{purchaseOrderID,jdbcType=VARCHAR},
+				#{purchaseOrderID,jdbcType=VARCHAR}
 			</if>
 			<if test="purchaseDate != null">
-				and purchaseDate = #{purchaseDate,jdbcType=VARCHAR},
+				and purchaseDate = #{purchaseDate,jdbcType=VARCHAR}
 			</if>
 			<if test="arrivalDate != null">
-				and arrivalDate = #{arrivalDate,jdbcType=VARCHAR},
+				and arrivalDate = #{arrivalDate,jdbcType=VARCHAR}
 			</if>
 			<if test="customerID != null">
 				and Customer_ID = #{customerID}

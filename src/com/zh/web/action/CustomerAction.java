@@ -18,6 +18,15 @@ import com.zh.web.model.bean.MailList;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.MailListService;
 
+/**
+* @Description: 客户资源
+* @Title: CustomerAction.java 
+* @Package com.zh.web.action 
+* @date 2015年7月7日 下午7:07:46 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class CustomerAction extends BaseAction {
 
 	/**
