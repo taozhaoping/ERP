@@ -16,6 +16,15 @@ import com.zh.web.model.bean.ProcurementDemandPrimary;
 import com.zh.web.service.ProcurementDemandDetailService;
 import com.zh.web.service.ProcurementDemandPrimaryService;
 
+/**
+* @Description: 采购需求清单
+* @Title: ProcurementDemandAction.java 
+* @Package com.zh.web.action 
+* @date 2015年7月16日 下午6:49:23 
+* @author taozhaoping 26078
+* @author mail taozhaoping@gmail.com
+* @version V1.0
+ */
 public class ProcurementDemandAction extends BaseAction {
 
 	/**

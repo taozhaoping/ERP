@@ -17,6 +17,8 @@ alter table T_Procurement_Demand_PRIMARY drop primary key cascade;
 alter table T_Procurement_Demand_DETAIL drop primary key cascade;
 alter table T_purchaseOrder_PRIMARY    drop primary key cascade;
 alter table T_purchaseOrder_DETAIL     drop primary key cascade;
+alter table t_Inventory_count_Primary  drop primary key cascade;
+alter table t_Inventory_count_DETAIL   drop primary key cascade;
 
 drop table T_purchaseOrder_DETAIL cascade constraints;
 drop table T_purchaseOrder_PRIMARY cascade constraints;
@@ -37,7 +39,8 @@ drop table t_Stock cascade constraints;
 drop table t_product_structure cascade constraints;
 drop table T_Products cascade constraints;
 drop table T_T_Customer cascade constraints;
-
+drop table t_Inventory_count_Primary cascade constraints;
+drop table t_Inventory_count_DETAIL cascade constraints;
 
 
 drop sequence SEQUENCE_T_Customer;
@@ -52,13 +55,16 @@ drop sequence SEQUENCE_T_BOM_DETAIL;
 drop sequence SEQUENCE_T_BOM_SUB;
 drop sequence SEQUENCE_t_library_Primary;
 drop sequence SEQUENCE_t_library_Detail;
-drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY
-drop sequence SEQUENCE_T_Sales_order_DETAIL
-drop sequence SEQUENCE_T_SALES_ORDER_BOM
-drop sequence SEQUENCE_T_Cutting_scheme
-drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY
-drop sequence SEQUENCE_T_Procurement_DETAIL
-drop sequence SEQUENCE_T_purchaseOrder_PRIMARY
+drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY;
+drop sequence SEQUENCE_T_Sales_order_DETAIL;
+drop sequence SEQUENCE_T_SALES_ORDER_BOM;
+drop sequence SEQUENCE_T_Cutting_scheme;
+drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY;
+drop sequence SEQUENCE_T_Procurement_DETAIL;
+drop sequence SEQUENCE_T_purchaseOrder_PRIMARY;
+drop sequence SEQUENCE_t_Inventory_Primary;
+drop sequence SEQUENCE_t_Inventory_DETAIL;
+
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -204,6 +210,19 @@ start with 1
  cache 10
 order;
 
+create sequence SEQUENCE_t_Inventory_Primary
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_t_Inventory_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
 
 /*==============================================================*/
 /* Table: 客户资料                                            */
@@ -1163,3 +1182,82 @@ comment on column T_purchaseOrder_DETAIL.ProcurementID is
 alter table T_purchaseOrder_DETAIL
    add constraint PK_T_PURCHASEORDER_DETAIL primary key (ID);
 
+/*==============================================================*/
+/* Table: 库存盘点头表     				                                */
+/*==============================================================*/ 
+create table t_Inventory_count_Primary 
+(
+   ID                   NUMBER               not null,
+   NAME                 VARCHAR(80),
+   Remarks1           VARCHAR(500),
+   Warehouse_ID       VARCHAR(500),
+   createDate         VARCHAR(30),
+   UserID             NUMBER,
+   status             NUMBER
+);
+
+comment on column t_Inventory_count_Primary.ID is
+'编号';
+
+comment on column t_Inventory_count_Primary.NAME is
+'名称';
+
+comment on column t_Inventory_count_Primary.Remarks1 is
+'备注';
+
+comment on column t_Inventory_count_Primary.Warehouse_ID is
+'所属仓库';
+
+comment on column t_Inventory_count_Primary.createDate is
+'创建时间';
+
+comment on column t_Inventory_count_Primary.UserID is
+'创建人';
+
+comment on column t_Inventory_count_Primary.status is
+'是否审核';
+
+alter table t_Inventory_count_Primary
+   add constraint PK_T_INVENTORY_COUNT_PRIMARY primary key (ID);
+
+/*==============================================================*/
+/* Table: 库存盘点明细表     				                                */
+/*==============================================================*/ 
+create table t_Inventory_count_DETAIL 
+(
+   ID                   NUMBER               not null,
+   Inventory_id       NUMBER,
+   Products_ID        NUMBER,
+   Warehouse_ID       NUMBER,
+   Original_quantity  FLOAT,
+   change_quantity    FLOAT,
+   createDate         VARCHAR(30),
+   User_ID            NUMBER
+);
+
+comment on column t_Inventory_count_DETAIL.ID is
+'主键';
+
+comment on column t_Inventory_count_DETAIL.Inventory_id is
+'库存盘点表头ID';
+
+comment on column t_Inventory_count_DETAIL.Products_ID is
+'商品编号';
+
+comment on column t_Inventory_count_DETAIL.Warehouse_ID is
+'所属仓库';
+
+comment on column t_Inventory_count_DETAIL.Original_quantity is
+'原库存数量';
+
+comment on column t_Inventory_count_DETAIL.change_quantity is
+'变更库存数量';
+
+comment on column t_Inventory_count_DETAIL.createDate is
+'创建时间';
+
+comment on column t_Inventory_count_DETAIL.User_ID is
+'创建人';
+
+alter table t_Inventory_count_DETAIL
+   add constraint PK_T_INVENTORY_COUNT_DETAIL primary key (ID);
