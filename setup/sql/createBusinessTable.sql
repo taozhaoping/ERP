@@ -1189,7 +1189,7 @@ create table t_Inventory_count_Primary
 (
    ID                   NUMBER               not null,
    NAME                 VARCHAR(80),
-   Remarks1           VARCHAR(500),
+   Remarks           VARCHAR(500),
    Warehouse_ID       VARCHAR(500),
    createDate         VARCHAR(30),
    UserID             NUMBER,
@@ -1229,8 +1229,8 @@ create table t_Inventory_count_DETAIL
    Inventory_id       NUMBER,
    Products_ID        NUMBER,
    Warehouse_ID       NUMBER,
-   Original_quantity  FLOAT,
-   change_quantity    FLOAT,
+   Original_quantity  NUMBER,
+   change_quantity    NUMBER,
    createDate         VARCHAR(30),
    User_ID            NUMBER
 );
