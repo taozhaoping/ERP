@@ -14,6 +14,7 @@ import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
+import com.zh.web.concurrent.ExpandSalesOrderBom;
 import com.zh.web.model.SalesOrderModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.SalesOrderDetail;
@@ -23,6 +24,7 @@ import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.SalesOrderDetailService;
 import com.zh.web.service.SalesOrderPrimaryService;
+import com.zh.web.util.ExecutorServiceHandler;
 import com.zh.web.util.UtilService;
 
 /**
@@ -53,6 +55,9 @@ public class SalesOrderAction extends BaseAction {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private ExpandSalesOrderBom command;
 
 	private SalesOrderModel salesOrderModel = new SalesOrderModel();
 
@@ -151,6 +156,12 @@ public class SalesOrderAction extends BaseAction {
 		salesOrderPrimary.setId(id);
 		salesOrderPrimary.setStatus(1);
 		salesOrderPrimaryService.update(salesOrderPrimary);
+
+		//执行展开产品BOM的线程
+		//ExpandSalesOrderBom command = new ExpandSalesOrderBom();
+		command.setSalesOrderId(id);
+		ExecutorServiceHandler.getInstance().execute(command);
+		
 		//============结束==================
 		this.salesOrderModel.setFormId(String.valueOf(id));
 		return Action.EDITOR_SAVE;

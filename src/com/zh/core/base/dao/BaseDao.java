@@ -106,6 +106,15 @@ public abstract class BaseDao<IdataObject> {
 	}
 	
 	/**
+	 * 执行存储过程
+	 * @param data
+	 * @return
+	 */
+	public void select(String sqlId , Integer data) {
+		sqlSessionTemplate.selectOne(namespace + sqlId, data);
+	}
+	
+	/**
 	 * 查询数据
 	 * @param data
 	 * @return
