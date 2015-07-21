@@ -23,7 +23,9 @@ alter table t_Processing_single_Primary  drop primary key cascade;
 alter table t_Processing_single_DETAIL   drop primary key cascade;
 alter table t_Material_requisition_Primary drop primary key cascade;
 alter table t_Material_requisition_DETAIL  drop primary key cascade;
+alter table T_Process      drop primary key cascade;
 
+drop table T_Process cascade constraints;
 drop table t_Material_requisition_DETAIL cascade constraints;
 drop table t_Material_requisition_Primary cascade constraints;
 drop table t_Processing_single_DETAIL cascade constraints;
@@ -76,7 +78,7 @@ drop sequence SEQUENCE_t_Processing_Primary;
 drop sequence SEQUENCE_t_Processing_DETAIL
 drop sequence SEQUENCE_t_Material_Primary
 drop sequence SEQUENCE_t_Material_DETAIL
-
+drop sequence SEQUENCE_T_Process
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -265,6 +267,12 @@ start with 1
  cache 10
 order;
 
+create sequence SEQUENCE_T_Process
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
 /*==============================================================*/
 /* Table: 客户资料                                            */
 /*==============================================================*/
@@ -1442,3 +1450,37 @@ comment on column t_Material_requisition_DETAIL.MateriallNumber is
 
 alter table t_Material_requisition_DETAIL
    add constraint PK_T_MATERIAL_REQUISITION_DETA primary key (ID);
+
+/*==============================================================*/
+/* Table:工序清单                              			                            */
+/*==============================================================*/ 
+create table T_Process 
+(
+   ID                   NUMBER               not null,
+   name               varchar(100),
+   Reference_price    FLOAT,
+   Processing_cycle   FLOAT,
+   Remarks            VARCHAR(500)
+);
+
+comment on table T_Process is
+'加工工序';
+
+comment on column T_Process.ID is
+'主键';
+
+comment on column T_Process.name is
+'工序名称';
+
+comment on column T_Process.Reference_price is
+'参考单价';
+
+comment on column T_Process.Processing_cycle is
+'加工周期';
+
+comment on column T_Process.Remarks is
+'备注';
+
+alter table T_Process
+   add constraint PK_T_PROCESS primary key (ID);
+   
