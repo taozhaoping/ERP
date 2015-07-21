@@ -80,7 +80,7 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
-			<li><span class="active" id="navigation1"></span> <span class="divider">/</span></li>
+			<li><span class="active" id="navigation"></span> <span class="divider">/</span></li>
 		</ul>
 		
 		<shiro:hasPermission name="param:view">
@@ -208,7 +208,7 @@
 		var spaceId = '${spaceId}';
 		var url = $("#" + menu2Id).attr('url');
 		var headText = $("#" + menuId).text();
-		$("#navigation1").text(headText);
+		//$("#navigation1").text(headText);
 
 		$("#inputemailisauth").select2();
 		$("#inputemailisauth").val("${sysParam.emailisauth}").trigger("change");
