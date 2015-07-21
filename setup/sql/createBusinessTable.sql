@@ -19,7 +19,11 @@ alter table T_purchaseOrder_PRIMARY    drop primary key cascade;
 alter table T_purchaseOrder_DETAIL     drop primary key cascade;
 alter table t_Inventory_count_Primary  drop primary key cascade;
 alter table t_Inventory_count_DETAIL   drop primary key cascade;
+alter table t_Processing_single_Primary  drop primary key cascade;
+alter table t_Processing_single_DETAIL   drop primary key cascade;
 
+drop table t_Processing_single_DETAIL cascade constraints;
+drop table t_Processing_single_Primary cascade constraints;
 drop table T_purchaseOrder_DETAIL cascade constraints;
 drop table T_purchaseOrder_PRIMARY cascade constraints;
 drop table T_Procurement_Demand_DETAIL cascade constraints;
@@ -64,6 +68,9 @@ drop sequence SEQUENCE_T_Procurement_DETAIL;
 drop sequence SEQUENCE_T_purchaseOrder_PRIMARY;
 drop sequence SEQUENCE_t_Inventory_Primary;
 drop sequence SEQUENCE_t_Inventory_DETAIL;
+drop sequence SEQUENCE_t_Processing_Primary;
+drop sequence SEQUENCE_t_Processing_DETAIL
+
 
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
@@ -218,6 +225,21 @@ start with 1
 order;
 
 create sequence SEQUENCE_t_Inventory_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+
+create sequence SEQUENCE_t_Processing_Primary
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_t_Processing_DETAIL
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -1261,3 +1283,81 @@ comment on column t_Inventory_count_DETAIL.User_ID is
 
 alter table t_Inventory_count_DETAIL
    add constraint PK_T_INVENTORY_COUNT_DETAIL primary key (ID);
+   
+/*==============================================================*/
+/* Table:加工单头表                            			                            */
+/*==============================================================*/
+create table t_Processing_single_Primary 
+(
+   id                 NUMBER               not null,
+   ProcessingSingleID VARCHAR(50),
+   Purchase_order_ID  NUMBER,
+   createDate             VARCHAR(20),
+   status             NUMBER,
+   Remarks            VARCHAR(500)
+);
+
+comment on table t_Processing_single_Primary is
+'加工单_头表';
+
+comment on column t_Processing_single_Primary.id is
+'主键';
+
+comment on column t_Processing_single_Primary.ProcessingSingleID is
+'加工单号';
+
+comment on column t_Processing_single_Primary.Purchase_order_ID is
+'销售订单';
+
+comment on column t_Processing_single_Primary.createDate is
+'创建日期';
+
+comment on column t_Processing_single_Primary.status is
+'状态';
+
+comment on column t_Processing_single_Primary.Remarks is
+'描述';
+
+alter table t_Processing_single_Primary
+   add constraint PK_PROCESSING_SINGLE_PRIMARY primary key (id);
+   
+/*==============================================================*/
+/* Table:加工单_明细                           			                            */
+/*==============================================================*/
+create table t_Processing_single_DETAIL 
+(
+   ID                   NUMBER               not null,
+   ProcessingSingleID NUMBER,
+   startDate          DATE,
+   endDate            DATE,
+   Products_ID        NUMBER,
+   ProcessingNumber   FLOAT,
+   ProcessID          NUMBER
+);
+
+comment on table t_Processing_single_DETAIL is
+'加工单_明细';
+
+comment on column t_Processing_single_DETAIL.ID is
+'主键';
+
+comment on column t_Processing_single_DETAIL.ProcessingSingleID is
+'加工单头表id';
+
+comment on column t_Processing_single_DETAIL.startDate is
+'生产日期';
+
+comment on column t_Processing_single_DETAIL.endDate is
+'结束日期';
+
+comment on column t_Processing_single_DETAIL.Products_ID is
+'生产物料';
+
+comment on column t_Processing_single_DETAIL.ProcessingNumber is
+'生产数量';
+
+comment on column t_Processing_single_DETAIL.ProcessID is
+'工序';
+
+alter table t_Processing_single_DETAIL
+   add constraint PK_PROCESSING_SINGLE_DETAIL primary key (ID);
