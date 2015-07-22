@@ -262,5 +262,29 @@
     			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 加工单 -->
+		<action name="processingSingle" class="com.zh.web.action.ProcessingSingleAction">
+			<result name="success">/pages/business/processingSingle/List.jsp</result>
+			<result name="editor">/pages/business/processingSingle/edit.jsp</result>
+			<result name="view">/pages/business/processingSingle/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">processingSingle</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">processingSingle</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
