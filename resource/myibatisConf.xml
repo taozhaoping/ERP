@@ -103,6 +103,8 @@
 		<!-- 采购订单明细-->
 		<typeAlias alias="PurchaseOrderDetail" type="com.zh.web.model.bean.PurchaseOrderDetail" />
 	
+		<!-- 工序 -->
+		<typeAlias alias="ProcessBean" type="com.zh.web.model.bean.ProcessBean"/>
 	</typeAliases>
 
 	<plugins>

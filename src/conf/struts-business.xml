@@ -248,5 +248,19 @@
 				<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 工序管理-->
+		<action name="processInfo" class="com.zh.web.action.ProcessAction">
+			<result name="success">/pages/business/process/List.jsp</result>
+			<result name="editor">/pages/business/process/edit.jsp</result>
+			<result name="view">/pages/business/process/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">processInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>

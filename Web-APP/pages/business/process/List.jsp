@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@  page import="com.zh.base.util.JspUtil" %>
-<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ page import="com.zh.base.util.JspUtil" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -81,14 +82,17 @@
 			<li><a href="<%=path%>/home/main.jspa">主页</a> <span class="divider">/</span></li>
 			<li class="active" id="navigation"></li>
 		</ul>
-
+		
+		<shiro:hasPermission name="warehouse:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<shiro:hasPermission name="warehouse:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -96,38 +100,27 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>申请时间</th>
-									<th>期限</th>
-									<th>申请人</th>
-									<th>状态</th>
-									<th>备注</th>
-									<th style="width: 40px;">操作</th>
+									<th>工序名称</th>
+									<th>基本价格</th>
+									<th>加工周期</th>
+									<th>描述</th>
+									<th style="width: 30px;"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="procurementDemandPrimaryList" var="tp" status="index">
+								<s:iterator value="processBeanList" var="processBean" status="index">
 									<tr>
-									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.createDate"/></td>
-										<td><s:property value="#tp.limitDate"/></td>
+										<td><s:property value="#index.index + 1"/></td>
+										<td><s:property value="#processBean.name"/></td>
+										<td><s:property value="#processBean.referencePrice"/></td>
+										<td><s:property value="#processBean.processingCycle"/></td>
+										<td><s:property value="#processBean.remarks"/></td>
 										<td>
-											<s:set id="userID" value="#tp.userID"></s:set>
-											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
-										</td>
-										<td>
-											<s:if test="#tp.status==0">
-												处理中
-											</s:if>
-											<s:else>
-												完成
-											</s:else>
-										</td>
-										<td>
-											<s:property value="#tp.remarks"/>
-										</td>
-										<td>
-											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
-											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
+											<shiro:hasPermission name="warehouse:edit">
+											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#processBean.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											<a title="状态" href="${menu2Id}!editor.jspa?id=<s:property value='#processBean.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
+												class="icon-eye-open"></i></a>
+											</shiro:hasPermission>
 										</td>
 									</tr>
 								</s:iterator>
@@ -141,6 +134,10 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="warehouse:view">
+			<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
@@ -165,7 +162,7 @@
 			$("#menu2Name").text(headText);
 			$("#navigation").text(headText);
 			//展开一级菜单
-			collapseMenu(id);
+			collapseMenu(menuId);
 			
 			$.jqPaginator('#pagination', {
 				//设置分页的总页数
@@ -192,7 +189,6 @@
 		function addObject(name)
 		{
 			var url=url + "?menuId="+menuId+"&menu2Id="+menu2Id;
-			
 		}
 		
 	</script>
