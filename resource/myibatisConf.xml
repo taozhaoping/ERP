@@ -105,6 +105,13 @@
 	
 		<!-- 工序 -->
 		<typeAlias alias="ProcessBean" type="com.zh.web.model.bean.ProcessBean"/>
+		
+		<!-- 加工单头表 -->		
+		<typeAlias alias="ProcessingSinglePrimary" type="com.zh.web.model.bean.ProcessingSinglePrimary"/>
+		
+		<!-- 加工单明细 -->
+		<typeAlias alias="ProcessingSingleDetail" type="com.zh.web.model.bean.ProcessingSingleDetail"/>
+
 	</typeAliases>
 
 	<plugins>

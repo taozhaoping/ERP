@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ProcessingSingle_Primary">
+	<resultMap id="T_ProcessingSinglePrimary" type="ProcessingSinglePrimary">
+		<id column="ID" property="id" />
+		<result column="PROCESSINGSINGLEID" property="processingSingleId" jdbcType="VARCHAR" />
+		<result column="PURCHASE_ORDER_ID" property="purchaseOrderId" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR"/>
+		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		PROCESSINGSINGLEID,
+		PURCHASE_ORDER_ID,
+		CREATEDATE,
+		STATUS,
+		REMARKS
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="orderNoID != null">
+				and PROCESSINGSINGLEID = #{processingSingleId}
+			</if>
+			<if test="purchaseOrderID != null">
+				and PURCHASE_ORDER_ID = #{purchaseOrderId}
+			</if>
+			<if test="createDate != null">
+				and CREATEDATE = #{createDate}
+			</if>
+			<if test="status != null">
+				and STATUS = #{status}
+			</if>
+			<if test="remarks != null">
+				and REMARKS = #{remarks}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_ProcessingSinglePrimary" parameterType="StoragePrimary">
+		select
+		<include refid="Base_Column_List" />
+		from T_PROCESSING_SINGLE_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_ProcessingSinglePrimary" parameterType="StoragePrimary">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_PROCESSING_SINGLE_PRIMARY
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="StoragePrimary">
+		select
+		count(id)
+		from T_PROCESSING_SINGLE_PRIMARY
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="StoragePrimary">
+		insert into T_PROCESSING_SINGLE_PRIMARY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="processingSingleId != null">
+				PROCESSINGSINGLEID,
+			</if>
+			<if test="purchaseOrderId != null">
+				PURCHASE_ORDER_ID,
+			</if>
+			<if test="createDate != null">
+				CREATEDATE ,
+			</if>
+			<if test="remarks != null">
+				REMARKS ,
+			</if>
+			<if test="status != null">
+				STATUS ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="processingSingleId != null">
+				#{processingSingleId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseOrderId != null">
+				#{purchaseOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+		</trim>
+	</insert>
+	
+	
+	<update id="update" parameterType="ProcessingSinglePrimary">
+		update T_PROCESSING_SINGLE_PRIMARY
+		<set>
+		
+			<if test="orderNoID != null">
+				PROCESSINGSINGLEID = #{processingSingleId},
+			</if>
+			<if test="purchaseOrderID != null">
+				PURCHASE_ORDER_ID = #{purchaseOrderId},
+			</if>
+			<if test="createDate != null">
+				CREATEDATE = #{createDate},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

@@ -34,7 +34,7 @@ public class ProcessingSinglePrimary extends IDataObject {
 	/**
 	 * 创建时间
 	 */
-	private String createdate;
+	private String createDate;
 	
 	/**
 	 * 入库状态
@@ -71,11 +71,11 @@ public class ProcessingSinglePrimary extends IDataObject {
 	}
 
 	public String getCreatedate() {
-		return createdate;
+		return createDate;
 	}
 
-	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
+	public void setCreatedate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	public Integer getStatus() {

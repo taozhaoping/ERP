@@ -42,6 +42,11 @@ public class ProcessingSingleDetail extends IDataObject {
 	 * 生产物料id
 	 */
 	private Integer productsId;
+	
+	/**
+	 * 生产数量
+	 */
+	private Float processingNumber;
 
 	public Integer getId() {
 		return id;
@@ -81,6 +86,14 @@ public class ProcessingSingleDetail extends IDataObject {
 
 	public void setProductsId(Integer productsId) {
 		this.productsId = productsId;
+	}
+
+	public Float getProcessingNumber() {
+		return processingNumber;
+	}
+
+	public void setProcessingNumber(Float processingNumber) {
+		this.processingNumber = processingNumber;
 	}
 	
 	

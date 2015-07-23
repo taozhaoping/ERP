@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ProcessingSingle_Detail">
+	<resultMap id="T_ProcessingSingle_Detail" type="ProcessingSingleDetail">
+		<id column="ID" property="id" />
+		<result column="PROCESSINGSINGLEID" property="processingSingleId" />
+		<result column="STARTDATE" property="startDate" />
+		<result column="ENDDATE" property="endDate" />
+		<result column="PRODUCTS_ID" property="productsId" />
+		<result column="PROCESSINGNUMBER" property="processingNumber"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,
+		PROCESSINGSINGLEID,
+		STARTDATE,
+		ENDDATE,
+		PRODUCTS_ID,
+		PROCESSINGNUMBER
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="processingSingleId != null">
+				and PROCESSINGSINGLEID = #{processingSingleId}
+			</if>
+			<if test="productsId != null">
+				and PRODUCTS_ID = #{productsId}
+			</if>
+			<if test="processingNumber != null">
+				and PROCESSINGNUMBER = #{processingNumber}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_ProcessingSingle_Detail" parameterType="ProcessingSingleDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_PROCESSING_SINGLE_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_ProcessingSingle_Detail" parameterType="ProcessingSingleDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_PROCESSING_SINGLE_DETAIL
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="ProcessingSingleDetail">
+		select
+		count(id)
+		from T_PROCESSING_SINGLE_DETAIL
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="ProcessingSingleDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_STORAGE_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_PROCESSING_SINGLE_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="processingSingleId != null">
+				PROCESSINGSINGLEID,
+			</if>
+			<if test="startDate != null">
+				STARTDATE,
+			</if>
+			<if test="endDate != null">
+				ENDDATE,
+			</if>
+			<if test="productsId != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="processingNumber != null">
+				PROCESSINGNUMBER,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="processingSingleId != null">
+				#{processingSingleId},
+			</if>
+			<if test="startDate != null">
+				#{startDate},
+			</if>
+			<if test="endDate != null">
+				#{endDate},
+			</if>
+			<if test="productsId != null">
+				#{productsId},
+			</if>
+			<if test="processingNumber != null">
+				#{processingNumber},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="ProcessingSingleDetail">
+		update T_PROCESSING_SINGLE_DETAIL
+		<set>
+			<if test="processingSingleId != null">
+				PROCESSINGSINGLEID = #{processingSingleId},
+			</if>
+			<if test="startDate != null">
+				STARTDATE = #{startDate},
+			</if>
+			<if test="endDate != null">
+				ENDDATE = #{endDate},
+			</if>
+			<if test="productsId != null">
+				PRODUCTSID = #{productsId},
+			</if>
+			<if test="processingNumber != null">
+				PROCESSINGNUMBER = #{processingNumber},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="ProcessingSingleDetail">
+		delete from T_PROCESSING_SINGLE_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>
