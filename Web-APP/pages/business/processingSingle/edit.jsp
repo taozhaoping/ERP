@@ -85,7 +85,7 @@
 			<li class="active">编辑</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="storagePrimary.id!=null&&storagePrimary.id!=''" />
+					value="processingSinglePrimary.id!=null&&processingSinglePrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -100,7 +100,7 @@
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
-									<i class="icon-ok"></i> 入库
+									<i class="icon-ok"></i> 审核
 								</button>
 							</s:if>
 						</div>
@@ -109,24 +109,23 @@
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
-							<li><a id="storageButt" href="#storage" data-toggle="tab">入库清单</a></li>
+							<li><a id="processButt" href="#process" data-toggle="tab">加工产品</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade" id="home">
 								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${storagePrimary.id}"> 
-								<input type="hidden" name="storagePrimary.userID" value="${storagePrimary.userID}">
+								<input type="hidden" name="id" value="${processingSinglePrimary.id}"> 
 								<input type="hidden" name="menuId" value="${menuId}"> 
 								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
 								<input type="hidden" name="spaceId" value="${spaceId}">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputorderNoID" style="">入库单号：</label>
+											<label class="control-label" for="inputProcessingSingleId" style="">加工单号：</label>
 											<div class="controls">
 													<input type="text" maxlength="30" disabled="disabled"
-														id="inputorderNoID" value="${storagePrimary.orderNoID}" class="input-medium"></input>
+														id="inputProcessingSingleId" value="${processingSinglePrimary.processingSingleId}" class="input-medium"></input>
 												
 											</div>
 
@@ -134,16 +133,16 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputcustomerID" style="">采购订单：</label>
+											<label class="control-label" for="inputPurchaseOrderId" style="">销售订单：</label>
 											<div class="controls">
 												<s:if test="#ProcessId">
 													<input type="text" maxlength="30" disabled="disabled"
-														id="purchaseOrderID" name="storagePrimary.purchaseOrderID" value="${storagePrimary.purchaseOrderID}" class="input-medium"></input>
+														id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId" value="${processingSinglePrimary.purchaseOrderId}" class="input-medium"></input>
 												</s:if>
 												<s:else>
-												<s:select id="inputcustomerID"  list="purchaseOrderPrimaryList" data-required="true" listKey="purchaseOrderID" listValue="purchaseOrderID"
-													name="storagePrimary.purchaseOrderID" cssClass="input-medium" placeholder="采购订单">
-												</s:select>
+													<s:select id="inputcustomerId"  list="purchaseOrderPrimaryList" data-required="true" listKey="purchaseOrderId" listValue="purchaseOrderId"
+														name="processingSinglePrimary.purchaseOrderId" cssClass="input-medium" placeholder="销售订单">
+													</s:select>
 												</s:else>
 											</div>
 										</div>
@@ -152,57 +151,34 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">收货人：</label>
+											<label class="control-label" for="inputStatus" style="">状态：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="storagePrimary.userID" disabled="disabled"
-													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
+												<input type="text" maxlength="40" name="processingSinglePrimary.status" disabled="disabled"
+													placeholder="状态" id="inputStatus" value="${processingSinglePrimary.status}" class="input-medium"></input>
 											</div>
 
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputstoragedate" style="">入库时间：</label>
+											<label class="control-label" for="inputCreateDate" style="">创建时间：</label>
 											<div class="controls">
-												<input size="16" id="inputstoragedate" name="storagePrimary.storagedate"
+												<input size="16" id="inputCreateDate" name="processingSinglePrimary.createDate"
 													type="text" 
-													value="${storagePrimary.storagedate}"
+													value="${processingSinglePrimary.createDate}"
 													readonly class="input-medium">
 											</div>
 										</div>
 									</div>
 								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputwarehouseID" style="">收入仓库：</label>
-											<div class="controls">
-												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
-													name="storagePrimary.warehouseID" cssClass="input-medium" placeholder="收入仓库">
-												</s:select>
-											</div>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputstatus" style="">入库：</label>
-											<div class="controls">
-												<select id="inputstatus"  disabled="disabled" list=""
-													name="storagePrimary.status" class="input-medium" placeholder="是否入库" >
-													<option value="0">否</option>
-													<option value="1">是</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</dir>
+								
 								<dir class="row">
 									<div class="span8">
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>
 											<div class="controls">
-												<input type="text" maxlength="500" name="storagePrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${storagePrimary.remarks}" class="input-xxlarge"></input>
+												<input type="text" maxlength="500" name="processingSinglePrimary.remarks"
+													placeholder="备注" id="inputremarks" value="${processingSinglePrimary.remarks}" class="input-xxlarge"></input>
 											</div>
 
 										</div>
@@ -211,38 +187,40 @@
 								</dir>
 								</form>
 							</div>
-							<div class="tab-pane fade" id="storage">
-							<table class="table ">
-								<thead>
-									<tr>
-									<th>序号</th>
-										<th>产品编号</th>
-										<th>产品名称</th>
-										<th>入库数量</th>
-										<th>备注</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 产品列表-->
-										<s:iterator value="storageDetailList" var="tp" status="index">
+							
+							<div class="tab-pane fade" id="process">
+								<table class="table ">
+									<thead>
 										<tr>
-											<td><s:property value="#index.index +1" /></td>
-											<td><s:property value="#tp.productsID" /></td>
-											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
-											<td><s:property value="#tp.remarks" /></td>
+										<th>序号</th>
+											<th>产品编号</th>
+											<th>产品名称</th>
+											<th>入库数量</th>
+											<th>备注</th>
 										</tr>
-										</s:iterator>
-										
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
-							</div>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<tr>
+											<!-- 产品列表-->
+											<s:iterator value="processingSingleDetailList" var="tp" status="index">
+											<tr>
+												<td><s:property value="#index.index +1" /></td>
+												<td><s:property value="#tp.productsID" /></td>
+												<td><s:property value="#tp.productsName" /></td>
+												<td><s:property value="#tp.processingSingleNumber" /></td>
+												<td><s:property value="#tp.remarks" /></td>
+											</tr>
+											</s:iterator>
+											
+										</tr>
+									</tbody>
+								</table>
+								
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -259,12 +237,12 @@
 		</div>
 		<div class="modal-body">
 			<p class="error-text">
-				<i class="icon-warning-sign modal-icon "></i>当前单据更新到库存后将不可更改.继续请按."更新" 否则请按 "取消"
+				<i class="icon-warning-sign modal-icon "></i>当前单据审核后将不可更改.继续请按."审核" 否则请按 "取消"
 			</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-danger" data-dismiss="modal"
-				id="formChangefirmBtn">更新</button>
+				id="formChangefirmBtn">审核</button>
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
@@ -272,12 +250,8 @@
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
-		<input type="hidden" name="id" value="${storagePrimary.id}">
+		<input type="hidden" name="id" value="${processingSinglePrimary.id}">
 		<input type="hidden" name="tabID" value="storageButt">
-	</form>
-	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
-		<input id="formId" name="formId" value="${storagePrimary.id}" type="hidden"/>
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -293,7 +267,7 @@
 		var menuId = '${menuId}';
 		var menu2Id = '${menu2Id}';
 		var spaceId = '${spaceId}';
-		var id = '${storagePrimary.id}';
+		var id = '${processingSinglePrimary.id}';
 		var url = $("#" + menu2Id).attr('url');
 		var totalPage = ${pageInfo.totalPage};
 		var totalRow = ${pageInfo.totalRow};
@@ -301,7 +275,7 @@
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
 		
-		$("#inputstatus").val("${storagePrimary.status}")
+		$("#inputstatus").val("${processingSinglePrimary.status}")
 		.trigger("change");
 		
 		//进入指定的tbs

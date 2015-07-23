@@ -96,42 +96,29 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>采购单号</th>
-									<th>入库单号</th>
-									<th>入库时间</th>
-									<th>签收人</th>
-									<th>仓库</th>
+									<th>加工单号</th>
+									<th>销售订单</th>
+									<th>创建日期</th>
+									<th>描述</th>
 									<th>状态</th>
-									<th>发货客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="storagePrimaryList" var="tp" status="index">
+								<s:iterator value="processingSinglePrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.purchaseOrderID"/></td>
-										<td><s:property value="#tp.orderNoID"/></td>
-										<td><s:property value="#tp.storagedate"/></td>
-										<td>
-											<s:set id="userID" value="#tp.userID"></s:set>
-											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
-										</td>
-										<td>
-											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
-											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
-										</td>
+										<td><s:property value="#tp.processingSingleId"/></td>
+										<td><s:property value="#tp.purchaseOrderId"/></td>
+										<td><s:property value="#tp.createDate"/></td>
+										<td><s:property value="#tp.remarks"/></td>
 										<td>
 											<s:if test="#tp.status==0">
-												未入库
+												未审核
 											</s:if>
 											<s:else>
-												入库
+												已审核
 											</s:else>
-										</td>
-										<td>
-											<s:set id="customerID" value="#tp.customerID"></s:set>
-											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
@@ -196,12 +183,6 @@
 		    });
 			
 		});
-		
-		function addObject(name)
-		{
-			var url=url + "?menuId="+menuId+"&menu2Id="+menu2Id;
-			
-		}
 		
 	</script>
 </body>
