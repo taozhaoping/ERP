@@ -106,6 +106,9 @@
 		<!-- 工序 -->
 		<typeAlias alias="ProcessBean" type="com.zh.web.model.bean.ProcessBean"/>
 		
+		<!-- 产品加工工序维护 -->
+		<typeAlias alias="ProductProcess" type="com.zh.web.model.bean.ProductProcess"/>
+		
 		<!-- 加工单头表 -->		
 		<typeAlias alias="ProcessingSinglePrimary" type="com.zh.web.model.bean.ProcessingSinglePrimary"/>
 		
