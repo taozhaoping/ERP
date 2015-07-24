@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ProductProcess">
+	<resultMap id="T_ProductProcess" type="ProductProcess">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PRODUCTS_ID" property="productsID" />
+		<result column="process_ID" property="processID" />
+		<result column="Process_Price" property="referencePrice" jdbcType="FLOAT" />
+		<result column="Process_Cycle" property="processingCycle" jdbcType="FLOAT"/>
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, 
+		NAME, 
+		PRODUCTS_ID
+		Process_Price,
+		Process_Cycle,
+		Remarks
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and a.id = #{id}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="select" resultMap="T_ProductProcess" parameterType="ProductProcess">
+		select
+		a.ID, 
+		NAME, 
+		PRODUCTS_ID
+		Process_Price,
+		Process_Cycle,
+		a.Remarks
+		from t_productProcess a left join t_process b on a.process_id = b.id
+		<include refid="where" />
+	</select>
+	
+	<select id="list" resultMap="T_ProductProcess" parameterType="ProductProcess">
+
+		select
+		a.ID, 
+		NAME, 
+		PRODUCTS_ID
+		Process_Price,
+		Process_Cycle,
+		a.Remarks
+		from t_productProcess a left join t_process b on a.process_id = b.id
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	
+	<select id="count" resultType="Integer" parameterType="ProductProcess">
+		select
+		count(id)
+		from t_productProcess
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="ProcessBean" >
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_t_productProcess.nextval from dual
+		</selectKey>
+		insert into t_productProcess
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="processID != null">
+				process_ID,
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="referencePrice != null">
+				Process_Price,
+			</if>
+			<if test="processingCycle != null">
+				Process_Cycle,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="processID != null">
+				#{process_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="referencePrice != null">
+				#{Process_Price,jdbcType=FLOAT},
+			</if>
+			<if test="processingCycle != null">
+				#{Process_Cycle,jdbcType=FLOAT},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="ProductProcess">
+		update t_productProcess
+		<set>
+			<if test="processID != null">
+				process_ID = #{processID,jdbcType=VARCHAR},
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID = #{productsID,jdbcType=FLOAT},
+			</if>
+			<if test="referencePrice != null">
+				Process_Price = #{referencePrice,jdbcType=FLOAT},
+			</if>
+			<if test="processingCycle != null">
+				Process_Cycle = #{processingCycle,jdbcType=FLOAT},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
