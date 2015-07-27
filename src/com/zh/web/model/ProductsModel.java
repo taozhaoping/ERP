@@ -8,6 +8,7 @@ import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
+import com.zh.web.model.bean.ProductProcess;
 import com.zh.web.model.bean.Products;
 
 public class ProductsModel extends BaseModel {
@@ -27,6 +28,10 @@ public class ProductsModel extends BaseModel {
 	private BomPrimary ProductStructure = new BomPrimary();
 	
 	private List<BomPrimary> ProductStructureList = new ArrayList<BomPrimary>();
+	
+	private ProductProcess productProcess = new ProductProcess();
+	
+	private List<ProductProcess> productProcessList = new ArrayList<ProductProcess>();
 	
 	/**
 	 * 结构明细
@@ -143,6 +148,22 @@ public class ProductsModel extends BaseModel {
 
 	public void setBomSubList(List<BomSub> bomSubList) {
 		this.bomSubList = bomSubList;
+	}
+
+	public ProductProcess getProductProcess() {
+		return productProcess;
+	}
+
+	public void setProductProcess(ProductProcess productProcess) {
+		this.productProcess = productProcess;
+	}
+
+	public List<ProductProcess> getProductProcessList() {
+		return productProcessList;
+	}
+
+	public void setProductProcessList(List<ProductProcess> productProcessList) {
+		this.productProcessList = productProcessList;
 	}
 	
 }

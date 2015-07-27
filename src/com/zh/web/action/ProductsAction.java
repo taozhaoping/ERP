@@ -15,7 +15,9 @@ import com.zh.web.model.ProductsModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
+import com.zh.web.model.bean.ProductProcess;
 import com.zh.web.model.bean.Products;
+import com.zh.web.service.ProductProcessService;
 import com.zh.web.service.ProductStructService;
 import com.zh.web.service.ProductsService;
 
@@ -44,6 +46,9 @@ public class ProductsAction extends BaseAction {
 	
 	@Autowired
 	private ProductStructService productStructService;
+	
+	@Autowired
+	private ProductProcessService productProcessService;
 	
 	@Override
 	public Object getModel() {
@@ -123,11 +128,32 @@ public class ProductsAction extends BaseAction {
 					ps = productsService.query(ps);
 					bs.setSubProductsName(ps.getName());
 				}
-				this.productsModel.setBomSubList(bomSubList);
+				
+				//工序列表
+				ProductProcess productProcess = this.productsModel.getProductProcess();
+				productProcess.setProductsID(primaryId);
+				LOGGER.debug("ProductProcess: {}", bomSub);
+				List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
+				this.productsModel.setProductProcessList(productProcessList);
 			}
 		}
 		
 		return Action.EDITOR;
+	}
+	
+	public String saveProductProcess()
+	{
+		LOGGER.debug("saveProductProcess()");
+		ProductProcess productProcess = this.productsModel.getProductProcess();
+		Integer id = productProcess.getId();
+		if (null == id || "".equals(id)) {
+			// 新增
+			productProcessService.insert(productProcess);
+		} else {
+			// 修改
+			productProcessService.delete(productProcess);
+		}
+		return Action.EDITOR_SUCCESS;
 	}
 
 	public String save() throws Exception {
