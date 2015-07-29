@@ -106,6 +106,7 @@
 							<s:if test="bomPrimary.productsId">
 								<li><a id="productStructTabButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
 								<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
+								<li><a id="productProcessTabButt" href="#productProcessTab" data-toggle="tab">工序维护</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -306,7 +307,50 @@
 								</div>
 							</div>
 							
-							
+							<div class="tab-pane fade" id="productProcessTab">								
+								<form id="productProcessForm" class="form-horizontal" action="${menu2Id}!saveProductProcess.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="tabID" value="productStructTabButt" />
+									
+									<input type="hidden" name="productProcess.productsID" value="${bomPrimary.id}">
+									<input type="hidden" name="productProcess.processID" id="productProcessProcessID" value="">
+									<input type="hidden" name="productProcess.name" id="productProcessName" value="">
+									<input type="hidden" name="productProcess.referencePrice" id="productProcessReferencePrice" value="">
+									<input type="hidden" name="productProcess.processingCycle" id="productProcessProcessingCycle" value="">
+									<input type="hidden" name="productProcess.remarks" id="productProcessRemarks" value="">
+									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupProductProcess">添加工序</button>
+								</form>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>工序名称</th>
+											<th>工序费用</th>
+											<th>工序周期</th>
+											<th>备注</th>
+											<th style="width: 40px;">操作</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表  -->
+										<s:iterator value="productProcessList" var="Process" status="index">
+										<tr>
+											<td><s:property value="#index.index + 1"/></td>
+											<td><s:property value="#Process.name" /></td>
+											<td><s:property value="#Process.referencePrice" /></td>
+											<td><s:property value="#Process.processingCycle" /></td>
+											<td><s:property value="#Process.remarks" /></td>
+											<td>
+												<a title="删除" style="margin: 0px 3px;" href="${menu2Id}!saveProductProcess.jspa?id=<s:property value='#Process.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-remove"></i></a>
+											</td>
+										</tr>
+										</s:iterator>
+									</tbody>
+								</table>
+	</div>
 						</div>
 					</div>
 				</div>
@@ -568,7 +612,77 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
-	
+
+	<!-- 添加工序 -->
+	<div class="modal small hide fade" id="popupProductProcess" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="startModalLabel1">工序添加</h3>
+		</div>
+		<div class="modal-body">
+			<dir class="row">
+				<div class="span3">
+					<label class="control-label" style="color: red;" id="addProductPrompt"></label>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popuProductProcessID">工序名：</label>
+						<div class="controls">
+						
+						<s:select id="popuProductProcessID"  list="processList" listKey="id" listValue="name"
+							cssClass="input-medium" placeholder="工序名">
+						</s:select>
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popuPreferencePrice">价格：</label>
+						<div class="controls">
+							<input type="text" id="popuPreferencePrice" 
+							placeholder="价格" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popuProcessingCycle">周期：</label>
+						<div class="controls">
+							<input type="text" id="popuProcessingCycle" 
+							placeholder="周期" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+			
+			<dir class="row">
+				<div class="span3">
+					<div class="control-group">
+						<label class="control-label" for="popupProcessingRemarks">备注：</label>
+						<div class="controls">
+							<input type="text" id="popupProcessingRemarks"
+							placeholder="备注" class="input-large">
+						</div>
+					</div>
+				</div>
+			</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-loading-text="正在保存" id="popupProductProcessConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>				
 	<div class="modal small hide fade" id="deleteDetailConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -631,6 +745,7 @@
 	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script src="<%=path%>/js/select2/select2.js"></script>
 	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
+	<script src="<%=path%>/js/json2.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var menuId = '${menuId}';
@@ -641,8 +756,40 @@
 		var totalRow = ${pageInfo.totalRow};
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
-		
+		var process = '${processListJson}';
 		$("select").select2();
+		if(""!=process)
+		{
+			var processObject=JSON2.parse(process);
+			
+			$("#popuProductProcessID").change(function () { 
+				var index = $("#popuProductProcessID").val() - 1;
+				var referencePrice = processObject[index].referencePrice;
+				var processingCycle = processObject[index].processingCycle;
+				var remarks = processObject[index].remarks;
+				$("#popuPreferencePrice").attr("value",referencePrice);
+				$("#popuProcessingCycle").attr("value",processingCycle);
+				$("#popupProcessingRemarks").attr("value",remarks);
+			});
+			$("#popuProductProcessID").val(processObject[0].id)
+			.trigger("change");
+		}
+		
+		$("#popupProductProcessConfirm").click(function(){
+			var processID =  $("#popuProductProcessID").val();
+			var processName =  $("#popuProductProcessID :selected").text();
+			var price = $("#popuPreferencePrice").val();
+			var cycle = $("#popuProcessingCycle").val();
+			var remarks = $("#popupProcessingRemarks").val();
+			
+			$("#productProcessProcessID").val(processID);
+			$("#productProcessName").val(processName);
+			$("#productProcessReferencePrice").val(price);
+			$("#productProcessProcessingCycle").val(cycle);
+			$("#productProcessRemarks").val(remarks);
+			
+			$("#productProcessForm").submit(); 
+		});
 		
 		$("#inputProductsId").select2({
 			placeholder : "查询产品编号",
@@ -970,6 +1117,7 @@
 			
 			$("#popupDetailEdit").modal('show');
 		}
+		
 		//保存编辑
 		$("#detailEditBtnConfirm").click(function(){
 			var _ProductsID = $("#detailEditProductId").val();

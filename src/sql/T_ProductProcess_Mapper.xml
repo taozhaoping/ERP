@@ -54,6 +54,11 @@
 		</if>
 	</select>
 	
+	<delete id="delete" parameterType="ProductProcess">
+		delete from t_productProcess
+		where ID = #{id}
+	</delete>
+	
 	<select id="count" resultType="Integer" parameterType="ProductProcess">
 		select
 		count(id)
@@ -61,7 +66,7 @@
 		<include refid="where" />
 	</select>
 
-	<insert id="insert" parameterType="ProcessBean" >
+	<insert id="insert" parameterType="ProductProcess" >
 		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
 			select
 			SEQUENCE_t_productProcess.nextval from dual
@@ -92,22 +97,23 @@
 				#{id},
 			</if>
 			<if test="processID != null">
-				#{process_ID,jdbcType=VARCHAR},
+				#{processID},
 			</if>
 			<if test="productsID != null">
-				PRODUCTS_ID,
+				#{productsID},
 			</if>
 			<if test="referencePrice != null">
-				#{Process_Price,jdbcType=FLOAT},
+				#{referencePrice,jdbcType=FLOAT},
 			</if>
 			<if test="processingCycle != null">
-				#{Process_Cycle,jdbcType=FLOAT},
+				#{processingCycle,jdbcType=FLOAT},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="update" parameterType="ProductProcess">
 		update t_productProcess
 		<set>

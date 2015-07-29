@@ -140,21 +140,6 @@ public class ProductsAction extends BaseAction {
 		
 		return Action.EDITOR;
 	}
-	
-	public String saveProductProcess()
-	{
-		LOGGER.debug("saveProductProcess()");
-		ProductProcess productProcess = this.productsModel.getProductProcess();
-		Integer id = productProcess.getId();
-		if (null == id || "".equals(id)) {
-			// 新增
-			productProcessService.insert(productProcess);
-		} else {
-			// 修改
-			productProcessService.delete(productProcess);
-		}
-		return Action.EDITOR_SUCCESS;
-	}
 
 	public String save() throws Exception {
 		LOGGER.debug("save()");

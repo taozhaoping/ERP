@@ -375,8 +375,7 @@
 									</ul>
 								</div>
 							</div>
-							<div class="tab-pane fade" id="productProcessTab">
-								
+							<div class="tab-pane fade" id="productProcessTab">								
 								<table class="table">
 									<thead>
 										<tr>
@@ -403,6 +402,7 @@
 									</tbody>
 								</table>
 							</div>
+
 						</div>
 					</div>
 				</div>

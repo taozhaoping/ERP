@@ -7,6 +7,8 @@ import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
+import com.zh.web.model.bean.ProcessBean;
+import com.zh.web.model.bean.ProductProcess;
 
 public class ProductStructModel extends BaseModel {
 
@@ -40,6 +42,18 @@ public class ProductStructModel extends BaseModel {
 	 */
 	private List<BomSub> bomSubList = new ArrayList<BomSub>();
 	
+	/**
+	 * 工序配置列表
+	 */
+	private String  processListJson;
+	
+	private List<ProcessBean>  processList = new ArrayList<ProcessBean>();
+	/**
+	 * 产品工序
+	 */
+	private ProductProcess productProcess = new ProductProcess();
+	
+	private List<ProductProcess> productProcessList = new ArrayList<ProductProcess>();
 	
 
 	public BomPrimary getBomPrimary() {
@@ -89,5 +103,37 @@ public class ProductStructModel extends BaseModel {
 	public void setBomSubList(List<BomSub> bomSubList) {
 		this.bomSubList = bomSubList;
 	}
-	
+
+	public ProductProcess getProductProcess() {
+		return productProcess;
+	}
+
+	public void setProductProcess(ProductProcess productProcess) {
+		this.productProcess = productProcess;
+	}
+
+	public List<ProductProcess> getProductProcessList() {
+		return productProcessList;
+	}
+
+	public void setProductProcessList(List<ProductProcess> productProcessList) {
+		this.productProcessList = productProcessList;
+	}
+
+	public String getProcessListJson() {
+		return processListJson;
+	}
+
+	public void setProcessListJson(String processListJson) {
+		this.processListJson = processListJson;
+	}
+
+	public List<ProcessBean> getProcessList() {
+		return processList;
+	}
+
+	public void setProcessList(List<ProcessBean> processList) {
+		this.processList = processList;
+	}
+
 }

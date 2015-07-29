@@ -94,6 +94,7 @@
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<li><a id="productStructButt" href="#productStructTab" data-toggle="tab">产品结构</a></li>
 							<li><a id="productStructSubTabButt" href="#productStructSubTab" data-toggle="tab">替代料</a></li>
+							<li><a id="productProcessTabButt" href="#productProcessTab" data-toggle="tab">工序维护</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane active dl-horizontal" id="home">
@@ -203,6 +204,34 @@
 									<ul id="pagination">
 									</ul>
 								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="productProcessTab">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>工序名称</th>
+											<th>工序费用</th>
+											<th>工序周期</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									
+									<tbody id="maillistSearch">
+										<!-- 产品列表  -->
+										<s:iterator value="productProcessList" var="Process" status="index">
+										<tr>
+											<td><s:property value="#index.index + 1"/></td>
+											<td><s:property value="#Process.productsID" /></td>
+											<td><s:property value="#Process.name" /></td>
+											<td><s:property value="#Process.referencePrice" /></td>
+											<td><s:property value="#Process.processingCycle" /></td>
+											<td><s:property value="#Process.remarks" /></td>
+										</tr>
+										</s:iterator>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>

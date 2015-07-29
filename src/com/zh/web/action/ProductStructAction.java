@@ -12,11 +12,16 @@ import com.zh.base.util.ConstantService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
+import com.zh.core.util.JSONUtil;
 import com.zh.web.model.ProductStructModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
+import com.zh.web.model.bean.ProcessBean;
+import com.zh.web.model.bean.ProductProcess;
 import com.zh.web.model.bean.Products;
+import com.zh.web.service.ProcessService;
+import com.zh.web.service.ProductProcessService;
 import com.zh.web.service.ProductStructService;
 import com.zh.web.service.ProductsService;
 
@@ -47,6 +52,12 @@ public class ProductStructAction extends BaseAction {
 	
 	@Autowired
 	private ProductsService productsService;
+	
+	@Autowired
+	private ProcessService processService;
+	
+	@Autowired
+	private ProductProcessService productProcessService;
 	
 	@Override
 	public Object getModel() {
@@ -117,13 +128,53 @@ public class ProductStructAction extends BaseAction {
 				bs.setSubProductsName(products.getName());
 			}
 			this.productStructModel.setBomSubList(bomSubList);
+
+			//查询工序列表
+			List<ProcessBean> processList = processService.queryList(new ProcessBean());
+			this.productStructModel.setProcessList(processList);
+			String processListJson = JSONUtil.list2json(processList);
+			this.productStructModel.setProcessListJson(processListJson);
+			
+			//产品工序列表
+			ProductProcess productProcess = this.productStructModel.getProductProcess();
+			productProcess.setProductsID(id);
+			LOGGER.debug("ProductProcess: {}", bomSub);
+			List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
+			this.productStructModel.setProductProcessList(productProcessList);
+			
 			//判断是否生效
 			if(result != null && "1".equalsIgnoreCase(result.getEffStatus())){
 				return Action.VIEW;
 			}
+			
 		}
 		
 		return Action.EDITOR;
+	}
+	
+	/**
+	* @Title: saveProductProcess 
+	* @Description: 工序维护 
+	* @param  @return   参数 
+	* @return String    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	public String saveProductProcess()
+	{
+		LOGGER.debug("saveProductProcess()");
+		ProductProcess productProcess = this.productStructModel.getProductProcess();
+		Integer id = this.productStructModel.getId();
+		if (null == id || "".equals(id)) {
+			// 新增
+			productProcessService.insert(productProcess);
+		} else {
+			// 修改
+			productProcess.setId(id);
+			productProcessService.delete(productProcess);
+		}
+		return Action.EDITOR_SAVE;
 	}
 	
 	/**
