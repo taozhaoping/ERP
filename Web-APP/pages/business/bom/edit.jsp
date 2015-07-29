@@ -781,7 +781,20 @@
 			var price = $("#popuPreferencePrice").val();
 			var cycle = $("#popuProcessingCycle").val();
 			var remarks = $("#popupProcessingRemarks").val();
-			
+			if (price == null || price == "") {
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#popuPreferencePrice").closest('div').parents('div').removeClass('success').addClass('error');
+				return;
+			} else {
+				$("#popuPreferencePrice").closest('div').parents('div').removeClass('error').addClass('success');
+			}
+			if (cycle == null || cycle == "") {
+				//$("#popupQty").attr("title","数量必须填写!");
+				$("#popuProcessingCycle").closest('div').parents('div').removeClass('success').addClass('error');
+				return;
+			} else {
+				$("#popuProcessingCycle").closest('div').parents('div').removeClass('error').addClass('success');
+			}
 			$("#productProcessProcessID").val(processID);
 			$("#productProcessName").val(processName);
 			$("#productProcessReferencePrice").val(price);
