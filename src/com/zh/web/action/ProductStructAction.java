@@ -165,13 +165,13 @@ public class ProductStructAction extends BaseAction {
 	{
 		LOGGER.debug("saveProductProcess()");
 		ProductProcess productProcess = this.productStructModel.getProductProcess();
-		Integer id = this.productStructModel.getId();
+		String id = this.productStructModel.getFormId();
 		if (null == id || "".equals(id)) {
 			// 新增
 			productProcessService.insert(productProcess);
 		} else {
 			// 修改
-			productProcess.setId(id);
+			productProcess.setId(Integer.valueOf(id));
 			productProcessService.delete(productProcess);
 		}
 		return Action.EDITOR_SAVE;

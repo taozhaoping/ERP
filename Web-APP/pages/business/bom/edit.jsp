@@ -312,7 +312,8 @@
 									<input type="hidden" name="menuId" value="${menuId}" /> 
 									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 									<input type="hidden" name="spaceId" value="${spaceId}">
-									<input type="hidden" name="tabID" value="productStructTabButt" />
+									<input type="hidden" name="tabID" value="productProcessTabButt" />
+									<input type="hidden" name="id" value="${bomPrimary.id}">
 									
 									<input type="hidden" name="productProcess.productsID" value="${bomPrimary.id}">
 									<input type="hidden" name="productProcess.processID" id="productProcessProcessID" value="">
@@ -344,7 +345,7 @@
 											<td><s:property value="#Process.processingCycle" /></td>
 											<td><s:property value="#Process.remarks" /></td>
 											<td>
-												<a title="删除" style="margin: 0px 3px;" href="${menu2Id}!saveProductProcess.jspa?id=<s:property value='#Process.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-remove"></i></a>
+												<a title="删除" style="margin: 0px 3px;" href="${menu2Id}!saveProductProcess.jspa?id=${bomPrimary.id}&formId=<s:property value='#Process.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-remove"></i></a>
 											</td>
 										</tr>
 										</s:iterator>
