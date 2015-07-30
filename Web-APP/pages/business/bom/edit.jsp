@@ -345,7 +345,7 @@
 											<td><s:property value="#Process.processingCycle" /></td>
 											<td><s:property value="#Process.remarks" /></td>
 											<td>
-												<a title="删除" style="margin: 0px 3px;" href="${menu2Id}!saveProductProcess.jspa?id=${bomPrimary.id}&formId=<s:property value='#Process.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-remove"></i></a>
+												<a title="删除" style="margin: 0px 3px;" href="${menu2Id}!saveProductProcess.jspa?id=${bomPrimary.id}&formId=<s:property value='#Process.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=productProcessTabButt"><i class="icon-remove"></i></a>
 											</td>
 										</tr>
 										</s:iterator>
