@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Inventory_Detail">
+	<resultMap id="T_Inventory_Detail" type="InventoryCountDetail">
+		<id column="ID" property="id" />
+		<result column="INVENTORY_ID" property="inventoryID"  />
+		<result column="PRODUCTS_ID" property="productsID" />
+		<result column="WAREHOUSE_ID" property="warehouseID" />
+		<result column="ORIGINAL_QUANTITY" property="originalQuantiy"  jdbcType="FLOAT"/>
+		<result column="CHANGE_QUANTITY" property="changeQuantiy"  jdbcType="FLOAT"/>
+		<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userID" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		INVENTORY_ID,
+		PRODUCTS_ID,
+		WAREHOUSE_ID,
+		ORIGINAL_QUANTITY,
+		CHANGE_QUANTITY,
+		CREATEDATE,
+		USER_ID
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and c.id = #{id}
+			</if>
+			<if test="warehouseID != null">
+				and INVENTORY_ID = #{inventoryID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Inventory_Detail"
+		parameterType="InventoryCountDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_INVENTORY_COUNT_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Inventory_Detail" parameterType="InventoryCountDetail">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_INVENTORY_COUNT_DETAIL
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="InventoryCountDetail">
+		select
+		count(id)
+		from T_INVENTORY_COUNT_DETAIL c
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="InventoryCountDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_t_Inventory_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_INVENTORY_COUNT_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="inventoryID != null">
+				INVENTORY_ID,
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="warehouseID != null">
+				WAREHOUSE_ID,
+			</if>
+			<if test="originalQuantiy != null">
+				ORIGINAL_QUANTITY,
+			</if>
+			<if test="changeQuantiy != null">
+				CHANGE_QUANTITY,
+			</if>
+			<if test="createDate != null">
+				CREATEDATE,
+			</if>
+			<if test="userID != null">
+				USER_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="inventoryID != null">
+				#{inventoryID},
+			</if>
+			<if test="productsID != null">
+				#{productsID},
+			</if>
+			<if test="warehouseID != null">
+				#{warehouseID},
+			</if>
+			<if test="originalQuantiy != null">
+				#{originalQuantiy,jdbcType=FLOAT},
+			</if>
+			<if test="changeQuantiy != null">
+				#{changeQuantiy,jdbcType=FLOAT},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="InventoryCountDetail">
+		update T_INVENTORY_COUNT_DETAIL
+		<set>
+			<if test="inventoryID != null">
+				INVENTORY_ID = #{inventoryID},
+			</if>
+			<if test="productsID != null">
+				PRODUCTS_ID = #{productsID},
+			</if>
+			<if test="warehouseID != null">
+				WAREHOUSE_ID = #{warehouseID},
+			</if>
+			<if test="originalQuantiy != null">
+				ORIGINAL_QUANTITY = #{originalQuantiy,jdbcType=FLOAT},
+			</if>
+			<if test="changeQuantiy != null">
+				CHANGE_QUANTITY = #{changeQuantiy,jdbcType=FLOAT},
+			</if>
+			<if test="createDate != null">
+				CREATEDATE = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				USER_ID = #{userID},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

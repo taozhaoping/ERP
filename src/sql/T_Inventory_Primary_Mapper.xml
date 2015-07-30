@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Inventory_Primary">
+	<resultMap id="T_Inventory_Primary" type="InventoryCountPrimary">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="WAREHOUSE_ID" property="warehouseID" />
+		<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="USERID" property="userID" />
+		<result column="STATUS" property="status" />
+		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,
+		NAME,
+		WAREHOUSE_ID,
+		CREATEDATE,
+		USERID,
+		STATUS,
+		REMARKS
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and c.id = #{id}
+			</if>
+			<if test="warehouseID != null">
+				and WAREHOUSE_ID = #{warehouseID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Inventory_Primary" parameterType="InventoryCountPrimary">
+		select
+		<include refid="Base_Column_List" />
+		from t_Inventory_count_Primary
+		<include refid="where" />
+	</select>
+	
+	<select id="list" resultMap="T_Inventory_Primary" parameterType="InventoryCountPrimary">
+
+		select
+		<include refid="Base_Column_List" />
+		from t_Inventory_count_Primary
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="InventoryCountPrimary">
+		select
+		count(id)
+		from t_Inventory_count_Primary c
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="InventoryCountPrimary">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_t_Inventory_Primary.nextval from dual
+		</selectKey>
+		insert into t_Inventory_count_Primary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="warehouseID != null">
+				WAREHOUSE_ID,
+			</if>
+			<if test="createDate != null">
+				CREATEDATE,
+			</if>
+			<if test="userID != null">
+				USERID,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="warehouseID != null">
+				#{warehouseID},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="userID != null">
+				#{userID},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="InventoryCountPrimary">
+		update T_Cutting_scheme
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="warehouseID != null">
+				WAREHOUSE_ID = #{warehouseID},
+			</if>
+			<if test="createDate != null">
+				CREATEDATE = #{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="userID != null">
+				USERID = #{userID},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>
