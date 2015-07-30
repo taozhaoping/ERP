@@ -1355,7 +1355,7 @@
             e.preventDefault();
         }
 		
-        //定义表单验证方法
+       /*  //定义表单验证方法
         function invalidHandler(evt) {
             checkvalue(evt);
         }
@@ -1367,7 +1367,7 @@
           
            //注册表单元素的onchange事件，优化用户体验
            $('#inputId')[0].addEventListener("change",checkvalue,false);
-        }
+        } */
         
         //在页面初始化事件（onload）时注册的自定义事件
        // window.addEventListener("load", loadDemo, false);

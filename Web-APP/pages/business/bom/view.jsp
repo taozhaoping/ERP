@@ -205,7 +205,6 @@
 									</ul>
 								</div>
 							</div>
-							
 							<div class="tab-pane fade" id="productProcessTab">
 								<table class="table">
 									<thead>
@@ -280,50 +279,6 @@
 			$("#homeButt").parent().addClass("active");
 			$("#home").removeClass("fade").addClass("active");
 		}
-		
-		//提交按钮
-		$("#formButton").click(function() {
-			currTab = $("#tabID").val();
-			saveForm();
-		});
-		
-		//判读当前tab，需要保存那个form
-		function saveForm() {
-			$("#editForm").submit();
-		}
-		
-		//自定义表单控件验证行为
-        var checkvalue = function(e){
-            var el = e.target;
-            var id = el.value;
-            selectProducts(id,el);
-            e.stopPropagation();
-            e.preventDefault();
-        }
-		
-        //定义表单验证方法
-        function invalidHandler(evt) {
-            checkvalue(evt);
-        }
-        
-        function loadDemo() {
-           var myform = document.getElementById("editForm");
-           //注册表单的oninvlid事件
-           myform.addEventListener("invalid", invalidHandler, true);
-          
-           //注册表单元素的onchange事件，优化用户体验
-           $('#inputId')[0].addEventListener("change",checkvalue,false);
-        }
-        
-        //在页面初始化事件（onload）时注册的自定义事件
-        window.addEventListener("load", loadDemo, false);
-		
-	
-		/* 
-		$.validator.addMethod("queryProducts",function(value,element,params){
-			   return false;
-			},"必须是一个字母,且a-f");
- 		*/
 		
 	</script>
 </body>

@@ -220,6 +220,13 @@ public class ProductStructAction extends BaseAction {
 				bs.setSubProductsName(products.getName());
 			}
 			this.productStructModel.setBomSubList(bomSubList);
+			
+			//产品工序列表
+			ProductProcess productProcess = this.productStructModel.getProductProcess();
+			productProcess.setProductsID(id);
+			LOGGER.debug("ProductProcess: {}", bomSub);
+			List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
+			this.productStructModel.setProductProcessList(productProcessList);
 		}
 		return Action.VIEW;
 	}
