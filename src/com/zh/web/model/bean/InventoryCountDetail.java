@@ -1,6 +1,7 @@
 package com.zh.web.model.bean;
 
 import com.zh.core.base.model.BaseModel;
+import com.zh.core.model.IDataObject;
 
 /***
 * @Description: 库存变更明细表
@@ -11,7 +12,7 @@ import com.zh.core.base.model.BaseModel;
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public class InventoryCountDetail extends BaseModel {
+public class InventoryCountDetail extends IDataObject {
 
 	/**
 	 * 主键

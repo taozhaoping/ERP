@@ -1,5 +1,7 @@
 package com.zh.web.model.bean;
 
+import com.zh.core.model.IDataObject;
+
 /**
  * @Description: 库存变更头表
  * @Title: InventoryCountPrimary.java
@@ -9,7 +11,7 @@ package com.zh.web.model.bean;
  * @author mail taozhaoping@gmail.com
  * @version V1.0
  */
-public class InventoryCountPrimary {
+public class InventoryCountPrimary extends IDataObject {
 
 	/**
 	 * 主键
