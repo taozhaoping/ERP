@@ -16,8 +16,6 @@ import com.zh.core.model.Pager;
 import com.zh.web.model.InventoryCountModel;
 import com.zh.web.model.bean.InventoryCountDetail;
 import com.zh.web.model.bean.InventoryCountPrimary;
-import com.zh.web.model.bean.StorageDetail;
-import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.InventoryCountPrimaryService;
 import com.zh.web.util.UtilService;
@@ -101,6 +99,9 @@ public class InventoryCountAction extends BaseAction {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setEnabled(UtilService.ENABLED_EFFECTIVE);
 		List<Warehouse> warehouseList = warehouseService.queryList(warehouse);
+		warehouse.setId(0);
+		warehouse.setName("全部库存");
+		warehouseList.set(0, warehouse);
 		this.inventoryCountModel.setWarehouseList(warehouseList);
 
 		if (null != id) {

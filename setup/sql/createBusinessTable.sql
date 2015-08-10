@@ -1241,6 +1241,7 @@ create table t_Inventory_count_Primary
    Remarks           VARCHAR(500),
    Warehouse_ID       VARCHAR(500),
    createDate         VARCHAR(30),
+   inventoryDate         VARCHAR(30),
    UserID             NUMBER,
    status             NUMBER
 );
@@ -1259,6 +1260,9 @@ comment on column t_Inventory_count_Primary.Warehouse_ID is
 
 comment on column t_Inventory_count_Primary.createDate is
 '创建时间';
+
+comment on column t_Inventory_count_Primary.inventoryDate is
+'盘点时间';
 
 comment on column t_Inventory_count_Primary.UserID is
 '创建人';

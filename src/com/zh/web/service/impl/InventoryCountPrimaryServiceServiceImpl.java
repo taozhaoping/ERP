@@ -1,18 +1,31 @@
 package com.zh.web.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.zh.core.model.Pager;
 import com.zh.web.dao.InventoryCountPrimaryDao;
+import com.zh.web.model.bean.InventoryCountDetail;
 import com.zh.web.model.bean.InventoryCountPrimary;
+import com.zh.web.model.bean.Stock;
+import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.InventoryCountPrimaryService;
+import com.zh.web.service.StockService;
+import com.zh.web.util.UtilService;
 
 @Component("inventoryCountPrimaryService")
 public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPrimaryService {
 
 	@Autowired
 	private InventoryCountPrimaryDao inventoryCountPrimaryDao;
+	
+	@Autowired
+	private InventoryCountDetailService inventoryCountDetailService;
+	
+	@Autowired
+	private StockService stockService;
 	
 	@Override
 	public InventoryCountPrimary query(InventoryCountPrimary inventoryCountPrimary) {
@@ -52,7 +65,27 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 
 	@Override
 	public Integer insert(InventoryCountPrimary inventoryCountPrimary) {
-		return inventoryCountPrimaryDao.insert(inventoryCountPrimary);
+		
+		inventoryCountPrimary.setStatus(UtilService.INVENTORY_ZERO);
+		int reult = inventoryCountPrimaryDao.insert(inventoryCountPrimary);
+		
+		//保存前，先盘点库存剩余产品
+		Stock stock = new Stock();
+		if (inventoryCountPrimary.getWarehouseID() != 0) {
+			stock.setWarehouseID(inventoryCountPrimary.getWarehouseID());
+		}
+		Integer inventoryID = inventoryCountPrimary.getId();
+		List<Stock> stockList = stockService.queryList(stock);
+		for (Stock stockReult : stockList) {
+			InventoryCountDetail inventoryCountDetail = new InventoryCountDetail();
+			inventoryCountDetail.setInventoryID(inventoryID);
+			inventoryCountDetail.setProductsID(stockReult.getProductsID());
+			inventoryCountDetail.setWarehouseID(stockReult.getWarehouseID());
+			inventoryCountDetail.setOriginalQuantiy(stockReult.getStockNumber());
+			inventoryCountDetailService.insert(inventoryCountDetail);
+		}
+		
+		return reult;
 	}
 
 	public InventoryCountPrimaryDao getInventoryCountPrimaryDao() {

@@ -63,6 +63,15 @@ public interface UtilService {
 	public static Integer SALES_ORDER_ONE = 0;
 	
 	/**
+	 * 清点中
+	 */
+	public static Integer INVENTORY_ZERO = 0;
+	/**
+	 * 完成
+	 */
+	public static Integer INVENTORY_ONE = 1;
+	
+	/**
 	 * 采购订单状态（运输）
 	 */
 	public static Integer PURCHASEORDERPRIMARY_STATUS_OPEN = 1;

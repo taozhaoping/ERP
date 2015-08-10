@@ -96,40 +96,41 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>出库单号</th>
-									<th>出库时间</th>
-									<th>签收人</th>
+									<th>名称</th>
 									<th>仓库</th>
+									<th>审核人</th>
+									<th>盘点时间</th>
 									<th>状态</th>
-									<th>接收客户</th>
+									<th>备注</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="libraryPrimaryList" var="tp" status="index">
+								<s:iterator value="inventoryCountPrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.orderNoID"/></td>
-										<td><s:property value="#tp.librarydate"/></td>
-										<td>
-											<s:set id="userID" value="#tp.userID"></s:set>
-											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
-										</td>
+										<td><s:property value="#tp.name"/></td>
 										<td>
 											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
 											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
 										</td>
 										<td>
+											<s:set id="userID" value="#tp.userID"></s:set>
+											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
+										</td>
+										<td>
+											<s:property value="#tp.inventoryDate"/>
+										</td>
+										<td>
 											<s:if test="#tp.status==0">
-												未入库
+												清点
 											</s:if>
 											<s:else>
-												入库
+												完成
 											</s:else>
 										</td>
 										<td>
-											<s:set id="customerID" value="#tp.customerID"></s:set>
-											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+											<s:property value="#tp.remarks"/>
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 

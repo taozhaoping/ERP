@@ -1,0 +1,342 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@  page import="com.zh.base.util.JspUtil" %>
+<%
+	String path = request.getContextPath();
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><s:property value="getText('COM.OSFI.WINDOW.TITLE')" /></title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/theme.css">
+<link rel="stylesheet" href="<%=path%>/css/font-awesome.css">
+<link rel="stylesheet" href="<%=path%>/js/select2/select2.css">
+<script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
+<script type="text/javascript" src="<%=path%>/js/jqPaginator.min.js"></script>
+<!-- Demo page code -->
+<style type="text/css">
+#line-chart {
+	height: 300px;
+	width: 800px;
+	margin: 0px auto;
+	margin-top: 1em;
+}
+
+.brand {
+	font-family: georgia, serif;
+}
+
+.brand .first {
+	color: #ccc;
+	font-style: italic;
+}
+
+.brand .second {
+	color: #fff;
+	font-weight: bold;
+}
+</style>
+<link href="<%=path%>/img/favicon_32.ico" rel="bookmark"
+	type="image/x-icon" />
+<link href="<%=path%>/img/favicon_32.ico" rel="icon" type="image/x-icon" />
+<link href="<%=path%>/img/favicon_32.ico" rel="shortcut icon"
+	type="image/x-icon" />
+</head>
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<body class="">
+<jsp:useBean id="userName" class="com.zh.base.util.JspUtil" scope="session"></jsp:useBean>
+	<!--<![endif]-->
+	<%@ include file="/pages/common/titleWithNav.jsp"%>
+	<%@ include file="/pages/common/sidebarWithNav.jsp"%>
+
+	<div class="content">
+		<div class="header">
+			<div class="stats">
+				<p class="stat">
+					<span class="number">53</span>tickets
+				</p>
+				<p class="stat">
+					<span class="number"><s:property value="#session.taskSize" /></span>tasks
+				</p>
+				<p class="stat">
+					<span class="number">15</span>waiting
+				</p>
+			</div>
+
+			<h1 class="page-title" id="menu2Name">&nbsp;</h1>
+		</div>
+
+		<ul class="breadcrumb">
+			<li><a href="<%=path%>/home/main.jspa">主页</a> <span
+				class="divider">/</span></li>
+			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
+			<li class="active">编辑</li>
+		</ul>
+		<s:set name="ProcessId"
+					value="inventoryCountPrimary.id!=null&&inventoryCountPrimary.id!=''" />
+		<div class="container-fluid">
+				<input type="hidden" id="formChanged" name="formChanged" value="0" />
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">
+						<button id="formButton" class="btn btn-primary" type="submit">
+							<i class="icon-save"></i> 保存
+						</button>
+						<a class="btn" id="backList" href=""> 返回</a>
+						<div class="btn-group"></div>
+					</div>
+					<div class="well">
+						<ul class="nav nav-tabs">
+							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
+							<s:if test="#ProcessId">
+							<li><a id="librarydetailButt" href="#librarydetail" data-toggle="tab">盘点清单</a></li>
+							</s:if>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade" id="home">
+								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
+								<input type="hidden" name="id" value="${inventoryCountPrimary.id}"> 
+								<input type="hidden" name="inventoryCountPrimary.userID" value="${inventoryCountPrimary.userID}">
+								<input type="hidden" name="inventoryCountPrimary.createDate" value="${inventoryCountPrimary.createDate}">
+								<input type="hidden" name="menuId" value="${menuId}"> 
+								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
+								<input type="hidden" name="spaceId" value="${spaceId}">
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputorderNoID" style="">编号：</label>
+											<div class="controls">
+													<input type="text" maxlength="30" disabled="disabled" name = "inventoryCountPrimary.id"
+														id="inputID" value="${inventoryCountPrimary.id}" class="input-medium"></input>
+												
+											</div>
+
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputName" style="">名称：</label>
+											<div class="controls">
+												<input size="16" id="inputName" name="inventoryCountPrimary.name"
+													type="text" data-required="true"
+													value="${inventoryCountPrimary.name}"
+													class="input-medium">
+											</div>
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputlcreateDate" style="">创建时间：</label>
+											<div class="controls">
+												<input size="16" id="inputlcreateDate" name="inventoryCountPrimary.createDate"
+													type="text" disabled="disabled"
+													value="${inventoryCountPrimary.createDate}"
+													readonly class="form_datetime input-medium">
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputinventoryDate" style="">盘点日期：</label>
+											<div class="controls">
+												<input type="text" maxlength="40" disabled="disabled" name="inventoryCountPrimary.inventoryDate" value="${inventoryCountPrimary.inventoryDate}"
+													placeholder="盘点日期" id="inputinventoryDate"  class="form_datetime input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputstatus" style="">状态：</label>
+											<div class="controls">
+												<select id="inputstatus"  disabled="disabled"
+													name="inventoryCountPrimary.status" class="input-medium" placeholder="状态" >
+													<option value="0" selected="selected">清点</option>
+													<option value="1">完成</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputwarehouseID" style="">仓库：</label>
+											<div class="controls">
+												<s:select id="inputwarehouseID" data-required="true"  list="warehouseList" listKey="id" listValue="name"
+													name="inventoryCountPrimary.warehouseID" cssClass="input-medium" placeholder="接收仓库">
+												</s:select>
+											</div>
+										</div>
+									</div>
+								</dir>
+								<dir class="row">
+									<div class="span8">
+										<div class="control-group">
+											<label class="control-label" for="inputremarks" >备注：</label>
+											<div class="controls">
+												<input type="text" maxlength="500" name="inventoryCountPrimary.remarks"
+													placeholder="备注" id="inputremarks" value="${inventoryCountPrimary.remarks}" class="input-xxlarge"></input>
+											</div>
+
+										</div>
+									</div>
+								
+								</dir>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="librarydetail">
+								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveProcurementDemandDetail.jspa" method="post">
+								<input type="hidden" name="menuId" value="${menuId}" /> 
+								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+								<input type="hidden" name="spaceId" value="${spaceId}">
+								<input type="hidden" name="tabID" value="librarydetailButt" />
+								<input type="hidden" name="formId" value="${inventoryCountPrimary.id}" />
+								<input type="hidden" id="detailprocurementID" name="procurementDemandDetail.procurementID" value="${inventoryCountPrimary.id}" />
+								<input type="hidden" id="detailproductsID" name="procurementDemandDetail.productsID" value="" />
+								<input type="hidden" id="detailisMainProducts" name="procurementDemandDetail.isMainProducts" value="" />
+								<input type="hidden" id="detailqty" name="procurementDemandDetail.demandNumber" value="" />
+							</form>
+							<table class="table ">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>产品编号</th>
+										<th>仓库</th>
+										<th>库存数量</th>
+										<th>变更后数量</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								
+								<tbody id="maillistSearch">
+									<tr>
+										<!-- 产品列表-->
+										<s:iterator value="inventoryCountDetailList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#index.index +1" /></td>
+											<td><s:property value="#tp.productsID" /></td>
+											<td>
+												<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
+											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
+											</td>
+											<td>
+												<s:property value="#tp.originalQuantiy" />
+											</td>
+											<td>
+												<s:property value="#tp.changeQuantiy" />
+											</td>
+											<td>
+												
+											</td>
+										</tr>
+										</s:iterator>
+										
+									</tr>
+								</tbody>
+							</table>
+							<div class="pagination">
+								<ul id="pagination">
+								</ul>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+	
+	
+	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="id" value="${inventoryCountPrimary.id}">
+		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="tabID" value="librarydetailButt">
+	</form>
+	<%@ include file="/pages/common/footer.jsp"%>
+	<script src="<%=path%>/js/bootstrap.js"></script>
+	<script src="<%=path%>/js/collapsePulg.js"></script>
+	<script src="<%=path%>/js/common.js"></script>
+	<script src="<%=path%>/js/jquery-validate.js"></script>
+	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="<%=path%>/js/select2/select2.js"></script>
+	<script src="<%=path%>/js/select2/select2_locale_zh-CN.js"></script>
+	<script type="text/javascript">
+		$("[rel=tooltip]").tooltip();
+		var menuId = '${menuId}';
+		var menu2Id = '${menu2Id}';
+		var spaceId = '${spaceId}';
+		var url = $("#" + menu2Id).attr('url');
+		var id = '${inventoryCountPrimary.id}';
+		var totalPage = ${pageInfo.totalPage};
+		var totalRow = ${pageInfo.totalRow};
+		var pageSize = ${pageInfo.pageSize};
+		var curPage = ${pageInfo.curPage};
+		$("select").select2();
+		
+		$("#inputstatus").val("${inventoryCountPrimary.status}")
+		.trigger("change");
+		
+		//进入指定的tbs
+		var tabID = "${tabID}";
+		if (null != tabID && "" != tabID) {
+			$("#" + tabID).parent().addClass("active");
+			$("#" + tabID.substring(0, tabID.length - 4)).removeClass("fade")
+					.addClass("active");
+		} else {
+			tabID = "homeButt";
+			$("#tabID").val("homeButt");
+			$("#homeButt").parent().addClass("active");
+			$("#home").removeClass("fade").addClass("active");
+		}
+		
+		//提交按钮
+		$("#formButton").click(function() {
+			currTab = $("#tabID").val();
+			saveForm();
+		});
+		
+		//判读当前tab，需要保存那个form
+		function saveForm() {
+			$("#editForm").submit();
+		}
+		
+		if ("" != id)
+		{
+			$.jqPaginator('#pagination', {
+				//设置分页的总页数
+		        totalPages: totalPage,
+		        //设置分页的总条目数
+		        totalCounts:totalRow,
+		        pageSize:pageSize,
+		        //最多显示的页码
+		        visiblePages: 10,
+		        currentPage: curPage,
+		        onPageChange: function (num, type) {
+		           if("init"==type)
+		        	{
+		        	 	return false;  
+		        	}
+		           $('#curPage').val(num);
+		        	$('#queryForm').submit();
+		        	//document.getElementsByName("operateForm")[0].submit(); 
+		        }
+		    });
+		}
+	</script>
+</body>
+</html>

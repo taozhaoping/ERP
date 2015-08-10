@@ -37,12 +37,12 @@ public class InventoryCountDetail extends IDataObject {
 	/**
 	 * 变更前数量
 	 */
-	private Integer originalQuantiy;
+	private Float originalQuantiy;
 
 	/**
 	 * 变更后数量
 	 */
-	private Integer changeQuantiy;
+	private Float changeQuantiy;
 
 	/***
 	 * 创建时间
@@ -86,19 +86,19 @@ public class InventoryCountDetail extends IDataObject {
 		this.warehouseID = warehouseID;
 	}
 
-	public Integer getOriginalQuantiy() {
+	public Float getOriginalQuantiy() {
 		return originalQuantiy;
 	}
 
-	public void setOriginalQuantiy(Integer originalQuantiy) {
+	public void setOriginalQuantiy(Float originalQuantiy) {
 		this.originalQuantiy = originalQuantiy;
 	}
 
-	public Integer getChangeQuantiy() {
+	public Float getChangeQuantiy() {
 		return changeQuantiy;
 	}
 
-	public void setChangeQuantiy(Integer changeQuantiy) {
+	public void setChangeQuantiy(Float changeQuantiy) {
 		this.changeQuantiy = changeQuantiy;
 	}
 

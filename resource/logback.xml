@@ -128,7 +128,7 @@
 		<appender-ref ref="logfile-concurrent" />
 	</logger>
 	<logger name="org.springframework" addtivity="false">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-myibatis" />
 	</logger>
 	<logger name="org.apache.struts2">

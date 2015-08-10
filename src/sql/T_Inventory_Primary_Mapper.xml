@@ -6,6 +6,7 @@
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
 		<result column="WAREHOUSE_ID" property="warehouseID" />
 		<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="INVENTORYDATE" property="inventoryDate" jdbcType="VARCHAR" />
 		<result column="USERID" property="userID" />
 		<result column="STATUS" property="status" />
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
@@ -16,6 +17,7 @@
 		NAME,
 		WAREHOUSE_ID,
 		CREATEDATE,
+		INVENTORYDATE,
 		USERID,
 		STATUS,
 		REMARKS
@@ -23,7 +25,7 @@
 	<sql id="where">
 		<where>
 			<if test="id != null">
-				and c.id = #{id}
+				and id = #{id}
 			</if>
 			<if test="warehouseID != null">
 				and WAREHOUSE_ID = #{warehouseID}
@@ -75,6 +77,9 @@
 			<if test="createDate != null">
 				CREATEDATE,
 			</if>
+			<if test="inventoryDate != null">
+				INVENTORYDATE,
+			</if>
 			<if test="userID != null">
 				USERID,
 			</if>
@@ -96,7 +101,10 @@
 				#{warehouseID},
 			</if>
 			<if test="createDate != null">
-				#{createDate},
+				#{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="inventoryDate != null">
+				#{inventoryDate,jdbcType=VARCHAR},
 			</if>
 			<if test="userID != null">
 				#{userID},
@@ -121,6 +129,9 @@
 			</if>
 			<if test="createDate != null">
 				CREATEDATE = #{createDate,jdbcType=VARCHAR},
+			</if>
+			<if test="inventoryDate != null">
+				INVENTORYDATE = #{inventoryDate,jdbcType=VARCHAR},
 			</if>
 			<if test="userID != null">
 				USERID = #{userID},

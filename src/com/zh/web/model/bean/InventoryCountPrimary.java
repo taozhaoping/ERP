@@ -14,6 +14,11 @@ import com.zh.core.model.IDataObject;
 public class InventoryCountPrimary extends IDataObject {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6384038040240845486L;
+
+	/**
 	 * 主键
 	 */
 	private Integer id;
@@ -37,6 +42,11 @@ public class InventoryCountPrimary extends IDataObject {
 	 * 创建时间
 	 */
 	private String createDate;
+	
+	/**
+	 * 盘点时间
+	 */
+	private String inventoryDate;
 	
 	/**
 	 * 创建用户
@@ -102,6 +112,14 @@ public class InventoryCountPrimary extends IDataObject {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getInventoryDate() {
+		return inventoryDate;
+	}
+
+	public void setInventoryDate(String inventoryDate) {
+		this.inventoryDate = inventoryDate;
 	}
 
 }
