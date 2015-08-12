@@ -200,17 +200,6 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="librarydetail">
-								<form id="libraryDetailForm" class="form-horizontal" action="${menu2Id}!saveProcurementDemandDetail.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="tabID" value="librarydetailButt" />
-								<input type="hidden" name="formId" value="${inventoryCountPrimary.id}" />
-								<input type="hidden" id="detailprocurementID" name="procurementDemandDetail.procurementID" value="${inventoryCountPrimary.id}" />
-								<input type="hidden" id="detailproductsID" name="procurementDemandDetail.productsID" value="" />
-								<input type="hidden" id="detailisMainProducts" name="procurementDemandDetail.isMainProducts" value="" />
-								<input type="hidden" id="detailqty" name="procurementDemandDetail.demandNumber" value="" />
-							</form>
 							<table class="table ">
 								<thead>
 									<tr>
@@ -238,7 +227,9 @@
 												<s:property value="#tp.originalQuantiy" />
 											</td>
 											<td>
-												<s:property value="#tp.changeQuantiy" />
+												<input size="16" id="inputName" FID="${tp.id}" name="tp.changeQuantiy"
+													type="text" value="${tp.changeQuantiy}" onchange="changeQuantiy(this,${tp.changeQuantiy})"
+													class="input-medium">
 											</td>
 											<td>
 												
@@ -290,6 +281,29 @@
 		
 		$("#inputstatus").val("${inventoryCountPrimary.status}")
 		.trigger("change");
+		var dateArray = new Array();
+		function changeQuantiy(obj,oldValue)
+		{
+			var changeValue = $(obj).val()
+			var changeID = $(obj).attr("FID");
+			
+			$.ajax({
+				   type: "POST",
+				   url: basePath + "/" + spaceId + "/" + menu2Id + "!saveDetail.jspa",
+				   data: {"id":changeID,
+					   "changeValue":changeValue},
+				   success: function(msg){
+				     if(msg.reult=="success")
+				    {
+				    	$(obj).parents("tr").addClass("success")
+				    }else
+				    {
+				    	$(obj).parents("tr").addClass("error")
+				    	$(obj).val(oldValue);
+				    }
+				   }
+				});
+		}
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";

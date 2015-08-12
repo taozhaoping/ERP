@@ -82,6 +82,7 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 			inventoryCountDetail.setProductsID(stockReult.getProductsID());
 			inventoryCountDetail.setWarehouseID(stockReult.getWarehouseID());
 			inventoryCountDetail.setOriginalQuantiy(stockReult.getStockNumber());
+			inventoryCountDetail.setChangeQuantiy(0f);
 			inventoryCountDetailService.insert(inventoryCountDetail);
 		}
 		

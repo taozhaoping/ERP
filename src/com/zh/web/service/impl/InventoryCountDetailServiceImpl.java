@@ -41,6 +41,7 @@ public class InventoryCountDetailServiceImpl implements
 	public List<InventoryCountDetail> queryList(
 			InventoryCountDetail inventoryCountDetail, Pager page) {
 		// TODO Auto-generated method stub
+		inventoryCountDetail.setOrderByClause("original_quantity desc");
 		return inventoryCountDetailDao.queryPageList(inventoryCountDetail, page);
 	}
 

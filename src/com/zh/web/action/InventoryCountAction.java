@@ -1,6 +1,7 @@
 package com.zh.web.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
@@ -142,22 +143,26 @@ public class InventoryCountAction extends BaseAction {
 		return Action.EDITOR;
 	}
 
-	public String saveStorageDetail() {
+	public String saveDetail() {
 		LOGGER.debug("save StorageDetail ()");
 		InventoryCountDetail inventoryCountDetail = this.inventoryCountModel
 				.getInventoryCountDetail();
 		Integer id = this.inventoryCountModel.getId();
-		if (null == id || "".equals(id)) {
-			// 新增
-			inventoryCountDetailService.insert(inventoryCountDetail);
-		} else {
-			// 修改
-			inventoryCountDetail.setId(id);
-			inventoryCountDetailService.delete(inventoryCountDetail);
+		String changeValue = this.inventoryCountModel.getChangeValue();
+		Map<String, Object> map = this.inventoryCountModel.getDataMap();
+		map.put("reult", "error");
+		try {
+			if (null != id && id != 0) {
+				// 修改
+				inventoryCountDetail.setId(id);
+				inventoryCountDetail.setChangeQuantiy(Float
+						.valueOf(changeValue));
+				inventoryCountDetailService.update(inventoryCountDetail);
+				map.put("reult", "success");
+			}
+		} catch (Exception e) {
 		}
-		String formId = this.inventoryCountModel.getFormId();
-		this.inventoryCountModel.setFormId(formId);
-		return Action.EDITOR_SAVE;
+		return Action.RETURN_JSON;
 
 	}
 
@@ -213,6 +218,5 @@ public class InventoryCountAction extends BaseAction {
 	public void setInventoryCountModel(InventoryCountModel inventoryCountModel) {
 		this.inventoryCountModel = inventoryCountModel;
 	}
-	
-	
+
 }

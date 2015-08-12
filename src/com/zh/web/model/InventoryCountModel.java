@@ -20,6 +20,16 @@ public class InventoryCountModel extends BaseModel {
 
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 	
+	private String changeValue;
+	
+	public String getChangeValue() {
+		return changeValue;
+	}
+
+	public void setChangeValue(String changeValue) {
+		this.changeValue = changeValue;
+	}
+
 	public InventoryCountPrimary getInventoryCountPrimary() {
 		return inventoryCountPrimary;
 	}

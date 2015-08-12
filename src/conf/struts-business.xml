@@ -309,6 +309,9 @@
 				<param name="tabID">${tabID}</param>
 				<param name="spaceId">${spaceId}</param>
 			</result>
+			<result name="json" type="json">
+			    <param name="root">inventoryCountModel.dataMap</param>
+			</result>
 		</action>
 	</package>
 </struts>
