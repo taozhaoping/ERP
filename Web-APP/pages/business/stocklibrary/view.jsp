@@ -157,7 +157,7 @@
 										<div class="control-group">
 											<dt>出库：</dt>
 											<dd>
-												<s:if test="#libraryPrimary.status==0">
+												<s:if test="libraryPrimary.status==0">
 													否
 												</s:if>
 												<s:else>

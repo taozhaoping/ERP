@@ -99,23 +99,23 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">盘点清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane fade dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库单号：</dt>
-											<dd>${storagePrimary.orderNoID}</dd>
+											<dt>编号：</dt>
+											<dd>${inventoryCountPrimary.id}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>采购订单：</dt>
+											<dt>名称：</dt>
 											<dd>
-												<dd>${storagePrimary.purchaseOrderID}</dd>
+												<dd>${inventoryCountPrimary.name}</dd>
 											</dd>
 										</div>
 									</div>
@@ -124,14 +124,14 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>收货人：</dt>
-											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %></dd>
+											<dt>创建时间：</dt>
+											<dd>${inventoryCountPrimary.createDate}</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库时间：</dt>
-											<dd>${storagePrimary.storagedate}</dd>
+											<dt>盘点时间：</dt>
+											<dd>${inventoryCountPrimary.inventoryDate}</dd>
 										</div>
 									</div>
 								</dir>
@@ -139,26 +139,28 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>收入仓库：</dt>
+											<dt>状态：</dt>
 											<dd>
-												<s:iterator value="warehouseList" var="tp" status="index">
-													<s:if test="#tp.id == storagePrimary.warehouseID">
-														<s:property value="#tp.name"/>
-													</s:if>
-												</s:iterator>
-											</dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>入库：</dt>
-											<dd>
-												<s:if test="storagePrimary.status==0">
-													否
+												<s:if test="inventoryCountPrimary.status==0">
+													清点
 												</s:if>
 												<s:else>
-													是
+													完成
 												</s:else>
+											</dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>仓库：</dt>
+											<dd>
+											<s:if test="inventoryCountPrimary.warehouseID==0">
+												全部仓库
+											</s:if>
+											<s:else>
+												<s:set id="warehouseID" value="#inventoryCountPrimary.warehouseID"></s:set>
+											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
+											</s:else>
 											</dd>
 										</div>
 									</div>
@@ -168,7 +170,7 @@
 									<div class="span8">
 										<div class="control-group">
 											<dt>备注：</dt>
-											<dd>${storagePrimary.remarks}</dd>
+											<dd>${inventoryCountPrimary.remarks}</dd>
 										</div>
 									</div>
 								</dir>
@@ -176,32 +178,42 @@
 							
 							<div class="tab-pane fade" id="storagedetail">
 								<table class="table ">
-									<thead>
-										<tr>
+								<thead>
+									<tr>
 										<th>序号</th>
-											<th>产品编号</th>
-											<th>产品名称</th>
-											<th>入库数量</th>
-											<th>备注</th>
-										</tr>
-									</thead>
-									
-									<tbody id="maillistSearch">
+										<th>产品编号</th>
+										<th>仓库</th>
+										<th>库存数量</th>
+										<th>变更后数量</th>
+									</tr>
+								</thead>
+								
+								<tbody id="maillistSearch">
+									<tr>
+										<!-- 产品列表-->
+										<s:iterator value="inventoryCountDetailList" var="tp" status="index">
 										<tr>
-											<!-- 产品列表-->
-											<s:iterator value="StorageDetailList" var="tp" status="index">
-											<tr>
-												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsID" /></td>
-												<td><s:property value="#tp.productsName" /></td>
-												<td><s:property value="#tp.storageNumber" /></td>
-												<td><s:property value="#tp.remarks" /></td>
-											</tr>
-											</s:iterator>
-											
+											<td><s:property value="#index.index +1" /></td>
+											<td><s:property value="#tp.productsID" /></td>
+											<td>
+												<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
+											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
+											</td>
+											<td>
+												<s:property value="#tp.originalQuantiy" />
+											</td>
+											<td>
+												<s:property value="#tp.changeQuantiy" />
+											</td>
+											<td>
+												
+											</td>
 										</tr>
-									</tbody>
-								</table>
+										</s:iterator>
+										
+									</tr>
+								</tbody>
+							</table>
 								<div class="pagination">
 									<ul id="pagination">
 									</ul>

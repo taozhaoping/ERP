@@ -121,10 +121,10 @@
 										</td>
 										<td>
 											<s:if test="#tp.status==0">
-												未入库
+												未出库
 											</s:if>
 											<s:else>
-												入库
+												出库
 											</s:else>
 										</td>
 										<td>

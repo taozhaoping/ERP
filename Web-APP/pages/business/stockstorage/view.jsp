@@ -157,7 +157,7 @@
 										<div class="control-group">
 											<dt>入库：</dt>
 											<dd>
-												<s:if test="#storagePrimary.status==0">
+												<s:if test="storagePrimary.status==0">
 													否
 												</s:if>
 												<s:else>

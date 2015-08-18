@@ -119,7 +119,7 @@
 	</insert>
 	
 	<update id="update" parameterType="InventoryCountPrimary">
-		update T_Cutting_scheme
+		update t_Inventory_count_Primary
 		<set>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},

@@ -129,7 +129,7 @@
 										<div class="control-group">
 											<dt>状态：</dt>
 											<dd>
-												<s:if test="#cuttingScheme.status==0">
+												<s:if test="cuttingScheme.status==0">
 													无效
 												</s:if>
 												<s:else>

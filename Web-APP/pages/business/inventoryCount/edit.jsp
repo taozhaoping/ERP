@@ -96,6 +96,14 @@
 						</button>
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
+						<div class="pull-right">
+							<s:if test="#ProcessId">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 清单入库
+								</button>
+							</s:if>
+						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
@@ -251,6 +259,28 @@
 		</div>
 	</div>
 	
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>当前单据更新到库存后将不可更改.继续请按."更新" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">更新</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="formId" name="formId" value="${inventoryCountPrimary.id}" type="hidden"/>
+	</form>
 	
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
@@ -304,6 +334,10 @@
 				   }
 				});
 		}
+		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";

@@ -141,7 +141,7 @@
 										<div class="control-group">
 											<dt>状态：</dt>
 											<dd>
-												<s:if test="#procurementDemandPrimary.status==0">
+												<s:if test="procurementDemandPrimary.status==0">
 													处理中
 												</s:if>
 												<s:else>
