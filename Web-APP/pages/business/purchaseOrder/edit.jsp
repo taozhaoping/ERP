@@ -197,7 +197,8 @@
 													name="purchaseOrderPrimary.status" class="input-medium" placeholder="" >
 													<option value="0">发起</option>
 													<option value="1">运输</option>
-													<option value="2">完成</option>
+													<option value="2">入库审核</option>
+													<option value="3">完成</option>
 												</select>
 											</div>
 										</div>

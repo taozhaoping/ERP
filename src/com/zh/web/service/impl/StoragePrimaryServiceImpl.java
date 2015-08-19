@@ -100,9 +100,9 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 			int count = storagePrimaryDao.insert(storagePrimary);
 			if (count > 0) {
 
-				// 修改采购订单的状态为完成
+				// 修改采购订单的状态为入库审核
 				purchaseOrderReult
-						.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_END);
+						.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_EXAMINE);
 				purchaseOrderPrimaryService.update(purchaseOrderReult);
 
 				// 获取采购订单明细，保存入采购订单明细
@@ -136,13 +136,19 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 		}
 
 		if (0 == reult.getStatus()) {
-			// 设置未入库状态
+			// 设置入库状态
 			storagePrimary.setStatus(1);
 			this.update(storagePrimary);
 
 			// 单据入库
 			StockUtil stockUtil = StockUtil.getInstance();
 			stockUtil.operationStock(reult, StockUtil.INCREASE);
+			
+			//更改采购单状态
+			PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
+			purchaseOrderPrimary
+			.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_END);
+			purchaseOrderPrimaryService.update(purchaseOrderPrimary);
 		} else {
 			throw new ProjectException("单据号：" + reult.getOrderNoID()
 					+ "，已经入库!不允许重复入库");

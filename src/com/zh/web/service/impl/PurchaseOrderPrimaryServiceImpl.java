@@ -27,6 +27,7 @@ public class PurchaseOrderPrimaryServiceImpl implements PurchaseOrderPrimaryServ
 	@Override
 	public void update(PurchaseOrderPrimary purchaseOrderPrimary) {
 		// TODO Auto-generated method stub
+		//状态变为完成的时候,同步修改采购需求单编号
 		purchaseOrderPrimaryDao.update(purchaseOrderPrimary);
 	}
 

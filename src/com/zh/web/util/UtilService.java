@@ -77,7 +77,14 @@ public interface UtilService {
 	public static Integer PURCHASEORDERPRIMARY_STATUS_OPEN = 1;
 	
 	/**
-	 * 采购订单状态（完成）
+	 * 采购订单状态（入库审核
+
 	 */
-	public static Integer PURCHASEORDERPRIMARY_STATUS_END = 2;
+	public static Integer PURCHASEORDERPRIMARY_STATUS_EXAMINE = 2;
+	
+	/**
+	 * 采购订单状态（入库审核）To examine
+
+	 */
+	public static Integer PURCHASEORDERPRIMARY_STATUS_END = 3;
 }

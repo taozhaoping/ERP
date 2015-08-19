@@ -214,10 +214,11 @@
 											<dt>状态：</dt>
 											<dd>
 												<s:if test="0 == salesOrderPrimary.status">发起</s:if>
-												<s:elseif test="1 == salesOrderPrimary.status">进行中</s:elseif>
-												<s:elseif test="2 == salesOrderPrimary.status">交付</s:elseif>
-												<s:elseif test="3 == salesOrderPrimary.status">未结账</s:elseif>
-												<s:elseif test="4 == salesOrderPrimary.status">完成</s:elseif>
+												<s:elseif test="1 == salesOrderPrimary.status">采购</s:elseif>
+												<s:elseif test="2 == salesOrderPrimary.status">生产</s:elseif>
+												<s:elseif test="3 == salesOrderPrimary.status">交付</s:elseif>
+												<s:elseif test="4 == salesOrderPrimary.status">未结账</s:elseif>
+												<s:elseif test="5 == salesOrderPrimary.status">完成</s:elseif>
 											</dd>
 										</div>
 									</div>

@@ -132,10 +132,12 @@
 											<s:elseif test="#tp.status==1">
 												运输
 											</s:elseif>
-											<s:elseif test="#tp.status==1">
-												完成
+											<s:elseif test="#tp.status==2">
+												入库审核
 											</s:elseif>
-												
+											<s:elseif test="#tp.status==3">
+												完成
+											</s:elseif>	
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
