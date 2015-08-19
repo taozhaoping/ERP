@@ -151,7 +151,9 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 			String storageID = reult.getPurchaseOrderID();
 			if (storageID != null && !storageID.equals("")) {
 				PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
-				purchaseOrderPrimary.setId(Integer.valueOf(storageID));
+				purchaseOrderPrimary.setPurchaseOrderID(storageID);
+				PurchaseOrderPrimary purchReult = purchaseOrderPrimaryService.query(purchaseOrderPrimary);
+				purchaseOrderPrimary.setId(purchReult.getId());
 				purchaseOrderPrimary
 						.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_END);
 				purchaseOrderPrimaryService.update(purchaseOrderPrimary);

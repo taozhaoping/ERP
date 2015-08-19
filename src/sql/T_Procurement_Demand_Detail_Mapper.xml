@@ -19,6 +19,7 @@
 		<result column="orderID" property="orderID" jdbcType="VARCHAR" />
 		<result column="placeOrderNumber" property="placeOrderNumber" />
 		<result column="notPlaceOrderNumber" property="notPlaceOrderNumber" />
+		<result column="storageNumber" property="storageNumber" />
 		<result column="estimatedPrice" property="estimatedPrice"
 			jdbcType="FLOAT" />
 	</resultMap>
@@ -64,6 +65,7 @@
 		placeOrderNumber,
 		notPlaceOrderNumber,
 		Remarks,
+		storageNumber,
 		PRODUCTS_NAME,
 		MEASUREMENT_COMPANY,
 		estimatedPrice
@@ -86,6 +88,7 @@
 		s.demand_number - o.purchase_number
 		END as notPlaceOrderNumber,
 		s.Remarks,
+		sp.storageNumber,
 		name as PRODUCTS_NAME,
 		MEASUREMENT_COMPANY,
 		t.ESTIMATED_PRICE as estimatedPrice
@@ -97,7 +100,16 @@
 		left join ( select procurementid,productsid,sum(purchase_number)
 		purchase_number from t_purchaseorder_detail group by
 		procurementid,productsid) o
-		on s.id = o.procurementid)
+		on s.id = o.procurementid
+		 left join ( select procurementid,
+                           productsid,
+                           sum(purchase_number) storageNumber
+                      from t_purchaseorder_detail pd left join t_purchaseorder_primary pp
+                       on pd.purchaseorderid = pp.id
+                       where pp.status=2
+                     group by procurementid, productsid) sp
+            on s.id = sp.procurementid
+         )
 		<where>
 		<if test="notPlaceOrderNumber != null">
 			and NOTPLACEORDERNUMBER > #{notPlaceOrderNumber}
