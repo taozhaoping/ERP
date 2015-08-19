@@ -1,6 +1,7 @@
 package com.zh.web.service;
 
 import java.util.List;
+
 import com.zh.core.model.Pager;
 import com.zh.web.model.bean.InventoryCountPrimary;
 
@@ -61,5 +62,10 @@ public interface InventoryCountPrimaryService {
 	 * @param 
 	 */
 	public Integer insert(InventoryCountPrimary inventoryCountPrimary);
+	
+	/**
+	 * 盘点入库
+	 */
+	public void increaseStock(Integer id);
 
 }

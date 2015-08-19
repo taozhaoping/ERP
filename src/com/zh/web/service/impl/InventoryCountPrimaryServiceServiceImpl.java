@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.zh.core.base.model.StockObject;
 import com.zh.core.model.Pager;
 import com.zh.web.dao.InventoryCountPrimaryDao;
 import com.zh.web.model.bean.InventoryCountDetail;
@@ -13,6 +14,7 @@ import com.zh.web.model.bean.Stock;
 import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.InventoryCountPrimaryService;
 import com.zh.web.service.StockService;
+import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
 @Component("inventoryCountPrimaryService")
@@ -83,12 +85,27 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 			inventoryCountDetail.setWarehouseID(stockReult.getWarehouseID());
 			inventoryCountDetail.setOriginalQuantiy(stockReult.getStockNumber());
 			inventoryCountDetail.setChangeQuantiy(0f);
+			inventoryCountDetail.setStockID(stockReult.getId());
 			inventoryCountDetailService.insert(inventoryCountDetail);
 		}
 		
 		return reult;
 	}
 
+	public void increaseStock(Integer id)
+	{
+		InventoryCountPrimary inventoryCountPrimary = new InventoryCountPrimary();
+		inventoryCountPrimary.setId(id);
+		inventoryCountPrimary.setStatus(1);
+		this.update(inventoryCountPrimary);
+		
+		// 单据入库
+		StockUtil stockUtil = StockUtil.getInstance();
+		StockObject sockObject = new StockObject();
+		sockObject.setId(id);
+		stockUtil.operationStock(sockObject, stockUtil.INVENTORY_COUNT);
+	}
+	
 	public InventoryCountPrimaryDao getInventoryCountPrimaryDao() {
 		return inventoryCountPrimaryDao;
 	}

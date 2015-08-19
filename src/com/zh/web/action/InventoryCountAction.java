@@ -88,7 +88,8 @@ public class InventoryCountAction extends BaseAction {
 		if (null == formID || "".equals(formID)) {
 			throw new ParameterException("库存盘点单据不允许为空!");
 		}
-
+		
+		inventoryCountPrimaryService.increaseStock(Integer.valueOf(formID));
 		return Action.EDITOR_SUCCESS;
 	}
 

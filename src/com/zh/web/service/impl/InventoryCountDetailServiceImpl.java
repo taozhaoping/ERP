@@ -16,7 +16,7 @@ public class InventoryCountDetailServiceImpl implements
 
 	@Autowired
 	private InventoryCountDetailDao inventoryCountDetailDao;
-	
+
 	@Override
 	public InventoryCountDetail query(InventoryCountDetail inventoryCountDetail) {
 		// TODO Auto-generated method stub
@@ -37,12 +37,19 @@ public class InventoryCountDetailServiceImpl implements
 		return inventoryCountDetailDao.queryList(inventoryCountDetail);
 	}
 
+	public List<InventoryCountDetail> queryInventoryList(
+			InventoryCountDetail inventoryCountDetail) {
+
+		return inventoryCountDetailDao.queryList("Inventorylist", inventoryCountDetail);
+	}
+
 	@Override
 	public List<InventoryCountDetail> queryList(
 			InventoryCountDetail inventoryCountDetail, Pager page) {
 		// TODO Auto-generated method stub
 		inventoryCountDetail.setOrderByClause("original_quantity desc");
-		return inventoryCountDetailDao.queryPageList(inventoryCountDetail, page);
+		return inventoryCountDetailDao
+				.queryPageList(inventoryCountDetail, page);
 	}
 
 	@Override
@@ -71,5 +78,5 @@ public class InventoryCountDetailServiceImpl implements
 			InventoryCountDetailDao inventoryCountDetailDao) {
 		this.inventoryCountDetailDao = inventoryCountDetailDao;
 	}
-	
+
 }

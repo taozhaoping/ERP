@@ -37,6 +37,11 @@ public interface InventoryCountDetailService {
 	public List<InventoryCountDetail> queryList(InventoryCountDetail inventoryCountDetail);
 	
 	/**
+	 * 查询需要盘点的明细单
+	 */
+	public List<InventoryCountDetail> queryInventoryList(InventoryCountDetail inventoryCountDetail);
+	
+	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return

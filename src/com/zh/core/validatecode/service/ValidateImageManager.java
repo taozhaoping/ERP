@@ -19,7 +19,7 @@ import java.io.ByteArrayOutputStream;
 public interface ValidateImageManager {
 	
 	/* 默认验证字符串 */
-	public static final String DEFAULT_VALIDATE_CODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+	public static final String DEFAULT_VALIDATE_CODE = "ABCDEFGHIJKLMNPRSTUVWXYZ123456789";
 	
 	/* 默认绘制干扰线的类型（不绘制干扰线） */
 	public static final int DISTURB_TYPE_DEFAULT = 0;

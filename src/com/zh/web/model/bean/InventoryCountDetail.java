@@ -23,6 +23,11 @@ public class InventoryCountDetail extends IDataObject {
 	 * 头表ID
 	 */
 	private Integer inventoryID;
+	
+	/**
+	 * 库存ID
+	 */
+	private Integer stockID;
 
 	/**
 	 * 物料编号
@@ -116,6 +121,14 @@ public class InventoryCountDetail extends IDataObject {
 
 	public void setUserID(Integer userID) {
 		this.userID = userID;
+	}
+
+	public Integer getStockID() {
+		return stockID;
+	}
+
+	public void setStockID(Integer stockID) {
+		this.stockID = stockID;
 	}
 
 }

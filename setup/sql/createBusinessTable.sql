@@ -1282,6 +1282,7 @@ create table t_Inventory_count_DETAIL
    Inventory_id       NUMBER,
    Products_ID        NUMBER,
    Warehouse_ID       NUMBER,
+   stockID            NUMBER,
    Original_quantity  NUMBER,
    change_quantity    NUMBER,
    createDate         VARCHAR(30),
@@ -1296,6 +1297,9 @@ comment on column t_Inventory_count_DETAIL.Inventory_id is
 
 comment on column t_Inventory_count_DETAIL.Products_ID is
 '商品编号';
+
+comment on column t_Inventory_count_DETAIL.stockID is
+'库存ID';
 
 comment on column t_Inventory_count_DETAIL.Warehouse_ID is
 '所属仓库';

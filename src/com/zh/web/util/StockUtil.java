@@ -8,11 +8,13 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.zh.core.base.model.StockObject;
 import com.zh.core.exception.ProjectException;
+import com.zh.web.model.bean.InventoryCountDetail;
 import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
+import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.LibraryDetailService;
 import com.zh.web.service.StockService;
 import com.zh.web.service.StorageDetailService;
@@ -36,6 +38,8 @@ public class StockUtil implements ApplicationContextAware {
 	private static StorageDetailService storageDetailService;
 
 	private static LibraryDetailService libraryDetailService;
+	
+	private static InventoryCountDetailService inventoryCountDetailService;
 
 	private static StockService stockService;
 
@@ -48,6 +52,8 @@ public class StockUtil implements ApplicationContextAware {
 	 * 作废单据,减少对应库存数量
 	 */
 	public static final String REDUCE = "REDUCE";
+	
+	public static final String INVENTORY_COUNT = "InventoryCount";
 
 	/**
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
@@ -78,7 +84,9 @@ public class StockUtil implements ApplicationContextAware {
 			libraryDetailService = (LibraryDetailService) ctx
 					.getBean("libraryDetailService");
 			stockService = (StockService) ctx.getBean("stockService");
+			inventoryCountDetailService = (InventoryCountDetailService) ctx.getBean("inventoryCountDetailService");
 			stockUtil = (StockUtil) ctx.getBean("stockUtil");
+			
 		}
 
 		return stockUtil;
@@ -90,6 +98,36 @@ public class StockUtil implements ApplicationContextAware {
 			this.increaseStock((StoragePrimary) sockObject);
 		} else if (type == REDUCE) {
 			this.reduceStock((LibraryPrimary) sockObject);
+		} else if( type == INVENTORY_COUNT)
+		{
+			this.inventoryCount(sockObject.getId());
+		}
+	}
+	
+	/***
+	 * 
+	* @Title: inventoryCount 
+	* @Description: 库存盘点入库
+	* @param  @param id   库存
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	private synchronized void inventoryCount(Integer id) {
+		if(id == null)
+		{
+			throw new ProjectException("数据库不存在该库存盘点编号");
+		}
+		InventoryCountDetail inventoryCountDetail = new InventoryCountDetail();
+		inventoryCountDetail.setInventoryID(id);
+		List<InventoryCountDetail> list = inventoryCountDetailService.queryInventoryList(inventoryCountDetail);
+		for (InventoryCountDetail inventory : list) {
+			Stock stock = new Stock();
+			stock.setId(inventory.getStockID());
+			Stock reult = stockService.query(stock);
+			Float stockNumber = reult.getStockNumber();
+			stockNumber = stockNumber + inventory.getChangeQuantiy();
+			stock.setStockNumber(stockNumber);
+			stockService.update(stock);
 		}
 	}
 
@@ -106,7 +144,7 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	public synchronized void increaseStock(StoragePrimary storagePrimary) {
+	private synchronized void increaseStock(StoragePrimary storagePrimary) {
 
 		StorageDetail storageDetail = new StorageDetail();
 		storageDetail.setStoragePrimaryID(storagePrimary.getId());
@@ -145,7 +183,7 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	public synchronized void reduceStock(LibraryPrimary libraryPrimary) {
+	private synchronized void reduceStock(LibraryPrimary libraryPrimary) {
 
 		LibraryDetail libraryDetail = new LibraryDetail();
 		libraryDetail.setLibraryPrimaryID(libraryPrimary.getId());

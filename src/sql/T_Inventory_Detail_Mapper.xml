@@ -6,6 +6,7 @@
 		<result column="INVENTORY_ID" property="inventoryID"  />
 		<result column="PRODUCTS_ID" property="productsID" />
 		<result column="WAREHOUSE_ID" property="warehouseID" />
+		<result column="stockID" property="stockID" />
 		<result column="ORIGINAL_QUANTITY" property="originalQuantiy"  jdbcType="FLOAT"/>
 		<result column="CHANGE_QUANTITY" property="changeQuantiy"  jdbcType="FLOAT"/>
 		<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
@@ -16,6 +17,7 @@
 		ID,
 		INVENTORY_ID,
 		PRODUCTS_ID,
+		stockID,
 		WAREHOUSE_ID,
 		ORIGINAL_QUANTITY,
 		CHANGE_QUANTITY,
@@ -51,6 +53,13 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	
+	<select id="Inventorylist" resultMap="T_Inventory_Detail" parameterType="InventoryCountDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_INVENTORY_COUNT_DETAIL
+		where INVENTORY_ID = #{inventoryID} and CHANGE_QUANTITY != 0
+	</select>
 
 	<select id="count" resultType="Integer" parameterType="InventoryCountDetail">
 		select
@@ -71,6 +80,9 @@
 			</if>
 			<if test="inventoryID != null">
 				INVENTORY_ID,
+			</if>
+			<if test="stockID != null">
+				stockID,
 			</if>
 			<if test="productsID != null">
 				PRODUCTS_ID,
@@ -97,6 +109,9 @@
 			</if>
 			<if test="inventoryID != null">
 				#{inventoryID},
+			</if>
+			<if test="stockID != null">
+				#{stockID},
 			</if>
 			<if test="productsID != null">
 				#{productsID},
