@@ -22,10 +22,10 @@
 			<if test="id != null">
 				and ID = #{id}
 			</if>
-			<if test="orderNoID != null">
+			<if test="processingSingleId != null">
 				and PROCESSINGSINGLEID = #{processingSingleId}
 			</if>
-			<if test="purchaseOrderID != null">
+			<if test="purchaseOrderId != null">
 				and PURCHASE_ORDER_ID = #{purchaseOrderId}
 			</if>
 			<if test="createDate != null">
@@ -114,10 +114,10 @@
 		update T_PROCESSING_SINGLE_PRIMARY
 		<set>
 		
-			<if test="orderNoID != null">
+			<if test="processingSingleId != null">
 				PROCESSINGSINGLEID = #{processingSingleId},
 			</if>
-			<if test="purchaseOrderID != null">
+			<if test="purchaseOrderId != null">
 				PURCHASE_ORDER_ID = #{purchaseOrderId},
 			</if>
 			<if test="createDate != null">

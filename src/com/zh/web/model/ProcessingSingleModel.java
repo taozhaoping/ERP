@@ -6,6 +6,7 @@ import java.util.List;
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
+import com.zh.web.model.bean.SalesOrderPrimary;
 
 public class ProcessingSingleModel extends BaseModel {
 
@@ -17,6 +18,10 @@ public class ProcessingSingleModel extends BaseModel {
 
 	private List<ProcessingSingleDetail> processingSingleDetailList = new ArrayList<ProcessingSingleDetail>();
 	
+	/**
+	 * 销售订单集合
+	 */
+	private List<SalesOrderPrimary> salesOrderPrimaryList = new ArrayList<SalesOrderPrimary>();
 
 	public ProcessingSinglePrimary getProcessingSinglePrimary() {
 		return processingSinglePrimary;
@@ -49,6 +54,15 @@ public class ProcessingSingleModel extends BaseModel {
 
 	public void setProcessingSingleDetailList(List<ProcessingSingleDetail> ProcessingSingleDetailList) {
 		this.processingSingleDetailList = ProcessingSingleDetailList;
+	}
+
+	public List<SalesOrderPrimary> getSalesOrderPrimaryList() {
+		return salesOrderPrimaryList;
+	}
+
+	public void setSalesOrderPrimaryList(
+			List<SalesOrderPrimary> salesOrderPrimaryList) {
+		this.salesOrderPrimaryList = salesOrderPrimaryList;
 	}
 	
 }
