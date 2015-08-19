@@ -94,10 +94,6 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
-					<div class="alert alert-info">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>预约提醒：</strong> 今天预约人数8人!
-					</div>
 
 					<div class="block">
 						<a href="#page-stats" class="block-heading" data-toggle="collapse">信息统计</a>
@@ -105,29 +101,29 @@
 							<div class="stat-widget-container">
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">500</p>
-										<p class="detail">外派员工</p>
+										<p class="title">15</p>
+										<p class="detail">销售单</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">299</p>
-										<p class="detail">未外派员工</p>
+										<p class="title">4</p>
+										<p class="detail">采购单</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">87</p>
-										<p class="detail">正在签约</p>
+										<p class="title">8</p>
+										<p class="detail">生产单</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">636</p>
-										<p class="detail">签约合同</p>
+										<p class="title">1</p>
+										<p class="detail">出库单</p>
 									</div>
 								</div>
 
@@ -139,7 +135,7 @@
 				<div class="row-fluid">
 					<div class="block span6">
 						<a href="#tablewidget" class="block-heading"
-							data-toggle="collapse">待处理任务
+							data-toggle="collapse">加工订
 						</a>
 						<!-- 
 						<span class="label label-warning">+10</span>
@@ -148,8 +144,8 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>流程编号</th>
-										<th>流程描述</th>
+										<th>订单编号</th>
+										<th>生产日期</th>
 										<th>当前状态</th>
 									</tr>
 								</thead>
@@ -211,15 +207,15 @@
 
 				<div class="row-fluid">
 					<div class="block span6">
-						<a href="#widget2container" class="block-heading" data-toggle="collapse">待联系外教</a>
+						<a href="#widget2container" class="block-heading" data-toggle="collapse">采购需求单</a>
 						
 						<div id="widget2container" class="block-body collapse in">
 							<table class="table list">
 								<thead>
 									<tr>
-										<th>编号</th>
-										<th>姓名</th>
-										<th>联系状态</th>
+										<th>需求单编号</th>
+										<th>申请时间</th>
+										<th>申请人</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -234,18 +230,7 @@
 												<s:property value="#tp.createUserId"/>
 											</td>
 											<td>
-												<s:if test="#tp.type==1">
-													已经签约
-												</s:if>
-												<s:elseif test="#tp.type==2">
-													正在洽谈
-												</s:elseif>
-												<s:elseif test="#tp.type==3">
-													有意向
-												</s:elseif>
-												<s:elseif test="#tp.type==4">
-													潜在外教
-												</s:elseif>
+												
 											</td>
 										</tr>
 									</s:iterator>
@@ -255,15 +240,15 @@
 					</div>
 					
 					<div class="block span6">
-						<a href="#widget3container" class="block-heading" data-toggle="collapse">待联系加盟商</a>
+						<a href="#widget3container" class="block-heading" data-toggle="collapse">到货单</a>
 						
 						<div id="widget3container" class="block-body collapse in">
 							<table class="table list">
 								<thead>
 									<tr>
-										<th>编号</th>
-										<th>姓名</th>
-										<th>联系状态</th>
+										<th>采购单号</th>
+										<th>客户</th>
+										<th>到货日期</th>
 									</tr>
 								</thead>
 								<tbody>
