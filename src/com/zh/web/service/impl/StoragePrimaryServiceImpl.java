@@ -113,10 +113,13 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 				for (PurchaseOrderDetail purchaseOrderDetail : purchaseOrderDetailList) {
 					StorageDetail storageDetail = new StorageDetail();
 					storageDetail.setStoragePrimaryID(storagePrimary.getId());
-					storageDetail.setProductsID(purchaseOrderDetail.getProductsID());
-					storageDetail.setStorageNumber(purchaseOrderDetail.getPurchaseNumber());
+					storageDetail.setProductsID(purchaseOrderDetail
+							.getProductsID());
+					storageDetail.setStorageNumber(purchaseOrderDetail
+							.getPurchaseNumber());
 					storageDetail.setRemarks(purchaseOrderDetail.getRemarks());
-					storageDetail.setProductsName(purchaseOrderDetail.getProductsName());
+					storageDetail.setProductsName(purchaseOrderDetail
+							.getProductsName());
 					storageDetailService.insert(storageDetail);
 				}
 			}
@@ -143,12 +146,16 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 			// 单据入库
 			StockUtil stockUtil = StockUtil.getInstance();
 			stockUtil.operationStock(reult, StockUtil.INCREASE);
-			
-			//更改采购单状态
-			PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
-			purchaseOrderPrimary
-			.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_END);
-			purchaseOrderPrimaryService.update(purchaseOrderPrimary);
+
+			// 当存在订单号的时候,更改采购单状态
+			String storageID = reult.getPurchaseOrderID();
+			if (storageID != null && !storageID.equals("")) {
+				PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
+				purchaseOrderPrimary.setId(Integer.valueOf(storageID));
+				purchaseOrderPrimary
+						.setStatus(UtilService.PURCHASEORDERPRIMARY_STATUS_END);
+				purchaseOrderPrimaryService.update(purchaseOrderPrimary);
+			}
 		} else {
 			throw new ProjectException("单据号：" + reult.getOrderNoID()
 					+ "，已经入库!不允许重复入库");
