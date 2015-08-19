@@ -49,7 +49,7 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public Integer count(Stock stock) {
 		// TODO Auto-generated method stub
-		return stockDao.insert(stock);
+		return stockDao.count(stock);
 	}
 
 	@Override

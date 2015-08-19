@@ -313,5 +313,10 @@
 			    <param name="root">inventoryCountModel.dataMap</param>
 			</result>
 		</action>
+		
+		<!-- 库存 -->
+		<action name="stockView" class="com.zh.web.action.StockAction">
+			<result name="success">/pages/business/stock/List.jsp</result>
+		</action>
 	</package>
 </struts>
