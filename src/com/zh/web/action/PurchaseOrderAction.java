@@ -137,6 +137,7 @@ public class PurchaseOrderAction extends BaseAction {
 	{
 		ProcurementDemandDetail procurementDemandDetail = new ProcurementDemandDetail();
 		procurementDemandDetail.setNotPlaceOrderNumber(0);
+		procurementDemandDetail.setApprovalStatus(UtilService.PROCUREMENTDEMAND_STATUS_APPROVAL);
 		List<ProcurementDemandDetail> list = procurementDemandDetailService.queryList(procurementDemandDetail);
 		this.purchaseOrderModel.setProcurementDemandDetailList(list);
 		return "popListJson";

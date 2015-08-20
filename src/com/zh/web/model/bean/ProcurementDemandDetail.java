@@ -76,6 +76,20 @@ public class ProcurementDemandDetail extends IDataObject {
 	 * 销售单号
 	 */
 	private String orderID;
+	
+	/**
+	 * 采购需求单状态
+	 */
+	private Integer approvalStatus;
+
+
+	public Integer getApprovalStatus() {
+		return approvalStatus;
+	}
+
+	public void setApprovalStatus(Integer approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
 
 	public Integer getId() {
 		return id;

@@ -2,6 +2,7 @@ package com.zh.web.action;
 
 import java.util.List;
 
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.zh.web.model.bean.ProcurementDemandDetail;
 import com.zh.web.model.bean.ProcurementDemandPrimary;
 import com.zh.web.service.ProcurementDemandDetailService;
 import com.zh.web.service.ProcurementDemandPrimaryService;
+import com.zh.web.util.UtilService;
 
 /**
 * @Description: 采购需求清单
@@ -99,6 +101,24 @@ public class ProcurementDemandAction extends BaseAction {
 					DateUtil.getCreated());
 		}
 		return Action.EDITOR;
+	}
+	
+	/**
+	 * 采购需求但审核
+	 */
+	public String approvalDemand() throws Exception 
+	{
+		LOGGER.debug("approvalDemand ()");
+		String formId = this.procurementDemandModel.getFormId();
+		if (null == formId || "".equals(formId)) 
+		{
+			throw new ParameterException("审核的单据号不允许为空!");
+		}
+		ProcurementDemandPrimary procurementDemandPrimary = new ProcurementDemandPrimary();
+		procurementDemandPrimary.setId(Integer.valueOf(formId));
+		procurementDemandPrimary.setStatus(UtilService.PROCUREMENTDEMAND_STATUS_APPROVAL);
+		procurementDemandPrimaryService.update(procurementDemandPrimary);
+		return Action.EDITOR_SUCCESS;
 	}
 
 	public String saveProcurementDemandDetail() {

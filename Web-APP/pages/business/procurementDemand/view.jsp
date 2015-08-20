@@ -144,9 +144,12 @@
 												<s:if test="procurementDemandPrimary.status==0">
 													处理中
 												</s:if>
-												<s:else>
+												<s:elseif test="procurementDemandPrimary.status==1">
+													处理中
+												</s:elseif>
+												<s:elseif test="procurementDemandPrimary.status==2">
 													完成
-												</s:else>
+												</s:elseif>
 											</dd>
 										</div>
 									</div>

@@ -37,6 +37,14 @@ public interface ProcurementDemandDetailService {
 	public List<ProcurementDemandDetail> queryList(ProcurementDemandDetail procurementDemandDetail);
 	
 	/**
+	 * 查询需要采购产品
+	 * @param 
+	 * @return
+	 */
+	public List<ProcurementDemandDetail> queryPopList(ProcurementDemandDetail procurementDemandDetail);
+	
+	
+	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return

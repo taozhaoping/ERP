@@ -96,6 +96,14 @@
 						</button>
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
+						<div class="pull-right">
+							<s:if test="#ProcessId">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 审批
+								</button>
+							</s:if>
+						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
@@ -166,8 +174,9 @@
 											<div class="controls">
 												<select id="inputstatus"  disabled="disabled"
 													name="procurementDemandPrimary.status" class="input-medium" placeholder="状态" >
-													<option value="0" selected="selected">处理中</option>
-													<option value="1">完成</option>
+													<option value="0" selected="selected">发起</option>
+													<option value="1" selected="selected">处理中</option>
+													<option value="2">完成</option>
 												</select>
 											</div>
 										</div>
@@ -336,6 +345,29 @@
 		</div>
 	</div>
 	
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>审核后,单据不允许修改,并且发起采购单.继续请按."审核" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">更新</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<form action="${menu2Id}!approvalDemand.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="formId" name="formId" value="${procurementDemandPrimary.id}" type="hidden"/>
+	</form>
+	
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="id" value="${procurementDemandPrimary.id}">
@@ -472,6 +504,10 @@ $("#popupQty").closest('div').parents('div').removeClass('success').addClass('er
 			$("#homeButt").parent().addClass("active");
 			$("#home").removeClass("fade").addClass("active");
 		}
+		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 		
 		//提交按钮
 		$("#formButton").click(function() {

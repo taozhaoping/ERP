@@ -20,6 +20,7 @@
 		<result column="placeOrderNumber" property="placeOrderNumber" />
 		<result column="notPlaceOrderNumber" property="notPlaceOrderNumber" />
 		<result column="storageNumber" property="storageNumber" />
+		<result column="approvalStatus" property="approvalStatus" />
 		<result column="estimatedPrice" property="estimatedPrice"
 			jdbcType="FLOAT" />
 	</resultMap>
@@ -72,6 +73,7 @@
 		from (select S.ID,
 		ProcuremenID,
 		p.order_id as orderID,
+		p.status as approvalStatus,
 		s.ProductsID,
 		isMainProducts,
 		Demand_Number,
@@ -94,7 +96,7 @@
 		t.ESTIMATED_PRICE as estimatedPrice
 		from T_Procurement_Demand_DETAIL S
 		LEFT JOIN t_Procurement_Demand_Primary p
-		on s.productsid = p.id
+		on s.procuremenid = p.id
 		LEFT JOIN T_PRODUCTS T
 		ON T.ID = S.ProductsID
 		left join ( select procurementid,productsid,sum(purchase_number)
@@ -114,7 +116,9 @@
 		<if test="notPlaceOrderNumber != null">
 			and NOTPLACEORDERNUMBER > #{notPlaceOrderNumber}
 		</if>
-
+		<if test="approvalStatus != null">
+			and approvalStatus = #{approvalStatus}
+		</if>
 		<if test="id != null">
 			and id = #{id}
 		</if>
@@ -135,7 +139,7 @@
 
 		from T_Procurement_Demand_DETAIL S
 		LEFT JOIN t_Procurement_Demand_Primary p
-		on s.productsid = p.id
+		on s.procuremenid = p.id
 		LEFT JOIN T_PRODUCTS T
 		ON T.ID = S.ProductsID
 		left join ( select procurementid,productsid,sum(purchase_number)
@@ -146,7 +150,9 @@
 		<if test="notPlaceOrderNumber != null">
 			and NOTPLACEORDERNUMBER = #{notPlaceOrderNumber}
 		</if>
-
+		<if test="approvalStatus != null">
+			and p.status = #{approvalStatus}
+		</if>
 		<if test="id != null">
 			and id = #{id}
 		</if>

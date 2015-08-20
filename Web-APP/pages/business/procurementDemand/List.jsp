@@ -116,11 +116,14 @@
 										</td>
 										<td>
 											<s:if test="#tp.status==0">
-												处理中
+												发起
 											</s:if>
-											<s:else>
+											<s:elseif test="#tp.status==1">
+												处理中
+											</s:elseif>
+											<s:elseif test="#tp.status==2">
 												完成
-											</s:else>
+											</s:elseif>
 										</td>
 										<td>
 											<s:property value="#tp.remarks"/>

@@ -87,4 +87,14 @@ public interface UtilService {
 
 	 */
 	public static Integer PURCHASEORDERPRIMARY_STATUS_END = 3;
+	
+	/**
+	 * 采购需求订单,状态(审核)
+	 */
+	public static Integer PROCUREMENTDEMAND_STATUS_APPROVAL = 1;
+	
+	/**
+	 * 采购需求订单,状态(完成)
+	 */
+	public static Integer PROCUREMENTDEMAND_STATUS_END = 1;
 }

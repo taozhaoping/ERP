@@ -33,6 +33,11 @@ public class ProcurementDemandDetailServiceImpl implements ProcurementDemandDeta
 		// TODO Auto-generated method stub
 		return procurementDemandDetailDao.queryList(procurementDemandDetail);
 	}
+	
+	public List<ProcurementDemandDetail> queryPopList(ProcurementDemandDetail procurementDemandDetail)
+	{
+		return procurementDemandDetailDao.queryList("", procurementDemandDetail);
+	}
 
 	@Override
 	public List<ProcurementDemandDetail> queryList(ProcurementDemandDetail procurementDemandDetail, Pager page) {
