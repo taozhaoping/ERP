@@ -35,6 +35,9 @@
 		    <if test="isStorage == 1">
 		       and  purchase_order_id is not null
 		    </if>
+		    <if test="isStorage == 0">
+		       and  purchase_order_id is null
+		    </if>
 			<if test="id != null">
 				and id = #{id}
 			</if>

@@ -65,6 +65,7 @@ public class StoragePrimaryAction extends BaseAction {
 	public String execute() throws Exception {
 		StoragePrimary storagePrimary = this.storagePrimaryModel
 				.getStoragePrimary();
+		storagePrimary.setIsStorage(0);
 		Integer count = storagePrimaryService.count(storagePrimary);
 		Pager page = this.storagePrimaryModel.getPageInfo();
 		page.setTotalRow(count);

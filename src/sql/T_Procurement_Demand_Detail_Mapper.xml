@@ -108,7 +108,7 @@
                            sum(purchase_number) storageNumber
                       from t_purchaseorder_detail pd left join t_purchaseorder_primary pp
                        on pd.purchaseorderid = pp.id
-                       where pp.status=2
+                       where pp.status=3
                      group by procurementid, productsid) sp
             on s.id = sp.procurementid
          )
