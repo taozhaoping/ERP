@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_ProductionTask">
+	<resultMap id="T_ProductionTask" type="ProductionTask">
+		<id column="ID" property="id" javaType="Integer"  jdbcType="INTEGER"/>
+		<id column="Inventory_countID" property="inventoryCountID" javaType="Integer"  jdbcType="INTEGER"/>
+		<result column="Production_order" property="productionOrder" jdbcType="VARCHAR" />
+		<result column="STARTDATE" property="startDate" jdbcType="DATE" />
+		<result column="ENDDATE" property="endDate" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id ,
+		Inventory_countID ,
+		Production_order ,
+		STARTDATE ,
+		ENDDATE 
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="inventoryCountID != null">
+				and Inventory_countID = #{inventoryCountID}
+			</if>
+			<if test="startDate != null">
+				and STARTDATE = #{startDate}
+			</if>
+			<if test="endDate != null">
+				and ENDDATE = #{endDate}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_ProductionTask" parameterType="ProductionTask">
+		select
+		<include refid="Base_Column_List" />
+		from T_ProductionTask
+		where id=#{id}
+	</select>
+
+	<select id="list" resultMap="T_ProductionTask" parameterType="ProductionTask">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_ProductionTask
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="ProductionTask">
+		select
+		count(id)
+		from T_ProductionTask
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="ProductionTask">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_ProductionTask.nextval from dual
+		</selectKey>
+		insert into T_ProductionTask
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="inventoryCountID != null">
+				Inventory_countID ,
+			</if>
+			<if test="productionOrder != null">
+				Production_order ,
+			</if>
+			<if test="startDate != null">
+				STARTDATE ,
+			</if>
+			<if test="endDate != null">
+				ENDDATE ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="inventoryCountID != null">
+				#{Inventory_countID},
+			</if>
+			<if test="productionOrder != null">
+				#{productionOrder,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=DATE},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="ProductionTask">
+		update T_ProductionTask
+		<set>
+			<if test="inventoryCountID != null">
+				Inventory_countID=#{Inventory_countID},
+			</if>
+			<if test="productionOrder != null">
+				Production_order=#{productionOrder,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				STARTDATE=#{startDate,jdbcType=DATE},
+			</if>
+			<if test="endDate != null">
+				ENDDATE = #{endDate,jdbcType=DATE},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

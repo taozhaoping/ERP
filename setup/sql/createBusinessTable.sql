@@ -24,7 +24,9 @@ alter table t_Processing_single_DETAIL   drop primary key cascade;
 alter table t_Material_requisition_Primary drop primary key cascade;
 alter table t_Material_requisition_DETAIL  drop primary key cascade;
 alter table T_Process      drop primary key cascade;
+alter table T_ProductionTask drop primary key cascade;
 
+drop table T_ProductionTask cascade constraints;
 drop table T_Process cascade constraints;
 drop table t_Material_requisition_DETAIL cascade constraints;
 drop table t_Material_requisition_Primary cascade constraints;
@@ -79,6 +81,7 @@ drop sequence SEQUENCE_t_Processing_DETAIL
 drop sequence SEQUENCE_t_Material_Primary
 drop sequence SEQUENCE_t_Material_DETAIL
 drop sequence SEQUENCE_T_Process
+drop sequence SEQUENCE_T_ProductionTask
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -273,6 +276,14 @@ start with 1
  minvalue 1
  cache 10
 order;
+
+create sequence SEQUENCE_T_ProductionTask
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
 /*==============================================================*/
 /* Table: 客户资料                                            */
 /*==============================================================*/
@@ -1491,4 +1502,38 @@ comment on column T_Process.Remarks is
 
 alter table T_Process
    add constraint PK_T_PROCESS primary key (ID);
+   
+   
+/*==============================================================*/
+/* Table: 生产加工单                                   */
+/*==============================================================*/
+create table T_ProductionTask 
+(
+   ID                   NUMBER               not null,
+   Inventory_countID      NUMBER,
+   Production_order   VARCHAR(150),
+   STARTDATE            DATE,
+   ENDDATE              DATE
+);
+
+comment on table T_ProductionTask is
+'生产任务单';
+
+comment on column T_ProductionTask.ID is
+'主键';
+
+comment on column T_ProductionTask.Inventory_countID is
+'加工单';
+
+comment on column T_ProductionTask.Production_order is
+'生产单号';
+
+comment on column T_ProductionTask.STARTDATE is
+'生产日期';
+
+comment on column T_ProductionTask.ENDDATE is
+'结束日期';
+
+alter table T_ProductionTask
+   add constraint PK_T_PRODUCTIONTASK primary key (ID);
    

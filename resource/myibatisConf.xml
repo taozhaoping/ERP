@@ -121,6 +121,8 @@
 		<!-- 库存盘点_明细 -->
 		<typeAlias alias="InventoryCountDetail" type="com.zh.web.model.bean.InventoryCountDetail"/>
 		
+		<!-- 生产任务单 -->
+		<typeAlias alias="ProductionTask" type="com.zh.web.model.bean.ProductionTask"/>
 	</typeAliases>
 
 	<plugins>

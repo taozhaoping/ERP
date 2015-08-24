@@ -318,5 +318,53 @@
 		<action name="stockView" class="com.zh.web.action.StockAction">
 			<result name="success">/pages/business/stock/List.jsp</result>
 		</action>
+		
+		<!-- 验收单  -->
+		<action name="acceptance" class="com.zh.web.action.AcceptanceAction">
+			<result name="success">/pages/business/acceptance/List.jsp</result>
+			<result name="editor">/pages/business/acceptance/edit.jsp</result>
+			<result name="view">/pages/business/acceptance/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">acceptance</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">acceptance</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 生产任务单  -->
+		<action name="productionTask" class="com.zh.web.action.ProductionTaskAction">
+			<result name="success">/pages/business/productionTask/List.jsp</result>
+			<result name="editor">/pages/business/productionTask/edit.jsp</result>
+			<result name="view">/pages/business/productionTask/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productionTask</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">productionTask</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
