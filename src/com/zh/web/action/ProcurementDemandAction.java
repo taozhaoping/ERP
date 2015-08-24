@@ -91,7 +91,7 @@ public class ProcurementDemandAction extends BaseAction {
 			// 判断是否完成，完成状态下，只进入查看页面
 			Integer status = reult.getStatus();
 			String view = this.procurementDemandModel.getView();
-			if (status == 1 || "view".equals(view)) {
+			if (status != 0 || "view".equals(view)) {
 				return Action.VIEW;
 			}
 		} else {
