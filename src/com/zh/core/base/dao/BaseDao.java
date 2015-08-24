@@ -122,6 +122,15 @@ public abstract class BaseDao<IdataObject> {
 	public List<IdataObject> queryListById(String sqlId , Long id) {
 		return sqlSessionTemplate.selectList(namespace + sqlId, id);
 	}
+	
+	/**
+	 * 查询数据列表
+	 * @param sqlId
+	 * @return
+	 */
+	public List<IdataObject> queryList(String sqlId){
+		return sqlSessionTemplate.selectList(namespace + sqlId);
+	}
 
 	/**
 	 * 查询数据列表

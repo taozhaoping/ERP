@@ -32,7 +32,7 @@ public class ProcessingSinglePrimary extends IDataObject {
 	private Integer purchaseOrderId;
 	
 	/**
-	 * 创建时间
+	 * 创建日期
 	 */
 	private String createDate;
 	
@@ -70,14 +70,6 @@ public class ProcessingSinglePrimary extends IDataObject {
 		this.purchaseOrderId = purchaseOrderId;
 	}
 
-	public String getCreatedate() {
-		return createDate;
-	}
-
-	public void setCreatedate(String createDate) {
-		this.createDate = createDate;
-	}
-
 	public Integer getStatus() {
 		return status;
 	}
@@ -94,5 +86,12 @@ public class ProcessingSinglePrimary extends IDataObject {
 		this.remarks = remarks;
 	}
 
-	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
 }

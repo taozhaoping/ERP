@@ -114,11 +114,14 @@
 										<td><s:property value="#tp.remarks"/></td>
 										<td>
 											<s:if test="#tp.status==0">
-												未审核
+												发起
 											</s:if>
-											<s:else>
-												已审核
-											</s:else>
+											<s:if test="#tp.status==1">
+												审核
+											</s:if>
+											<s:if test="#tp.status==2">
+												完成
+											</s:if>
 										</td>
 										<td>
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 

@@ -26,7 +26,7 @@ public class ProcessingSingleDetail extends IDataObject {
 	/**
 	 * 加工单头表id
 	 */
-	private String processingSingleId;
+	private Integer processingSingleId;
 	
 	/**
 	 * 生产日期
@@ -56,11 +56,11 @@ public class ProcessingSingleDetail extends IDataObject {
 		this.id = id;
 	}
 
-	public String getProcessingSingleId() {
+	public Integer getProcessingSingleId() {
 		return processingSingleId;
 	}
 
-	public void setProcessingSingleId(String processingSingleId) {
+	public void setProcessingSingleId(Integer processingSingleId) {
 		this.processingSingleId = processingSingleId;
 	}
 

@@ -61,8 +61,7 @@
 
 	<insert id="insert" parameterType="ProcessingSingleDetail">
 		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
-			select
-			SEQUENCE_T_STORAGE_DETAIL.nextval from dual
+			select SEQUENCE_T_PROCESSING_DETAIL.nextval from dual
 		</selectKey>
 		insert into T_PROCESSING_SINGLE_DETAIL
 		<trim prefix="(" suffix=")" suffixOverrides=",">

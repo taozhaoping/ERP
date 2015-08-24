@@ -66,6 +66,10 @@
 	</select>
 
 	<insert id="insert" parameterType="StoragePrimary">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_PROCESSING_PRIMARY.nextval from dual
+		</selectKey>
 		insert into T_PROCESSING_SINGLE_PRIMARY
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

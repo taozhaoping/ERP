@@ -9,16 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
+import com.zh.core.util.DateUtil;
 import com.zh.web.model.ProcessingSingleModel;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
-import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.service.ProcessingSingleDetailService;
 import com.zh.web.service.ProcessingSinglePrimaryService;
-import com.zh.web.service.PurchaseOrderPrimaryService;
 import com.zh.web.service.SalesOrderPrimaryService;
-import com.zh.web.util.UtilService;
 
 
 /**
@@ -50,7 +48,6 @@ public class ProcessingSingleAction extends BaseAction {
 
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
 		return processingSingleModel;
 	}
 
@@ -65,7 +62,6 @@ public class ProcessingSingleAction extends BaseAction {
 		List<ProcessingSinglePrimary> processingSingleModelPrimaryList = processingSingleModelPrimaryService
 				.queryList(processingSingleModelPrimary, page);
 		this.processingSingleModel.setProcessingSinglePrimaryList(processingSingleModelPrimaryList);
-		
 		return Action.SUCCESS;
 	}
 
@@ -74,44 +70,24 @@ public class ProcessingSingleAction extends BaseAction {
 		LOGGER.debug("editor()");
 		Integer id = this.processingSingleModel.getId();
 
-		//销售订单
-		SalesOrderPrimary salesOrderPrimary = new SalesOrderPrimary();
-		
-		//TODO
 		//查询没有关联的，采购状态的销售订单
-		List<SalesOrderPrimary> salesOrderPrimaryList = salesOrderPrimaryService.queryList(salesOrderPrimary);
+		List<SalesOrderPrimary> salesOrderPrimaryList = salesOrderPrimaryService.queryListNotRelevantProcess();
+		salesOrderPrimaryList.add(0, new SalesOrderPrimary());
 		this.processingSingleModel.setSalesOrderPrimaryList(salesOrderPrimaryList);
 
 		if (null != id) {
 			// 查询信息
 			LOGGER.debug("editor ProcessingSinglePrimary id " + id);
-			ProcessingSinglePrimary processingSingleModelPrimary = this.processingSingleModel
-					.getProcessingSinglePrimary();
+			ProcessingSinglePrimary processingSingleModelPrimary = this.processingSingleModel.getProcessingSinglePrimary();
 			processingSingleModelPrimary.setId(Integer.valueOf(id));
-			ProcessingSinglePrimary reult = processingSingleModelPrimaryService.query(processingSingleModelPrimary);
-			this.processingSingleModel.setProcessingSinglePrimary(reult);
-
-			// 查询入库明细
-			ProcessingSingleDetail processingSingleModelDetail = this.processingSingleModel
-					.getProcessingSingleDetail();
-//			processingSingleModelDetail.setProcessingSinglePrimaryID(id);
-			Pager page = this.processingSingleModel.getPageInfo();
-			Integer count = processingSingleModelDetailService.count(processingSingleModelDetail);
-			page.setTotalRow(count);
-			List<ProcessingSingleDetail> list = processingSingleModelDetailService.queryList(
-					processingSingleModelDetail, page);
-			this.processingSingleModel.setProcessingSingleDetailList(list);
-
-			// 判断是否已经入库，入库状态下，只进入查看页面
-			Integer status = reult.getStatus();
-			String view = this.processingSingleModel.getView();
-			if (status == 1 || "view".equals(view)) {
-				return Action.VIEW;
-			}
-		} else {
-			Integer userID = this.queryUser().getId();
-//			this.processingSingleModel.getProcessingSinglePrimary().setUserID(userID);
-//			this.processingSingleModel.getProcessingSinglePrimary().setProcessingSingledate(DateUtil.getCreated());
+			ProcessingSinglePrimary result = processingSingleModelPrimaryService.query(processingSingleModelPrimary);
+			this.processingSingleModel.setProcessingSinglePrimary(result);
+			
+			//产品信息
+			ProcessingSingleDetail processingSingleDetail = new ProcessingSingleDetail();
+			processingSingleDetail.setProcessingSingleId(processingSingleModelPrimary.getId());
+			List<ProcessingSingleDetail> ProcessingSingleDetailList = processingSingleModelDetailService.queryList(processingSingleDetail);
+			this.processingSingleModel.setProcessingSingleDetailList(ProcessingSingleDetailList );
 		}
 		return Action.EDITOR;
 	}
@@ -143,9 +119,17 @@ public class ProcessingSingleAction extends BaseAction {
 			processingSingleModelPrimary.setId(id);
 			processingSingleModelPrimaryService.update(processingSingleModelPrimary);
 			LOGGER.debug("update processingSingleModelPrimary id" + id);
+			//TODO
 		} else {
 			// 新增
-			processingSingleModelPrimaryService.insert(processingSingleModelPrimary, UtilService.ORDER_STORAGE_TYPE);
+			//加工单序号
+			processingSingleModelPrimary.setProcessingSingleId("JGD" + DateUtil.getDateNumber());
+			//创建日期
+			processingSingleModelPrimary.setCreateDate(DateUtil.getNowDateShort());
+			//发起状态
+			processingSingleModelPrimary.setStatus(0);
+			
+			processingSingleModelPrimaryService.insert(processingSingleModelPrimary);
 			LOGGER.debug("add processingSingleModelPrimary");
 		}
 		this.processingSingleModel.setFormId(processingSingleModelPrimary.getId().toString());

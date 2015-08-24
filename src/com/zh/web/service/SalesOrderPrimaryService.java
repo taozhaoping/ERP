@@ -39,6 +39,12 @@ public interface SalesOrderPrimaryService {
 	public List<SalesOrderPrimary> queryList(SalesOrderPrimary salesOrderPrimary);
 	
 	/**
+	 * 查询不关联加工单的销售订单
+	 * @return
+	 */
+	public List<SalesOrderPrimary> queryListNotRelevantProcess();
+	
+	/**
 	 * 查询列表，带分页
 	 * @param 
 	 * @return

@@ -137,11 +137,11 @@
 											<div class="controls">
 												<s:if test="#ProcessId">
 													<input type="text" maxlength="30" disabled="disabled"
-														id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId" value="${processingSinglePrimary.purchaseOrderId}" class="input-medium"></input>
+														id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId" value="${processingSinglePrimary.purchaseOrderId}" class="input-large"></input>
 												</s:if>
 												<s:else>
-													<s:select id="inputcustomerId"  list="purchaseOrderPrimaryList" data-required="true" listKey="purchaseOrderId" listValue="purchaseOrderId"
-														name="processingSinglePrimary.purchaseOrderId" cssClass="input-medium" placeholder="销售订单">
+													<s:select id="inputcustomerId"  list="salesOrderPrimaryList" data-required="true" listKey="id" listValue="orderID"
+														name="processingSinglePrimary.purchaseOrderId" cssClass="input-large" placeholder="销售订单">
 													</s:select>
 												</s:else>
 											</div>
@@ -153,8 +153,16 @@
 										<div class="control-group">
 											<label class="control-label" for="inputStatus" style="">状态：</label>
 											<div class="controls">
+												<select id="inputStatus"  disabled="disabled"
+													name="processingSinglePrimary.status" class="input-medium" placeholder="状态" >
+													<option value="0">发起</option>
+													<option value="1">审核</option>
+													<option value="2">完成</option>
+												</select>
+												<!-- 
 												<input type="text" maxlength="40" name="processingSinglePrimary.status" disabled="disabled"
 													placeholder="状态" id="inputStatus" value="${processingSinglePrimary.status}" class="input-medium"></input>
+												 -->
 											</div>
 
 										</div>
@@ -192,11 +200,11 @@
 								<table class="table ">
 									<thead>
 										<tr>
-										<th>序号</th>
-											<th>产品编号</th>
-											<th>产品名称</th>
-											<th>入库数量</th>
-											<th>备注</th>
+											<th>序号</th>
+											<th>生产物料</th>
+											<th>生产数量</th>
+											<th>生产时间</th>
+											<th>结束时间</th>
 										</tr>
 									</thead>
 									
@@ -206,10 +214,10 @@
 											<s:iterator value="processingSingleDetailList" var="tp" status="index">
 											<tr>
 												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsID" /></td>
-												<td><s:property value="#tp.productsName" /></td>
-												<td><s:property value="#tp.processingSingleNumber" /></td>
-												<td><s:property value="#tp.remarks" /></td>
+												<td><s:property value="#tp.productsId" /></td>
+												<td><s:property value="#tp.processingNumber" /></td>
+												<td><s:property value="#tp.startDate" /></td>
+												<td><s:property value="#tp.endDate" /></td>
 											</tr>
 											</s:iterator>
 											

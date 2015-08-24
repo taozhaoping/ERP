@@ -50,9 +50,9 @@ public interface ProcessingSinglePrimaryService {
 	public void delete(ProcessingSinglePrimary processingSinglePrimary);
 	
 	/**
-	 * 新增
+	 * 新增 加工单，需要获取对应销售订单中的产品
 	 * @param 
 	 */
-	public Integer insert(ProcessingSinglePrimary processingSinglePrimary, String type);
+	public Integer insert(ProcessingSinglePrimary processingSinglePrimary);
 	
 }

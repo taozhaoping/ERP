@@ -72,4 +72,9 @@ public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
 		this.salesOrderPrimaryDao = salesOrderPrimaryDao;
 	}
 
+	@Override
+	public List<SalesOrderPrimary> queryListNotRelevantProcess() {
+		return salesOrderPrimaryDao.queryList("listNotRelevantProcess");
+	}
+
 }

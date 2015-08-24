@@ -82,6 +82,14 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	
+	<select id="listNotRelevantProcess" resultMap="T_Sales_Order_Primary">
+		select
+		<include refid="Base_Column_List" />
+		from T_SALES_ORDER_PRIMARY t
+		 where t.id not in
+       (select p.purchase_order_id from T_PROCESSING_SINGLE_PRIMARY p)
+	</select>
 
 	<select id="count" resultType="Integer" parameterType="SalesOrderPrimary">
 		select
