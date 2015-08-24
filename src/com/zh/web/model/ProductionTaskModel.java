@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.ProductionTask;
+import com.zh.web.model.bean.ProductionTaskDetail;
 
 public class ProductionTaskModel extends BaseModel {
 
@@ -12,6 +13,10 @@ public class ProductionTaskModel extends BaseModel {
 	
 	private List<ProductionTask> ProductionTaskList = new ArrayList<ProductionTask>();
 
+	private ProductionTaskDetail productionTaskDetail = new ProductionTaskDetail();
+	
+	private List<ProductionTaskDetail> productionTaskDetailList = new ArrayList<ProductionTaskDetail>();
+	
 	public ProductionTask getProductionTask() {
 		return productionTask;
 	}
@@ -26,6 +31,23 @@ public class ProductionTaskModel extends BaseModel {
 
 	public void setProductionTaskList(List<ProductionTask> productionTaskList) {
 		ProductionTaskList = productionTaskList;
+	}
+
+	public ProductionTaskDetail getProductionTaskDetail() {
+		return productionTaskDetail;
+	}
+
+	public void setProductionTaskDetail(ProductionTaskDetail productionTaskDetail) {
+		this.productionTaskDetail = productionTaskDetail;
+	}
+
+	public List<ProductionTaskDetail> getProductionTaskDetailList() {
+		return productionTaskDetailList;
+	}
+
+	public void setProductionTaskDetailList(
+			List<ProductionTaskDetail> productionTaskDetailList) {
+		this.productionTaskDetailList = productionTaskDetailList;
 	}
 	
 	

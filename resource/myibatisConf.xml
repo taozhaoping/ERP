@@ -123,6 +123,9 @@
 		
 		<!-- 生产任务单 -->
 		<typeAlias alias="ProductionTask" type="com.zh.web.model.bean.ProductionTask"/>
+		
+		<!-- 生产任务单_明细 -->
+		<typeAlias alias="ProductionTaskDetail" type="com.zh.web.model.bean.ProductionTaskDetail"/>
 	</typeAliases>
 
 	<plugins>
