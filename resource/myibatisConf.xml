@@ -126,6 +126,9 @@
 		
 		<!-- 生产任务单_明细 -->
 		<typeAlias alias="ProductionTaskDetail" type="com.zh.web.model.bean.ProductionTaskDetail"/>
+	
+		<!-- 销售订单明细产品结构表 -->
+		<typeAlias alias="SalesOrderBom" type="com.zh.web.model.bean.SalesOrderBom"/>
 	</typeAliases>
 
 	<plugins>

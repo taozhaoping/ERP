@@ -97,4 +97,20 @@ public interface UtilService {
 	 * 采购需求订单,状态(完成)
 	 */
 	public static Integer PROCUREMENTDEMAND_STATUS_END = 1;
+	
+	/**
+	 * 采购
+	 */
+	public static Integer PRODUCTION_SOURCE_TYPE_PURCHASE = 120;
+	
+	/**
+	 * 自生产
+	 */
+	public static Integer PRODUCTION_SOURCE_TYPE_SELF_PROCESSING = 121;
+	
+	/**
+	 * 委外加工
+	 */
+	public static Integer PRODUCTION_SOURCE_TYPE_OUTSOURCING_PROCESS = 122;
+
 }

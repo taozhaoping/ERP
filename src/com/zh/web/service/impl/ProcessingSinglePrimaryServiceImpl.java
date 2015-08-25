@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 import com.zh.core.model.Pager;
 import com.zh.web.dao.ProcessingSingleDetailDao;
 import com.zh.web.dao.ProcessingSinglePrimaryDao;
-import com.zh.web.dao.SalesOrderDetailDao;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
+import com.zh.web.model.bean.SalesOrderBom;
 import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.service.ProcessingSinglePrimaryService;
+import com.zh.web.service.SalesOrderBomService;
+import com.zh.web.util.UtilService;
 
 @Component("processingSinglePrimaryService")
 public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrimaryService {
@@ -24,7 +26,7 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	private ProcessingSingleDetailDao processingSingleDetailDao;
 	
 	@Autowired
-	private SalesOrderDetailDao salesOrderDetailDao;
+	private SalesOrderBomService salesOrderBomService;
 
 	@Override
 	public ProcessingSinglePrimary query(ProcessingSinglePrimary processingSinglePrimary) {
@@ -63,16 +65,18 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 		int processingSingleId = processingSinglePrimary.getId();
 		//销售订单id
 		int salesOrdePrimaryId = processingSinglePrimary.getPurchaseOrderId();
-		SalesOrderDetail data = new SalesOrderDetail();
-		data.setSalesOrderID(salesOrdePrimaryId);
+		SalesOrderBom data = new SalesOrderBom();
+		//设置自生产类型
+		data.setSourceType(UtilService.PRODUCTION_SOURCE_TYPE_SELF_PROCESSING);
+		data.setOrderID(salesOrdePrimaryId);
 		//销售中的产品
-		List<SalesOrderDetail> salesOrderDetailList = salesOrderDetailDao.queryList(data);
-		for(SalesOrderDetail sod : salesOrderDetailList){
-			int sodId = sod.getId();
-			//int sodNum = sod.getStorageNumber();
+		List<SalesOrderBom> salesOrderBomList = salesOrderBomService.queryList(data);
+		for(SalesOrderBom sod : salesOrderBomList){
+			Float sotrageNumber = sod.getQty();
 			ProcessingSingleDetail psd = new ProcessingSingleDetail();
 			psd.setProcessingSingleId(processingSingleId);
-			psd.setProductsId(sodId);
+			psd.setProductsId(sod.getProductsID());
+			psd.setProcessingNumber(sotrageNumber);
 			processingSingleDetailDao.insert(psd);
 		}
 		return processingSingleId;

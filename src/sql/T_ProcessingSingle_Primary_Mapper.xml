@@ -40,14 +40,14 @@
 		</where>
 	</sql>
 
-	<select id="select" resultMap="T_ProcessingSinglePrimary" parameterType="StoragePrimary">
+	<select id="select" resultMap="T_ProcessingSinglePrimary" parameterType="ProcessingSinglePrimary">
 		select
 		<include refid="Base_Column_List" />
 		from T_PROCESSING_SINGLE_PRIMARY
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_ProcessingSinglePrimary" parameterType="StoragePrimary">
+	<select id="list" resultMap="T_ProcessingSinglePrimary" parameterType="ProcessingSinglePrimary">
 
 		select
 		<include refid="Base_Column_List" />
@@ -58,14 +58,14 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="Integer" parameterType="StoragePrimary">
+	<select id="count" resultType="Integer" parameterType="ProcessingSinglePrimary">
 		select
 		count(id)
 		from T_PROCESSING_SINGLE_PRIMARY
 		<include refid="where" />
 	</select>
 
-	<insert id="insert" parameterType="StoragePrimary">
+	<insert id="insert" parameterType="ProcessingSinglePrimary">
 		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
 			select
 			SEQUENCE_T_PROCESSING_PRIMARY.nextval from dual
