@@ -112,5 +112,10 @@ public interface UtilService {
 	 * 委外加工
 	 */
 	public static Integer PRODUCTION_SOURCE_TYPE_OUTSOURCING_PROCESS = 122;
+	
+	/**
+	 * 加工单状态（审核）
+	 */
+	public static Integer PROCESSING_SINGLE_STATUS_EXAMINE = 1;
 
 }

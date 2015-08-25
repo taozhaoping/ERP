@@ -2,12 +2,17 @@ package com.zh.web.service.impl;
 
 import java.util.List;
 
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zh.core.model.Pager;
 import com.zh.web.dao.ProductionTaskDao;
+import com.zh.web.model.bean.ProcessingSingleDetail;
+import com.zh.web.model.bean.ProcessingSinglePrimary;
 import com.zh.web.model.bean.ProductionTask;
+import com.zh.web.service.ProcessingSingleDetailService;
+import com.zh.web.service.ProcessingSinglePrimaryService;
 import com.zh.web.service.ProductionTaskService;
 
 @Component("productionTaskService")
@@ -15,6 +20,13 @@ public class ProductionTaskServiceImpl implements ProductionTaskService {
 
 	@Autowired
 	private ProductionTaskDao productionTaskDao;
+	
+	@Autowired
+	private ProcessingSinglePrimaryService processingSingleModelPrimaryService;
+
+	@Autowired
+	private ProcessingSingleDetailService processingSingleModelDetailService;
+	
 	@Override
 	public ProductionTask query(ProductionTask productionTask) {
 		// TODO Auto-generated method stub
@@ -53,8 +65,8 @@ public class ProductionTaskServiceImpl implements ProductionTaskService {
 	}
 
 	@Override
-	public Integer insert(ProductionTask productionTask) {
-		// TODO Auto-generated method stub
+	public Integer insert(ProductionTask productionTask) 
+	{
 		return productionTaskDao.insert(productionTask);
 	}
 

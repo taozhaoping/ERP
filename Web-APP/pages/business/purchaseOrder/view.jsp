@@ -170,7 +170,7 @@
 										<div class="control-group">
 											<dt>进港日期：</dt>
 											<dd>
-												<s:if test="0 == salesOrderPrimary.status">发起</s:if>
+												<s:if test="0 == purchaseOrderPrimary.status">发起</s:if>
 												<s:elseif test="1 == purchaseOrderPrimary.status">运输</s:elseif>
 												<s:elseif test="2 == purchaseOrderPrimary.status">入库审核</s:elseif>
 												<s:elseif test="3 == purchaseOrderPrimary.status">完成</s:elseif>

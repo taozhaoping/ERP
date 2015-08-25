@@ -18,7 +18,9 @@ import com.zh.web.model.bean.ProcessingSinglePrimary;
 import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.service.ProcessingSingleDetailService;
 import com.zh.web.service.ProcessingSinglePrimaryService;
+import com.zh.web.service.ProductionTaskService;
 import com.zh.web.service.SalesOrderPrimaryService;
+import com.zh.web.util.UtilService;
 
 /**
  * 加工单
@@ -104,6 +106,13 @@ public class ProcessingSingleAction extends BaseAction {
 					.queryList(processingSingleDetail, page);
 			this.processingSingleModel
 					.setProcessingSingleDetailList(ProcessingSingleDetailList);
+
+			// 判断是否已经入库，入库状态下，只进入查看页面
+			Integer status = result.getStatus();
+			String view = this.processingSingleModel.getView();
+			if (status != 0 || "view".equals(view)) {
+				return Action.VIEW;
+			}
 		}
 		return Action.EDITOR;
 	}
@@ -140,6 +149,22 @@ public class ProcessingSingleAction extends BaseAction {
 		}
 		return Action.RETURN_JSON;
 
+	}
+
+	public String increaseProcessingSingle() throws ParameterException {
+		LOGGER.debug("increaseProcessingSingle()");
+
+		// 审核
+		String formID = this.processingSingleModel.getFormId();
+		if (null == formID && "".equals(formID)) {
+			throw new ParameterException("加工单编号不允许为空！");
+		}
+		ProcessingSinglePrimary processingSinglePrimary = new ProcessingSinglePrimary();
+		processingSinglePrimary.setId(Integer.valueOf(formID));
+		processingSinglePrimary
+				.setStatus(UtilService.PROCESSING_SINGLE_STATUS_EXAMINE);
+		processingSingleModelPrimaryService.update(processingSinglePrimary);
+		return Action.EDITOR_SUCCESS;
 	}
 
 	public String save() throws Exception {
@@ -204,7 +229,8 @@ public class ProcessingSingleAction extends BaseAction {
 		return processingSingleModel;
 	}
 
-	public void setProcessingSingleModel(ProcessingSingleModel processingSingleModel) {
+	public void setProcessingSingleModel(
+			ProcessingSingleModel processingSingleModel) {
 		this.processingSingleModel = processingSingleModel;
 	}
 

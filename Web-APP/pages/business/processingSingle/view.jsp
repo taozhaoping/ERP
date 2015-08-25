@@ -85,7 +85,7 @@
 			<li class="active">查看</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="storagePrimary.id!=null&&storagePrimary.id!=''" />
+					value="processingSinglePrimary.id!=null&&processingSinglePrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -99,23 +99,23 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">入库清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">加工产品</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane fade dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库单号：</dt>
-											<dd>${storagePrimary.orderNoID}</dd>
+											<dt>加工单号：</dt>
+											<dd>${processingSinglePrimary.processingSingleId}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>采购订单：</dt>
+											<dt>销售订单：</dt>
 											<dd>
-												<dd>${storagePrimary.purchaseOrderID}</dd>
+												<dd>${processingSinglePrimary.purchaseOrderId}</dd>
 											</dd>
 										</div>
 									</div>
@@ -124,42 +124,18 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>收货人：</dt>
-											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %></dd>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<dt>入库时间：</dt>
-											<dd>${storagePrimary.storagedate}</dd>
-										</div>
-									</div>
-								</dir>
-								
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<dt>收入仓库：</dt>
+											<dt>状态：</dt>
 											<dd>
-												<s:iterator value="warehouseList" var="tp" status="index">
-													<s:if test="#tp.id == storagePrimary.warehouseID">
-														<s:property value="#tp.name"/>
-													</s:if>
-												</s:iterator>
+												<s:if test="0 == processingSinglePrimary.status">发起</s:if>
+												<s:elseif test="1 == processingSinglePrimary.status">审核</s:elseif>
+												<s:elseif test="2 == processingSinglePrimary.status">完成</s:elseif>
 											</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>入库：</dt>
-											<dd>
-												<s:if test="storagePrimary.status==0">
-													否
-												</s:if>
-												<s:else>
-													是
-												</s:else>
-											</dd>
+											<dt>创建时间：</dt>
+											<dd>${processingSinglePrimary.createDate}</dd>
 										</div>
 									</div>
 								</dir>
@@ -168,7 +144,7 @@
 									<div class="span8">
 										<div class="control-group">
 											<dt>备注：</dt>
-											<dd>${storagePrimary.remarks}</dd>
+											<dd>${processingSinglePrimary.remarks}</dd>
 										</div>
 									</div>
 								</dir>
@@ -178,24 +154,24 @@
 								<table class="table ">
 									<thead>
 										<tr>
-										<th>序号</th>
-											<th>产品编号</th>
-											<th>产品名称</th>
-											<th>入库数量</th>
-											<th>备注</th>
+											<th>序号</th>
+											<th>生产物料</th>
+											<th>生产数量</th>
+											<th>生产时间</th>
+											<th>结束时间</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="StorageDetailList" var="tp" status="index">
+											<s:iterator value="processingSingleDetailList" var="tp" status="index">
 											<tr>
 												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsID" /></td>
-												<td><s:property value="#tp.productsName" /></td>
-												<td><s:property value="#tp.storageNumber" /></td>
-												<td><s:property value="#tp.remarks" /></td>
+												<td><s:property value="#tp.productsId" /></td>
+												<td><s:property value="#tp.processingNumber" /></td>
+												<td><s:date name="#tp.startDate" format="yyyy-MM-dd"/></td>
+												<td><s:date name="#tp.endDate" format="yyyy-MM-dd"/></td>
 											</tr>
 											</s:iterator>
 											
@@ -217,7 +193,7 @@
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
 		<input type="hidden" name="view" value="view">
-		<input type="hidden" name="id" value="${storagePrimary.id}">
+		<input type="hidden" name="id" value="${processingSinglePrimary.id}">
 		<input type="hidden" name="tabID" value="storagedetailButt">
 	</form>
 	<%@ include file="/pages/common/footer.jsp"%>

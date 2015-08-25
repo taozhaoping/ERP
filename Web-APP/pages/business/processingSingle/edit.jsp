@@ -270,6 +270,10 @@
 		<input type="hidden" name="tabID" value="storageButt">
 	</form>
 	
+	<form action="${menu2Id}!increaseProcessingSingle.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="formId" name="formId" value="${processingSinglePrimary.id}" type="hidden"/>
+	</form>
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
