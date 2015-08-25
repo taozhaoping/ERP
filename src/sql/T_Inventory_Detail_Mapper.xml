@@ -29,7 +29,7 @@
 			<if test="id != null">
 				and c.id = #{id}
 			</if>
-			<if test="warehouseID != null">
+			<if test="inventoryID != null">
 				and INVENTORY_ID = #{inventoryID}
 			</if>
 		</where>

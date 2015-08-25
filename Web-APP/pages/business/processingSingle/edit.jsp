@@ -216,8 +216,16 @@
 												<td><s:property value="#index.index +1" /></td>
 												<td><s:property value="#tp.productsId" /></td>
 												<td><s:property value="#tp.processingNumber" /></td>
-												<td><s:property value="#tp.startDate" /></td>
-												<td><s:property value="#tp.endDate" /></td>
+												<td>
+													<input size="16" id="inputStartDate" FID="${tp.id}" name="tp.startDate"
+													type="text" value="<s:date name="#tp.startDate" format="yyyy-MM-dd"/>" onchange="changeQuantiy(this,'start')"
+													readonly class="form_datetime input-medium">
+												</td>
+												<td>
+													<input size="16" id="inputEndDate" FID="${tp.id}" name="tp.changeQuantiy"
+													type="text" value="<s:date name="#tp.endDate" format="yyyy-MM-dd"/>" onchange="changeQuantiy(this,'end')"
+													readonly class="form_datetime input-medium">
+												</td>
 											</tr>
 											</s:iterator>
 											
@@ -285,6 +293,37 @@
 		
 		$("#inputstatus").val("${processingSinglePrimary.status}")
 		.trigger("change");
+		
+		function changeQuantiy(obj,type)
+		{
+			var changeValue = $(obj).val()
+			var changeID = $(obj).attr("FID");
+			var data;
+			if(type == "start")
+			{
+				data = {"id":changeID,
+						"startDate":changeValue};
+			}else
+			{
+				data = {"id":changeID,
+						"endDate":changeValue};
+			}
+			$.ajax({
+				   type: "POST",
+				   url: basePath + "/" + spaceId + "/" + menu2Id + "!saveProcessingSingleDetail.jspa",
+				   data: data,
+				   success: function(msg){
+				     if(msg.reult=="success")
+				    {
+				    	$(obj).parents("tr").addClass("success")
+				    }else
+				    {
+				    	$(obj).parents("tr").addClass("error")
+				    	$(obj).val(oldValue);
+				    }
+				   }
+				}); 
+		}
 		
 		//进入指定的tbs
 		var tabID = "${tabID}";
