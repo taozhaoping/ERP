@@ -34,9 +34,11 @@
 		
 		<ul class="nav">
 			<li id="fat-menu" class="dropdown">
-				<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-					新建<i class="icon-caret-down"></i>
-				</a>
+				<!--
+					<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+						新建<i class="icon-caret-down"></i>
+					</a>
+				 -->
 				<ul class="dropdown-menu">
 					<!-- 
 					<li>
