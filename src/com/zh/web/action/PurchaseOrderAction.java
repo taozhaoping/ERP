@@ -1,8 +1,19 @@
 package com.zh.web.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.avalon.framework.parameters.ParameterException;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +71,8 @@ public class PurchaseOrderAction extends BaseAction {
 	
 	@Autowired
 	private ProcurementDemandDetailService procurementDemandDetailService;
+
+	private FileInputStream fis;
 
 	@Override
 	public Object getModel() {
@@ -170,6 +183,47 @@ public class PurchaseOrderAction extends BaseAction {
 		// ============结束==================
 		this.purchaseOrderModel.setFormId(String.valueOf(id));
 		return Action.EDITOR_SAVE;
+	}
+	
+	public void export() {
+		HttpServletResponse response = getResponse();
+		HttpServletRequest request = getRequest();
+		OutputStream os = null;
+		try {
+			String templatePath = request.getSession().getServletContext()
+					.getRealPath("templates");
+			String templateFullPath = templatePath + File.separator
+					+ "purchaseContract.doc";
+
+			String purchaseOrderId = this.purchaseOrderModel
+					.getPurchaseOrderPrimary().getPurchaseOrderID();
+
+			// InputStream is = new FileInputStream(templateFullPath);
+			File file = new File(templateFullPath);
+
+			String fileName = purchaseOrderId + ".doc";
+			response.setContentType("application/x-download");
+			response.addHeader("Content-Disposition", new String(
+					("filename=" + fileName).getBytes("GBK"), "ISO-8859-1"));
+			os = response.getOutputStream();
+			fis = new FileInputStream(file);
+			byte[] buf = new byte[1024];
+			int length = 0;
+			while ((fis != null) && ((length = fis.read(buf)) != -1)) {
+				os.write(buf, 0, length);
+			}
+			os.flush();
+		} catch (Exception e) {
+			LOGGER.error("Exception, cause:{}",e.getCause());
+		} finally {
+			if (os != null) {
+				try {
+					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	/**

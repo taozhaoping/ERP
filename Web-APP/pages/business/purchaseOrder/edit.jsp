@@ -97,6 +97,9 @@
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
 						<div class="pull-right">
+							<button class="btn" type="button" id="downloadBtn">
+									<i class="icon-download-alt"></i> 导出
+								</button>
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
@@ -421,6 +424,11 @@
 		<input id="id" name="id" value="${purchaseOrderPrimary.id}" type="hidden"/>
 	</form>
 	
+	<form action="${menu2Id}!export.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="exportForm" method="post">
+		<input id="id" name="id" value="${purchaseOrderPrimary.id}" type="hidden"/>
+		<input id="inputpurchaseOrderID" name = "purchaseOrderPrimary.purchaseOrderID" type="hidden" value="${purchaseOrderPrimary.purchaseOrderID}" />
+	</form>
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
@@ -442,6 +450,11 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		$("select").select2();
+		
+		//导出按钮点击
+		$("#downloadBtn").bind('click', function() {
+			  $("#exportForm").submit();
+		});
 		
 		$('#DemandList').on('show', function () {
 			$.ajax({     
