@@ -55,4 +55,9 @@ public interface ProcessingSinglePrimaryService {
 	 */
 	public Integer insert(ProcessingSinglePrimary processingSinglePrimary);
 	
+	/**
+	 * 审核加工单
+	 */
+	public void increase(Integer processingSingleId);
+	
 }

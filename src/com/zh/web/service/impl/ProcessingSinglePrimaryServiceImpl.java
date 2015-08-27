@@ -1,19 +1,18 @@
 package com.zh.web.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.zh.core.model.Pager;
+import com.zh.web.concurrent.ExpandProductionTask;
 import com.zh.web.dao.ProcessingSingleDetailDao;
 import com.zh.web.dao.ProcessingSinglePrimaryDao;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
 import com.zh.web.model.bean.SalesOrderBom;
-import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.service.ProcessingSinglePrimaryService;
 import com.zh.web.service.SalesOrderBomService;
+import com.zh.web.util.ExecutorServiceHandler;
 import com.zh.web.util.UtilService;
 
 @Component("processingSinglePrimaryService")
@@ -27,6 +26,9 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	
 	@Autowired
 	private SalesOrderBomService salesOrderBomService;
+	
+	@Autowired
+	private ExpandProductionTask command;
 
 	@Override
 	public ProcessingSinglePrimary query(ProcessingSinglePrimary processingSinglePrimary) {
@@ -80,6 +82,21 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 			processingSingleDetailDao.insert(psd);
 		}
 		return processingSingleId;
+	}
+	
+	/**
+	 * 审核加工单
+	 */
+	public void increase(Integer processingSingleId)
+	{
+		ProcessingSinglePrimary processingSinglePrimary = new ProcessingSinglePrimary();
+		processingSinglePrimary.setId(processingSingleId);
+		processingSinglePrimary
+				.setStatus(UtilService.PROCESSING_SINGLE_STATUS_EXAMINE);
+		processingSinglePrimaryDao.update(processingSinglePrimary);
+		
+		command.setProcessingSingleId(processingSingleId);
+		ExecutorServiceHandler.getInstance().execute(command);
 	}
 
 }

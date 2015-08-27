@@ -136,4 +136,9 @@
 		</set>
 		where ID = #{id}
 	</update>
+	
+		<!-- 任务单，转换成生产任务单 -->
+	<select id="task_Production_task" parameterType="java.lang.Integer" statementType="CALLABLE">
+		CALL task_Production_task(#{data})
+	</select>
 </mapper>

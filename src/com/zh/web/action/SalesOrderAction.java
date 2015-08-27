@@ -1,16 +1,12 @@
 package com.zh.web.action;
 
 import java.util.List;
-
 import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.zh.base.model.bean.Dictionary;
-import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.BasiTypeService;
-import com.zh.base.util.DateUtil;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
@@ -19,8 +15,6 @@ import com.zh.web.model.SalesOrderModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.SalesOrderDetail;
 import com.zh.web.model.bean.SalesOrderPrimary;
-import com.zh.web.model.bean.StorageDetail;
-import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.SalesOrderDetailService;
 import com.zh.web.service.SalesOrderPrimaryService;

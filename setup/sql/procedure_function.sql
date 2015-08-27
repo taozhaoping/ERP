@@ -266,4 +266,45 @@ end expand_sales_order_bom;
 /
 
 
+prompt
+prompt Creating 生产单转换成生产任务单
+prompt =========================================
+prompt
+drop  procedure erp.task_Production_task;
+
+create or replace procedure erp.task_Production_task(v_ProcessingSingleID number) as
+begin
+declare
+       t_processingSingleID  number; -- 生产单id
+       t_status number;
+       task_id number;
+       task_detail_id number;
+       t_dateChar char(8);
+begin
+        t_processingSingleID  := v_ProcessingSingleID;
+
+    select t.status  into t_status from t_processing_single_primary t where t.id= t_processingSingleID;
+    select to_char(sysdate,'yyyymmdd') into t_dateChar from dual;
+        if(t_status = 1) then
+           dbms_output.PUT_LINE('生成生产任务单');
+           for sub in (select startdate, enddate
+  from t_processing_single_detail t
+ where t.processingsingleid = t_processingSingleID
+ group by processingsingleid, startdate, enddate) loop
+             dbms_output.PUT_LINE(sub.startdate);
+             select SEQUENCE_T_ProductionTask.nextval into task_id from dual;
+             insert into T_ProductionTask (ID,Production_order,Inventory_countID,STARTDATE,ENDDATE) values (task_id,'SCD' || t_dateChar || task_id ,t_processingSingleID,sub.startdate,sub.enddate);
+             for task in ( select products_id,processingnumber from t_processing_single_detail t where t.processingsingleid=t_processingSingleID and startdate=sub.startdate and enddate=sub.enddate) loop
+               select SEQUENCE_T_Production_DETAIL.nextval into task_detail_id from dual;
+               insert into T_PRODUCTIONTASK_DETAIL (id,productiontaskid,products_id,processingnumber)values(task_detail_id,task_id,task.products_id,task.processingnumber);
+             end loop;
+           end loop;
+        else
+           dbms_output.PUT_LINE('已经存在生产任务单');
+        end if;
+        commit;
+end;
+end task_Production_task;
+/
+
 spool off
