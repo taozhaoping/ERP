@@ -84,6 +84,14 @@
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<form class="form-search">
+							<input type="hidden" name="menuId" value="${menuId}" /> 
+							<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+							<input type="hidden" name="spaceId" value="${spaceId}" />
+							
+							<input type="text" class="input-medium search-query form_datetime" readonly="readonly" name="productionTask.startDate" value="<s:date name="productionTask.startDate" format="yyyy-MM-dd"/>" title="开始时间" placeholder="开始时间" />
+							<button type="submit" class="btn">Search</button>
+						</form>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -133,6 +141,7 @@
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path %>/js/collapsePulg.js"></script>
+	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var menuId='${menuId}';
@@ -145,6 +154,20 @@
 			$('.demo-cancel-click').click(function() {
 				return false;
 			});
+			
+			//日期控件
+			$(".form_datetime").datetimepicker({
+				language : 'zh-CN',
+				format : 'yyyy-mm-dd',
+				weekStart : 1,
+				todayBtn : 1,
+				autoclose : 1,
+				todayHighlight : 1,
+				startView : 2,
+				minView : 2,
+				forceParse : true
+			});
+			
 			var headText = $("#" + menu2Id).text();
 			$("#menu2Name").text(headText);
 			$("#navigation").text(headText);

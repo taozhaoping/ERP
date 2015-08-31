@@ -125,13 +125,17 @@
 									<div class="span4">
 										<div class="control-group">
 											<dt>加工日期：</dt>
-											<dd>${productionTask.startDate}</dd>
+											<dd>
+												<s:date name="productionTask.startDate" format="yyyy-MM-dd" />
+											</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
 											<dt>完成日期：</dt>
-											<dd>${productionTask.endDate}</dd>
+											<dd>
+												<s:date name="productionTask.endDate" format="yyyy-MM-dd" />
+											</dd>
 										</div>
 									</div>
 								</dir>
