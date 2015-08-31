@@ -73,11 +73,37 @@ declare
   job1 number;
 begin
 sys.dbms_job.submit(job1
-					,'erp.task_purchasing_demand;'
+					,'task_purchasing_demand;'
 					,sysdate
 					--,'sysdate+1/1440' --测试
 					,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
-					);
-					--		
+					);	
+  commit;
+end;
+
+create or replace procedure erp.task_Production_Decom as
+begin
+declare
+       isProd  number; -- 所有采购是否采购完成
+begin
+       --获取状态在处理中的所有采购需求头表数据
+      for sub in (select * from t_processing_single_primary p where p.status=1 and exists (select 1 from T_ProductionTask t where p.id!=t.inventory_countid)) loop
+        isProd  := 0;
+        task_Production_task(sub.id);
+      end loop;
+end;
+end task_Production_Decom;
+/
+
+--添加作业
+declare
+  job1 number;
+begin
+sys.dbms_job.submit(job1
+					,'task_Production_Decom;'
+					,sysdate
+					--,'sysdate+1/1440' --测试
+					,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
+					);	
   commit;
 end;
