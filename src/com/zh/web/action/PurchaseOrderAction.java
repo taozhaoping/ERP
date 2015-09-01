@@ -1,22 +1,22 @@
 package com.zh.web.action;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.avalon.framework.parameters.ParameterException;
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import com.zh.base.model.bean.Warehouse;
 import com.zh.base.service.WarehouseService;
@@ -30,11 +30,14 @@ import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.ProcurementDemandDetail;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
+import com.zh.web.model.template.ProductModel;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.ProcurementDemandDetailService;
 import com.zh.web.service.PurchaseOrderDetailService;
 import com.zh.web.service.PurchaseOrderPrimaryService;
 import com.zh.web.util.UtilService;
+
+import freemarker.template.Template;
 
 /**
  * @Title: PurchaseOrderAction.java
@@ -73,6 +76,9 @@ public class PurchaseOrderAction extends BaseAction {
 	private ProcurementDemandDetailService procurementDemandDetailService;
 
 	private FileInputStream fis;
+	
+	@Autowired
+	private FreeMarkerConfigurer freeMarkerConfigurer;
 
 	@Override
 	public Object getModel() {
@@ -189,32 +195,63 @@ public class PurchaseOrderAction extends BaseAction {
 		HttpServletResponse response = getResponse();
 		HttpServletRequest request = getRequest();
 		OutputStream os = null;
+		
+//		String templatePath = request.getSession().getServletContext()
+//				.getRealPath("templates");
+//		Configuration configuration = new Configuration();
+//		configuration.setDefaultEncoding("utf-8");
+//		configuration.setClassForTemplateLoading(this.getClass(), "/template");
+//		configuration.setObjectWrapper(new DefaultObjectWrapper());
 		try {
-			String templatePath = request.getSession().getServletContext()
-					.getRealPath("templates");
-			String templateFullPath = templatePath + File.separator
-					+ "purchaseContract.doc";
+			
+			Template template = freeMarkerConfigurer.getConfiguration().getTemplate("purchaseContract.xml");
+			
+			Map<String, Object> rootMap = new HashMap<String, Object>();
+			rootMap.put("contractNo", "20150901");
+			rootMap.put("supplierName", "浙江大华");
+			rootMap.put("supplierFax", "0571-110");
+			
+			rootMap.put("supplierAddress", "浙江省杭州市");
+			rootMap.put("supplierTel", "0571-25895689");
+			rootMap.put("supplierBankName", "招商银行");
+			rootMap.put("supplierCardNo", "123456789101");
+			rootMap.put("year", "2015");
+			rootMap.put("month", "09");
+			rootMap.put("day", "01");
+			rootMap.put("total", "120000");
+			rootMap.put("totalChinese", "十二万");
+			
+			ProductModel product = new ProductModel();
+			product.setNumber("p001");
+			rootMap.put("product", product);
+			
+//			String templatePath = request.getSession().getServletContext()
+//					.getRealPath("templates");
+//			String templateFullPath = templatePath + File.separator
+//					+ "purchaseContract.doc";
 
 			String purchaseOrderId = this.purchaseOrderModel
 					.getPurchaseOrderPrimary().getPurchaseOrderID();
 
 			// InputStream is = new FileInputStream(templateFullPath);
-			File file = new File(templateFullPath);
+//			File file = new File(templateFullPath);
 
 			String fileName = purchaseOrderId + ".doc";
 			response.setContentType("application/x-download");
 			response.addHeader("Content-Disposition", new String(
 					("filename=" + fileName).getBytes("GBK"), "ISO-8859-1"));
 			os = response.getOutputStream();
-			fis = new FileInputStream(file);
-			byte[] buf = new byte[1024];
-			int length = 0;
-			while ((fis != null) && ((length = fis.read(buf)) != -1)) {
-				os.write(buf, 0, length);
-			}
-			os.flush();
+//			fis = new FileInputStream(file);
+//			byte[] buf = new byte[1024];
+//			int length = 0;
+//			while ((fis != null) && ((length = fis.read(buf)) != -1)) {
+//				os.write(buf, 0, length);
+//			}
+			Writer out = new OutputStreamWriter(os);
+			template.process(rootMap, out);
+			out.flush();
 		} catch (Exception e) {
-			LOGGER.error("Exception, cause:{}",e.getCause());
+			LOGGER.error("Exception, cause:{}, message:{}",e.getCause(), e.getLocalizedMessage());
 		} finally {
 			if (os != null) {
 				try {
