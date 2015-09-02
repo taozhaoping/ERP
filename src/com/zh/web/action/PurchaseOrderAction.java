@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Warehouse;
+import com.zh.base.service.BasiTypeService;
 import com.zh.base.service.WarehouseService;
+import com.zh.base.util.Tools;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.IDataObject;
@@ -28,11 +32,13 @@ import com.zh.core.util.JSONUtil;
 import com.zh.web.model.PurchaseOrderModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.ProcurementDemandDetail;
+import com.zh.web.model.bean.Products;
 import com.zh.web.model.bean.PurchaseOrderDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.model.template.ProductModel;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.ProcurementDemandDetailService;
+import com.zh.web.service.ProductsService;
 import com.zh.web.service.PurchaseOrderDetailService;
 import com.zh.web.service.PurchaseOrderPrimaryService;
 import com.zh.web.util.UtilService;
@@ -71,6 +77,9 @@ public class PurchaseOrderAction extends BaseAction {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private ProductsService productsService;
 	
 	@Autowired
 	private ProcurementDemandDetailService procurementDemandDetailService;
@@ -202,36 +211,101 @@ public class PurchaseOrderAction extends BaseAction {
 //		configuration.setDefaultEncoding("utf-8");
 //		configuration.setClassForTemplateLoading(this.getClass(), "/template");
 //		configuration.setObjectWrapper(new DefaultObjectWrapper());
+		
+		String purchaseOrderId = this.purchaseOrderModel.getPurchaseOrderPrimary().getPurchaseOrderID();
+		int customerId = this.purchaseOrderModel.getPurchaseOrderPrimary().getCustomerID();
+		String arrivalDate = this.purchaseOrderModel.getPurchaseOrderPrimary().getArrivalDate();
 		try {
+			
+			Customer customer = new Customer();
+			customer.setId(customerId);
+			customer = customerService.query(customer);
 			
 			Template template = freeMarkerConfigurer.getConfiguration().getTemplate("purchaseContract.xml");
 			
 			Map<String, Object> rootMap = new HashMap<String, Object>();
-			rootMap.put("contractNo", "20150901");
-			rootMap.put("supplierName", "浙江大华");
-			rootMap.put("supplierFax", "0571-110");
+			//供应商的信息
+			rootMap.put("contractNo", purchaseOrderId);
+			rootMap.put("supplierName", customer.getName());
+			rootMap.put("supplierFax", customer.getFaxNumber());
+			rootMap.put("supplierAddress", customer.getAddress());
+			rootMap.put("supplierTel", customer.getIphone());
+			rootMap.put("supplierBankName", customer.getOpeningBank());
+			rootMap.put("supplierCardNo", customer.getBankAccount());
+			//交货时间地点
+			String year = "";
+			String month = "";
+			String day = "";
+			if(!arrivalDate.isEmpty()){
+				String[] ads = arrivalDate.split("-");
+				if(ads.length == 3){
+					year = ads[0];
+					month = ads[1];
+					day = ads[2];
+				}
+			}
+			rootMap.put("year", year);
+			rootMap.put("month", month);
+			rootMap.put("day", day);
 			
-			rootMap.put("supplierAddress", "浙江省杭州市");
-			rootMap.put("supplierTel", "0571-25895689");
-			rootMap.put("supplierBankName", "招商银行");
-			rootMap.put("supplierCardNo", "123456789101");
-			rootMap.put("year", "2015");
-			rootMap.put("month", "09");
-			rootMap.put("day", "01");
-			rootMap.put("total", "120000");
-			rootMap.put("totalChinese", "十二万");
+			//产品列表
+			List<PurchaseOrderDetail> detailList = purchaseOrderDetailService.queryList(this.purchaseOrderModel.getPurchaseOrderDetail());
+			List<ProductModel> products = new ArrayList<ProductModel>();
+			//记录单位
+			List<Dictionary> dictionaryList = queryDictionaryList(BasiTypeService.MEASUREMENT_COMPANYSOURCE_TYPE);
+			Map<Integer, String> dictionary = new HashMap<Integer, String>();
+			for(Dictionary d : dictionaryList){
+				dictionary.put(d.getKey(), d.getDescr());
+			}
+			double total = 0d;
+			for (int i = 0; i < detailList.size(); i++) {
+				PurchaseOrderDetail detail = detailList.get(i);
+				//产品编号
+				int productId = detail.getProductsID();
+				
+				Products product = new Products();
+				product.setId(productId);
+				product = productsService.query(product);
+				
+				//产品名称
+				String pName = product.getName();
+				//产品规格
+				String pSpec = product.getSpecifications();
+				//单位
+				int pUite = product.getMeasurementCompany();
+				//数量
+				int pQty = detail.getPurchaseNumber();
+				//单价
+				double pPrice = detail.getPrice();
+				//总价
+				double pTotalPrice = detail.getOrderValue();
+				//交货时间 arrivalDate
+				//总价
+				total = total + pTotalPrice;
+				
+				ProductModel productModel = new ProductModel();
+				productModel.setNo(i+1);
+				productModel.setNumber(String.valueOf(productId));
+				productModel.setName(pName);
+				productModel.setSpec(pSpec);
+				productModel.setUnit(dictionary.get(pUite));
+				productModel.setQty(pQty);
+				productModel.setPrice(String.valueOf(pPrice));
+				productModel.setTotalPrice(String.valueOf(pTotalPrice));
+				productModel.setDeliveryTime(arrivalDate);
+				products.add(productModel);
+			}
 			
-			ProductModel product = new ProductModel();
-			product.setNumber("p001");
-			rootMap.put("product", product);
+			//金额合计人民币
+			rootMap.put("total", total);
+			rootMap.put("totalChinese", Tools.digitUppercase(total));
+			
+			rootMap.put("products", products);
 			
 //			String templatePath = request.getSession().getServletContext()
 //					.getRealPath("templates");
 //			String templateFullPath = templatePath + File.separator
 //					+ "purchaseContract.doc";
-
-			String purchaseOrderId = this.purchaseOrderModel
-					.getPurchaseOrderPrimary().getPurchaseOrderID();
 
 			// InputStream is = new FileInputStream(templateFullPath);
 //			File file = new File(templateFullPath);

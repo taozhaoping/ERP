@@ -1478,6 +1478,7 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+            <#list products as product>
             <w:tr wsp:rsidR="005D68B5" wsp:rsidTr="005D68B5">
                 <w:trPr>
                     <w:trHeight w:val="344" />
@@ -1733,6 +1734,7 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+            </#list>
             <w:tr wsp:rsidR="00311D75" wsp:rsidTr="00FD1974">
                 <w:trPr>
                     <w:trHeight w:val="344" />

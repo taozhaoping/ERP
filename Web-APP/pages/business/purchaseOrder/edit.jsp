@@ -426,6 +426,9 @@
 	
 	<form action="${menu2Id}!export.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="exportForm" method="post">
 		<input id="id" name="id" value="${purchaseOrderPrimary.id}" type="hidden"/>
+		<input name="purchaseOrderDetail.purchaseOrderID" value="${purchaseOrderDetail.purchaseOrderID}" type="hidden"/>
+		<input name="purchaseOrderPrimary.customerID" value="${purchaseOrderPrimary.customerID}" type="hidden"/>
+		<input name="purchaseOrderPrimary.arrivalDate" value="${purchaseOrderPrimary.arrivalDate}" type="hidden"/>
 		<input id="inputpurchaseOrderID" name = "purchaseOrderPrimary.purchaseOrderID" type="hidden" value="${purchaseOrderPrimary.purchaseOrderID}" />
 	</form>
 	
