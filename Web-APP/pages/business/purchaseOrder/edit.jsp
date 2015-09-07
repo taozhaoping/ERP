@@ -97,9 +97,11 @@
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
 						<div class="pull-right">
-							<button class="btn" type="button" id="downloadBtn">
+							<s:if test="%{purchaseOrderPrimary.status != 0}">
+								<button class="btn" type="button" id="downloadBtn">
 									<i class="icon-download-alt"></i> 导出
 								</button>
+							</s:if>
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">

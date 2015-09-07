@@ -92,6 +92,13 @@
 						
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
+						<div class="pull-right">
+							<s:if test="%{purchaseOrderPrimary.status != 0}">
+								<button class="btn" type="button" id="downloadBtn">
+									<i class="icon-download-alt"></i> 导出
+								</button>
+							</s:if>
+						</div>
 						
 					</div>
 					<div class="well">
@@ -243,6 +250,14 @@
 		<input type="hidden" name="tabID" value="storagedetailButt">
 	</form>
 	
+	<form action="${menu2Id}!export.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="exportForm" method="post">
+		<input id="id" name="id" value="${purchaseOrderPrimary.id}" type="hidden"/>
+		<input name="purchaseOrderDetail.purchaseOrderID" value="${purchaseOrderDetail.purchaseOrderID}" type="hidden"/>
+		<input name="purchaseOrderPrimary.customerID" value="${purchaseOrderPrimary.customerID}" type="hidden"/>
+		<input name="purchaseOrderPrimary.arrivalDate" value="${purchaseOrderPrimary.arrivalDate}" type="hidden"/>
+		<input id="inputpurchaseOrderID" name = "purchaseOrderPrimary.purchaseOrderID" type="hidden" value="${purchaseOrderPrimary.purchaseOrderID}" />
+	</form
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
@@ -258,6 +273,11 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		var tabID = "${tabID}";
+		
+		//导出按钮点击
+		$("#downloadBtn").bind('click', function() {
+			  $("#exportForm").submit();
+		});
 	</script>
 </body>
 </html>
