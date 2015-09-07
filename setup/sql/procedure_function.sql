@@ -264,27 +264,29 @@ end expand_sales_order_bom;
 /
 
 prompt
-prompt Creating ���ת�����������
+prompt Creating 任务单自动生成加工任务单和验收单
 prompt =========================================
 prompt
-drop  procedure erp.task_Production_task;
-
 create or replace procedure erp.task_Production_task(v_ProcessingSingleID number) as
 begin
 declare
-       t_processingSingleID  number; -- ���id
+       t_processingSingleID  number; -- 生产单id
        t_status number;
        task_id number;
        task_detail_id number;
+       acceptanceList_id number;
        t_dateChar char(8);
+       bomPrimaryID number;
+       order_id number;
+       --processStr varcahr(500);
 begin
         t_processingSingleID  := v_ProcessingSingleID;
 
-    select t.status  into t_status from t_processing_single_primary t where t.id= t_processingSingleID;
+    select t.status,purchase_order_id  into t_status, order_id from t_processing_single_primary t where t.id= t_processingSingleID;
     select to_char(sysdate,'yyyymmdd') into t_dateChar from dual;
         if(t_status = 1) then
-           dbms_output.PUT_LINE('����������');
-           for sub in (select startdate, enddate
+           dbms_output.PUT_LINE('生成生产任务单');
+           for sub in (select processingsingleid,startdate, enddate
   from t_processing_single_detail t
  where t.processingsingleid = t_processingSingleID
  group by processingsingleid, startdate, enddate) loop
@@ -294,14 +296,21 @@ begin
              for task in ( select products_id,processingnumber from t_processing_single_detail t where t.processingsingleid=t_processingSingleID and startdate=sub.startdate and enddate=sub.enddate) loop
                select SEQUENCE_T_Production_DETAIL.nextval into task_detail_id from dual;
                insert into T_PRODUCTIONTASK_DETAIL (id,productiontaskid,products_id,processingnumber)values(task_detail_id,task_id,task.products_id,task.processingnumber);
+
+               --获取产品结构主键
+               select products_bom_id into bomPrimaryID from (select products_bom_id from T_SALES_ORDER_BOM where products_id=task.products_id and order_id=order_id) where rownum = 1;
+
+               for process in (select pr.process_id,ce.name,pr.remarks from T_PRODUCTPROCESS pr left join t_process ce on pr.process_id=ce.id where pr.bomprimary_id=bomPrimaryID) loop
+                  select SEQUENCE_T_AcceptanceList.nextval into acceptanceList_id from dual;
+                  insert into T_AcceptanceList (id,productiontaskid,products_id,processid,Isacceptance)values(acceptanceList_id,task_id,task.products_id,process.process_id,'0');
+               end loop;
              end loop;
            end loop;
         else
-           dbms_output.PUT_LINE('�Ѿ������������');
+           dbms_output.PUT_LINE('已经存在生产任务单');
         end if;
         commit;
 end;
 end task_Production_task;
 /
-
 spool off

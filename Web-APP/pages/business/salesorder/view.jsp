@@ -239,6 +239,8 @@
 											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("salesOrderPrimary.userID"))) %></dd>
 										</div>
 									</div>
+								</dir>
+								<dir class="row">
 									<div class="span8">
 										<div class="control-group">
 											<dt>备注：</dt>

@@ -276,6 +276,9 @@
 
 										</div>
 									</div>
+								
+								</dir>
+								<dir class="row">
 									<div class="span8">
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>
