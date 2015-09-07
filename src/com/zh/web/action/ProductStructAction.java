@@ -137,7 +137,7 @@ public class ProductStructAction extends BaseAction {
 			
 			//产品工序列表
 			ProductProcess productProcess = this.productStructModel.getProductProcess();
-			productProcess.setProductsID(id);
+			productProcess.setBomPrimaryID(id);
 			LOGGER.debug("ProductProcess: {}", bomSub);
 			List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
 			this.productStructModel.setProductProcessList(productProcessList);
@@ -223,7 +223,7 @@ public class ProductStructAction extends BaseAction {
 			
 			//产品工序列表
 			ProductProcess productProcess = this.productStructModel.getProductProcess();
-			productProcess.setProductsID(id);
+			productProcess.setBomPrimaryID(id);
 			LOGGER.debug("ProductProcess: {}", bomSub);
 			List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
 			this.productStructModel.setProductProcessList(productProcessList);

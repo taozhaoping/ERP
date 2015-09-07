@@ -102,8 +102,8 @@ begin
 sys.dbms_job.submit(job1
 					,'task_Production_Decom;'
 					,sysdate
-					--,'sysdate+1/1440' --测试
-					,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
+					,'sysdate+1/1440' --测试
+					--,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
 					);	
   commit;
 end;

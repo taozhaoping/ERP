@@ -392,7 +392,6 @@
 										<s:iterator value="productProcessList" var="Process" status="index">
 										<tr>
 											<td><s:property value="#index.index + 1"/></td>
-											<td><s:property value="#Process.productsID" /></td>
 											<td><s:property value="#Process.name" /></td>
 											<td><s:property value="#Process.referencePrice" /></td>
 											<td><s:property value="#Process.processingCycle" /></td>

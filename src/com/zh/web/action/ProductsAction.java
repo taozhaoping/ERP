@@ -131,7 +131,7 @@ public class ProductsAction extends BaseAction {
 				
 				//工序列表
 				ProductProcess productProcess = this.productsModel.getProductProcess();
-				productProcess.setProductsID(primaryId);
+				productProcess.setBomPrimaryID(primaryId);
 				LOGGER.debug("ProductProcess: {}", bomSub);
 				List<ProductProcess> productProcessList = productProcessService.queryList(productProcess);
 				this.productsModel.setProductProcessList(productProcessList);

@@ -1,8 +1,11 @@
 package com.zh.web.service.impl;
 
 import java.util.List;
+
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.zh.core.model.Pager;
 import com.zh.web.concurrent.ExpandProductionTask;
 import com.zh.web.dao.ProcessingSingleDetailDao;
@@ -86,9 +89,22 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	
 	/**
 	 * 审核加工单
+	 * @throws ParameterException 
 	 */
-	public void increase(Integer processingSingleId)
+	public void increase(Integer processingSingleId) throws ParameterException
 	{
+		//判断加工时间是否填写
+		ProcessingSingleDetail data = new ProcessingSingleDetail();
+		data.setProcessingSingleId(processingSingleId);
+		List<ProcessingSingleDetail> list = processingSingleDetailDao.queryList(data);
+		for (ProcessingSingleDetail processingSingleDetail : list) {
+			if(processingSingleDetail.getStartDate() == null || processingSingleDetail.getEndDate() == null)
+			{
+				throw new ParameterException("加工单明细中产品加工时间未填写，请先填写完成后，在审核");
+			}
+		}
+		
+		//审核状态修改
 		ProcessingSinglePrimary processingSinglePrimary = new ProcessingSinglePrimary();
 		processingSinglePrimary.setId(processingSingleId);
 		processingSinglePrimary

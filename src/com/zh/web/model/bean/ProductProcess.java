@@ -21,9 +21,9 @@ public class ProductProcess extends IDataObject {
 	private Integer id;
 
 	/**
-	 * 物料ID
+	 * 产品结构ID
 	 */
-	private Integer productsID;
+	private Integer bomPrimaryID;
 	
 	/**
 	 * 工序ID
@@ -58,12 +58,12 @@ public class ProductProcess extends IDataObject {
 		this.id = id;
 	}
 
-	public Integer getProductsID() {
-		return productsID;
+	public Integer getBomPrimaryID() {
+		return bomPrimaryID;
 	}
 
-	public void setProductsID(Integer productsID) {
-		this.productsID = productsID;
+	public void setBomPrimaryID(Integer bomPrimaryID) {
+		this.bomPrimaryID = bomPrimaryID;
 	}
 
 	public String getName() {

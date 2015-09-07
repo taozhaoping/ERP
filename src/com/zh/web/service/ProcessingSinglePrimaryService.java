@@ -1,6 +1,9 @@
 package com.zh.web.service;
 
 import java.util.List;
+
+import org.apache.avalon.framework.parameters.ParameterException;
+
 import com.zh.core.model.Pager;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
 
@@ -58,6 +61,6 @@ public interface ProcessingSinglePrimaryService {
 	/**
 	 * 审核加工单
 	 */
-	public void increase(Integer processingSingleId);
+	public void increase(Integer processingSingleId)  throws ParameterException;
 	
 }

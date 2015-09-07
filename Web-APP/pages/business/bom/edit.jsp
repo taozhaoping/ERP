@@ -315,7 +315,7 @@
 									<input type="hidden" name="tabID" value="productProcessTabButt" />
 									<input type="hidden" name="id" value="${bomPrimary.id}">
 									
-									<input type="hidden" name="productProcess.productsID" value="${bomPrimary.id}">
+									<input type="hidden" name="productProcess.bomPrimaryID" value="${bomPrimary.id}">
 									<input type="hidden" name="productProcess.processID" id="productProcessProcessID" value="">
 									<input type="hidden" name="productProcess.name" id="productProcessName" value="">
 									<input type="hidden" name="productProcess.referencePrice" id="productProcessReferencePrice" value="">

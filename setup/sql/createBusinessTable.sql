@@ -26,7 +26,11 @@ alter table t_Material_requisition_DETAIL  drop primary key cascade;
 alter table T_Process      drop primary key cascade;
 alter table T_ProductionTask drop primary key cascade;
 alter table T_ProductionTask_DETAIL drop primary key cascade;
+alter table T_ProductProcess drop primary key cascade;
+alter table T_AcceptanceList drop primary key cascade;
 
+drop table T_AcceptanceList cascade constraints;
+drop table T_ProductProcess cascade constraints;
 drop table T_ProductionTask_DETAIL cascade constraints;
 drop table T_ProductionTask cascade constraints;
 drop table T_Process cascade constraints;
@@ -85,6 +89,8 @@ drop sequence SEQUENCE_t_Material_DETAIL
 drop sequence SEQUENCE_T_Process
 drop sequence SEQUENCE_T_ProductionTask
 drop sequence SEQUENCE_T_Production_DETAIL
+drop sequence SEQUENCE_T_PRODUCTPROCESS
+drop sequence SEQUENCE_T_AcceptanceList
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -288,6 +294,20 @@ start with 1
 order;
 
 create sequence SEQUENCE_T_Production_DETAIL
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_PRODUCTPROCESS
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create sequence SEQUENCE_T_AcceptanceList
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -1579,3 +1599,73 @@ comment on column T_ProductionTask_DETAIL.ProcessID is
 alter table T_ProductionTask_DETAIL
    add constraint PK_T_PRODUCTIONTASK_DETAIL primary key (ID);
    
+/*==============================================================*/
+/* Table: 产品工序                                                                       							*/
+/*==============================================================*/   
+
+create table T_ProductProcess
+(
+  id            NUMBER not null,
+  products_id   NUMBER,
+  process_id    NUMBER,
+  process_price FLOAT,
+  process_cycle FLOAT,
+  remarks       VARCHAR2(500)
+)
+
+comment on table T_PRODUCTPROCESS
+  is '物料工序维护';
+-- Add comments to the columns 
+comment on column T_PRODUCTPROCESS.id
+  is '主键';
+comment on column T_PRODUCTPROCESS.products_id
+  is '物料ID';
+comment on column T_PRODUCTPROCESS.process_id
+  is '工序ID';
+comment on column T_PRODUCTPROCESS.process_price
+  is '价格';
+comment on column T_PRODUCTPROCESS.process_cycle
+  is '周期';
+comment on column T_PRODUCTPROCESS.remarks
+  is '备注';
+   
+alter table T_PRODUCTPROCESS
+   add constraint PK_T_PRODUCTPROCESS primary key (ID);
+   
+/*==============================================================*/
+/* Table: 验收明细				                                    */
+/*==============================================================*/
+create table T_AcceptanceList 
+(
+   ID                   NUMBER               not null,
+   ProductionTaskID   NUMBER,
+   Products_ID        NUMBER,
+   ProcessID          NUMBER,
+   AcceptanceDate     VARCHAR(30),
+   isAcceptance       VARCHAR(10)
+);
+
+comment on table T_AcceptanceList is
+'验收单';
+
+comment on column T_AcceptanceList.ID is
+'主键';
+
+comment on column T_AcceptanceList.ProductionTaskID is
+'加工单头表';
+
+comment on column T_AcceptanceList.Products_ID is
+'产品ID';
+
+comment on column T_AcceptanceList.ProcessID is
+'工序ID';
+
+comment on column T_AcceptanceList.AcceptanceDate is
+'验收时间';
+
+comment on column T_AcceptanceList.isAcceptance is
+'是否验收';
+
+alter table T_AcceptanceList
+   add constraint PK_T_ACCEPTANCELIST primary key (ID);
+

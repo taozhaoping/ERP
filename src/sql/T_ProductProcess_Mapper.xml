@@ -4,24 +4,29 @@
 	<resultMap id="T_ProductProcess" type="ProductProcess">
 		<id column="ID" property="id" />
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
-		<result column="PRODUCTS_ID" property="productsID" />
+		<result column="bomPrimary_ID" property="bomPrimaryID" />
 		<result column="process_ID" property="processID" />
 		<result column="Process_Price" property="referencePrice" jdbcType="FLOAT" />
 		<result column="Process_Cycle" property="processingCycle" jdbcType="FLOAT"/>
 		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		ID, 
 		NAME, 
-		PRODUCTS_ID
+		bomPrimary_ID
 		Process_Price,
 		Process_Cycle,
 		Remarks
 	</sql>
+	
 	<sql id="where">
 		<where>
 			<if test="id != null">
 				and a.id = #{id}
+			</if>
+			<if test="bomPrimaryID != null">
+				and bomPrimary_ID = #{bomPrimaryID}
 			</if>
 		</where>
 	</sql>
@@ -30,7 +35,7 @@
 		select
 		a.ID, 
 		NAME, 
-		PRODUCTS_ID
+		bomPrimary_ID
 		Process_Price,
 		Process_Cycle,
 		a.Remarks
@@ -43,7 +48,7 @@
 		select
 		a.ID, 
 		NAME, 
-		PRODUCTS_ID
+		bomPrimary_ID
 		Process_Price,
 		Process_Cycle,
 		a.Remarks
@@ -79,8 +84,8 @@
 			<if test="processID != null">
 				process_ID,
 			</if>
-			<if test="productsID != null">
-				PRODUCTS_ID,
+			<if test="bomPrimaryID != null">
+				bomPrimary_ID,
 			</if>
 			<if test="referencePrice != null">
 				Process_Price,
@@ -99,8 +104,8 @@
 			<if test="processID != null">
 				#{processID},
 			</if>
-			<if test="productsID != null">
-				#{productsID},
+			<if test="bomPrimaryID != null">
+				#{bomPrimaryID},
 			</if>
 			<if test="referencePrice != null">
 				#{referencePrice,jdbcType=FLOAT},
@@ -120,8 +125,8 @@
 			<if test="processID != null">
 				process_ID = #{processID,jdbcType=VARCHAR},
 			</if>
-			<if test="productsID != null">
-				PRODUCTS_ID = #{productsID,jdbcType=FLOAT},
+			<if test="bomPrimaryID != null">
+				bomPrimary_ID = #{bomPrimaryID,jdbcType=FLOAT},
 			</if>
 			<if test="referencePrice != null">
 				Process_Price = #{referencePrice,jdbcType=FLOAT},
