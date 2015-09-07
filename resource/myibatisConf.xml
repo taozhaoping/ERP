@@ -129,6 +129,11 @@
 	
 		<!-- 销售订单明细产品结构表 -->
 		<typeAlias alias="SalesOrderBom" type="com.zh.web.model.bean.SalesOrderBom"/>
+		
+		<!-- 验收单 -->
+		<typeAlias alias="AcceptanceList" type="com.zh.web.model.bean.AcceptanceList"/>
+		
+		
 	</typeAliases>
 
 	<plugins>
