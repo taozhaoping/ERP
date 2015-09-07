@@ -63,6 +63,11 @@ public class Param extends IDataObject {
      * @mbggenerated Tue Jul 22 08:05:32 CST 2014
      */
     private String emailurlpassword;
+    
+    /**
+     * 损耗率
+     */
+    private float scrapFactor;
 
 	public Integer getId() {
 		return id;
@@ -118,6 +123,14 @@ public class Param extends IDataObject {
 
 	public void setEmailurlpassword(String emailurlpassword) {
 		this.emailurlpassword = emailurlpassword;
+	}
+
+	public float getScrapFactor() {
+		return scrapFactor;
+	}
+
+	public void setScrapFactor(float scrapFactor) {
+		this.scrapFactor = scrapFactor;
 	}
 
  

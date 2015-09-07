@@ -176,6 +176,20 @@
 										</div>
 									</div>
 								</dir>
+								
+								<dir class="row">
+									<div class="span5">
+										<div class="control-group">
+											<label class="control-label" for="inputemailisauth">损耗率:</label>
+											<div class="controls">
+												<input size="16" id="inputeScrapFactor" type="text"
+													name="sysParam.scrapFactor" value="${sysParam.scrapFactor}"
+													class="input-xlarge" />
+											</div>
+										</div>
+									</div>
+									
+								</dir>
 
 							</div>
 

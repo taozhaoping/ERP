@@ -261,12 +261,13 @@ comment on table SYS_ROLE_TO_MENU is
 create table SYS_PARAM
 (
   id                 NUMBER	not null,
-  emailService       VARCHAR2(50),--邮箱服务器地址
-  emailForm          VARCHAR2(50),--服务器邮箱名
-  emailUserName      VARCHAR2(50),--邮箱账号
-  emailPassword      VARCHAR2(50), --邮箱密码
-  emailisAuth        VARCHAR2(1),--是否验证 0:验证，1不验证
-  emailUrlPassword   VARCHAR2(30)    -- url秘钥
+  emailService       VARCHAR2(50),	--邮箱服务器地址
+  emailForm          VARCHAR2(50),	--服务器邮箱名
+  emailUserName      VARCHAR2(50),	--邮箱账号
+  emailPassword      VARCHAR2(50), 	--邮箱密码
+  emailisAuth        VARCHAR2(1),	--是否验证 0:验证，1不验证
+  emailUrlPassword   VARCHAR2(30),  -- url秘钥
+  SCRAP_FACTOR		 FLOAT			--损耗率
 );
 
 alter table SYS_PARAM

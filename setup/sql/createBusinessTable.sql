@@ -996,6 +996,7 @@ create table T_SALES_ORDER_BOM
    ID                 NUMBER      not null,
    ORDER_ID           VARCHAR(50),
    PRODUCTS_ID		  NUMBER,
+   PRODUCTS_BOM_ID	  NUMBER,
    QTY				  NUMBER,
    IS_MAIN_PRODUCTS   NUMBER,
    MAIN_PRODUCTS_ID	  NUMBER,
@@ -1018,6 +1019,9 @@ comment on column T_SALES_ORDER_BOM.ORDER_ID is
 
 comment on column T_SALES_ORDER_BOM.PRODUCTS_ID is
 '产品编号';
+
+comment on column T_SALES_ORDER_BOM.PRODUCTS_BOM_ID is
+'产品结构编号';
 
 comment on column T_SALES_ORDER_BOM.QTY is
 '数量';

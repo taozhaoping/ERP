@@ -1,42 +1,10 @@
----------------------------------------------
--- Export file for user ERP                --
--- Created by 21829 on 2015/5/19, 20:34:08 --
----------------------------------------------
+--------------------------------------------
+-- Export file for user ERP               --
+-- Created by 21829 on 2015/9/7, 19:52:50 --
+--------------------------------------------
 
 set define off
 spool procedure_function.log
-
-prompt
-prompt Creating function GETRELEASEBOMBYPRODUCTID
-prompt ==========================================
-prompt
-create or replace function erp.getReleaseBOMByProductId(v_productId number)
-  return number is
-  retId     number;
-  productId number;
-  --¸ù¾İ²úÆ·µÄ±àºÅ²éÑ¯×îĞÂ·¢·ÅÇÒÉóºË¹ıµÄ½á¹¹id
-begin
-  productId := v_productId;
-  if (productId is not null) then
-    select t.ID
-      into retId
-    --t.PRODUCTS_ID, t.DESCR, t.EFFDT, t.EFF_STATUS
-      from T_BOM_PRIMARY t
-     where t.EFF_STATUS = '1'
-       and t.effdt < to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
-       and t.PRODUCTS_ID = productId
-       and rownum = 1
-     order by t.EFFDT desc;
-  end if;
-  return(retId);
-EXCEPTION
-  WHEN NO_DATA_FOUND THEN
-    --retId:='';
-    --When Others Then
-    --retId:='';
-    return(retId);
-end getReleaseBOMByProductId;
-/
 
 prompt
 prompt Creating procedure EXPAND_PRODUCT_BOM
@@ -46,52 +14,60 @@ create or replace procedure erp.EXPAND_PRODUCT_BOM(V_SALES_ORDER_ID  IN NUMBER,
                                                V_PRODUCT_ID      IN NUMBER,
                                                V_IS_MAIN_PRODUCT IN NUMBER,
                                                V_TIER            IN NUMBER,
-                                               --V_QTY             IN NUMBER,
+                                               V_QTY             IN NUMBER,
                                                V_PARENT_ID IN NUMBER) as
 begin
   declare
-    SALES_ORDER_ID  number; -- ÏúÊÛ¶©µ¥±àºÅ
-    PRODUCT_ID      number; -- ²úÆ·±àºÅ
-    IS_MAIN_PRODUCT number; -- ÊÇ·ñÖ÷Òª²úÆ·£¨Ö»Õ¹¿ªµÚÒ»³ÉÎª×¼£©
-    TIER            number; -- ²ã¼¶£¨²úÆ·±¾ÉíÎª0£©
-    QTY             number; -- ÊıÁ¿
-    PARENT_ID       number; -- ¸¸ÀàµÄid
+    SALES_ORDER_ID  number; -- é”€å”®è®¢å•ç¼–å·
+    PRODUCT_ID      number; -- äº§å“ç¼–å·
+    IS_MAIN_PRODUCT number; -- æ˜¯å¦ä¸»è¦äº§å“ï¼ˆåªå±•å¼€ç¬¬ä¸€æˆä¸ºå‡†ï¼‰
+    TIER            number; -- å±‚çº§ï¼ˆäº§å“æœ¬èº«ä¸º0ï¼‰
+    QTY             number; -- æ•°é‡
+    PARENT_ID       number; -- çˆ¶ç±»çš„id
+    
+    bom_qty        number; -- æ•°é‡
+    bom_sub_qty    number; -- æ•°é‡
+    scrap_factor   float; --æŸè€—ç‡
   
-    SOURCE_TYPE    varchar2(50); -- À´Ô´,Èç²É¹º(120)£¬Íâ¼Ó¹¤(122)£¬×ÔÉú²ú(121)
-    insert_id      number; -- ²úÆ·id
-    temp_parent_id number; -- Ôİ´æµÄparent_id
+    SOURCE_TYPE    varchar2(50); -- æ¥æº,å¦‚é‡‡è´­(120)ï¼Œå¤–åŠ å·¥(122)ï¼Œè‡ªç”Ÿäº§(121)
+    insert_id      number; -- äº§å“id
+    temp_parent_id number; -- æš‚å­˜çš„parent_id
   
-    bom_primary_id number; -- ²úÆ·½á¹¹ÖĞµÄÖ÷±íid
+    bom_primary_id number; -- äº§å“ç»“æ„ä¸­çš„ä¸»è¡¨id
+    
+    bom_sub_primary_id number; -- äº§å“ç»“æ„ä¸­çš„ä¸»è¡¨id
   
-    sub_count number; -- Ìæ´úÁÏµÄÊıÁ¿
+    sub_count number; -- æ›¿ä»£æ–™çš„æ•°é‡
   begin
     SALES_ORDER_ID  := V_SALES_ORDER_ID;
     PRODUCT_ID      := V_PRODUCT_ID;
     IS_MAIN_PRODUCT := V_IS_MAIN_PRODUCT;
     TIER            := V_TIER;
-    --QTY             := V_QTY;
+    QTY             := V_QTY;
     PARENT_ID := V_PARENT_ID;
   
     select t.source_type
       into SOURCE_TYPE
       from T_PRODUCTS t
      where t.id = PRODUCT_ID;
+     
+    select t.scrap_factor into scrap_factor from sys_param t ;
   
     dbms_output.put_line('EXPAND_PRODUCT_BOM');
     /**
-    * 1¡¢²åÈëÊı¾İ¿â,¸ù¾İ²ã¼¶ÅĞ¶Ï
-    * 2¡¢ÅĞ¶ÏÖ÷ÁÏ¡¢Ìæ´úÁÏµÄ¹ØÏµ
-    * 3¡¢ÅĞ¶Ï²úÆ·À´Ô´ÊÇ·ñÊÇ<×ÔÉú²ú>£¬Èç¹ûÊÇ£¬Ôòµİ¹éµ÷ÓÃ×Ô¼º
+    * 1ã€æ’å…¥æ•°æ®åº“,æ ¹æ®å±‚çº§åˆ¤æ–­
+    * 2ã€åˆ¤æ–­ä¸»æ–™ã€æ›¿ä»£æ–™çš„å…³ç³»
+    * 3ã€åˆ¤æ–­äº§å“æ¥æºæ˜¯å¦æ˜¯<è‡ªç”Ÿäº§>ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™é€’å½’è°ƒç”¨è‡ªå·±
     *
     */
   
-    -- ×ÔÉú²úµÄµİ¹éµ÷ÓÃ,¿¼ÂÇËÀÑ­»·µÄÇé¿ö£¬Èç¹û²ã¼¶´óÔ¼100£¬Ôò²»¼ÌĞøµİ¹é
+    -- è‡ªç”Ÿäº§çš„é€’å½’è°ƒç”¨,è€ƒè™‘æ­»å¾ªç¯çš„æƒ…å†µï¼Œå¦‚æœå±‚çº§å¤§çº¦100ï¼Œåˆ™ä¸ç»§ç»­é€’å½’
     if (SOURCE_TYPE is not null and SOURCE_TYPE = 121 and TIER < 100) then
-      -- ¸ù¾İ²úÆ·±àºÅÕÒµ½½á¹¹Ö÷±íµÄprimary_id
+      -- æ ¹æ®äº§å“ç¼–å·æ‰¾åˆ°ç»“æ„ä¸»è¡¨çš„primary_id
       bom_primary_id := getReleaseBOMByProductId(PRODUCT_ID);
-      --ÕÒµ½²úÆ·½á¹¹
+      --æ‰¾åˆ°äº§å“ç»“æ„
       if (bom_primary_id is not null) then
-        --µü´ú²úÆ·½á¹¹£¬½øĞĞÖ¸¶¨µÄ²Ù×÷
+        --è¿­ä»£äº§å“ç»“æ„ï¼Œè¿›è¡ŒæŒ‡å®šçš„æ“ä½œ
         for p in (select t.id,
                          t.primary_id,
                          t.sub_products_id,
@@ -103,31 +79,41 @@ begin
           select decode(TIER, 1, p.is_main_products, IS_MAIN_PRODUCT)
             into IS_MAIN_PRODUCT
             from dual;
+            
+          select decode(TIER, 1, round(p.qty * QTY * (1+scrap_factor)), p.qty * QTY)
+            into bom_qty
+            from dual;
         
           -- dbms_output.put_line(p.id);
-          -- ²éÕÒ²úÆ·µÄÀ´Ô´,Èç²É¹º(120)£¬Íâ¼Ó¹¤(122)£¬×ÔÉú²ú(121)
+          -- æŸ¥æ‰¾äº§å“çš„æ¥æº,å¦‚é‡‡è´­(120)ï¼Œå¤–åŠ å·¥(122)ï¼Œè‡ªç”Ÿäº§(121)
           select t.source_type
             into SOURCE_TYPE
             from T_PRODUCTS t
            where t.id = p.sub_products_id;
-          -- ĞèÒª²åÈëµÄID
+          -- éœ€è¦æ’å…¥çš„ID
           select SEQUENCE_T_SALES_ORDER_BOM.nextval
             into insert_id
             from dual;
         
-          -- ²éÑ¯ÊÇ·ñÓĞÖ÷ÁÏ¡¢Ìæ´úÁÏ
+          -- æŸ¥è¯¢æ˜¯å¦æœ‰ä¸»æ–™ã€æ›¿ä»£æ–™
           select count(1)
             into sub_count
             from T_BOM_SUB t
            where t.primary_id = p.primary_id
              and t.main_products_id = p.sub_products_id;
+             
+          --è·å–äº§å“ç»“æ„id
+          bom_sub_primary_id := getReleaseBOMByProductId(p.sub_products_id);
+          
+           
         
-          --²ã¼¶Îª1µÄÊ±ºò,ĞèÒª»ñÈ¡[ÊÇ·ñÎªÖ÷Òª²ÄÁÏ]Öµ,¼ÆËãÖ÷ÁÏ¡¢Ìæ´úÁÏ,parentId
-          --¼Ì³Ğ[ÊÇ·ñÊÇÖ÷Òª²ÄÁÏ],¼ÆËãÖ÷ÁÏ¡¢Ìæ´úÁÏ,parentId
+          --å±‚çº§ä¸º1çš„æ—¶å€™,éœ€è¦è·å–[æ˜¯å¦ä¸ºä¸»è¦ææ–™]å€¼,è®¡ç®—ä¸»æ–™ã€æ›¿ä»£æ–™,parentId
+          --ç»§æ‰¿[æ˜¯å¦æ˜¯ä¸»è¦ææ–™],è®¡ç®—ä¸»æ–™ã€æ›¿ä»£æ–™,parentId
           insert into T_SALES_ORDER_BOM
             (ID,
              ORDER_ID,
              PRODUCTS_ID,
+             PRODUCTS_BOM_ID,
              QTY,
              TIER,
              SOURCE_TYPE,
@@ -138,7 +124,9 @@ begin
             (insert_id,
              SALES_ORDER_ID,
              p.sub_products_id,
-             p.qty,
+             bom_sub_primary_id,
+             --p.qty*QTY,
+             bom_qty,
              TIER,
              SOURCE_TYPE,
              PARENT_ID,
@@ -149,7 +137,7 @@ begin
         
           temp_parent_id := insert_id;
         
-          --Ìí¼ÓÌæ´úÁÏ
+          --æ·»åŠ æ›¿ä»£æ–™
           if (sub_count is not null and sub_count > 0) then
             for sub in (select t.sub_products_id,
                                t.qty,
@@ -159,17 +147,21 @@ begin
                          where t.primary_id = p.primary_id
                            and t.main_products_id = p.sub_products_id) loop
             
-              -- ²úÆ·À´Ô´                  
+              -- äº§å“æ¥æº                  
               select t.source_type
                 into SOURCE_TYPE
                 from T_PRODUCTS t
                where t.id = sub.sub_products_id;
-              -- ĞèÒª²åÈëµÄID
+              -- éœ€è¦æ’å…¥çš„ID
               select SEQUENCE_T_SALES_ORDER_BOM.nextval
                 into insert_id
                 from dual;
+                
+          select decode(TIER, 1, round(sub.qty * QTY * (1+scrap_factor)), sub.qty * QTY)
+            into bom_sub_qty
+            from dual;
             
-              --²åÈëÌæ´úÁÏ   
+              --æ’å…¥æ›¿ä»£æ–™   
               insert into T_SALES_ORDER_BOM
                 (ID,
                  ORDER_ID,
@@ -185,7 +177,8 @@ begin
                 (insert_id,
                  SALES_ORDER_ID,
                  sub.sub_products_id,
-                 sub.qty,
+                 --sub.qty*QTY,
+                 bom_sub_qty,
                  TIER,
                  SOURCE_TYPE,
                  PARENT_ID,
@@ -197,11 +190,12 @@ begin
             end loop;
           end if;
         
-          --µİ¹éµ÷ÓÃ´æ´¢¹ı³Ì£¬Õ¹¿ª²úÆ·
+          --é€’å½’è°ƒç”¨å­˜å‚¨è¿‡ç¨‹ï¼Œå±•å¼€äº§å“
           EXPAND_PRODUCT_BOM(SALES_ORDER_ID,
                              p.sub_products_id,
                              IS_MAIN_PRODUCT,
                              TIER + 1,
+                             p.qty*QTY,
                              temp_parent_id);
         
         end loop;
@@ -221,15 +215,16 @@ begin
   declare
     --count_products number;
     input_id    number;
-    SOURCE_TYPE varchar2(50); -- À´Ô´,Èç²É¹º(120)£¬Íâ¼Ó¹¤(122)£¬×ÔÉú²ú(121)
-    insert_id   number; -- ²úÆ·id
+    SOURCE_TYPE varchar2(50); -- æ¥æº,å¦‚é‡‡è´­(120)ï¼Œå¤–åŠ å·¥(122)ï¼Œè‡ªç”Ÿäº§(121)
+    insert_id   number; -- äº§å“id
+    bom_primary_id number; -- äº§å“ç»“æ„ä¸­çš„ä¸»è¡¨id
   begin
     input_id := sales_order_id;
-    --²éÑ¯ÏúÊÛ¶©µ¥ÖĞµÄ²úÆ·Ã÷Ï¸
+    --æŸ¥è¯¢é”€å”®è®¢å•ä¸­çš„äº§å“æ˜ç»†
     for so in (select t.id,
-                      t.sales_order_id, -- ÏúÊÛ¶©µ¥id
-                      t.products_id, -- ²úÆ·±àºÅ
-                      t.storage_number --ÊıÁ¿
+                      t.sales_order_id, -- é”€å”®è®¢å•id
+                      t.products_id, -- äº§å“ç¼–å·
+                      t.storage_number --æ•°é‡
                  from T_SALES_ORDER_DETAIL t
                 where t.sales_order_id = input_id) loop
       dbms_output.put_line(so.id || ' : ' || so.sales_order_id || ' : ' ||
@@ -242,32 +237,34 @@ begin
         from T_PRODUCTS t
        where t.id = so.products_id;
        
-      --²åÈë¶¥¼¶µÄ²úÆ·
+       bom_primary_id := getReleaseBOMByProductId(so.products_id);
+       
+      --æ’å…¥é¡¶çº§çš„äº§å“
       insert into T_SALES_ORDER_BOM
-        (ID, ORDER_ID, PRODUCTS_ID, QTY, TIER, SOURCE_TYPE)
+        (ID, ORDER_ID, PRODUCTS_ID,PRODUCTS_BOM_ID, QTY, TIER, SOURCE_TYPE)
       values
         (insert_id,
          so.sales_order_id,
          so.products_id,
+         bom_primary_id,
          so.storage_number,
          0,
          SOURCE_TYPE);
        commit;  
-      --Õ¹¿ªµÄÃ¿¸ö²úÆ·                       
+      --å±•å¼€çš„æ¯ä¸ªäº§å“                       
       EXPAND_PRODUCT_BOM(so.sales_order_id,
                          so.products_id,
                          '',
                          1,
-                         --so.storage_number,
+                         so.storage_number,
                          insert_id);
     end loop;
   end;
 end expand_sales_order_bom;
 /
 
-
 prompt
-prompt Creating Éú²úµ¥×ª»»³ÉÉú²úÈÎÎñµ¥
+prompt Creating ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 prompt =========================================
 prompt
 drop  procedure erp.task_Production_task;
@@ -275,7 +272,7 @@ drop  procedure erp.task_Production_task;
 create or replace procedure erp.task_Production_task(v_ProcessingSingleID number) as
 begin
 declare
-       t_processingSingleID  number; -- Éú²úµ¥id
+       t_processingSingleID  number; -- ï¿½ï¿½ï¿½id
        t_status number;
        task_id number;
        task_detail_id number;
@@ -286,7 +283,7 @@ begin
     select t.status  into t_status from t_processing_single_primary t where t.id= t_processingSingleID;
     select to_char(sysdate,'yyyymmdd') into t_dateChar from dual;
         if(t_status = 1) then
-           dbms_output.PUT_LINE('Éú³ÉÉú²úÈÎÎñµ¥');
+           dbms_output.PUT_LINE('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
            for sub in (select startdate, enddate
   from t_processing_single_detail t
  where t.processingsingleid = t_processingSingleID
@@ -300,7 +297,7 @@ begin
              end loop;
            end loop;
         else
-           dbms_output.PUT_LINE('ÒÑ¾­´æÔÚÉú²úÈÎÎñµ¥');
+           dbms_output.PUT_LINE('ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
         end if;
         commit;
 end;
