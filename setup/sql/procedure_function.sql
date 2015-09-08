@@ -36,6 +36,8 @@ begin
     bom_primary_id number; -- 产品结构中的主表id
     
     bom_sub_primary_id number; -- 产品结构中的主表id
+    
+    sub_bom_primary_id number; -- 替代料的产品结构中的主表id
   
     sub_count number; -- 替代料的数量
   begin
@@ -161,11 +163,14 @@ begin
             into bom_sub_qty
             from dual;
             
+            sub_bom_primary_id := getReleaseBOMByProductId(sub.sub_products_id);
+            
               --插入替代料   
               insert into T_SALES_ORDER_BOM
                 (ID,
                  ORDER_ID,
                  PRODUCTS_ID,
+                 PRODUCTS_BOM_ID,
                  QTY,
                  TIER,
                  SOURCE_TYPE,
@@ -177,6 +182,7 @@ begin
                 (insert_id,
                  SALES_ORDER_ID,
                  sub.sub_products_id,
+                 sub_bom_primary_id,
                  --sub.qty*QTY,
                  bom_sub_qty,
                  TIER,
