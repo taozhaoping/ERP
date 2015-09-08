@@ -6,17 +6,19 @@
 		<result column="ProductionTaskID" property="productionTaskID" />
 		<result column="Products_ID" property="productsID" />
 		<result column="ProcessID" property="processID"/>
+		<result column="processName" property="processName" jdbcType="VARCHAR" />
 		<result column="AcceptanceDate" property="acceptanceDate" jdbcType="VARCHAR" />
 		<result column="isAcceptance" property="isAcceptance" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID ,
-   ProductionTaskID ,
-   Products_ID  ,
-   ProcessID     ,
-   AcceptanceDate ,
-   isAcceptance ,
+		a.ID ,
+   a.ProductionTaskID ,
+   a.Products_ID  ,
+   a.ProcessID     ,
+   b.name processName,
+   a.AcceptanceDate ,
+   a.isAcceptance
 	</sql>
 	<sql id="where">
 		<where>
@@ -32,14 +34,14 @@
 	<select id="select" resultMap="T_AcceptanceList" parameterType="AcceptanceList">
 		select
 		<include refid="Base_Column_List" />
-		from T_AcceptanceList
+		from T_AcceptanceList a left join t_process b on a.processid=b.id 
 		<include refid="where" />
 	</select>
 
 	<select id="list" resultMap="T_AcceptanceList" parameterType="AcceptanceList">
 		select
 		<include refid="Base_Column_List" />
-		from T_AcceptanceList
+		from T_AcceptanceList a left join t_process b on a.processid=b.id
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}

@@ -29,6 +29,11 @@ public class ProcessingSingleDetail extends IDataObject {
 	private Integer processingSingleId;
 	
 	/**
+	 * 销售订单分解结构表ID
+	 */
+	private Integer salesOrderBomID;
+	
+	/**
 	 * 生产日期
 	 */
 	private Date startDate;
@@ -47,6 +52,21 @@ public class ProcessingSingleDetail extends IDataObject {
 	 * 生产数量
 	 */
 	private Float processingNumber;
+	
+	/**
+	 * 主料物料编号
+	 */
+	private Integer mainProductsID;
+	
+	/**
+	 * 是否主料/替代料
+	 */
+	private String mainsub;
+	
+	/**
+	 * 生产表示(0：生产，1：不生产)
+	 */
+	private Integer productionMark;
 
 	public Integer getId() {
 		return id;
@@ -95,6 +115,38 @@ public class ProcessingSingleDetail extends IDataObject {
 	public void setProcessingNumber(Float processingNumber) {
 		this.processingNumber = processingNumber;
 	}
-	
+
+	public Integer getSalesOrderBomID() {
+		return salesOrderBomID;
+	}
+
+	public void setSalesOrderBomID(Integer salesOrderBomID) {
+		this.salesOrderBomID = salesOrderBomID;
+	}
+
+	public Integer getMainProductsID() {
+		return mainProductsID;
+	}
+
+	public void setMainProductsID(Integer mainProductsID) {
+		this.mainProductsID = mainProductsID;
+	}
+
+	public String getMainsub() {
+		return mainsub;
+	}
+
+	public void setMainsub(String mainsub) {
+		this.mainsub = mainsub;
+	}
+
+	public Integer getProductionMark() {
+		return productionMark;
+	}
+
+	public void setProductionMark(Integer productionMark) {
+		this.productionMark = productionMark;
+	}
+
 	
 }

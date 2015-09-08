@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zh.core.base.model.BaseModel;
+import com.zh.web.model.bean.AcceptanceList;
 import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.ProductionTaskDetail;
 
@@ -16,6 +17,10 @@ public class ProductionTaskModel extends BaseModel {
 	private ProductionTaskDetail productionTaskDetail = new ProductionTaskDetail();
 	
 	private List<ProductionTaskDetail> productionTaskDetailList = new ArrayList<ProductionTaskDetail>();
+	
+	private AcceptanceList acceptance = new AcceptanceList();
+	
+	private List<AcceptanceList> acceptanceList = new ArrayList<AcceptanceList>();
 	
 	public ProductionTask getProductionTask() {
 		return productionTask;
@@ -48,6 +53,22 @@ public class ProductionTaskModel extends BaseModel {
 	public void setProductionTaskDetailList(
 			List<ProductionTaskDetail> productionTaskDetailList) {
 		this.productionTaskDetailList = productionTaskDetailList;
+	}
+
+	public AcceptanceList getAcceptance() {
+		return acceptance;
+	}
+
+	public void setAcceptance(AcceptanceList acceptance) {
+		this.acceptance = acceptance;
+	}
+
+	public List<AcceptanceList> getAcceptanceList() {
+		return acceptanceList;
+	}
+
+	public void setAcceptanceList(List<AcceptanceList> acceptanceList) {
+		this.acceptanceList = acceptanceList;
 	}
 	
 	

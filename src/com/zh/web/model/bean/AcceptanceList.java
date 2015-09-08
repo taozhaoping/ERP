@@ -26,6 +26,8 @@ public class AcceptanceList extends IDataObject {
 	
 	private Integer processID;
 	
+	private String processName;
+	
 	private String acceptanceDate;
 	
 	private String isAcceptance;
@@ -76,6 +78,14 @@ public class AcceptanceList extends IDataObject {
 
 	public void setIsAcceptance(String isAcceptance) {
 		this.isAcceptance = isAcceptance;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
 
 }

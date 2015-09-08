@@ -80,8 +80,16 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 			Float sotrageNumber = sod.getQty();
 			ProcessingSingleDetail psd = new ProcessingSingleDetail();
 			psd.setProcessingSingleId(processingSingleId);
+			psd.setSalesOrderBomID(sod.getId());
 			psd.setProductsId(sod.getProductsID());
 			psd.setProcessingNumber(sotrageNumber);
+			if("N".equals(sod.getMainSub()))
+			{
+				psd.setProductionMark(UtilService.PROCESSING_SINGLE_DETAIL_NO_PRODUCTION);
+			}else
+			{
+				psd.setProductionMark(UtilService.PROCESSING_SINGLE_DETAIL_PRODUCTION);
+			}
 			processingSingleDetailDao.insert(psd);
 		}
 		return processingSingleId;

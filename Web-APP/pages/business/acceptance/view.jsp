@@ -99,7 +99,7 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">加工清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">验收清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane fade dl-horizontal" id="home">
@@ -115,7 +115,7 @@
 										<div class="control-group">
 											<dt>加工单号：</dt>
 											<dd>
-												<dd>${productionTask.inventoryCountID}</dd>
+												<dd>${productionTask.processingsingleID}</dd>
 											</dd>
 										</div>
 									</div>
@@ -148,23 +148,21 @@
 										<tr>
 										<th>序号</th>
 										<th>产品编号</th>
-										
-										<th>加工数量</th>
-										<th>工序</th>
+										<th>工序名称</th>
+										<th>验收时间</th>
+										<th>操作</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="productionTaskDetailList" var="tp" status="index">
+											<s:iterator value="acceptanceList" var="tp" status="index">
 											<tr>
 												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsId" /></td>
-												
-												<td><s:property value="#tp.processingNumber" /></td>
-												<td><s:property value="#tp.processID" /></td>
-												<td><s:property value="#tp.remarks" /></td>
+												<td><s:property value="#tp.productsID" /></td>
+												<td><s:property value="#tp.processName" /></td>
+												<td><s:property value="#tp.acceptanceDate" /></td>
 											</tr>
 											</s:iterator>
 											

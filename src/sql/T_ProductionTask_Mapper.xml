@@ -4,6 +4,7 @@
 	<resultMap id="T_ProductionTask" type="ProductionTask">
 		<id column="ID" property="id" javaType="Integer"  jdbcType="INTEGER"/>
 		<id column="Inventory_countID" property="inventoryCountID" javaType="Integer"  jdbcType="INTEGER"/>
+		<result column="PROCESSINGSINGLEID" property="processingsingleID" jdbcType="VARCHAR" />
 		<result column="Production_order" property="productionOrder" jdbcType="VARCHAR" />
 		<result column="STARTDATE" property="startDate" jdbcType="DATE" />
 		<result column="ENDDATE" property="endDate" jdbcType="DATE" />
@@ -11,6 +12,7 @@
 	<sql id="Base_Column_List">
 		id ,
 		Inventory_countID ,
+		PROCESSINGSINGLEID,
 		Production_order ,
 		STARTDATE ,
 		ENDDATE 
@@ -70,6 +72,9 @@
 			<if test="inventoryCountID != null">
 				Inventory_countID ,
 			</if>
+			<if test="processingsingleID != null">
+				PROCESSINGSINGLEID ,
+			</if>
 			<if test="productionOrder != null">
 				Production_order ,
 			</if>
@@ -86,6 +91,9 @@
 			</if>
 			<if test="inventoryCountID != null">
 				#{Inventory_countID},
+			</if>
+			<if test="processingsingleID != null">
+				#{PROCESSINGSINGLEID,jdbcType=VARCHAR},
 			</if>
 			<if test="productionOrder != null">
 				#{productionOrder,jdbcType=VARCHAR},

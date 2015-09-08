@@ -110,7 +110,7 @@
 								<s:iterator value="productionTaskList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.inventoryCountID"/></td>
+										<td><s:property value="#tp.processingsingleID"/></td>
 										<td><s:property value="#tp.productionOrder"/></td>
 										<td>
 											<s:property value="#tp.startDate"/>
@@ -119,6 +119,7 @@
 											<s:property value="#tp.endDate"/>
 										</td>
 										<td>
+											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>

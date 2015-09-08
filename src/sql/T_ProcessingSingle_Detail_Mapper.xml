@@ -4,19 +4,28 @@
 	<resultMap id="T_ProcessingSingle_Detail" type="ProcessingSingleDetail">
 		<id column="ID" property="id" />
 		<result column="PROCESSINGSINGLEID" property="processingSingleId" />
+		<result column="salesOrderBomID" property="salesOrderBomID" />
 		<result column="STARTDATE" property="startDate" />
 		<result column="ENDDATE" property="endDate" />
 		<result column="PRODUCTS_ID" property="productsId" />
 		<result column="PROCESSINGNUMBER" property="processingNumber"/>
+		<result column="ProductionMark" property="productionMark"/>
 	</resultMap>
 	
+	<resultMap id="T_ProcessingSingle_List" type="ProcessingSingleDetail" extends="T_ProcessingSingle_Detail">
+	  	<result column="main_products_id" property="mainProductsID" />
+	  	<result column="main_sub" property="mainsub" jdbcType="VARCHAR" />
+	  </resultMap>
+	  
 	<sql id="Base_Column_List">
 		ID,
 		PROCESSINGSINGLEID,
+		salesOrderBomID,
 		STARTDATE,
 		ENDDATE,
 		PRODUCTS_ID,
-		PROCESSINGNUMBER
+		PROCESSINGNUMBER,
+		ProductionMark
 	</sql>
 	<sql id="where">
 		<where>
@@ -32,6 +41,9 @@
 			<if test="processingNumber != null">
 				and PROCESSINGNUMBER = #{processingNumber}
 			</if>
+			<if test="productionMark != null">
+				and ProductionMark = #{productionMark}
+			</if>
 		</where>
 	</sql>
 
@@ -42,10 +54,19 @@
 		<include refid="where" />
 	</select>
 
-	<select id="list" resultMap="T_ProcessingSingle_Detail" parameterType="ProcessingSingleDetail">
+	<select id="list" resultMap="T_ProcessingSingle_List" parameterType="ProcessingSingleDetail">
 		select
-		<include refid="Base_Column_List" />
-		from T_PROCESSING_SINGLE_DETAIL
+			a.ID,
+		PROCESSINGSINGLEID,
+		salesOrderBomID,
+		STARTDATE,
+		ENDDATE,
+		a.PRODUCTS_ID,
+		PROCESSINGNUMBER,
+		productionMark,
+		b.main_products_id,
+    	b.main_sub
+		from T_PROCESSING_SINGLE_DETAIL a left join  T_SALES_ORDER_BOM b on a.salesorderbomid=b.id
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -71,6 +92,9 @@
 			<if test="processingSingleId != null">
 				PROCESSINGSINGLEID,
 			</if>
+			<if test="salesOrderBomID != null">
+				salesOrderBomID,
+			</if>
 			<if test="startDate != null">
 				STARTDATE,
 			</if>
@@ -83,6 +107,9 @@
 			<if test="processingNumber != null">
 				PROCESSINGNUMBER,
 			</if>
+			<if test="productionMark != null">
+				productionMark,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -90,6 +117,9 @@
 			</if>
 			<if test="processingSingleId != null">
 				#{processingSingleId},
+			</if>
+			<if test="salesOrderBomID != null">
+				#{salesOrderBomID},
 			</if>
 			<if test="startDate != null">
 				#{startDate},
@@ -103,6 +133,9 @@
 			<if test="processingNumber != null">
 				#{processingNumber},
 			</if>
+			<if test="productionMark != null">
+				#{productionMark},
+			</if>
 		</trim>
 	</insert>
 	<update id="update" parameterType="ProcessingSingleDetail">
@@ -110,6 +143,9 @@
 		<set>
 			<if test="processingSingleId != null">
 				PROCESSINGSINGLEID = #{processingSingleId},
+			</if>
+			<if test="salesOrderBomID != null">
+				salesOrderBomID = #{salesOrderBomID},
 			</if>
 			<if test="startDate != null">
 				STARTDATE = #{startDate},
@@ -122,6 +158,9 @@
 			</if>
 			<if test="processingNumber != null">
 				PROCESSINGNUMBER = #{processingNumber},
+			</if>
+			<if test="productionMark != null">
+				productionMark = #{productionMark},
 			</if>
 		</set>
 		where ID = #{id}

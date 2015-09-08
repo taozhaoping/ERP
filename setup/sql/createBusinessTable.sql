@@ -1407,6 +1407,8 @@ create table t_Processing_single_DETAIL
 (
    ID                   NUMBER               not null,
    ProcessingSingleID NUMBER,
+   salesOrderBomID    NUMBER,
+   productionMark     NUMBER,
    startDate          DATE,
    endDate            DATE,
    Products_ID        NUMBER,
@@ -1423,6 +1425,9 @@ comment on column t_Processing_single_DETAIL.ID is
 comment on column t_Processing_single_DETAIL.ProcessingSingleID is
 '加工单头表id';
 
+comment on column t_Processing_single_DETAIL.salesOrderBomID is
+'销售订单分解结构表ID';
+
 comment on column t_Processing_single_DETAIL.startDate is
 '生产日期';
 
@@ -1437,6 +1442,9 @@ comment on column t_Processing_single_DETAIL.ProcessingNumber is
 
 comment on column t_Processing_single_DETAIL.ProcessID is
 '工序';
+
+comment on column t_Processing_single_DETAIL.productionMark is
+'生产标示';
 
 alter table t_Processing_single_DETAIL
    add constraint PK_PROCESSING_SINGLE_DETAIL primary key (ID);
@@ -1543,8 +1551,9 @@ alter table T_Process
 create table T_ProductionTask 
 (
    ID                   NUMBER               not null,
-   Inventory_countID      NUMBER,
-   Production_order   VARCHAR(150),
+   Inventory_countID    NUMBER,
+   PROCESSINGSINGLEID	VARCHAR(150),
+   Production_order     VARCHAR(150),
    STARTDATE            DATE,
    ENDDATE              DATE
 );
@@ -1557,6 +1566,9 @@ comment on column T_ProductionTask.ID is
 
 comment on column T_ProductionTask.Inventory_countID is
 '加工单';
+
+comment on column T_ProductionTask.PROCESSINGSINGLEID is
+'加工单编号';
 
 comment on column T_ProductionTask.Production_order is
 '生产单号';

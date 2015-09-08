@@ -115,7 +115,7 @@
 										<div class="control-group">
 											<dt>加工单号：</dt>
 											<dd>
-												<dd>${productionTask.inventoryCountID}</dd>
+												<dd>${productionTask.processingsingleID}</dd>
 											</dd>
 										</div>
 									</div>

@@ -117,5 +117,15 @@ public interface UtilService {
 	 * 加工单状态（审核）
 	 */
 	public static Integer PROCESSING_SINGLE_STATUS_EXAMINE = 1;
+	
+	/**
+	 * 加工单生产标示_生产
+	 */
+	public static Integer PROCESSING_SINGLE_DETAIL_PRODUCTION = 0;
+	
+	/**
+	 * 加工单生产标示_不生产
+	 */
+	public static Integer PROCESSING_SINGLE_DETAIL_NO_PRODUCTION = 1;
 
 }

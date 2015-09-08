@@ -11,9 +11,10 @@ import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProductionTaskModel;
+import com.zh.web.model.bean.AcceptanceList;
 import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.ProductionTaskDetail;
-import com.zh.web.service.ProductionTaskDetailService;
+import com.zh.web.service.AcceptanceListService;
 import com.zh.web.service.ProductionTaskService;
 
 /**
@@ -39,7 +40,7 @@ public class AcceptanceAction extends BaseAction {
 	private ProductionTaskService productionTaskService;
 
 	@Autowired
-	private ProductionTaskDetailService productionTaskDetailService;
+	private AcceptanceListService acceptanceListService;
 
 	private ProductionTaskModel productionTaskModel = new ProductionTaskModel();
 
@@ -79,15 +80,15 @@ public class AcceptanceAction extends BaseAction {
 		this.productionTaskModel.setProductionTask(reult);
 
 		// 查询需求清单明细
-		ProductionTaskDetail productionTaskDetail = this.productionTaskModel
-				.getProductionTaskDetail();
-		productionTaskDetail.setProductionTaskID(id);
+		AcceptanceList acceptanceList = this.productionTaskModel
+				.getAcceptance();
+		acceptanceList.setProductionTaskID(reult.getId());
 		Pager page = this.productionTaskModel.getPageInfo();
-		Integer count = productionTaskDetailService.count(productionTaskDetail);
+		Integer count = acceptanceListService.count(acceptanceList);
 		page.setTotalRow(count);
-		List<ProductionTaskDetail> list = productionTaskDetailService
-				.queryList(productionTaskDetail, page);
-		this.productionTaskModel.setProductionTaskDetailList(list);
+		List<AcceptanceList> list = acceptanceListService
+				.queryList(acceptanceList, page);
+		this.productionTaskModel.setAcceptanceList(list);
 		return Action.VIEW;
 	}
 

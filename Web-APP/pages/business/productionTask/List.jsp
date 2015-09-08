@@ -110,7 +110,7 @@
 								<s:iterator value="productionTaskList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.inventoryCountID"/></td>
+										<td><s:property value="#tp.processingsingleID"/></td>
 										<td><s:property value="#tp.productionOrder"/></td>
 										<td>
 											<s:property value="#tp.startDate"/>

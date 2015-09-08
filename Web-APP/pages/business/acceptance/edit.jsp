@@ -113,146 +113,73 @@
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade" id="home">
-								<form id="editForm" class="form-horizontal" action="${menu2Id}!save.jspa" method="post">
-								<input type="hidden" name="id" value="${processingSinglePrimary.id}"> 
-								<input type="hidden" name="menuId" value="${menuId}"> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}"> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
+							<dl class="tab-pane fade dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputProcessingSingleId" style="">加工单号：</label>
-											<div class="controls">
-													<input type="text" maxlength="30" disabled="disabled"
-														id="inputProcessingSingleId" value="${processingSinglePrimary.processingSingleId}" class="input-medium"></input>
-												
-											</div>
-
+											<dt>生产任务单：</dt>
+											<dd>${productionTask.productionOrder}</dd>
 										</div>
 									</div>
+									
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputPurchaseOrderId" style="">销售订单：</label>
-											<div class="controls">
-												<s:if test="#ProcessId">
-													<input type="text" maxlength="30" disabled="disabled"
-														id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId" value="${processingSinglePrimary.purchaseOrderId}" class="input-large"></input>
-												</s:if>
-												<s:else>
-													<s:select id="inputcustomerId"  list="salesOrderPrimaryList" data-required="true" listKey="id" listValue="orderID"
-														name="processingSinglePrimary.purchaseOrderId" cssClass="input-large" placeholder="销售订单">
-													</s:select>
-												</s:else>
-											</div>
-										</div>
-									</div>
-								</dir>
-								<dir class="row">
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputStatus" style="">状态：</label>
-											<div class="controls">
-												<select id="inputStatus"  disabled="disabled"
-													name="processingSinglePrimary.status" class="input-medium" placeholder="状态" >
-													<option value="0">发起</option>
-													<option value="1">审核</option>
-													<option value="2">完成</option>
-												</select>
-												<!-- 
-												<input type="text" maxlength="40" name="processingSinglePrimary.status" disabled="disabled"
-													placeholder="状态" id="inputStatus" value="${processingSinglePrimary.status}" class="input-medium"></input>
-												 -->
-											</div>
-
-										</div>
-									</div>
-									<div class="span4">
-										<div class="control-group">
-											<label class="control-label" for="inputCreateDate" style="">创建时间：</label>
-											<div class="controls">
-												<input size="16" id="inputCreateDate" name="processingSinglePrimary.createDate"
-													type="text" 
-													value="${processingSinglePrimary.createDate}"
-													readonly class="input-medium">
-											</div>
+											<dt>加工单号：</dt>
+											<dd>
+												<dd>${productionTask.processingsingleID}</dd>
+											</dd>
 										</div>
 									</div>
 								</dir>
 								
 								<dir class="row">
-									<div class="span8">
+									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputremarks" >备注：</label>
-											<div class="controls">
-												<input type="text" maxlength="500" name="processingSinglePrimary.remarks"
-													placeholder="备注" id="inputremarks" value="${processingSinglePrimary.remarks}" class="input-xxlarge"></input>
-											</div>
-
+											<dt>加工日期：</dt>
+											<dd>
+												<s:date name="productionTask.startDate" format="yyyy-MM-dd" />
+											</dd>
 										</div>
 									</div>
-								
+									<div class="span4">
+										<div class="control-group">
+											<dt>完成日期：</dt>
+											<dd>
+												<s:date name="productionTask.endDate" format="yyyy-MM-dd" />
+											</dd>
+										</div>
+									</div>
 								</dir>
-								</form>
-							</div>
+								
+							</dl>
 							
-							<div class="tab-pane fade" id="process">
+							<div class="tab-pane fade" id="storagedetail">
 								<table class="table ">
 									<thead>
 										<tr>
-											<th>序号</th>
-											<th>生产物料</th>
-											<th>生产数量</th>
-											<th>主料/替代料</th>
-											<th>主料编号</th>
-											<th>生产时间</th>
-											<th>结束时间</th>
-											<th>生产</th>
+										<th>序号</th>
+										<th>产品编号</th>
+										<th>工序名称</th>
+										<th>验收时间</th>
+										<th>操作</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="processingSingleDetailList" var="tp" status="index">
+											<s:iterator value="acceptanceList" var="tp" status="index">
 											<tr>
 												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsId" /></td>
-												<td><s:property value="#tp.processingNumber" /></td>
-												<td>
-													<s:if test='#tp.mainsub=="Y"'>
-														主料
-													</s:if>
-													<s:elseif test='#tp.mainsub=="N"'>
-														替代料
-													</s:elseif>
-												</td>
-												<td><s:property value="#tp.mainProductsID" /></td>
-												<td>
-													<input size="16" id="inputStartDate" FID="${tp.id}" name="tp.startDate"
-													type="text" value="<s:date name="#tp.startDate" format="yyyy-MM-dd"/>" onchange="changeQuantiy(this,'start')"
-													readonly class="form_datetime input-medium">
-												</td>
-												<td>
-													<input size="16" id="inputEndDate" FID="${tp.id}" name="tp.changeQuantiy"
-													type="text" value="<s:date name="#tp.endDate" format="yyyy-MM-dd"/>" onchange="changeQuantiy(this,'end')"
-													readonly class="form_datetime input-medium">
-												</td>
-												<td>
-													<s:if test="#tp.productionMark==0">
-														<a title="生产标示" style="margin: 0px 3px;"><i class="icon-ok"></i></a> 
-													</s:if>
-													<s:else>
-														<i class="icon-remove"></i>
-													</s:else>
-												</td>
+												<td><s:property value="#tp.productsID" /></td>
+												<td><s:property value="#tp.processName" /></td>
+												<td><s:property value="#tp.acceptanceDate" /></td>
 											</tr>
 											</s:iterator>
 											
 										</tr>
 									</tbody>
 								</table>
-								
 								<div class="pagination">
 									<ul id="pagination">
 									</ul>

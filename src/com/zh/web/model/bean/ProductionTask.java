@@ -23,6 +23,11 @@ public class ProductionTask extends IDataObject {
 	private Integer inventoryCountID;
 	
 	/**
+	 * 加工单编号
+	 */
+	private String processingsingleID;
+	
+	/**
 	 * 生产任务单
 	 */
 	private String productionOrder;
@@ -75,6 +80,14 @@ public class ProductionTask extends IDataObject {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getProcessingsingleID() {
+		return processingsingleID;
+	}
+
+	public void setProcessingsingleID(String processingsingleID) {
+		this.processingsingleID = processingsingleID;
 	}
 	
 }
