@@ -128,6 +128,7 @@ public class ProductsAction extends BaseAction {
 					ps = productsService.query(ps);
 					bs.setSubProductsName(ps.getName());
 				}
+				this.productsModel.setBomSubList(bomSubList);
 				
 				//工序列表
 				ProductProcess productProcess = this.productsModel.getProductProcess();
