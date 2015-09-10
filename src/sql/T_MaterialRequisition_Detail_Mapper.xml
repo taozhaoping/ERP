@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_MaterialRequisitionDetail">
+	<resultMap id="T_MaterialRequisitionDetail" type="MaterialRequisitionDetail">
+		<id column="ID" property="id" />
+		<result column="PRODUCTIONTASKID" property="productiontaskId" />
+		<result column="PRODUCTS_ID" property="productsId"/>
+		<result column="MATERIAL_NUMBER" property="materialNumber"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,
+		PRODUCTIONTASKID,
+		PRODUCTS_ID,
+		MATERIAL_NUMBER
+	</sql>
+	
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="productiontaskId != null">
+				and PRODUCTIONTASKID = #{productiontaskId}
+			</if>
+			<if test="productsId != null">
+				and PRODUCTS_ID = #{productsId}
+			</if>
+			<if test="materialNumber != null">
+				and MATERIAL_NUMBER = #{materialNumber}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_MaterialRequisitionDetail" parameterType="MaterialRequisitionDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_MATERIAL_REQUISITION_DETAIL
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_MaterialRequisitionDetail" parameterType="MaterialRequisitionDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_MATERIAL_REQUISITION_DETAIL
+		<include refid="where" />
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="MaterialRequisitionDetail">
+		select
+		count(id)
+		from T_MATERIAL_REQUISITION_DETAIL
+		<include refid="where" />
+	</select>
+
+	<insert id="insert" parameterType="MaterialRequisitionDetail">
+		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+			select
+			SEQUENCE_T_MATERIAL_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_MATERIAL_REQUISITION_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="productiontaskId != null">
+				PRODUCTIONTASKID,
+			</if>
+			<if test="productsId != null">
+				PRODUCTS_ID,
+			</if>
+			<if test="materialNumber != null">
+				MATERIAL_NUMBER,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="productiontaskId != null">
+				#{PRODUCTIONTASKID},
+			</if>
+			<if test="productsId != null">
+				#{PRODUCTS_ID},
+			</if>
+			<if test="materialNumber != null">
+				#{MATERIAL_NUMBER},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="MaterialRequisitionDetail">
+		update T_MATERIAL_REQUISITION_DETAIL
+		<set>
+			<if test="productiontaskId != null">
+				PRODUCTIONTASKID = #{productiontaskId},
+			</if>
+			<if test="productsId != null">
+				PRODUCTS_ID = #{productsId},
+			</if>
+			<if test="materialNumber != null">
+				MATERIAL_NUMBER = #{materialNumber},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="MaterialRequisitionDetail">
+		delete from T_MATERIAL_REQUISITION_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>

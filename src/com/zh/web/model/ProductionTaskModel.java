@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.AcceptanceList;
+import com.zh.web.model.bean.MaterialRequisitionDetail;
 import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.ProductionTaskDetail;
 
@@ -16,7 +17,17 @@ public class ProductionTaskModel extends BaseModel {
 
 	private ProductionTaskDetail productionTaskDetail = new ProductionTaskDetail();
 	
+	/**
+	 * 领料单明细
+	 */
+	private MaterialRequisitionDetail materialRequisitionDetail = new MaterialRequisitionDetail();
+	
 	private List<ProductionTaskDetail> productionTaskDetailList = new ArrayList<ProductionTaskDetail>();
+
+	/**
+	 * 领料单明细
+	 */
+	private List<MaterialRequisitionDetail> materialRequisitionDetailList = new ArrayList<MaterialRequisitionDetail>();
 	
 	private AcceptanceList acceptance = new AcceptanceList();
 	
@@ -70,6 +81,23 @@ public class ProductionTaskModel extends BaseModel {
 	public void setAcceptanceList(List<AcceptanceList> acceptanceList) {
 		this.acceptanceList = acceptanceList;
 	}
-	
+
+	public List<MaterialRequisitionDetail> getMaterialRequisitionDetailList() {
+		return materialRequisitionDetailList;
+	}
+
+	public void setMaterialRequisitionDetailList(
+			List<MaterialRequisitionDetail> materialRequisitionDetailList) {
+		this.materialRequisitionDetailList = materialRequisitionDetailList;
+	}
+
+	public MaterialRequisitionDetail getMaterialRequisitionDetail() {
+		return materialRequisitionDetail;
+	}
+
+	public void setMaterialRequisitionDetail(
+			MaterialRequisitionDetail materialRequisitionDetail) {
+		this.materialRequisitionDetail = materialRequisitionDetail;
+	}
 	
 }
