@@ -1488,10 +1488,10 @@ alter table t_Material_requisition_Primary
 create table t_Material_requisition_DETAIL 
 (
    ID                   NUMBER               not null,
-   MaterialID         NUMBER,
-   ProcessingSingleID NUMBER,
-   Products_ID        NUMBER,
-   MateriallNumber    FLOAT
+   MaterialID         	NUMBER,
+   ProcessingSingleID 	NUMBER,
+   Products_ID       	NUMBER,
+   Material_Number   	FLOAT
 );
 
 comment on table t_Material_requisition_DETAIL is
@@ -1509,7 +1509,7 @@ comment on column t_Material_requisition_DETAIL.ProcessingSingleID is
 comment on column t_Material_requisition_DETAIL.Products_ID is
 '物料';
 
-comment on column t_Material_requisition_DETAIL.MateriallNumber is
+comment on column t_Material_requisition_DETAIL.Material_Number is
 '数量';
 
 alter table t_Material_requisition_DETAIL
