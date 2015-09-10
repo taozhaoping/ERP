@@ -21,7 +21,6 @@ alter table t_Inventory_count_Primary  drop primary key cascade;
 alter table t_Inventory_count_DETAIL   drop primary key cascade;
 alter table t_Processing_single_Primary  drop primary key cascade;
 alter table t_Processing_single_DETAIL   drop primary key cascade;
-alter table t_Material_requisition_Primary drop primary key cascade;
 alter table t_Material_requisition_DETAIL  drop primary key cascade;
 alter table T_Process      drop primary key cascade;
 alter table T_ProductionTask drop primary key cascade;
@@ -35,7 +34,6 @@ drop table T_ProductionTask_DETAIL cascade constraints;
 drop table T_ProductionTask cascade constraints;
 drop table T_Process cascade constraints;
 drop table t_Material_requisition_DETAIL cascade constraints;
-drop table t_Material_requisition_Primary cascade constraints;
 drop table t_Processing_single_DETAIL cascade constraints;
 drop table t_Processing_single_Primary cascade constraints;
 drop table T_purchaseOrder_DETAIL cascade constraints;
@@ -83,14 +81,13 @@ drop sequence SEQUENCE_T_purchaseOrder_PRIMARY;
 drop sequence SEQUENCE_t_Inventory_Primary;
 drop sequence SEQUENCE_t_Inventory_DETAIL;
 drop sequence SEQUENCE_t_Processing_Primary;
-drop sequence SEQUENCE_t_Processing_DETAIL
-drop sequence SEQUENCE_t_Material_Primary
-drop sequence SEQUENCE_t_Material_DETAIL
-drop sequence SEQUENCE_T_Process
-drop sequence SEQUENCE_T_ProductionTask
-drop sequence SEQUENCE_T_Production_DETAIL
-drop sequence SEQUENCE_T_PRODUCTPROCESS
-drop sequence SEQUENCE_T_AcceptanceList
+drop sequence SEQUENCE_t_Processing_DETAIL;
+drop sequence SEQUENCE_t_Material_DETAIL;
+drop sequence SEQUENCE_T_Process;
+drop sequence SEQUENCE_T_ProductionTask;
+drop sequence SEQUENCE_T_Production_DETAIL;
+drop sequence SEQUENCE_T_PRODUCTPROCESS;
+drop sequence SEQUENCE_T_AcceptanceList;
 /*==============================================================*/
 /* 序列号                                                                                                                                                                           */
 /*==============================================================*/
@@ -259,13 +256,6 @@ start with 1
 order;
 
 create sequence SEQUENCE_t_Processing_DETAIL
-start with 1
- maxvalue 999999999
- minvalue 1
- cache 10
-order;
-
-create sequence SEQUENCE_t_Material_Primary
 start with 1
  maxvalue 999999999
  minvalue 1
@@ -1454,44 +1444,14 @@ alter table t_Processing_single_DETAIL
    add constraint PK_PROCESSING_SINGLE_DETAIL primary key (ID);
    
 /*==============================================================*/
-/* Table:领料单_头表                           			                            */
-/*==============================================================*/
-create table t_Material_requisition_Primary 
-(
-   ID                   NUMBER               not null,
-   MaterialDate       DATE,
-   createDate         DATE,
-   status             NUMBER
-);
-
-comment on table t_Material_requisition_Primary is
-'领料单_头表';
-
-comment on column t_Material_requisition_Primary.ID is
-'主键';
-
-comment on column t_Material_requisition_Primary.MaterialDate is
-'领料日期';
-
-comment on column t_Material_requisition_Primary.createDate is
-'创建日期';
-
-comment on column t_Material_requisition_Primary.status is
-'状态';
-
-alter table t_Material_requisition_Primary
-   add constraint PK_T_MATERIAL_REQUISITION_PRIM primary key (ID);
-   
-/*==============================================================*/
 /* Table:领料单_明细                           			                            */
 /*==============================================================*/
 create table t_Material_requisition_DETAIL 
 (
    ID                   NUMBER               not null,
-   MaterialID         	NUMBER,
-   ProcessingSingleID 	NUMBER,
-   Products_ID       	NUMBER,
-   Material_Number   	FLOAT
+   ProductionTaskID NUMBER,
+   Products_ID        NUMBER,
+   MateriallNumber    FLOAT
 );
 
 comment on table t_Material_requisition_DETAIL is
@@ -1500,16 +1460,13 @@ comment on table t_Material_requisition_DETAIL is
 comment on column t_Material_requisition_DETAIL.ID is
 '主键';
 
-comment on column t_Material_requisition_DETAIL.MaterialID is
-'领料单表头';
-
-comment on column t_Material_requisition_DETAIL.ProcessingSingleID is
-'加工单号';
+comment on column t_Material_requisition_DETAIL.ProductionTaskID is
+'生产任务单号';
 
 comment on column t_Material_requisition_DETAIL.Products_ID is
 '物料';
 
-comment on column t_Material_requisition_DETAIL.Material_Number is
+comment on column t_Material_requisition_DETAIL.MateriallNumber is
 '数量';
 
 alter table t_Material_requisition_DETAIL
