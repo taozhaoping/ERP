@@ -359,5 +359,19 @@
     			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 领料单  -->
+		<action name="material" class="com.zh.web.action.MaterialAction">
+			<result name="success">/pages/business/material/List.jsp</result>
+			<result name="editor">/pages/business/material/edit.jsp</result>
+			<result name="view">/pages/business/material/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">material</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
