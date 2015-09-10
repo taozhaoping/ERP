@@ -83,6 +83,7 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 			psd.setSalesOrderBomID(sod.getId());
 			psd.setProductsId(sod.getProductsID());
 			psd.setProcessingNumber(sotrageNumber);
+			psd.setTier(sod.getTier());
 			if("N".equals(sod.getMainSub()))
 			{
 				psd.setProductionMark(UtilService.PROCESSING_SINGLE_DETAIL_NO_PRODUCTION);

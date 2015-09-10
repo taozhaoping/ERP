@@ -205,6 +205,7 @@
 											<th>生产数量</th>
 											<th>主料/替代料</th>
 											<th>主料编号</th>
+											<th>层级</th>
 											<th>生产时间</th>
 											<th>结束时间</th>
 											<th>生产</th>
@@ -228,6 +229,14 @@
 													</s:elseif>
 												</td>
 												<td><s:property value="#tp.mainProductsID" /></td>
+												<td>
+													<s:if test="#tp.tier==0">
+														成品
+													</s:if>
+													<s:else>
+														半成品
+													</s:else>
+												</td>
 												<td>
 													<input size="16" id="inputStartDate" FID="${tp.id}" name="tp.startDate"
 													type="text" value="<s:date name="#tp.startDate" format="yyyy-MM-dd"/>" onchange="changeQuantiy(this,'start')"

@@ -67,6 +67,11 @@ public class ProcessingSingleDetail extends IDataObject {
 	 * 生产表示(0：生产，1：不生产)
 	 */
 	private Integer productionMark;
+	
+	/**
+	 * 层级
+	 */
+	private Integer tier;
 
 	public Integer getId() {
 		return id;
@@ -148,5 +153,12 @@ public class ProcessingSingleDetail extends IDataObject {
 		this.productionMark = productionMark;
 	}
 
-	
+	public Integer getTier() {
+		return tier;
+	}
+
+	public void setTier(Integer tier) {
+		this.tier = tier;
+	}
+
 }

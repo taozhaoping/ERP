@@ -1409,6 +1409,7 @@ create table t_Processing_single_DETAIL
    ProcessingSingleID NUMBER,
    salesOrderBomID    NUMBER,
    productionMark     NUMBER,
+   TIER               NUMBER,
    startDate          DATE,
    endDate            DATE,
    Products_ID        NUMBER,
@@ -1427,6 +1428,9 @@ comment on column t_Processing_single_DETAIL.ProcessingSingleID is
 
 comment on column t_Processing_single_DETAIL.salesOrderBomID is
 '销售订单分解结构表ID';
+
+comment on column t_Processing_single_DETAIL.TIER is
+'层级';
 
 comment on column t_Processing_single_DETAIL.startDate is
 '生产日期';

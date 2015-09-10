@@ -10,6 +10,7 @@
 		<result column="PRODUCTS_ID" property="productsId" />
 		<result column="PROCESSINGNUMBER" property="processingNumber"/>
 		<result column="ProductionMark" property="productionMark"/>
+		<result column="TIER" property="tier"/>
 	</resultMap>
 	
 	<resultMap id="T_ProcessingSingle_List" type="ProcessingSingleDetail" extends="T_ProcessingSingle_Detail">
@@ -25,7 +26,8 @@
 		ENDDATE,
 		PRODUCTS_ID,
 		PROCESSINGNUMBER,
-		ProductionMark
+		ProductionMark,
+		TIER
 	</sql>
 	<sql id="where">
 		<where>
@@ -59,6 +61,7 @@
 			a.ID,
 		PROCESSINGSINGLEID,
 		salesOrderBomID,
+		a.TIER,
 		STARTDATE,
 		ENDDATE,
 		a.PRODUCTS_ID,
@@ -92,6 +95,9 @@
 			<if test="processingSingleId != null">
 				PROCESSINGSINGLEID,
 			</if>
+			<if test="tier != null">
+				TIER,
+			</if>
 			<if test="salesOrderBomID != null">
 				salesOrderBomID,
 			</if>
@@ -118,6 +124,9 @@
 			<if test="processingSingleId != null">
 				#{processingSingleId},
 			</if>
+			<if test="tier != null">
+				#{tier},
+			</if>
 			<if test="salesOrderBomID != null">
 				#{salesOrderBomID},
 			</if>
@@ -143,6 +152,9 @@
 		<set>
 			<if test="processingSingleId != null">
 				PROCESSINGSINGLEID = #{processingSingleId},
+			</if>
+			<if test="tier != null">
+				TIER = #{tier},
 			</if>
 			<if test="salesOrderBomID != null">
 				salesOrderBomID = #{salesOrderBomID},
