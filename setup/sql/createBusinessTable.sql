@@ -995,7 +995,9 @@ create table T_SALES_ORDER_BOM
    MAIN_SUB			  VARCHAR2(1),
    SOURCE_TYPE		  NUMBER,
    CREATE_DATE        VARCHAR(20),
-   UPDATE_DATE        VARCHAR(20)
+   UPDATE_DATE        VARCHAR(20),
+   PRODUCTS_BOM_ID	  NUMBER,
+   OWN_QTY			  NUMBER
 );
 
 comment on table T_SALES_ORDER_BOM is
@@ -1014,7 +1016,7 @@ comment on column T_SALES_ORDER_BOM.PRODUCTS_BOM_ID is
 '产品结构编号';
 
 comment on column T_SALES_ORDER_BOM.QTY is
-'数量';
+'数量(计算后的)';
 
 comment on column T_SALES_ORDER_BOM.IS_MAIN_PRODUCTS is
 '是否主要材料';
@@ -1039,6 +1041,12 @@ comment on column T_SALES_ORDER_BOM.CREATE_DATE is
 
 comment on column T_SALES_ORDER_BOM.UPDATE_DATE is
 '修改时间';
+
+comment on column T_SALES_ORDER_BOM.PRODUCTS_BOM_ID is
+'产品结构编号';
+
+comment on column T_SALES_ORDER_BOM.OWN_QTY is
+'数量(计算后的)';
 
 alter table T_SALES_ORDER_BOM
    add constraint PK_T_SALES_ORDER_BOM primary key (ID);

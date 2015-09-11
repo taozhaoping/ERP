@@ -116,6 +116,7 @@ begin
              ORDER_ID,
              PRODUCTS_ID,
              PRODUCTS_BOM_ID,
+             OWN_QTY,
              QTY,
              TIER,
              SOURCE_TYPE,
@@ -127,7 +128,7 @@ begin
              SALES_ORDER_ID,
              p.sub_products_id,
              bom_sub_primary_id,
-             --p.qty*QTY,
+             p.qty,
              bom_qty,
              TIER,
              SOURCE_TYPE,
@@ -171,6 +172,7 @@ begin
                  ORDER_ID,
                  PRODUCTS_ID,
                  PRODUCTS_BOM_ID,
+                 OWN_QTY,
                  QTY,
                  TIER,
                  SOURCE_TYPE,
@@ -183,7 +185,7 @@ begin
                  SALES_ORDER_ID,
                  sub.sub_products_id,
                  sub_bom_primary_id,
-                 --sub.qty*QTY,
+                 sub.qty,
                  bom_sub_qty,
                  TIER,
                  SOURCE_TYPE,
@@ -247,12 +249,13 @@ begin
        
       --插入顶级的产品
       insert into T_SALES_ORDER_BOM
-        (ID, ORDER_ID, PRODUCTS_ID,PRODUCTS_BOM_ID, QTY, TIER, SOURCE_TYPE)
+        (ID, ORDER_ID, PRODUCTS_ID,PRODUCTS_BOM_ID, QTY, OWN_QTY, TIER, SOURCE_TYPE)
       values
         (insert_id,
          so.sales_order_id,
          so.products_id,
          bom_primary_id,
+         so.storage_number,
          so.storage_number,
          0,
          SOURCE_TYPE);
