@@ -232,7 +232,7 @@
 											<td><s:property value="#tp.qty" /></td>
 											<td><s:property value="#tp.remarks" /></td>
 											<td>
-												<a title="添加替代料" style="margin: 0px 3px;" href="javascript:addSub('<s:property value="#tp.primaryId" />', '<s:property value="#tp.subProductsId" />');"><i class="icon-plus"></i></a>
+												<a title="添加替代料" style="margin: 0px 3px;" href="javascript:addSub('<s:property value="#tp.primaryId" />', '<s:property value="#tp.qty" />', '<s:property value="#tp.subProductsId" />');"><i class="icon-plus"></i></a>
 												<a title="修改" style="margin: 0px 3px;" href="javascript:editDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />','<s:property value="#tp.isMainProducts" />','<s:property value="#tp.qty" />','<s:property value="#tp.remarks" />');"><i class="icon-pencil"></i></a>
 												<a title="删除" style="margin: 0px 3px;" href="javascript:deleteDetail('<s:property value="#tp.id" />','<s:property value="#tp.subProductsId" />');"><i class="icon-remove"></i></a>
 											</td>
@@ -512,6 +512,7 @@
 						<label class="control-label" for="popupSubMainProductsId">主料产品编号：</label>
 						<div class="controls">
 							<input type="text" id="popupSubMainProductsId" class="input-large"  disabled="disabled">
+							<input type="hidden" id="popupSubMainProductsQty" class="input-large"  disabled="disabled">
 						</div>
 					</div>
 				</div>
@@ -1167,8 +1168,9 @@
 		});
 		
 		//添加替代料
-		function addSub(primaryId, subProductsId){
+		function addSub(primaryId, mainProductsQty, subProductsId){
 			$("#popupSubMainProductsId").val(subProductsId);
+			$("#popupSubMainProductsQty").val(mainProductsQty);
 			
 			$("#popupBomSubfirm").modal('show');
 		}
@@ -1176,11 +1178,13 @@
 		//保存替代料
 		$("#popupBomSubBtnConfirm").click(function(){
 			var _SubMainProductsId = $("#popupSubMainProductsId").val();
+			var _SubMainProductsQty = $("#popupSubMainProductsQty").val();
 			var _subProductsId = $("#popupsubProductsId").val();
 			var _Qty = $("#popupSubQty").val();
 			var _Remarks = $("#popupSubRemarks").val();
 			
 			var subMainProductsId = $.trim(_SubMainProductsId);
+			var subMainProductsQty = $.trim(_SubMainProductsQty);
 			var subProductsId = $.trim(_subProductsId);
 			var qty = $.trim(_Qty);
 			var remarks = $.trim(_Remarks);
@@ -1196,7 +1200,14 @@
 				$("#popupSubQty").closest('div').parents('div').removeClass('success').addClass('error');
 				return;
 			} else {
-				$("#popupSubQty").closest('div').parents('div').removeClass('error').addClass('success');
+				//主料和替代料的数量一致
+				if(subMainProductsQty == qty){
+					$("#popupSubQty").closest('div').parents('div').removeClass('error').addClass('success');
+				}else{
+					$("#popupSubQty").closest('div').parents('div').removeClass('success').addClass('error');
+					$("#addBomSubPrompt").html("主料和替代料的数量不一致");
+					return;
+				}
 			}
 			//设置表单的值
 			$("#bomMainProductsId").val(subMainProductsId);
