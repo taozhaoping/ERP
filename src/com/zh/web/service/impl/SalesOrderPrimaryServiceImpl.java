@@ -74,7 +74,7 @@ public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
 
 	@Override
 	public List<SalesOrderPrimary> queryListNotRelevantProcess() {
-		return salesOrderPrimaryDao.queryList("listNotRelevantProcess");
+		return salesOrderPrimaryDao.querySqlIDList("listNotRelevantProcess");
 	}
 
 }

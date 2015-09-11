@@ -128,7 +128,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @param sqlId
 	 * @return
 	 */
-	public List<IdataObject> queryList(String sqlId){
+	public List<IdataObject> querySqlIDList(String sqlId){
 		return sqlSessionTemplate.selectList(namespace + sqlId);
 	}
 

@@ -136,7 +136,6 @@
 		<!-- 验收单 -->
 		<typeAlias alias="AcceptanceList" type="com.zh.web.model.bean.AcceptanceList"/>
 		
-		
 	</typeAliases>
 
 	<plugins>

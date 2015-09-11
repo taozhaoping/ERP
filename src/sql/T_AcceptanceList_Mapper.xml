@@ -48,7 +48,7 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="Integer" parameterType="ProductionTaskDetail">
+	<select id="count" resultType="Integer" parameterType="AcceptanceList">
 		select
 		count(id)
 		from T_AcceptanceList
