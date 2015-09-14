@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.zh.base.model.bean.Dictionary;
 import com.zh.base.model.bean.Enterprise;
 import com.zh.base.service.BasiTypeService;
@@ -15,8 +16,12 @@ import com.zh.core.model.Pager;
 import com.zh.web.model.CustomerModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.MailList;
+import com.zh.web.model.bean.PurchaseOrderPrimary;
+import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.service.CustomerService;
 import com.zh.web.service.MailListService;
+import com.zh.web.service.PurchaseOrderPrimaryService;
+import com.zh.web.service.SalesOrderPrimaryService;
 
 /**
 * @Description: 客户资源
@@ -44,9 +49,14 @@ public class CustomerAction extends BaseAction {
 	@Autowired
 	private MailListService mailListService;
 	
+	@Autowired
+	private SalesOrderPrimaryService salesOrderPrimaryService;
+	
+	@Autowired
+	private PurchaseOrderPrimaryService purchaseOrderPrimaryService;
+	
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
 		return customerModel;
 	}
 
@@ -94,6 +104,24 @@ public class CustomerAction extends BaseAction {
 			page.setTotalRow(count);
 			List<MailList> mailListList = mailListService.queryList(mailList, page);
 			this.customerModel.setMailListList(mailListList);
+			
+			//查询销售记录
+			SalesOrderPrimary salesOrderPrimary = new SalesOrderPrimary();
+			salesOrderPrimary.setCustomerID(id);
+			Integer sCount = salesOrderPrimaryService.count(salesOrderPrimary);
+			Pager salesPage = this.customerModel.getSalesPageInfo();
+			salesPage.setTotalRow(sCount);
+			List<SalesOrderPrimary> salesOrderPrimaryList = salesOrderPrimaryService.queryList(salesOrderPrimary, salesPage);
+			this.customerModel.setSalesOrderPrimaryList(salesOrderPrimaryList);
+			
+			//查询采购记录
+			PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
+			purchaseOrderPrimary.setCustomerID(id);
+			Integer purchaseCount = purchaseOrderPrimaryService.count(purchaseOrderPrimary);
+			Pager purchasePage = this.customerModel.getPurchasePageInfo();
+			purchasePage.setTotalRow(purchaseCount);
+			List<PurchaseOrderPrimary> purchaseOrderPrimaryList = purchaseOrderPrimaryService.queryList(purchaseOrderPrimary, purchasePage);
+			this.customerModel.setPurchaseOrderPrimaryList(purchaseOrderPrimaryList);		
 		}
 		
 		return Action.EDITOR;
