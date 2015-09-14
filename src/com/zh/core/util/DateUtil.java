@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
-
 import com.zh.core.exception.ProjectException;
 
 /**
@@ -20,6 +19,9 @@ import com.zh.core.exception.ProjectException;
  * @author 陶照平 email : taozhaoping@gmail.com
  */
 public class DateUtil {
+	
+	private static org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory
+			.getLog(DateUtil.class);
 	/**
 	 * 获取现在时间
 	 * 
@@ -706,4 +708,68 @@ public class DateUtil {
 		return true;
 	}
 
+	public static boolean verifyCreated(Date createdDate, int timeToLive,
+			int futureTimeToLive) {
+		if (createdDate == null) {
+			return true;
+		}
+
+		Date validCreation = new Date();
+		long currentTime = validCreation.getTime();
+		if (futureTimeToLive > 0) {
+			validCreation.setTime(currentTime
+					+ ((long) futureTimeToLive * 1000L));
+		}
+		//创建时间比当前时间还晚
+		// Check to see if the created time is in the future
+		if (createdDate.after(validCreation)) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Validation of Created: The message was created in the future!");
+			}
+			return false;
+		}
+
+		// Calculate the time that is allowed for the message to travel
+		currentTime -= ((long) timeToLive * 1000L);
+		validCreation.setTime(currentTime);
+
+		// Validate the time it took the message to travel
+		if (createdDate.before(validCreation)) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Validation of Created: The message was created too long ago");
+			}
+			return false;
+		}
+
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Validation of Created: Everything is ok");
+		}
+		return true;
+	}
+
+	/**
+	 * 创建时间
+	 */
+	public static String getCreated() {
+		DateFormat zulu = null;
+		zulu = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+		zulu.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		Date currentTime = new Date();
+		return zulu.format(currentTime);
+	}
+	
+	
+	/***
+	 * 根据字符串解析日期
+	 * @param created
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date getDate(String created) throws ParseException {
+		DateFormat zulu = null;
+		zulu = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		zulu.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		return zulu.parse(created);
+	}
+	
 }
