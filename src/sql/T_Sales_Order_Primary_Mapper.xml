@@ -60,6 +60,9 @@
 			<if test="status != null">
 				and status = #{status}
 			</if>
+			<if test="customerID != null">
+				and Customer_ID = #{customerID}
+			</if>
 		</where>
 	</sql>
 

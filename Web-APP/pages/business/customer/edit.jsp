@@ -55,6 +55,7 @@
 <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body class="">
+	<jsp:useBean id="userName" class="com.zh.base.util.JspUtil" scope="session"></jsp:useBean>
 	<!--<![endif]-->
 	<%@ include file="/pages/common/titleWithNav.jsp"%>
 	<%@ include file="/pages/common/sidebarWithNav.jsp"%>
@@ -100,6 +101,8 @@
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
 							<s:if test="#ProcessId">
 								<li><a id="maillistButt" href="#maillist" data-toggle="tab">通讯录</a></li>
+								<li><a id="salesListButt" href="#salesList" data-toggle="tab">销售记录</a></li>
+								<li><a id="purchaseListButt" href="#purchaseList" data-toggle="tab">采购记录</a></li>
 							</s:if>
 						</ul>
 						<div id="myTabContent" class="tab-content">
@@ -248,54 +251,169 @@
 								</dir>
 								</form>
 							</div>
+							
+							<!-- 通讯录 -->
 							<div class="tab-pane fade" id="maillist">
-							<form id="mailListForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
-								<input type="hidden" name="menuId" value="${menuId}" /> 
-								<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-								<input type="hidden" name="spaceId" value="${spaceId}">
-								<input type="hidden" name="formId" value="${customer.id}" />
-								<input type="hidden" name="tabID" value="maillistButt" />
-								<input type="hidden" id="mailListName" name="mailList.name" value="" />
-								<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
-								<button class="btn btn-small btn-primary" type="button"
-								data-toggle="modal" data-target="#popupfirm">添加通讯录</button>
-							</form>
-							<table class="table">
-								<thead>
-									<tr>
-										<th style="width: 32px;">序号</th>
-										<th style="width: 240px;">姓名</th>
-										<th style="width: 200px;">号码</th>
-										<th style="width: 240px;">创建时间</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								
-								<tbody id="maillistSearch">
-									<tr>
-										<!-- 通讯录 -->
-										<s:iterator value="mailListList" var="tp" status="index">
+								<form id="mailListForm" class="form-horizontal" action="${menu2Id}!saveMailList.jspa" method="post">
+									<input type="hidden" name="menuId" value="${menuId}" /> 
+									<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
+									<input type="hidden" name="spaceId" value="${spaceId}">
+									<input type="hidden" name="formId" value="${customer.id}" />
+									<input type="hidden" name="tabID" value="maillistButt" />
+									<input type="hidden" id="mailListName" name="mailList.name" value="" />
+									<input type="hidden" id="mailListPhone" name="mailList.phone" value="" />
+									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加通讯录</button>
+								</form>
+								<table class="table">
+									<thead>
 										<tr>
-											<td><s:property value="#index.index+1" /></td>
-											<td><s:property value="#tp.name" /></td>
-											<td>
-												<s:property value="#tp.phone" />
-											</td>
-											<td><s:property value="#tp.createdate" /></td>
-											<td>
-												<a href="${menu2Id}!saveMailList.jspa?id=<s:property value='#tp.id'/>&formId=${franchisee.id}&view=delete&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=maillistButt"><i
-												class="icon-remove"></i></a>
-										</td>
+											<th style="width: 32px;">序号</th>
+											<th style="width: 240px;">姓名</th>
+											<th style="width: 200px;">号码</th>
+											<th style="width: 240px;">创建时间</th>
+											<th>操作</th>
 										</tr>
-										</s:iterator>
-									</tr>
-								</tbody>
-							</table>
-							<div class="pagination">
-								<ul id="pagination">
-								</ul>
+									</thead>
+								
+									<tbody id="maillistSearch">
+										<tr>
+											<!-- 通讯录 -->
+											<s:iterator value="mailListList" var="tp" status="index">
+											<tr>
+												<td><s:property value="#index.index+1" /></td>
+												<td><s:property value="#tp.name" /></td>
+												<td>
+													<s:property value="#tp.phone" />
+												</td>
+												<td><s:property value="#tp.createdate" /></td>
+												<td>
+													<a href="${menu2Id}!saveMailList.jspa?id=<s:property value='#tp.id'/>&formId=${franchisee.id}&view=delete&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=maillistButt"><i
+													class="icon-remove"></i></a>
+												</td>
+											</tr>
+											</s:iterator>
+										</tr>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="pagination">
+									</ul>
+								</div>
 							</div>
-						</div>
+							<!-- 通讯录结束 -->
+							
+							<!-- 销售记录 -->
+							<div class="tab-pane fade" id="salesList">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>销售订单</th>
+											<th>合同单号</th>
+											<th>客户</th>
+											<th>检查日期</th>
+											<th>装货港口</th>
+											<th>订单状态</th>
+										</tr>
+									</thead>
+								
+									<tbody id="salesListSearch">
+										<tr>
+											<!-- 销售记录  -->
+											<s:iterator value="salesOrderPrimaryList" var="tp" status="index">
+											<tr>
+												<td>
+													<s:property value="#index.index + 1"/>
+												</td>
+												<td><s:property value="#tp.orderID"/></td>
+												<td><s:property value="#tp.contractNumber"/></td>
+												<td>
+													<s:set id="customerID" value="#tp.customerID"></s:set>
+													<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+												</td>
+												<td><s:property value="#tp.inspection"/></td>
+												<td><s:property value="#tp.loadingPort"/></td>
+												<td>
+													<s:if test="#tp.status == 0">发起</s:if>
+													<s:elseif test="#tp.status == 1">采购</s:elseif>
+													<s:elseif test="#tp.status == 2">生产</s:elseif>
+													<s:elseif test="#tp.status == 3">交付</s:elseif>
+													<s:elseif test="#tp.status == 4">未结账</s:elseif>
+													<s:elseif test="#tp.status == 5">完成</s:elseif>
+												</td>
+											</tr>
+											</s:iterator>
+										</tr>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="salesPagination">
+									</ul>
+								</div>
+							</div>
+							<!-- 销售记录结束 -->
+							
+							<!-- 采购记录 -->
+							<div class="tab-pane fade" id="purchaseList">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>订单号</th>
+											<th>订单日期</th>
+											<th>到货日期</th>
+											<th>供应商</th>
+											<th>采购员</th>
+											<th>仓库</th>
+											<th>状态</th>
+										</tr>
+									</thead>
+								
+									<tbody id="purchaseListSearch">
+										<s:iterator value="purchaseOrderPrimaryList" var="tp" status="index">
+										<tr>
+										<td>
+											<s:property value="#index.index + 1"/></td>
+										<td><s:property value="#tp.purchaseOrderID"/></td>
+										<td><s:property value="#tp.purchaseDate"/></td>
+										<td><s:property value="#tp.arrivalDate"/></td>
+										<td>
+											<s:set id="customerID" value="#tp.customerID"></s:set>
+											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+										</td>
+										<td>
+											<s:set id="userID" value="#tp.userID"></s:set>
+											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
+										</td>
+										<td>
+											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
+											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
+										</td>
+										<td>
+											<s:if test="#tp.status==0">
+												发起
+											</s:if>
+											<s:elseif test="#tp.status==1">
+												运输
+											</s:elseif>
+											<s:elseif test="#tp.status==2">
+												入库审核
+											</s:elseif>
+											<s:elseif test="#tp.status==3">
+												完成
+											</s:elseif>	
+										</td>
+									</tr>
+									</s:iterator>
+									</tbody>
+								</table>
+								<div class="pagination">
+									<ul id="purchasePagination">
+									</ul>
+								</div>
+							</div>
+							<!-- 采购记录结束 -->
+							
 						</div>
 					</div>
 				</div>
@@ -345,6 +463,21 @@
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="id" value="${customer.id}">
+	</form>
+	
+	<!-- 销售记录 -->
+	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="salesQueryForm" method="post">
+		<input id="salesCurPage" name="salesPageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="id" value="${customer.id}">
+	</form>
+	
+	<!-- 采购记录 -->
+	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="purchaseQueryForm" method="post">
+		<input id="purchaseCurPage" name="purchasePageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="id" value="${customer.id}">
 	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
@@ -404,6 +537,50 @@
 		        	}
 		           $('#curPage').val(num);
 		        	$('#queryForm').submit();
+		        	//document.getElementsByName("operateForm")[0].submit(); 
+		        }
+		    });
+		}
+		
+		//销售记录分页
+		if ("" != id){
+			$.jqPaginator('#salesPagination', {
+				//设置分页的总页数
+		        totalPages: totalPage,
+		        //设置分页的总条目数
+		         totalCounts:totalRow,
+		        pageSize:pageSize,
+		        //最多显示的页码
+		        visiblePages: 10,
+		        currentPage: curPage,
+		        onPageChange: function (num, type) {
+		           if("init"==type){
+		        	 	return false;  
+		        	}
+		           	$('#salesCurPage').val(num);
+		        	$('#salesQueryForm').submit();
+		        	//document.getElementsByName("operateForm")[0].submit(); 
+		        }
+		    });
+		}
+		
+		//采购记录分页
+		if ("" != id){
+			$.jqPaginator('#purchasePagination', {
+				//设置分页的总页数
+		        totalPages: totalPage,
+		        //设置分页的总条目数
+		         totalCounts:totalRow,
+		        pageSize:pageSize,
+		        //最多显示的页码
+		        visiblePages: 10,
+		        currentPage: curPage,
+		        onPageChange: function (num, type) {
+		           if("init"==type){
+		        	 	return false;  
+		        	}
+		           	$('#purchaseCurPage').val(num);
+		        	$('#purchaseQueryForm').submit();
 		        	//document.getElementsByName("operateForm")[0].submit(); 
 		        }
 		    });
