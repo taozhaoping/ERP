@@ -373,5 +373,19 @@
     			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 生产入库 -->
+		<action name="productionStorage" class="com.zh.web.action.ProductionStorageAction">
+			<result name="success">/pages/business/productionStorage/List.jsp</result>
+			<result name="editor">/pages/business/productionStorage/edit.jsp</result>
+			<result name="view">/pages/business/productionStorage/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productionStorage</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>
