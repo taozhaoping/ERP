@@ -84,7 +84,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 
 		// 判断是否有采购订单号
 		if (storagePrimary.getPurchaseOrderID() != null
-				|| storagePrimary.getPurchaseOrderID() != "") {
+				&& storagePrimary.getPurchaseOrderID() != "") {
 			// 获取采购订单信息
 			PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
 			purchaseOrderPrimary.setPurchaseOrderID(storagePrimary

@@ -42,3 +42,42 @@ EXCEPTION
     --retId:='';
     return(retId);
 end getReleaseBOMByProductId;
+
+
+--获取产品实际生产数量
+drop  function getSalesOrderBOMProductNumber;
+create or replace function getSalesOrderBOMProductNumber(sales_order_bom_id number)
+  return number is
+  stockNumber number; --数量
+  scrap_factor FLOAT;
+begin
+  stockNumber := 0;
+  select t.scrap_factor+1 into scrap_factor from sys_param t;
+  for bom in (select * from t_sales_order_bom t start wITh id = sales_order_bom_id connect by prior t.parent_id = t.id order by tier) loop
+    if(bom.tier = 0) then
+                stockNumber := bom.qty - getProducts_stock_Number(bom.products_id);
+    else
+                stockNumber := stockNumber * bom.own_qty*scrap_factor;
+                --减去替代料
+                if(bom.main_sub='Y') then
+                        for sub in (select t.products_id from  T_SALES_ORDER_BOM t where t.order_id=bom.order_id and t.main_sub='N' and t.tier=bom.tier and t.main_products_id=bom.products_id) loop
+                            stockNumber:= stockNumber - getProducts_stock_Number(sub.products_id);
+                        end loop;
+                end if;
+    end if;
+  
+  end loop;
+  
+  --小数点进已
+  select ceil(stockNumber) into stockNumber from dual;
+  
+  return(stockNumber);
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    --retId:='';
+    --When Others Then
+    --retId:='';
+    return(-1);
+end getSalesOrderBOMProductNumber;
+/
