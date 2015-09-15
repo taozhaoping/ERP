@@ -41,6 +41,11 @@ public class ProductionTask extends IDataObject {
 	 * 结束时间
 	 */
 	private Date endDate;
+	
+	/**
+	 * 状态(1：领料   2：生产   3：验收   4：完成)
+	 */
+	private Integer status;
 
 	public Integer getId() {
 		return id;
@@ -88,6 +93,14 @@ public class ProductionTask extends IDataObject {
 
 	public void setProcessingsingleID(String processingsingleID) {
 		this.processingsingleID = processingsingleID;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

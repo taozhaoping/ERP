@@ -140,6 +140,19 @@
 									</div>
 								</dir>
 								
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>状态：</dt>
+											<dd>
+												<s:if test="0 == productionTask.status">领料中</s:if>
+												<s:elseif test="1 == productionTask.status">加工中</s:elseif>
+												<s:elseif test="2 == productionTask.status">验收中</s:elseif>
+												<s:elseif test="3 == productionTask.status">完成</s:elseif>
+											</dd>
+										</div>
+									</div>
+								</dir>
 							</dl>
 							
 							<div class="tab-pane fade" id="storagedetail">

@@ -155,8 +155,8 @@
 									<thead>
 										<tr>
 											<th>序号</th>
-											<th>生产物料</th>
-											<th>生产数量</th>
+											<th>物料</th>
+											<th>数量</th>
 											<th>生产时间</th>
 											<th>结束时间</th>
 										</tr>

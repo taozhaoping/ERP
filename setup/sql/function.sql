@@ -1,21 +1,34 @@
 --获取产品库存数量
+drop  function getProducts_stock_Number;
+--获取产品库存数量
 create or replace function getProducts_stock_Number(v_productId number)
   return number is
-  stockNumber     number;
+  stockNumber     number; --库存数量
+  material_number number; --领料单数量
   productId number;
   --根据产品的编号查询最新库存剩余数
 begin
+  stockNumber:=0;
   productId := v_productId;
   if (productId is not null) then
+    --库存数量
     select sum(st.stock_number) into stockNumber from t_stock st where st.products_id=productId group by st.products_id;
+    
+    --领料单数量
+    select sum(m.material_number) into material_number from t_material_requisition_detail m left join t_productiontask t on m.productiontaskid=t.id where m.products_id=productId and t.status='0' group by m.products_id;
+    stockNumber := stockNumber - material_number;
+    
+    --待货中的物料
   end if;
   return(stockNumber);
 EXCEPTION
   WHEN NO_DATA_FOUND THEN
     return(stockNumber);
 end getProducts_stock_Number;
+/
 
 --获取产品结构ID
+drop  function getReleaseBOMByProductId;
 create or replace function getReleaseBOMByProductId(v_productId number)
   return number is
   retId     number;

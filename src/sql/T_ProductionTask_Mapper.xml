@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="M_ProductionTask">
 	<resultMap id="T_ProductionTask" type="ProductionTask">
-		<id column="ID" property="id" javaType="Integer"  jdbcType="INTEGER"/>
-		<id column="Inventory_countID" property="inventoryCountID" javaType="Integer"  jdbcType="INTEGER"/>
+		<id column="ID" property="id"/>
+		<result column="Inventory_countID" property="inventoryCountID" />
 		<result column="PROCESSINGSINGLEID" property="processingsingleID" jdbcType="VARCHAR" />
 		<result column="Production_order" property="productionOrder" jdbcType="VARCHAR" />
 		<result column="STARTDATE" property="startDate" jdbcType="DATE" />
 		<result column="ENDDATE" property="endDate" jdbcType="DATE" />
+		<result column="status" property="status"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		id ,
@@ -15,7 +16,8 @@
 		PROCESSINGSINGLEID,
 		Production_order ,
 		STARTDATE ,
-		ENDDATE 
+		ENDDATE,
+		status
 	</sql>
 	<sql id="where">
 		<where>
@@ -84,6 +86,9 @@
 			<if test="endDate != null">
 				ENDDATE ,
 			</if>
+			<if test="status != null">
+				status ,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -104,6 +109,9 @@
 			<if test="endDate != null">
 				#{endDate,jdbcType=DATE},
 			</if>
+			<if test="status != null">
+				#{status},
+			</if>
 		</trim>
 	</insert>
 	<update id="update" parameterType="ProductionTask">
@@ -120,6 +128,9 @@
 			</if>
 			<if test="endDate != null">
 				ENDDATE = #{endDate,jdbcType=DATE},
+			</if>
+			<if test="status != null">
+				status = #{status},
 			</if>
 		</set>
 		where ID = #{id}
