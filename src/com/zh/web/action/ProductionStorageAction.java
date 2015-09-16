@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
-import com.zh.web.model.ProductionTaskModel;
-import com.zh.web.model.bean.MaterialRequisitionDetail;
-import com.zh.web.model.bean.ProductionTask;
-import com.zh.web.service.MaterialRequisitionDetailService;
-import com.zh.web.service.ProductionTaskService;
+import com.zh.web.model.ProcessingSingleModel;
+import com.zh.web.model.bean.ProcessingSinglePrimary;
+import com.zh.web.model.bean.ProductionStorageDetail;
+import com.zh.web.service.ProcessingSinglePrimaryService;
+import com.zh.web.service.ProductionStorageDetailService;
 
 
 
@@ -32,33 +32,32 @@ public class ProductionStorageAction extends BaseAction {
 	private static Logger LOGGER = LoggerFactory.getLogger(ProductionStorageAction.class);
 
 	@Autowired
-	private ProductionTaskService productionTaskService;
+	private ProcessingSinglePrimaryService processingSinglePrimaryService;
 
 	@Autowired
-	private MaterialRequisitionDetailService materialRequisitionDetailService;
+	private ProductionStorageDetailService productionStorageDetailService;
 
-	private ProductionTaskModel productionTaskModel = new ProductionTaskModel();
+	private ProcessingSingleModel processingSingleModel = new ProcessingSingleModel();
 
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
-		return productionTaskModel;
+		return processingSingleModel;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		ProductionTask productionTask = this.productionTaskModel.getProductionTask();
-		Integer count = productionTaskService.count(productionTask);
-		Pager page = this.productionTaskModel.getPageInfo();
+		ProcessingSinglePrimary processingSinglePrimary = this.processingSingleModel.getProcessingSinglePrimary();
+		Integer count = processingSinglePrimaryService.count(processingSinglePrimary);
+		Pager page = this.processingSingleModel.getPageInfo();
 		page.setTotalRow(count);
-		List<ProductionTask> productionTaskList = productionTaskService.queryList(productionTask, page);
-		this.productionTaskModel.setProductionTaskList(productionTaskList);
+		List<ProcessingSinglePrimary> ProcessingSinglePrimaryList = processingSinglePrimaryService.queryList(processingSinglePrimary, page);
+		this.processingSingleModel.setProcessingSinglePrimaryList(ProcessingSinglePrimaryList);
 		return Action.SUCCESS;
 	}
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productionTaskModel.getId();
+		Integer id = this.processingSingleModel.getId();
 
 		if (null == id) {
 			throw new ParameterException("任务单号不允许为空!");
@@ -66,24 +65,24 @@ public class ProductionStorageAction extends BaseAction {
 		
 		// 查询信息
 		LOGGER.debug("editor ProductionTask id " + id);
-		ProductionTask productionTask = this.productionTaskModel.getProductionTask();
-		productionTask.setId(Integer.valueOf(id));
-		ProductionTask reult = productionTaskService.query(productionTask);
-		this.productionTaskModel.setProductionTask(reult);
+		ProcessingSinglePrimary processingSinglePrimary = this.processingSingleModel.getProcessingSinglePrimary();
+		processingSinglePrimary.setId(Integer.valueOf(id));
+		ProcessingSinglePrimary reult = processingSinglePrimaryService.query(processingSinglePrimary);
+		this.processingSingleModel.setProcessingSinglePrimary(reult);
 
-		// 查询领料单明细
-		MaterialRequisitionDetail materialRequisitionDetail = this.productionTaskModel.getMaterialRequisitionDetail();
-		materialRequisitionDetail.setProductiontaskId(id);
-		Pager page = this.productionTaskModel.getPageInfo();
-		Integer count = materialRequisitionDetailService.count(materialRequisitionDetail);
+		// 查询生产入库明细
+		ProductionStorageDetail productionStorageDetail = this.processingSingleModel.getProductionStorageDetail();
+		productionStorageDetail.setProcessingSingleId(id);
+		Pager page = this.processingSingleModel.getPageInfo();
+		Integer count = productionStorageDetailService.count(productionStorageDetail);
 		page.setTotalRow(count);
-		List<MaterialRequisitionDetail> list = materialRequisitionDetailService.queryList(materialRequisitionDetail, page);
-		this.productionTaskModel.setMaterialRequisitionDetailList(list);
+		List<ProductionStorageDetail> list = productionStorageDetailService.queryList(productionStorageDetail, page);
+		this.processingSingleModel.setProductionStorageDetailList(list);
 		return Action.VIEW;
 	}
 
 	/**
-	 * 采购需求但审核
+	 * 采购需求单审核
 	 */
 	public String approvalDemand() throws Exception {
 		return Action.EDITOR_SUCCESS;

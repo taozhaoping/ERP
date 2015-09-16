@@ -88,9 +88,10 @@
 							<input type="hidden" name="menuId" value="${menuId}" /> 
 							<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 							<input type="hidden" name="spaceId" value="${spaceId}" />
-							
+							<!-- 
 							<input type="text" class="input-medium search-query form_datetime" readonly="readonly" name="productionTask.startDate" value="<s:date name="productionTask.startDate" format="yyyy-MM-dd"/>" title="开始时间" placeholder="开始时间" />
 							<button type="submit" class="btn">Search</button>
+							 -->
 						</form>
 						<div class="btn-group"></div>
 					</div>

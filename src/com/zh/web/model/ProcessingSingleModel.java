@@ -6,6 +6,7 @@ import java.util.List;
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
+import com.zh.web.model.bean.ProductionStorageDetail;
 import com.zh.web.model.bean.SalesOrderPrimary;
 
 public class ProcessingSingleModel extends BaseModel {
@@ -22,6 +23,16 @@ public class ProcessingSingleModel extends BaseModel {
 	 * 销售订单集合
 	 */
 	private List<SalesOrderPrimary> salesOrderPrimaryList = new ArrayList<SalesOrderPrimary>();
+	
+	/**
+	 *加工单入库_明细 
+	 */
+	private ProductionStorageDetail productionStorageDetail = new ProductionStorageDetail();
+	
+	/**
+	 * 加工单入库_明细 集合
+	 */
+	private List<ProductionStorageDetail> productionStorageDetailList = new ArrayList<ProductionStorageDetail>();
 
 	private String startDate;
 	
@@ -83,6 +94,24 @@ public class ProcessingSingleModel extends BaseModel {
 	public void setSalesOrderPrimaryList(
 			List<SalesOrderPrimary> salesOrderPrimaryList) {
 		this.salesOrderPrimaryList = salesOrderPrimaryList;
+	}
+
+	public ProductionStorageDetail getProductionStorageDetail() {
+		return productionStorageDetail;
+	}
+
+	public void setProductionStorageDetail(
+			ProductionStorageDetail productionStorageDetail) {
+		this.productionStorageDetail = productionStorageDetail;
+	}
+
+	public List<ProductionStorageDetail> getProductionStorageDetailList() {
+		return productionStorageDetailList;
+	}
+
+	public void setProductionStorageDetailList(
+			List<ProductionStorageDetail> productionStorageDetailList) {
+		this.productionStorageDetailList = productionStorageDetailList;
 	}
 	
 }

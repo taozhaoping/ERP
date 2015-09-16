@@ -135,6 +135,9 @@
 		
 		<!-- 验收单 -->
 		<typeAlias alias="AcceptanceList" type="com.zh.web.model.bean.AcceptanceList"/>
+
+		<!-- 加工单入库明细 -->
+		<typeAlias alias="ProductionStorageDetail" type="com.zh.web.model.bean.ProductionStorageDetail"/>
 		
 	</typeAliases>
 

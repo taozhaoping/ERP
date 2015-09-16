@@ -99,7 +99,7 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">领料清单</a></li>
+							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">加工入库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane fade dl-horizontal" id="home">
@@ -147,21 +147,19 @@
 									<thead>
 										<tr>
 											<th>序号</th>
-											<th>生产任务单号</th>
 											<th>物料</th>
-											<th>生产数量</th>
+											<th>数量</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="materialRequisitionDetailList" var="tp" status="index">
+											<s:iterator value="productionStorageDetailList" var="tp" status="index">
 											<tr>
 												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productiontaskId" /></td>
 												<td><s:property value="#tp.productsId" /></td>
-												<td><s:property value="#tp.materialNumber" /></td>
+												<td><s:property value="#tp.processingNumber" /></td>
 											</tr>
 											</s:iterator>
 											
