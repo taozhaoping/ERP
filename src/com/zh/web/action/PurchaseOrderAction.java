@@ -298,7 +298,8 @@ public class PurchaseOrderAction extends BaseAction {
 			
 			//金额合计人民币
 			rootMap.put("total", total);
-			rootMap.put("totalChinese", Tools.digitUppercase(total));
+			String totalDigit = Tools.digitUppercase(total);
+			rootMap.put("totalChinese",totalDigit);
 			
 			rootMap.put("products", products);
 			
@@ -426,6 +427,55 @@ public class PurchaseOrderAction extends BaseAction {
 	public void setPurchaseOrderDetailService(
 			PurchaseOrderDetailService purchaseOrderDetailService) {
 		this.purchaseOrderDetailService = purchaseOrderDetailService;
+	}
+
+	public WarehouseService getWarehouseService() {
+		return warehouseService;
+	}
+
+	public void setWarehouseService(WarehouseService warehouseService) {
+		this.warehouseService = warehouseService;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	public ProductsService getProductsService() {
+		return productsService;
+	}
+
+	public void setProductsService(ProductsService productsService) {
+		this.productsService = productsService;
+	}
+
+	public ProcurementDemandDetailService getProcurementDemandDetailService() {
+		return procurementDemandDetailService;
+	}
+
+	public void setProcurementDemandDetailService(
+			ProcurementDemandDetailService procurementDemandDetailService) {
+		this.procurementDemandDetailService = procurementDemandDetailService;
+	}
+
+	public FileInputStream getFis() {
+		return fis;
+	}
+
+	public void setFis(FileInputStream fis) {
+		this.fis = fis;
+	}
+
+	public FreeMarkerConfigurer getFreeMarkerConfigurer() {
+		return freeMarkerConfigurer;
+	}
+
+	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
+		this.freeMarkerConfigurer = freeMarkerConfigurer;
 	}
 
 }

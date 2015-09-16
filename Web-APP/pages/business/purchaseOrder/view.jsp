@@ -256,7 +256,7 @@
 		<input name="purchaseOrderPrimary.customerID" value="${purchaseOrderPrimary.customerID}" type="hidden"/>
 		<input name="purchaseOrderPrimary.arrivalDate" value="${purchaseOrderPrimary.arrivalDate}" type="hidden"/>
 		<input id="inputpurchaseOrderID" name = "purchaseOrderPrimary.purchaseOrderID" type="hidden" value="${purchaseOrderPrimary.purchaseOrderID}" />
-	</form
+	</form>
 	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
