@@ -81,13 +81,16 @@
 			<li class="active" id="navigation"></li>
 		</ul>
 
+		<shiro:hasPermission name="productStruct:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<shiro:hasPermission name="productStruct:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -118,8 +121,12 @@
 											</s:else>
 										</td>
 										<td>
+											<shiro:hasPermission name="productStruct:edit">
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a>
+											</shiro:hasPermission>
+											<shiro:hasPermission name="productStruct:view">
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!view.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a>
+											</shiro:hasPermission>
 										</td>
 									</tr>
 								</s:iterator>
@@ -133,6 +140,10 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="productStruct:view">
+		<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>

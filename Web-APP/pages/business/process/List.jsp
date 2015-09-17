@@ -83,12 +83,12 @@
 			<li class="active" id="navigation"></li>
 		</ul>
 		
-		<shiro:hasPermission name="warehouse:view">
+		<shiro:hasPermission name="processInfo:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
-						<shiro:hasPermission name="warehouse:add">
+						<shiro:hasPermission name="processInfo:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
@@ -116,7 +116,7 @@
 										<td><s:property value="#processBean.processingCycle"/></td>
 										<td><s:property value="#processBean.remarks"/></td>
 										<td>
-											<shiro:hasPermission name="warehouse:edit">
+											<shiro:hasPermission name="processInfo:edit">
 											<a title="修改" href="${menu2Id}!editor.jspa?id=<s:property value='#processBean.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
 											<a title="状态" href="${menu2Id}!editor.jspa?id=<s:property value='#processBean.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i
 												class="icon-eye-open"></i></a>
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 		</shiro:hasPermission>
-		<shiro:lacksPermission name="warehouse:view">
+		<shiro:lacksPermission name="processInfo:view">
 			<%@ include file="/pages/common/unauthorized.jsp"%>
 		</shiro:lacksPermission>
 	</div>
