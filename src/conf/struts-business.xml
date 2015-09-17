@@ -387,5 +387,19 @@
     			<param name="spaceId">${spaceId}</param>
 			</result>
 		</action>
+		
+		<!-- 订单出库 -->
+		<action name="orderDelivery" class="com.zh.web.action.OrderDeliveryAction">
+			<result name="success">/pages/business/orderDelivery/List.jsp</result>
+			<result name="editor">/pages/business/orderDelivery/edit.jsp</result>
+			<result name="view">/pages/business/orderDelivery/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">orderDelivery</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
 	</package>
 </struts>

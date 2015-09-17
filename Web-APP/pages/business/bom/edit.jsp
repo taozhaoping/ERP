@@ -1180,6 +1180,7 @@
 		function addSub(primaryId, mainProductsQty, subProductsId){
 			$("#popupSubMainProductsId").val(subProductsId);
 			$("#popupSubMainProductsQty").val(mainProductsQty);
+			$("#popupSubQty").val(mainProductsQty);
 			
 			$("#popupBomSubfirm").modal('show');
 		}
