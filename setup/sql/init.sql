@@ -250,6 +250,138 @@ values (57, '切割方案编辑', null, 0, null, 'cuttingSchemeConfig:edit');
 
 insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
 values (58, '切割方案删除', null, 0, null, 'cuttingSchemeConfig:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (59, '其他入库查看', null, 0, null, 'stockStorage:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (60, '其他入库新增', null, 0, null, 'stockStorage:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (61, '其他入库编辑', null, 0, null, 'stockStorage:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (62, '其他入库删除', null, 0, null, 'stockStorage:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (63, '其他出库查看', null, 0, null, 'stockLibrary:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (64, '其他出库新增', null, 0, null, 'stockLibrary:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (65, '其他出库编辑', null, 0, null, 'stockLibrary:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (66, '其他出库删除', null, 0, null, 'stockLibrary:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (67, '订单入库查看', null, 0, null, 'orderStorage:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (68, '订单入库新增', null, 0, null, 'orderStorage:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (69, '订单入库编辑', null, 0, null, 'orderStorage:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (70, '订单入库删除', null, 0, null, 'orderStorage:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (71, '订单出库查看', null, 0, null, 'orderDelivery:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (72, '订单出库新增', null, 0, null, 'orderDelivery:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (73, '订单出库编辑', null, 0, null, 'orderDelivery:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (74, '订单出库删除', null, 0, null, 'orderDelivery:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (75, '库存盘点查看', null, 0, null, 'inventoryCount:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (76, '库存盘点新增', null, 0, null, 'inventoryCount:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (77, '库存盘点编辑', null, 0, null, 'inventoryCount:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (78, '库存盘点删除', null, 0, null, 'inventoryCount:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (79, '库存查看', null, 0, null, 'stockView:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (80, '库存新增', null, 0, null, 'stockView:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (81, '库存编辑', null, 0, null, 'stockView:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (82, '库存删除', null, 0, null, 'stockView:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (83, '加工单查看', null, 0, null, 'processingSingle:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (84, '加工单新增', null, 0, null, 'processingSingle:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (85, '加工单编辑', null, 0, null, 'processingSingle:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (86, '加工单删除', null, 0, null, 'processingSingle:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (87, '领料单查看', null, 0, null, 'material:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (88, '领料单新增', null, 0, null, 'material:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (89, '领料单编辑', null, 0, null, 'material:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (90, '领料单删除', null, 0, null, 'material:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (91, '验收单查看', null, 0, null, 'acceptance:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (92, '验收单新增', null, 0, null, 'acceptance:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (93, '验收单编辑', null, 0, null, 'acceptance:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (94, '验收单删除', null, 0, null, 'acceptance:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (95, '生产任务单查看', null, 0, null, 'productionTask:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (96, '生产任务单新增', null, 0, null, 'productionTask:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (97, '生产任务单编辑', null, 0, null, 'productionTask:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (98, '生产任务单删除', null, 0, null, 'productionTask:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (99, '生产入库查看', null, 0, null, 'productionStorage:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (100, '生产入库新增', null, 0, null, 'productionStorage:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (101, '生产入库编辑', null, 0, null, 'productionStorage:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (102, '生产入库删除', null, 0, null, 'productionStorage:delete');
 commit;
 
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
