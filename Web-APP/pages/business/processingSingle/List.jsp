@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@  page import="com.zh.base.util.JspUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -82,13 +83,16 @@
 			<li class="active" id="navigation"></li>
 		</ul>
 
+		<shiro:hasPermission name="processingSingle:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
+						<shiro:hasPermission name="processingSingle:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
 							<i class="icon-plus"></i> 新增
 						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -124,7 +128,9 @@
 											</s:if>
 										</td>
 										<td>
+											<shiro:hasPermission name="processingSingle:edit">
 											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											</shiro:hasPermission>
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>
@@ -139,6 +145,10 @@
 				</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="processingSingle:view">
+		<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@  page import="com.zh.base.util.JspUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -82,6 +83,7 @@
 			<li class="active" id="navigation"></li>
 		</ul>
 
+		<shiro:hasPermission name="stockView:view">
 		<div class="container-fluid">
 			<div class="row-fluid">
 					<div class="btn-toolbar">
@@ -127,6 +129,11 @@
 					</div>
 			</div>
 		</div>
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="stockView:view">
+		<%@ include file="/pages/common/unauthorized.jsp"%>
+		</shiro:lacksPermission>
+		
 	</div>
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
