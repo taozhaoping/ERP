@@ -203,7 +203,7 @@ begin
                              p.sub_products_id,
                              IS_MAIN_PRODUCT,
                              TIER + 1,
-                             p.qty*QTY,
+                             bom_qty,
                              temp_parent_id);
         
         end loop;
