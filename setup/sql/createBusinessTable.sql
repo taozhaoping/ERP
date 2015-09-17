@@ -1490,6 +1490,8 @@ comment on column t_Material_requisition_DETAIL.MATERIAL_NUMBER is
 alter table t_Material_requisition_DETAIL
    add constraint PK_T_MATERIAL_REQUISITION_DETA primary key (ID);
 
+   
+
 /*==============================================================*/
 /* Table:工序清单                              			                            */
 /*==============================================================*/ 

@@ -296,7 +296,7 @@
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
 		<input type="hidden" name="id" value="${processingSinglePrimary.id}">
-		<input type="hidden" name="tabID" value="storageButt">
+		<input type="hidden" name="tabID" value="processButt">
 	</form>
 	
 	<form action="${menu2Id}!increaseProcessingSingle.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
