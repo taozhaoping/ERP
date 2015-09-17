@@ -154,6 +154,102 @@ values (25, '仓库配置编辑', null, 0, null, 'warehouse:edit');
 
 insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
 values (26, '仓库配置删除', null, 0, null, 'warehouse:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (27, '客户资料查看', null, 0, null, 'customerInfo:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (28, '客户资料新增', null, 0, null, 'customerInfo:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (29, '客户资料编辑', null, 0, null, 'customerInfo:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (30, '客户资料删除', null, 0, null, 'customerInfo:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (31, '采购需求清单查看', null, 0, null, 'procurementDemand:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (32, '采购需求清单新增', null, 0, null, 'procurementDemand:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (33, '采购需求清单编辑', null, 0, null, 'procurementDemand:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (34, '采购需求清单删除', null, 0, null, 'procurementDemand:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (35, '采购订单查看', null, 0, null, 'purchaseOrder:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (36, '采购订单新增', null, 0, null, 'purchaseOrder:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (37, '采购订单编辑', null, 0, null, 'purchaseOrder:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (38, '采购订单删除', null, 0, null, 'purchaseOrder:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (39, '销售订单查看', null, 0, null, 'salesOrder:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (40, '销售订单新增', null, 0, null, 'salesOrder:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (41, '销售订单编辑', null, 0, null, 'salesOrder:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (42, '销售订单删除', null, 0, null, 'salesOrder:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (43, '产品资料查看', null, 0, null, 'productsInfo:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (44, '产品资料新增', null, 0, null, 'productsInfo:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (45, '产品资料编辑', null, 0, null, 'productsInfo:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (46, '产品资料删除', null, 0, null, 'productsInfo:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (47, '工序管理查看', null, 0, null, 'processInfo:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (48, '工序管理新增', null, 0, null, 'processInfo:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (49, '工序管理编辑', null, 0, null, 'processInfo:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (50, '工序管理删除', null, 0, null, 'processInfo:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (51, '产品结构维护查看', null, 0, null, 'productStruct:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (52, '产品结构维护新增', null, 0, null, 'productStruct:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (53, '产品结构维护编辑', null, 0, null, 'productStruct:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (54, '产品结构维护删除', null, 0, null, 'productStruct:delete');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (55, '切割方案查看', null, 0, null, 'cuttingSchemeConfig:view');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (56, '切割方案新增', null, 0, null, 'cuttingSchemeConfig:add');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (57, '切割方案编辑', null, 0, null, 'cuttingSchemeConfig:edit');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (58, '切割方案删除', null, 0, null, 'cuttingSchemeConfig:delete');
 commit;
 
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID)
