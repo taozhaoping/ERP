@@ -165,7 +165,6 @@
 			</div>
 		</div>
 		</shiro:hasPermission>
-		</shiro:hasPermission>
 		<shiro:lacksPermission name="purchaseOrder:view">
 		<%@ include file="/pages/common/unauthorized.jsp"%>
 		</shiro:lacksPermission>
