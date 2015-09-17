@@ -80,6 +80,7 @@ ALTER TABLE SYS_DICTIONARY
 (
    ID                   NUMBER               NOT NULL,
    NAME               VARCHAR(30),
+   type                 NUMBER default 0,
    ADDRESS            VARCHAR(100),
    ENTERPRISE_ID        NUMBER,
    enabled              NUMBER default 0

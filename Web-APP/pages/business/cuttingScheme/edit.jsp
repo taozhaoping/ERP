@@ -290,7 +290,7 @@
 				data : function(term, page) {
 					return {
 						"productsID" : term,
-						"products.productType" : '144',
+						"products.sourceType" : '120',
 						"pageInfo.curPage" : page
 					};
 				},
@@ -350,6 +350,7 @@
 				data : function(term, page) {
 					return {
 						"productsID" : term,
+						"products.sourceType" : '121',
 						"pageInfo.curPage" : page
 					};
 				},
@@ -409,6 +410,7 @@
 				data : function(term, page) {
 					return {
 						"productsID" : term,
+						"products.sourceType" : '121',
 						"pageInfo.curPage" : page
 					};
 				},

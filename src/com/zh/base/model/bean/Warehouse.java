@@ -27,6 +27,11 @@ public class Warehouse extends IDataObject {
 	private String name;
 	
 	/**
+	 * 仓库类型，0：用户创建,1:系统仓库(默认0用户仓库)
+	 */
+	private Integer type;
+	
+	/**
 	 * 地址
 	 */
 	private String address;
@@ -79,6 +84,14 @@ public class Warehouse extends IDataObject {
 
 	public void setEnterpriseID(Integer enterpriseID) {
 		this.enterpriseID = enterpriseID;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 }

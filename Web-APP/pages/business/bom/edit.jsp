@@ -765,10 +765,19 @@
 			var processObject=JSON2.parse(process);
 			
 			$("#popuProductProcessID").change(function () { 
-				var index = $("#popuProductProcessID").val() - 1;
-				var referencePrice = processObject[index].referencePrice;
-				var processingCycle = processObject[index].processingCycle;
-				var remarks = processObject[index].remarks;
+				var index = $("#popuProductProcessID").val();
+				var object;
+				for(var i=0 ;i<processObject.length;i++)
+				{
+					if(processObject[i].id == index)
+					{
+						object = processObject[i];
+						break;
+					}
+				}
+				var referencePrice = object.referencePrice;
+				var processingCycle = object.processingCycle;
+				var remarks = object.remarks;
 				$("#popuPreferencePrice").attr("value",referencePrice);
 				$("#popuProcessingCycle").attr("value",processingCycle);
 				$("#popupProcessingRemarks").attr("value",remarks);

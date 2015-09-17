@@ -110,6 +110,7 @@ public class StoragePrimaryAction extends BaseAction {
 		// 获取仓库信息
 		Warehouse warehouse = new Warehouse();
 		warehouse.setEnabled(UtilService.ENABLED_EFFECTIVE);
+		warehouse.setType(UtilService.WAREHOUSE_TYPE_ZERO);
 		List<Warehouse> warehouseList = warehouseService.queryList(warehouse);
 		this.storagePrimaryModel.setWarehouseList(warehouseList);
 

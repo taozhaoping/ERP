@@ -12,6 +12,7 @@ import com.zh.base.service.WarehouseService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
+import com.zh.web.util.UtilService;
 
 public class WarehouseAction extends BaseAction {
 
@@ -36,6 +37,7 @@ public class WarehouseAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
 		Warehouse warehouse = this.warehouseModel.getWarehouse();
+		warehouse.setType(UtilService.WAREHOUSE_TYPE_ZERO);
 		Integer count = warehouseService.count(warehouse);
 		Pager page = this.warehouseModel.getPageInfo();
 		page.setTotalRow(count);

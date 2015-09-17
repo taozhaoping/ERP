@@ -4,12 +4,13 @@
 	<resultMap id="T_Warehouse" type="Warehouse">
 		<id column="ID" property="id" />
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type"/>
 		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
 		<result column="ENTERPRISE_ID" property="enterpriseID"/>
 		<result column="enabled" property="enabled" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, NAME, ADDRESS,ENTERPRISE_ID,enabled
+		ID, NAME,type, ADDRESS,ENTERPRISE_ID,enabled
 	</sql>
 	<sql id="where">
 		<where>
@@ -27,6 +28,9 @@
 			</if>
 			<if test="enabled != null">
 				and enabled = #{enabled}
+			</if>
+			<if test="type != null">
+				and type = #{type}
 			</if>
 		</where>
 	</sql>
@@ -78,6 +82,9 @@
 			<if test="enabled != null">
 				enabled,
 			</if>
+			<if test="type != null">
+				type,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -95,6 +102,9 @@
 			<if test="enabled != null">
 				#{enabled},
 			</if>
+			<if test="type != null">
+				#{type},
+			</if>
 		</trim>
 	</insert>
 	<update id="update" parameterType="Warehouse">
@@ -111,6 +121,9 @@
 			</if>
 			<if test="enabled != null">
 				enabled = #{enabled},
+			</if>
+			<if test="type != null">
+				type = #{type},
 			</if>
 		</set>
 		where ID = #{id}

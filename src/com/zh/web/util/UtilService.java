@@ -128,4 +128,13 @@ public interface UtilService {
 	 */
 	public static Integer PROCESSING_SINGLE_DETAIL_NO_PRODUCTION = 1;
 
+	/**
+	 * 仓库类型 用户仓库
+	 */
+	public static Integer WAREHOUSE_TYPE_ZERO = 0;
+	
+	/**
+	 * 仓库类型：系统仓库
+	 */
+	public static Integer WAREHOUSE_TYPE_ONE = 1;
 }
