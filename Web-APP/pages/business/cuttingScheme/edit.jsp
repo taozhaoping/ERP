@@ -100,7 +100,9 @@
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
-									<i class="icon-ok"></i> 激活
+									<i class="icon-ok"></i> 
+									<s:if test="cuttingScheme.enabled=='0'">激活</s:if>
+									<s:else>停用</s:else>
 								</button>
 							</s:if>
 						</div>
@@ -231,7 +233,7 @@
 		</div>
 		<div class="modal-body">
 			<p class="error-text">
-				<i class="icon-warning-sign modal-icon "></i>是否启用当前切割方案.继续请按."确定" 否则请按 "取消"
+				<i class="icon-warning-sign modal-icon "></i>是否切换当前切割方案状态.继续请按."确定" 否则请按 "取消"
 			</p>
 		</div>
 		<div class="modal-footer">
@@ -351,6 +353,7 @@
 					return {
 						"productsID" : term,
 						"products.sourceType" : '121',
+						"products.isCuttingScheme":'1',
 						"pageInfo.curPage" : page
 					};
 				},

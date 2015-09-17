@@ -63,13 +63,16 @@
 			<if test="safetyStock != null">
 				and SAFETY_STOCK = #{safetyStock}
 			</if>
+			<if test="isCuttingScheme == 1">
+				and not EXISTS (select 1 from t_cutting_scheme c where c.main_products=t.id) 
+			</if>
 		</where>
 	</sql>
 
 	<select id="select" resultMap="T_Products" parameterType="Products">
 		select
 		<include refid="Base_Column_List" />
-		from T_PRODUCTS
+		from T_PRODUCTS t
 		where id=#{id}
 	</select>
 
@@ -77,7 +80,7 @@
 
 		select
 		<include refid="Base_Column_List" />
-		from T_PRODUCTS
+		from T_PRODUCTS t
 		<include refid="where" />
 		<if test="orderByClause != null">
 			order by ${orderByClause}
@@ -87,7 +90,7 @@
 	<select id="count" resultType="Integer" parameterType="Products">
 		select
 		count(id)
-		from T_PRODUCTS
+		from T_PRODUCTS t
 		<include refid="where" />
 	</select>
 

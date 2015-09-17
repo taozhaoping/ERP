@@ -124,6 +124,11 @@ public class Products extends IDataObject {
 	 * 仓库位
 	 */
 	private Integer position;
+	
+	/**
+	 * 是否包含切割产品(0：包含切割产品，1：不包含切割产品)
+	 */
+	private Integer isCuttingScheme;
 
 	public Integer getId() {
 		return id;
@@ -299,6 +304,14 @@ public class Products extends IDataObject {
 
 	public void setPosition(Integer position) {
 		this.position = position;
+	}
+
+	public Integer getIsCuttingScheme() {
+		return isCuttingScheme;
+	}
+
+	public void setIsCuttingScheme(Integer isCuttingScheme) {
+		this.isCuttingScheme = isCuttingScheme;
 	}
 
 }
