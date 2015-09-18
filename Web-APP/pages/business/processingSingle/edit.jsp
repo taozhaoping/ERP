@@ -340,7 +340,7 @@
 			{
 				data = {"id":changeID,
 						"endDate":changeValue};
-			}Taojian88
+			}
 			
 			$.ajax({
 				   type: "POST",

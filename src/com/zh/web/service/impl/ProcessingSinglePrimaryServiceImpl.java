@@ -107,6 +107,10 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 		data.setProcessingSingleId(processingSingleId);
 		List<ProcessingSingleDetail> list = processingSingleDetailDao.queryList(data);
 		for (ProcessingSingleDetail processingSingleDetail : list) {
+			if("N".equals(processingSingleDetail.getMainsub()))
+			{
+				continue;
+			}
 			if(processingSingleDetail.getStartDate() == null || processingSingleDetail.getEndDate() == null)
 			{
 				throw new ParameterException("加工单明细中产品加工时间未填写，请先填写完成后，在审核");
