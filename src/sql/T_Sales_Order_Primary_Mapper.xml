@@ -52,12 +52,12 @@
 				and id = #{id}
 			</if>
 			<if test="orderID != null">
-				and order_id = #{orderID}
+				and order_id like CONCAT('${orderID}','%')
 			</if>
 			<if test="contractNumber != null">
-				and contractNumber = #{contractNumber}
+				and contractNumber like CONCAT('${contractNumber}','%')
 			</if>
-			<if test="status != null">
+			<if test="status != null and status != ''">
 				and status = #{status}
 			</if>
 			<if test="customerID != null">
