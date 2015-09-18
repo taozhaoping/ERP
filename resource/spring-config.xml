@@ -89,6 +89,7 @@
 			<tx:method name="del*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="increase*" propagation="REQUIRED" />
 			<!--除了上面标识的方法,其他方法全是只读方法 -->
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>

@@ -21,7 +21,7 @@ public class StoragePrimary extends StockObject {
 	/**
 	 * 入库单号
 	 */
-	private String orderNoID;
+	//private String orderNoID;
 	
 	/**
 	 * 入库时间
@@ -31,7 +31,7 @@ public class StoragePrimary extends StockObject {
 	/**
 	 * 对应单据
 	 */
-	private String purchaseOrderID;
+	//private String purchaseOrderID;
 	
 	/**
 	 * 收货人
@@ -41,7 +41,7 @@ public class StoragePrimary extends StockObject {
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	//private Integer warehouseID;
 	
 	/**
 	 * 金额
@@ -56,7 +56,7 @@ public class StoragePrimary extends StockObject {
 	/**
 	 * 发货客户
 	 */
-	private Integer customerID;
+	//private Integer customerID;
 	
 	/**
 	 * 创建时间
@@ -71,7 +71,7 @@ public class StoragePrimary extends StockObject {
 	/**
 	 * 入库状态
 	 */
-	private Integer status;
+	//private Integer status;
 	
 	/**
 	 * 是否订单入库(1订单入库，0为其他入库)
@@ -86,14 +86,6 @@ public class StoragePrimary extends StockObject {
 		this.id = id;
 	}
 
-	public String getOrderNoID() {
-		return orderNoID;
-	}
-
-	public void setOrderNoID(String orderNoID) {
-		this.orderNoID = orderNoID;
-	}
-
 	public String getStoragedate() {
 		return storagedate;
 	}
@@ -102,28 +94,12 @@ public class StoragePrimary extends StockObject {
 		this.storagedate = storagedate;
 	}
 
-	public String getPurchaseOrderID() {
-		return purchaseOrderID;
-	}
-
-	public void setPurchaseOrderID(String purchaseOrderID) {
-		this.purchaseOrderID = purchaseOrderID;
-	}
-
 	public Integer getUserID() {
 		return userID;
 	}
 
 	public void setUserID(Integer userID) {
 		this.userID = userID;
-	}
-
-	public Integer getWarehouseID() {
-		return warehouseID;
-	}
-
-	public void setWarehouseID(Integer warehouseID) {
-		this.warehouseID = warehouseID;
 	}
 
 	public Float getMountMeoey() {
@@ -142,14 +118,6 @@ public class StoragePrimary extends StockObject {
 		this.remarks = remarks;
 	}
 
-	public Integer getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(Integer customerID) {
-		this.customerID = customerID;
-	}
-
 	public String getCreatedate() {
 		return createdate;
 	}
@@ -164,14 +132,6 @@ public class StoragePrimary extends StockObject {
 
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public Integer getIsStorage() {
