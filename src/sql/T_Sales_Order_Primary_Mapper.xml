@@ -90,8 +90,8 @@
 		select
 		<include refid="Base_Column_List" />
 		from T_SALES_ORDER_PRIMARY t
-		 where t.id not in
-       (select p.purchase_order_id from T_PROCESSING_SINGLE_PRIMARY p)
+ where  t.status=2 and not exists
+ (select 1 from T_PROCESSING_SINGLE_PRIMARY p where p.purchase_order_id = t.id)
 	</select>
 
 	<select id="count" resultType="Integer" parameterType="SalesOrderPrimary">
