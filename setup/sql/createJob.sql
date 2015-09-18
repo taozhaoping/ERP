@@ -75,8 +75,8 @@ begin
 sys.dbms_job.submit(job1
 					,'task_purchasing_demand;'
 					,sysdate
-					--,'sysdate+1/1440' --测试
-					,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
+					,'sysdate+1/1440' --测试
+					--,'TRUNC(sysdate) + 1 +1/ (24)'  --正式 每天一点执行
 					);	
   commit;
 end;
@@ -86,7 +86,7 @@ begin
 declare
        isProd  number; -- 所有采购是否采购完成
 begin
-       --获取状态在处理中的所有采购需求头表数据
+       --分解加工单到生产任务单
       for sub in (select * from t_processing_single_primary p where p.status=1 and exists (select 1 from T_ProductionTask t where p.id!=t.inventory_countid)) loop
         isProd  := 0;
         task_Production_task(sub.id);
