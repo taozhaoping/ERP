@@ -13,8 +13,10 @@ import com.zh.core.model.Pager;
 import com.zh.web.model.ProductionTaskModel;
 import com.zh.web.model.bean.MaterialRequisitionDetail;
 import com.zh.web.model.bean.ProductionTask;
+import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.service.MaterialRequisitionDetailService;
 import com.zh.web.service.ProductionTaskService;
+import com.zh.web.service.StoragePrimaryService;
 
 
 /**
@@ -43,6 +45,7 @@ public class MaterialAction extends BaseAction {
 		// TODO Auto-generated method stub
 		return productionTaskModel;
 	}
+	
 
 	@Override
 	public String execute() throws Exception {
@@ -82,11 +85,19 @@ public class MaterialAction extends BaseAction {
 	}
 
 	/**
-	 * 采购需求但审核
+	 * 领料单审核
 	 */
 	public String approvalDemand() throws Exception {
+		LOGGER.debug("examine SalesOrder ()");
+		Integer id = this.productionTaskModel.getId();
+		if (null == id || "".equals(id)) {
+			throw new ParameterException("领料单号不允许为空!");
+		}
+		productionTaskService.increaseStock(id);
+		
 		return Action.EDITOR_SUCCESS;
 	}
+
 
 	public String saveProcurementDemandDetail() {
 		return Action.EDITOR_SAVE;

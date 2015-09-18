@@ -137,6 +137,7 @@
 									<th>序号</th>
 									<th>加工单</th>
 									<th>生产单</th>
+									<th>状态</th>
 									<th>生产日期</th>
 									<th>完成日期</th>
 									<th style="width: 40px;">操作</th>
@@ -148,6 +149,12 @@
 									<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#tp.processingsingleID"/></td>
 										<td><s:property value="#tp.productionOrder"/></td>
+										<td>
+											<s:if test="0 == #tp.status">领料中</s:if>
+											<s:elseif test="1 == #tp.status">加工中</s:elseif>
+											<s:elseif test="2 == #tp.status">验收中</s:elseif>
+											<s:elseif test="3 == #tp.status">完成</s:elseif>
+										</td>
 										<td>
 											<s:property value="#tp.startDate"/>
 										</td>

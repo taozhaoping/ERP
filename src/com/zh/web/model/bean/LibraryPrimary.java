@@ -1,6 +1,7 @@
 package com.zh.web.model.bean;
 
 import com.zh.core.base.model.StockObject;
+import com.zh.core.model.IDataObject;
 
 /**
 * @Title: LibraryPrimary.java 
@@ -11,7 +12,7 @@ import com.zh.core.base.model.StockObject;
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public class LibraryPrimary extends StockObject {
+public class LibraryPrimary extends IDataObject {
 
 	/**
 	 * 

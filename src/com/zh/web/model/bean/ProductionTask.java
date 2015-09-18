@@ -2,6 +2,7 @@ package com.zh.web.model.bean;
 
 import java.util.Date;
 
+import com.zh.core.base.model.StockObject;
 import com.zh.core.model.IDataObject;
 
 /**
@@ -13,7 +14,7 @@ import com.zh.core.model.IDataObject;
 * @author mail taozhaoping@gmail.com
 * @version V1.0
  */
-public class ProductionTask extends IDataObject {
+public class ProductionTask extends StockObject {
 
 	private Integer id;
 	
@@ -43,7 +44,7 @@ public class ProductionTask extends IDataObject {
 	private Date endDate;
 	
 	/**
-	 * 状态(1：领料   2：生产   3：验收   4：完成)
+	 * 状态(0：初始化，1：领料   2：生产   3：验收   4：完成)
 	 */
 	private Integer status;
 

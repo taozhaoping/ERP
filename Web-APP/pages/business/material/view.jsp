@@ -94,7 +94,14 @@
 						
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
-						
+						<div class="pull-right">
+							<s:if test="productionTask.status==0">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 领料
+								</button>
+							</s:if>
+						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
@@ -139,7 +146,19 @@
 										</div>
 									</div>
 								</dir>
-								
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>状态：</dt>
+											<dd>
+												<s:if test="0 == productionTask.status">领料中</s:if>
+												<s:elseif test="1 == productionTask.status">加工中</s:elseif>
+												<s:elseif test="2 == productionTask.status">验收中</s:elseif>
+												<s:elseif test="3 == productionTask.status">完成</s:elseif>
+											</dd>
+										</div>
+									</div>
+								</dir>
 							</dl>
 							
 							<div class="tab-pane fade" id="storagedetail">
@@ -179,6 +198,29 @@
 		</div>
 	</div>
 
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>领取材料后，当前单据将不可更改.继续请按."领取" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">领取</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<form action="${menu2Id}!approvalDemand.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="id" name="id" value="${productionTask.id}" type="hidden"/>
+	</form>
+	
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
@@ -201,6 +243,10 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		var tabID = "${tabID}";
+		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 		
 	</script>
 </body>

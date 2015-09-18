@@ -59,4 +59,9 @@ public interface ProductionTaskService {
 	 * @param 
 	 */
 	public Integer insert(ProductionTask productionTask);
+	
+	/**
+	* 领料
+	 */
+	public void increaseStock(Integer id);
 }

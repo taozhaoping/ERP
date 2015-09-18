@@ -101,9 +101,7 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 		
 		// 单据入库
 		StockUtil stockUtil = StockUtil.getInstance();
-		StockObject sockObject = new StockObject();
-		sockObject.setId(id);
-		stockUtil.operationStock(sockObject, stockUtil.INVENTORY_COUNT);
+		stockUtil.operationStock(id,0, stockUtil.INVENTORY_COUNT);
 	}
 	
 	public InventoryCountPrimaryDao getInventoryCountPrimaryDao() {

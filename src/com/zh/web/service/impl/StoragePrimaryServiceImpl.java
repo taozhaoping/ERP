@@ -145,7 +145,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 
 			// 单据入库
 			StockUtil stockUtil = StockUtil.getInstance();
-			stockUtil.operationStock(reult, StockUtil.INCREASE);
+			stockUtil.operationStock(reult.getId(),reult.getWarehouseID(), StockUtil.INCREASE);
 
 			// 当存在订单号的时候,更改采购单状态
 			String storageID = reult.getPurchaseOrderID();

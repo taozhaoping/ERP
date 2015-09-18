@@ -3,6 +3,7 @@ package com.zh.web.util;
 import java.util.List;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -11,11 +12,14 @@ import com.zh.core.exception.ProjectException;
 import com.zh.web.model.bean.InventoryCountDetail;
 import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
+import com.zh.web.model.bean.MaterialRequisitionDetail;
+import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.LibraryDetailService;
+import com.zh.web.service.MaterialRequisitionDetailService;
 import com.zh.web.service.StockService;
 import com.zh.web.service.StorageDetailService;
 
@@ -40,6 +44,8 @@ public class StockUtil implements ApplicationContextAware {
 	private static LibraryDetailService libraryDetailService;
 	
 	private static InventoryCountDetailService inventoryCountDetailService;
+	
+	private static MaterialRequisitionDetailService materialRequisitionDetailService;
 
 	private static StockService stockService;
 
@@ -52,6 +58,16 @@ public class StockUtil implements ApplicationContextAware {
 	 * 作废单据,减少对应库存数量
 	 */
 	public static final String REDUCE = "REDUCE";
+	
+	/**
+	 * 单据生效入库
+	 */
+	public static final String TASK_INCREASE = "TASK_INCREASE";
+
+	/**
+	 * 领料单
+	 */
+	public static final String TASK_REDUCE = "TASK_REDUCE";
 	
 	public static final String INVENTORY_COUNT = "InventoryCount";
 
@@ -86,22 +102,31 @@ public class StockUtil implements ApplicationContextAware {
 			stockService = (StockService) ctx.getBean("stockService");
 			inventoryCountDetailService = (InventoryCountDetailService) ctx.getBean("inventoryCountDetailService");
 			stockUtil = (StockUtil) ctx.getBean("stockUtil");
+			materialRequisitionDetailService = (MaterialRequisitionDetailService) ctx.getBean("materialRequisitionDetailService");
 			
 		}
 
 		return stockUtil;
 	}
+	
 
-	public synchronized void operationStock(StockObject sockObject, String type) {
+	public synchronized void operationStock(Integer id,Integer warehouseID, String type) {
 
+		//出库入库
 		if (type == INCREASE) {
-			this.increaseStock((StoragePrimary) sockObject);
+			this.increaseStock(id,warehouseID);
 		} else if (type == REDUCE) {
-			this.reduceStock((LibraryPrimary) sockObject);
+			this.reduceStock(id,warehouseID);
 		} else if( type == INVENTORY_COUNT)
 		{
-			this.inventoryCount(sockObject.getId());
+			this.inventoryCount(id);
+		} else if( type == TASK_REDUCE)
+		{
+			this.materialStock(id);
 		}
+		
+		//生产任务出库和领料
+		
 	}
 	
 	/***
@@ -144,11 +169,10 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void increaseStock(StoragePrimary storagePrimary) {
+	private synchronized void increaseStock(Integer id,Integer warehouseID) {
 
 		StorageDetail storageDetail = new StorageDetail();
-		storageDetail.setStoragePrimaryID(storagePrimary.getId());
-		Integer warehouseID = storagePrimary.getWarehouseID();
+		storageDetail.setStoragePrimaryID(id);
 		List<StorageDetail> storageDetailReult = storageDetailService
 				.queryList(storageDetail);
 		for (StorageDetail storageDetailInfo : storageDetailReult) {
@@ -170,6 +194,47 @@ public class StockUtil implements ApplicationContextAware {
 
 	}
 
+	/***
+	* @Title: 领料单出库 
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param  @param productionTask   参数 
+	* @return void    返回类型 
+	* @throws 
+	* @author taozhaoping 26078
+	* @author mail taozhaoping@gmail.com
+	 */
+	private synchronized void materialStock(Integer id) {
+		MaterialRequisitionDetail requisitionDetail = new MaterialRequisitionDetail();
+		requisitionDetail.setProductiontaskId(id);
+		List<MaterialRequisitionDetail> list = materialRequisitionDetailService.queryList(requisitionDetail);
+		for (MaterialRequisitionDetail materialRequisitionDetail : list) {
+			Stock stock = new Stock();
+			stock.setProductsID(materialRequisitionDetail.getProductsId());
+			Float materialNumber = materialRequisitionDetail.getMaterialNumber();
+			List<Stock> reult = stockService.queryList(stock);
+			for (Stock st : reult) {
+				Float stockNumber = st.getStockNumber();
+				stock = new Stock();
+				stock.setId(st.getId());
+				if(stockNumber > materialNumber)
+				{
+					stockNumber = stockNumber - materialNumber;
+					stock.setStockNumber(stockNumber);
+					stockService.update(stock);
+					break;
+				}else
+				{
+					materialNumber = materialNumber - stockNumber;
+					stock.setStockNumber(0f);
+					stockService.update(stock);
+				}
+			}
+			if (reult == null) {
+				throw new ProjectException("数据库不存在该产品编号");
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 * @Title: increaseStock
@@ -183,11 +248,10 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void reduceStock(LibraryPrimary libraryPrimary) {
+	private synchronized void reduceStock(Integer id,Integer warehouseID) {
 
 		LibraryDetail libraryDetail = new LibraryDetail();
-		libraryDetail.setLibraryPrimaryID(libraryPrimary.getId());
-		Integer warehouseID = libraryPrimary.getWarehouseID();
+		libraryDetail.setLibraryPrimaryID(id);
 		libraryDetail.setWarehouseID(warehouseID);
 		List<LibraryDetail> libraryDetailReult = libraryDetailService
 				.queryList(libraryDetail);
