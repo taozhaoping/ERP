@@ -104,8 +104,14 @@ public class PurchaseOrderAction extends BaseAction {
 		page.setTotalRow(count);
 		List<PurchaseOrderPrimary> purchaseOrderPrimaryList = purchaseOrderPrimaryService
 				.queryList(purchaseOrderPrimary, page);
-		this.purchaseOrderModel
-				.setPurchaseOrderPrimaryList(purchaseOrderPrimaryList);
+		this.purchaseOrderModel.setPurchaseOrderPrimaryList(purchaseOrderPrimaryList);
+		
+		// 供应商信息
+		Customer customer = new Customer();
+		customer.setType(UtilService.CUSTOMER_TYPE_SUPPLIER);
+		customer.setEnabled(UtilService.ENABLED_EFFECTIVE);
+		List<Customer> customerList = customerService.queryList(customer);
+		this.purchaseOrderModel.setCustomerList(customerList);
 		return Action.SUCCESS;
 	}
 

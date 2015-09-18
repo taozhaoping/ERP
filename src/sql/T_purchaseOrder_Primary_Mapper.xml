@@ -35,8 +35,7 @@
 				and id = #{id}
 			</if>
 			<if test="purchaseOrderID != null">
-				and purchaseOrderID =
-				#{purchaseOrderID,jdbcType=VARCHAR}
+				and PURCHASEORDERID like CONCAT('${purchaseOrderID}','%')
 			</if>
 			<if test="purchaseDate != null">
 				and purchaseDate = #{purchaseDate,jdbcType=VARCHAR}
@@ -53,7 +52,7 @@
 			<if test="warehouseID != null">
 				and Warehouse_ID = #{warehouseID}
 			</if>
-			<if test="status != null">
+			<if test="status != null and status != ''">
 				and STATUS = #{status}
 			</if>
 		</where>

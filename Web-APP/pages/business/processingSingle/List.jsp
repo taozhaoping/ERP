@@ -94,13 +94,13 @@
 							<dir class="row">
 								<div class="span5">
 									<label class="control-label">加工单号：
-										<input type="number" maxlength="15" id="inputProcessingSingleId" name="processingSinglePrimary.processingSingleId"
+										<input type="text" maxlength="25" id="inputProcessingSingleId" name="processingSinglePrimary.processingSingleId"
 											value="${processingSinglePrimary.processingSingleId}" class="input-large">
 										</label>
 								</div>
 								<div class="span4">
 									<label class="control-label">销售订单：
-									<input type="text" maxlength="15" id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId"
+									<input type="text" maxlength="25" id="inputPurchaseOrderId" name="processingSinglePrimary.purchaseOrderId"
 										value="${processingSinglePrimary.purchaseOrderId}" class="input-large">
 										</label>
 								</div>
