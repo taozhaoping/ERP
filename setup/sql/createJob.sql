@@ -20,7 +20,7 @@ declare
        isProd  number; -- 所有采购是否采购完成
 begin
        --获取状态在处理中的所有采购需求头表数据
-      for sub in (select id from t_procurement_demand_primary where status = 1) loop
+      for sub in (select id,order_id from t_procurement_demand_primary where status = 1) loop
         isProd  := 0;
         dbms_output.PUT_LINE(isProd);
           for demandObject in (
@@ -54,6 +54,7 @@ begin
           if(isProd = 0) then
                --修改当前采购需求单状态
                update t_Procurement_Demand_Primary set status = 2 where id = sub.id;
+               update T_SALES_ORDER_PRIMARY set status=2 where id=sub.order_id;
                 dbms_output.PUT_LINE('完成');
                commit;
           end if;
@@ -61,8 +62,6 @@ begin
 end;
 end task_Purchasing_demand;
 /
-
-
 
 set serveroutput on
 
