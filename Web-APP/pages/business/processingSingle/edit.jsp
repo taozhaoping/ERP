@@ -205,7 +205,7 @@
 											<th>数量</th>
 											<th>主料/替代料</th>
 											<th>主料编号</th>
-											<th>层级</th>
+											<th>种类</th>
 											<th>生产时间</th>
 											<th>结束时间</th>
 											<th>生产</th>
@@ -340,7 +340,8 @@
 			{
 				data = {"id":changeID,
 						"endDate":changeValue};
-			}
+			}Taojian88
+			
 			$.ajax({
 				   type: "POST",
 				   url: basePath + "/" + spaceId + "/" + menu2Id + "!saveProcessingSingleDetail.jspa",

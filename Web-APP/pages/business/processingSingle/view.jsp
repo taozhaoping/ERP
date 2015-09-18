@@ -157,8 +157,12 @@
 											<th>序号</th>
 											<th>物料</th>
 											<th>数量</th>
+											<th>主料/替代料</th>
+											<th>主料编号</th>
+											<th>种类</th>
 											<th>生产时间</th>
 											<th>结束时间</th>
+											<th>生产</th>
 										</tr>
 									</thead>
 									
@@ -170,8 +174,33 @@
 												<td><s:property value="#index.index +1" /></td>
 												<td><s:property value="#tp.productsId" /></td>
 												<td><s:property value="#tp.processingNumber" /></td>
+												<td>
+													<s:if test='#tp.mainsub=="Y"'>
+														主料
+													</s:if>
+													<s:elseif test='#tp.mainsub=="N"'>
+														替代料
+													</s:elseif>
+												</td>
+												<td><s:property value="#tp.mainProductsID" /></td>
+												<td>
+													<s:if test="#tp.tier==0">
+														成品
+													</s:if>
+													<s:else>
+														半成品
+													</s:else>
+												</td>
 												<td><s:date name="#tp.startDate" format="yyyy-MM-dd"/></td>
 												<td><s:date name="#tp.endDate" format="yyyy-MM-dd"/></td>
+												<td>
+													<s:if test="#tp.productionMark==0">
+														<a title="生产标示" style="margin: 0px 3px;"><i class="icon-ok"></i></a> 
+													</s:if>
+													<s:else>
+														<i class="icon-remove"></i>
+													</s:else>
+												</td>
 											</tr>
 											</s:iterator>
 											
