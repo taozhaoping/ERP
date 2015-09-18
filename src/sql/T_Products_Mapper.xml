@@ -54,6 +54,9 @@
 			<if test="id != null">
 				and id like CONCAT('${id}','%' )
 			</if>
+			<if test="name != null">
+				and NAME like CONCAT('${name}', '%')
+			</if>
 			<if test="sourceType != null">
 				and source_type = #{sourceType}
 			</if>

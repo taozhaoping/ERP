@@ -64,6 +64,10 @@ public class ProductsAction extends BaseAction {
 		page.setTotalRow(count);
 		List<Products> list = productsService.queryList(products, page);
 		this.productsModel.setProductsList(list);
+		
+		List<Dictionary> productTypeList = queryDictionaryList(BasiTypeService.PRODUCT_TYPE);
+		this.productsModel.setProductTypeList(productTypeList);
+		
 		return Action.SUCCESS;
 
 	}
