@@ -110,18 +110,28 @@
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="productionTaskList" var="tp" status="index">
+								<s:iterator value="processingSinglePrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.processingsingleID"/></td>
-										<td><s:property value="#tp.productionOrder"/></td>
+										<td><s:property value="#tp.processingSingleId"/></td>
+										<td><s:property value="#tp.purchaseOrderId"/></td>
+										<td><s:property value="#tp.createDate"/></td>
+										<td><s:property value="#tp.remarks"/></td>
 										<td>
-											<s:property value="#tp.startDate"/>
+											<s:if test="#tp.status==0">
+												发起
+											</s:if>
+											<s:if test="#tp.status==1">
+												审核
+											</s:if>
+											<s:if test="#tp.status==2">
+												完成
+											</s:if>
 										</td>
 										<td>
-											<s:property value="#tp.endDate"/>
-										</td>
-										<td>
+											<shiro:hasPermission name="processingSingle:edit">
+											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											</shiro:hasPermission>
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>

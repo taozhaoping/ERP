@@ -106,16 +106,16 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>生产任务单：</dt>
-											<dd>${productionTask.productionOrder}</dd>
+											<dt>加工单号：</dt>
+											<dd>${processingSinglePrimary.processingSingleId}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>加工单号：</dt>
+											<dt>销售订单：</dt>
 											<dd>
-												<dd>${productionTask.processingsingleID}</dd>
+												<dd>${processingSinglePrimary.purchaseOrderId}</dd>
 											</dd>
 										</div>
 									</div>
@@ -124,18 +124,27 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>加工日期：</dt>
+											<dt>状态：</dt>
 											<dd>
-												<s:date name="productionTask.startDate" format="yyyy-MM-dd" />
+												<s:if test="0 == processingSinglePrimary.status">发起</s:if>
+												<s:elseif test="1 == processingSinglePrimary.status">审核</s:elseif>
+												<s:elseif test="2 == processingSinglePrimary.status">完成</s:elseif>
 											</dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>完成日期：</dt>
-											<dd>
-												<s:date name="productionTask.endDate" format="yyyy-MM-dd" />
-											</dd>
+											<dt>创建时间：</dt>
+											<dd>${processingSinglePrimary.createDate}</dd>
+										</div>
+									</div>
+								</dir>
+								
+								<dir class="row">
+									<div class="span8">
+										<div class="control-group">
+											<dt>备注：</dt>
+											<dd>${processingSinglePrimary.remarks}</dd>
 										</div>
 									</div>
 								</dir>

@@ -11,6 +11,9 @@ prompt
 
 --show parameter job
 
+--删除job
+--exec dbms_job.remove(jobID)
+
 
 drop  procedure erp.task_purchasing_demand;
 
