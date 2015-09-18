@@ -27,11 +27,20 @@
 			<if test="inventoryCountID != null">
 				and Inventory_countID = #{inventoryCountID}
 			</if>
+			<if test="processingsingleID != null">
+				and PROCESSINGSINGLEID like CONCAT('${processingsingleID}','%')
+			</if>
+			<if test="productionOrder != null">
+				and PRODUCTION_ORDER like CONCAT('${productionOrder}','%')
+			</if>
 			<if test="startDate != null">
 				and STARTDATE = #{startDate}
 			</if>
 			<if test="endDate != null">
 				and ENDDATE = #{endDate}
+			</if>
+			<if test="status != null and status != '' ">
+				and STATUS = #{status}
 			</if>
 		</where>
 	</sql>

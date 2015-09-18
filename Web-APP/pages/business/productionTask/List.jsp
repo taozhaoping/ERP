@@ -86,14 +86,63 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
+					<div>
+						<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+							<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+							<input type="hidden" name="spaceId" value="${spaceId}">
+							<dir class="row">
+								<div class="span5">
+									<label class="control-label">生产任务单：
+										<input type="number" maxlength="25" id="inputProductionOrder" name="productionTask.productionOrder"
+											value="${productionTask.productionOrder}" class="input-large">
+										</label>
+								</div>
+								<div class="span4">
+									<label class="control-label">加工单号：
+									<input type="text" maxlength="25" id="inputProcessingsingleID" name="productionTask.processingsingleID"
+										value="${productionTask.processingsingleID}" class="input-large">
+										</label>
+								</div>
+							</dir>
+							
+							<dir class="row">
+								<div class="span5">
+									<label class="control-label">状态：
+									<select id="inputStatus" name="productionTask.status" class="input-medium" placeholder="状态" >
+										<option value=""></option>
+										<option value="0">领料中</option>
+										<option value="1">加工中</option>
+										<option value="2">验收中</option>
+										<option value="3">完成</option>
+									</select>
+									</label>		
+								</div>
+								<div class="span4">
+									
+								</div>
+								
+								<div class="span3">
+									<button class="btn" type="button" id="btnSubmit">
+										<i class=" icon-search"></i> 搜索
+									</button>
+			
+									<button class="btn" type="button" id="btnClear">
+										<i class="icon-remove"></i> 清除
+									</button>
+								</div>
+							</dir>
+						</form>
+					</div>
+				
 					<div class="btn-toolbar">
 						<form class="form-search">
 							<input type="hidden" name="menuId" value="${menuId}" /> 
 							<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
 							<input type="hidden" name="spaceId" value="${spaceId}" />
-							
+							<!-- 
 							<input type="text" class="input-medium search-query form_datetime" readonly="readonly" name="productionTask.startDate" value="<s:date name="productionTask.startDate" format="yyyy-MM-dd"/>" title="开始时间" placeholder="开始时间" />
 							<button type="submit" class="btn">Search</button>
+							 -->
 						</form>
 						<div class="btn-group"></div>
 					</div>
@@ -142,10 +191,12 @@
 		</shiro:lacksPermission>
 		
 	</div>
+	<!-- 
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
+	 -->
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path %>/js/collapsePulg.js"></script>
@@ -181,6 +232,21 @@
 			$("#navigation").text(headText);
 			//展开一级菜单
 			collapseMenu(menuId);
+			
+			//提交按钮
+			$("#btnSubmit").click(function(){
+				$('#curPage').val("1");
+				$('#queryForm').submit();
+			});
+			
+			//清空按钮
+			$("#btnClear").click(function(){
+				$("#inputProductionOrder").val("");
+				$("#inputProcessingsingleID").val("");
+				$("#inputStatus").val("");
+				
+				$('#curPage').val("");
+			});
 			
 			$.jqPaginator('#pagination', {
 				//设置分页的总页数
