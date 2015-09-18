@@ -77,7 +77,7 @@ drop sequence SEQUENCE_T_SALES_ORDER_PRIMARY;
 drop sequence SEQUENCE_T_Sales_order_DETAIL;
 drop sequence SEQUENCE_T_SALES_ORDER_BOM;
 drop sequence SEQUENCE_T_Cutting_scheme;
-drop sequence SEQUENCE_T_Procurement_Demand_PRIMARY;
+drop sequence SEQUENCE_T_Procurement_PRIMARY;
 drop sequence SEQUENCE_T_Procurement_DETAIL;
 drop sequence SEQUENCE_T_purchaseOrder_PRIMARY;
 drop sequence SEQUENCE_t_Inventory_Primary;

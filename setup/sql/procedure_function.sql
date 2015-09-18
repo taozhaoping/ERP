@@ -453,4 +453,100 @@ end;
 end task_Production_task;
 /
 
+--产品结构分解采购需求订单
+delete from T_PROCUREMENT_DEMAND_PRIMARY t where t.order_id is not null;
+delete from T_PROCUREMENT_DEMAND_DETAIL t ;
+
+drop  procedure bom_Purchasing_demand;
+
+create or replace procedure bom_Purchasing_demand(v_order_id number) as
+begin
+declare
+       t_status number;          --是否已经生成采购需求清单状态
+       procedure_id number;           --进程ID
+       DEMAND_PRIMARY_ID number;   --采购需求清单头表ID
+       DEMAND_DETAIL_ID  number;   --采购需求清单明细ID
+       inspectionDate        varchar(20);  --销售订单检查日期
+       userid            number;    --用户ID
+       bom_order_id number;  --销售订单
+       main_product_number FLOAT;  --主产品数量
+       stock_Number FLOAT; --产品库存数量
+       scrap_factor FLOAT; --损耗率
+       cutting_number FLOAT;  --原材料数量
+       isCutting    number;  --是否需要查找切割方案 (0 查找切割方案，不等于0的，直接查看结构子类)
+       t_dateChar char(8);
+begin
+  DBMS_OUTPUT.ENABLE (buffer_size=>null);
+        bom_order_id  := v_order_id;
+        
+        --判断当前采购订单是否已经生成过采购需求清单
+        select count(1) into t_status from T_PROCUREMENT_DEMAND_PRIMARY t where t.order_id=bom_order_id;
+
+        if (t_status=0) then
+          dbms_output.PUT_LINE('开始计算采购需求单：' || bom_order_id );
+          select to_char(sysdate,'yyyymmdd') into t_dateChar from dual;
+          
+          --损耗率
+          select t.scrap_factor+1 into scrap_factor from sys_param t;
+             
+          --进程编号
+          select SEQUENCE_procedure_id.nextval into procedure_id from dual;
+          
+          --获取销售订单信息
+          select t.userid,t.inspection into userid,inspectionDate from T_SALES_ORDER_PRIMARY t where t.id=bom_order_id;
+          
+          --初始化采购需求清单表头
+          select SEQUENCE_T_Procurement_PRIMARY.nextval into DEMAND_PRIMARY_ID from dual;
+          insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,sysdate,to_date(inspectionDate,'yyyy-mm-dd'),userid,bom_order_id,1,'销售订单分解');
+
+          --获取指定的采购订单
+          for sub in (select * from  T_SALES_ORDER_BOM b where b.order_id =bom_order_id and b.tier!=0 and (b.main_sub is null or b.main_sub='Y')) loop
+               
+               --获取产品库存数量
+               stock_Number := getProducts_stock_Number(sub.products_id);
+               dbms_output.PUT_LINE('库存数量' || stock_Number);
+               --主产品需要生产的数量
+               main_product_number := getSalesOrderBOMProductNumber(sub.id);
+               dbms_output.PUT_LINE('结构ID：' || sub.id || '    生产数量' || main_product_number);
+               
+                if(stock_Number < main_product_number) then
+
+                  --主产品实际需要生产的数量
+                  main_product_number := main_product_number - stock_Number;
+                  if(sub.source_type=120) then
+                    dbms_output.PUT_LINE('采购产品：' || sub.products_id );
+                    --直接添加采购材料
+                    select SEQUENCE_T_Procurement_DETAIL.nextval into DEMAND_DETAIL_ID from dual;
+                    insert into T_PROCUREMENT_DEMAND_DETAIL (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,sub.products_id,main_product_number,'',sub.is_main_products);
+                  else
+                    --自生产产品
+                    dbms_output.PUT_LINE('自生产产品：' || sub.products_id );
+                    --判断当前产品是否拥有结构。没有的时候，去切割方案中获取原材料
+                    select count(id) into isCutting from t_sales_order_bom t where t.order_id=bom_order_id and t.parent_id=sub.id;
+                    if(isCutting = 0) then
+                         --查找切割方案
+                         dbms_output.PUT_LINE('查找切割方案:');
+                         for cutting in (select * from t_cutting_scheme t where t.main_products=sub.products_id and rownum=1) loop
+                             cutting_number:= main_product_number/cutting.man_number;
+                             select ceil(cutting_number) into cutting_number from dual;
+                             dbms_output.PUT_LINE('产品:' || sub.products_id || '，实际需要生产数量：' || main_product_number || '原材料数量:' || cutting_number);
+                             --添加采购材料
+                             select SEQUENCE_T_Procurement_DETAIL.nextval into DEMAND_DETAIL_ID from dual;
+                             insert into T_PROCUREMENT_DEMAND_DETAIL (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,cutting.raw_materials,cutting_number,'切割原材料',sub.is_main_products);
+                             dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
+                         end loop;
+                    end if;
+                  end if;
+                end if;
+          end loop;
+           
+        else
+            dbms_output.PUT_LINE('采购需求单已经存在：' || bom_order_id );
+        end if;
+        commit;
+end;
+end bom_Purchasing_demand;
+/
+
+
 spool off
