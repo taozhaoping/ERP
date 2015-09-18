@@ -23,15 +23,15 @@
 				and ID = #{id}
 			</if>
 			<if test="processingSingleId != null">
-				and PROCESSINGSINGLEID = #{processingSingleId}
+				and PROCESSINGSINGLEID like CONCAT('${processingSingleId}','%')
 			</if>
 			<if test="purchaseOrderId != null">
-				and PURCHASE_ORDER_ID = #{purchaseOrderId}
+				and PURCHASE_ORDER_ID like CONCAT('${purchaseOrderId}','%')
 			</if>
 			<if test="createDate != null">
 				and CREATEDATE = #{createDate}
 			</if>
-			<if test="status != null">
+			<if test="status != null and status != ''">
 				and STATUS = #{status}
 			</if>
 			<if test="remarks != null">
