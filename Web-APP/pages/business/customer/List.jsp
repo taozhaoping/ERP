@@ -87,6 +87,50 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="row-fluid">
+					<div>
+						<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
+							<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
+							<input type="hidden" name="spaceId" value="${spaceId}">
+							<dir class="row">
+								<div class="span5">
+									<label class="control-label">客户名称：
+										<input type="text" maxlength="25" id="inputName" name="customer.name"
+											value="${customer.name}" class="input-large">
+										</label>
+								</div>
+								<div class="span4">
+									<label class="control-label">客户类型：
+										<s:select id="inputtype"  list="typeList" listKey="key" listValue="descr"
+											name="customer.type" cssClass="input-medium" placeholder="客户类型">
+										</s:select>
+									</label>
+								</div>
+							</dir>
+							
+							<dir class="row">
+								<div class="span5">
+									<label class="control-label">客户等级：
+										<s:select id="inputlev"  list="dictionaryList" listKey="key" listValue="descr"
+											name="customer.lev" cssClass="input-medium" placeholder="客户类型">
+										</s:select>
+									</label>		
+								</div>
+								<div class="span4">
+									
+								</div>
+								
+								<div class="span3">
+									<button class="btn" type="button" id="btnSubmit">
+										<i class=" icon-search"></i> 搜索
+									</button>
+			
+									<button class="btn" type="button" id="btnClear">
+										<i class="icon-remove"></i> 清除
+									</button>
+								</div>
+							</dir>
+						</form>
+					</div>
 					<div class="btn-toolbar">
 						<shiro:hasPermission name="customerInfo:add">
 						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
@@ -153,10 +197,12 @@
 		<%@ include file="/pages/common/unauthorized.jsp"%>
 		</shiro:lacksPermission>
 	</div>
+	<!-- 
 	<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
 	</form>
+	 -->
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path %>/js/collapsePulg.js"></script>
@@ -177,6 +223,21 @@
 			$("#navigation").text(headText);
 			//展开一级菜单
 			collapseMenu(menuId);
+			
+			//提交按钮
+			$("#btnSubmit").click(function(){
+				$('#curPage').val("1");
+				$('#queryForm').submit();
+			});
+			
+			//清空按钮
+			$("#btnClear").click(function(){
+				$("#inputName").val("");
+				$("#inputtype").val("");
+				$("#inputlev").val("");
+				
+				$('#curPage').val("");
+			});
 			
 			$.jqPaginator('#pagination', {
 				//设置分页的总页数

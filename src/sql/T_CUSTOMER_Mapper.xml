@@ -24,8 +24,14 @@
 			<if test="id != null">
 				and id = #{id}
 			</if>
-			<if test="type != null">
+			<if test="name != null">
+				and NAME like CONCAT('${name}','%')
+			</if>
+			<if test="type != null and type != ''">
 				and TYPE = #{type}
+			</if>
+			<if test="lev != null and lev != ''">
+				and LEV = #{lev}
 			</if>
 			<if test="enabled != null">
 				and enabled = #{enabled}

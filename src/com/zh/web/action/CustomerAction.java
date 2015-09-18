@@ -68,6 +68,13 @@ public class CustomerAction extends BaseAction {
 		page.setTotalRow(count);
 		List<Customer> list = customerService.queryList(customer, page);
 		this.customerModel.setCustomerList(list);
+		//客户类型
+		List<Dictionary> typeList = queryDictionaryList(BasiTypeService.CUSTOMER_TYPE);
+		this.customerModel.setTypeList(typeList);
+		//客户等级
+		List<Dictionary> levList = queryDictionaryList(BasiTypeService.CUSTOMER_LEV);
+		this.customerModel.setDictionaryList(levList);
+		
 		return Action.SUCCESS;
 
 	}
