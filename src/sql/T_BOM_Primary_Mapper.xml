@@ -23,15 +23,15 @@
 				and ID = #{id}
 			</if>
 			<if test="productsId != null">
-				and PRODUCTS_ID = #{productsId}
+				and PRODUCTS_ID like CONCAT('${productsId}','%')
 			</if>
 			<if test="descr != null">
-				and DESCR = #{descr}
+				and DESCR like CONCAT('${descr}','%')
 			</if>
 			<if test="effdt != null">
 				and EFFDT = #{effdt}
 			</if>
-			<if test="effStatus != null">
+			<if test="effStatus != null and effStatus != ''">
 				and EFF_STATUS = #{effStatus}
 			</if>
 		</where>
