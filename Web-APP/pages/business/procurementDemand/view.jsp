@@ -139,6 +139,14 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
+											<dt>销售订单：</dt>
+											<dd>
+												${procurementDemandPrimary.orderID}
+											</dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
 											<dt>状态：</dt>
 											<dd>
 												<s:if test="procurementDemandPrimary.status==0">

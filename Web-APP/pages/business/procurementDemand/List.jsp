@@ -100,6 +100,7 @@
 							<thead>
 								<tr>
 									<th>序号</th>
+									<th>销售订单</th>
 									<th>申请时间</th>
 									<th>期限</th>
 									<th>申请人</th>
@@ -111,7 +112,8 @@
 							<tbody>
 								<s:iterator value="procurementDemandPrimaryList" var="tp" status="index">
 									<tr>
-									<td><s:property value="#index.index + 1"/></td>
+										<td><s:property value="#index.index + 1"/></td>
+										<td><s:property value="#tp.orderID"/></td>
 										<td><s:property value="#tp.createDate"/></td>
 										<td><s:property value="#tp.limitDate"/></td>
 										<td>
