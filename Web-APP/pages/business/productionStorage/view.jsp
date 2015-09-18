@@ -149,6 +149,7 @@
 											<th>序号</th>
 											<th>物料</th>
 											<th>数量</th>
+											<th>种类</th>
 										</tr>
 									</thead>
 									
@@ -160,6 +161,14 @@
 												<td><s:property value="#index.index +1" /></td>
 												<td><s:property value="#tp.productsId" /></td>
 												<td><s:property value="#tp.processingNumber" /></td>
+												<td>
+													<s:if test="#tp.warehouseType==0">
+														成品
+													</s:if>
+													<s:else>
+														半成品
+													</s:else>
+												</td>
 											</tr>
 											</s:iterator>
 											

@@ -1678,7 +1678,8 @@ create table t_productionStorage_DETAIL
    ID                   NUMBER               not null,
    ProcessingSingleID NUMBER,
    Products_ID        NUMBER,
-   ProcessingNumber   FLOAT
+   ProcessingNumber   FLOAT,
+   WAREHOUSE_TYPE     NUMBER
 );
 
 comment on table t_Processing_single_DETAIL is
@@ -1695,6 +1696,9 @@ comment on column t_Processing_single_DETAIL.Products_ID is
 
 comment on column t_Processing_single_DETAIL.ProcessingNumber is
 '数量';
+
+comment on column t_Processing_single_DETAIL.WAREHOUSE_TYPE is
+'产品类型 0:成本，1为剩余物料（半成品）';
 
 alter table t_productionStorage_DETAIL
    add constraint PK_productionStorage_DETAIL primary key (ID);

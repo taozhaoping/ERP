@@ -307,6 +307,7 @@ declare
        task_id number;           --生产任务主表ID
        task_detail_id number;    --生产任务单明细ID
        acceptanceList_id number; --验收单ID
+       productionStorageID number;   --生产单入库ID
        t_dateChar char(8);
        bomPrimaryID number;   --销售订单产品结构ID
        order_id number;  --销售订单
@@ -419,6 +420,10 @@ begin
                                                      select SEQUENCE_t_Material_DETAIL.nextval into Material_id from dual;
                                                      insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,procedure_id,task_id,cutting.raw_materials,cutting_number);
                                                     dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
+                                                    
+                                                    --生产入库单初始化(剩余料)
+                                                    select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual; 
+                                                    insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
                                                end loop;
                                         end if;
 
@@ -428,8 +433,17 @@ begin
              end loop;
            end loop;
            
-           --拷贝临时领料表到正式表
+            --拷贝临时领料表到正式表
             Insert into T_MATERIAL_REQUISITION_DETAIL(ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) select ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER from t_Material_requisition_TEMP tem where tem.procedure_id=procedure_id;
+            
+            --生产入库单初始化(成品)
+            for psdet in (select * from t_sales_order_bom where tier=0 and order_id=order_id) loop
+              select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual; 
+              insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,psdet.products_id,psdet.qty,0);
+            end loop;
+            
+            
+            
             --delete from t_Material_requisition_TEMP;
         else
            dbms_output.PUT_LINE('已经存在生产任务单');
@@ -438,6 +452,5 @@ begin
 end;
 end task_Production_task;
 /
-
 
 spool off

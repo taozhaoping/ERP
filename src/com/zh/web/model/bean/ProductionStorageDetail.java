@@ -37,6 +37,11 @@ public class ProductionStorageDetail extends IDataObject {
 	 * 数量
 	 */
 	private Float processingNumber;
+	
+	/**
+	 * 产品类型 0:成本，1为剩余物料（半成品）
+	 */
+	private Integer warehouseType;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +73,14 @@ public class ProductionStorageDetail extends IDataObject {
 
 	public void setProcessingNumber(Float processingNumber) {
 		this.processingNumber = processingNumber;
+	}
+
+	public Integer getWarehouseType() {
+		return warehouseType;
+	}
+
+	public void setWarehouseType(Integer warehouseType) {
+		this.warehouseType = warehouseType;
 	}
 	
 }

@@ -6,13 +6,15 @@
 		<result column="PROCESSINGSINGLEID" property="processingSingleId" />
 		<result column="PRODUCTS_ID" property="productsId"/>
 		<result column="PROCESSINGNUMBER" property="processingNumber"/>
+		<result column="WAREHOUSE_TYPE" property="warehouseType"/>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
 		ID,
 		PROCESSINGSINGLEID,
 		PRODUCTS_ID,
-		PROCESSINGNUMBER
+		PROCESSINGNUMBER,
+		WAREHOUSE_TYPE
 	</sql>
 	
 	<sql id="where">
@@ -28,6 +30,9 @@
 			</if>
 			<if test="processingNumber != null">
 				and PROCESSINGNUMBER = #{processingNumber}
+			</if>
+			<if test="warehouseType != null">
+				and WAREHOUSE_TYPE = #{warehouseType}
 			</if>
 		</where>
 	</sql>
@@ -75,6 +80,9 @@
 			<if test="processingNumber != null">
 				PROCESSINGNUMBER,
 			</if>
+			<if test="warehouseType != null">
+				WAREHOUSE_TYPE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -88,6 +96,9 @@
 			</if>
 			<if test="processingNumber != null">
 				#{PROCESSINGNUMBER},
+			</if>
+			<if test="warehouseType != null">
+				#{warehouseType},
 			</if>
 		</trim>
 	</insert>
@@ -103,6 +114,9 @@
 			</if>
 			<if test="processingNumber != null">
 				PROCESSINGNUMBER = #{processingNumber},
+			</if>
+			<if test="warehouseType != null">
+				WAREHOUSE_TYPE = #{warehouseType},
 			</if>
 		</set>
 		where ID = #{id}
