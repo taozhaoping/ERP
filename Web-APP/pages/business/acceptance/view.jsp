@@ -94,6 +94,14 @@
 						
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
+						<div class="pull-right">
+							<s:if test="1 == productionTask.status">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 审核
+								</button>
+							</s:if>
+						</div>
 						
 					</div>
 					<div class="well">
@@ -176,9 +184,13 @@
 												<td><s:property value="#tp.productsID" /></td>
 												<td><s:property value="#tp.processName" /></td>
 												<td><s:property value="#tp.acceptanceDate" /></td>
+												<td>
+													<s:if test="1 == productionTask.status and 0 == #index.isAcceptance">
+													<a title="验收" style="margin: 0px 3px;" href="${menu2Id}!updateAcceptance.jspa?id=${productionTask.id}&formId=<s:property value='#index.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i class="icon-ok"></i></a>
+													</s:if>
+												</td>
 											</tr>
 											</s:iterator>
-											
 										</tr>
 									</tbody>
 								</table>
@@ -190,6 +202,24 @@
 						</div>
 					</div>
 				</div>
+		</div>
+	</div>
+	
+	<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>当前单据审核后将不可更改.继续请按."审核" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">审核</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 

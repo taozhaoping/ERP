@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
+import com.zh.core.util.DateUtil;
 import com.zh.web.model.ProductionTaskModel;
 import com.zh.web.model.bean.AcceptanceList;
+import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.ProductionTaskDetail;
 import com.zh.web.service.AcceptanceListService;
@@ -90,6 +92,49 @@ public class AcceptanceAction extends BaseAction {
 				.queryList(acceptanceList, page);
 		this.productionTaskModel.setAcceptanceList(list);
 		return Action.VIEW;
+	}
+	
+	/** 
+	 * 审核生效状态
+	 */
+	public String auditStatus() throws Exception {
+		LOGGER.debug("auditStatus()");
+		ProductionTask productionTask  = this.productionTaskModel.getProductionTask();
+		//头表的主键
+		Integer id = productionTask.getId();
+		//主键为空，则是插入，不为空，更新
+		if (null != id && !"".equals(id)){
+			//生效
+			productionTask.setStatus(new Integer(2));
+			productionTaskService.update(productionTask);
+			LOGGER.debug("auditStatus productionTask:{}", productionTask);
+		}else{
+			throw new ParameterException("验收单不允许为空!");
+		}
+		return Action.EDITOR_SUCCESS;
+	}
+	
+	/** 
+	 * 设置验收状态
+	 */
+	public String updateAcceptance() throws Exception {
+		LOGGER.debug("updateAcceptance()");
+		AcceptanceList acceptanceList = this.productionTaskModel.getAcceptance();
+		//头表的主键
+		Integer id = acceptanceList.getId();
+		//主键为空，则是插入，不为空，更新
+		if (null != id && !"".equals(id)){
+			//
+			acceptanceList.setIsAcceptance("1");
+			String acceptanceDate = DateUtil.getStringDate();
+			acceptanceList.setAcceptanceDate(acceptanceDate);
+			//TODO
+			//更新状态和验收时间
+			LOGGER.debug("updateAcceptance acceptanceList:{}", acceptanceList);
+		}else{
+			throw new ParameterException("验收单明细不允许为空!");
+		}
+		return Action.EDITOR_SUCCESS;
 	}
 
 	
