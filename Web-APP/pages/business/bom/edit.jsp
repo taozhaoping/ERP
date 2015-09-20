@@ -821,7 +821,7 @@
 		
 		$("#inputProductsId").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			ajax : {
@@ -970,7 +970,7 @@
 		
 		$("#popupProductsID").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			ajax : {
@@ -1042,7 +1042,7 @@
 		
 		$("#popupsubProductsId").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			ajax : {

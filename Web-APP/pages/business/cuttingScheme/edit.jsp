@@ -280,7 +280,7 @@
 		
 		$("#inputrawMaterials").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 
@@ -340,7 +340,7 @@
 		
 		$("#inputmainProducts").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 
@@ -401,7 +401,7 @@
 		
 		$("#inputbyProducts").select2({
 			placeholder : "查询产品编号",
-			minimumInputLength : 3,
+			minimumInputLength : 5,
 			//multiple:true,
 			quietMillis : 3000,
 			initSelection: function (element, callback) { 

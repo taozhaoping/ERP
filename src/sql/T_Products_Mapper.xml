@@ -52,10 +52,10 @@
 	<sql id="where">
 		<where>
 			<if test="id != null">
-				and id like CONCAT('${id}','%' )
+				and id like CONCAT('%',CONCAT('${id}','%' ))
 			</if>
 			<if test="name != null and name != ''">
-				and NAME like CONCAT('${name}', '%')
+				and NAME like CONCAT('%',CONCAT('${name}', '%'))
 			</if>
 			<if test="sourceType != null">
 				and source_type = #{sourceType}

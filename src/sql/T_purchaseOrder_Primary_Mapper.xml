@@ -35,7 +35,7 @@
 				and id = #{id}
 			</if>
 			<if test="purchaseOrderID != null">
-				and PURCHASEORDERID like CONCAT('${purchaseOrderID}','%')
+				and PURCHASEORDERID like CONCAT('%',CONCAT('${purchaseOrderID}','%'))
 			</if>
 			<if test="purchaseDate != null">
 				and purchaseDate = #{purchaseDate,jdbcType=VARCHAR}

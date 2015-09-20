@@ -28,10 +28,10 @@
 				and Inventory_countID = #{inventoryCountID}
 			</if>
 			<if test="processingsingleID != null">
-				and PROCESSINGSINGLEID like CONCAT('${processingsingleID}','%')
+				and PROCESSINGSINGLEID like CONCAT('%',CONCAT('${processingsingleID}','%'))
 			</if>
 			<if test="productionOrder != null">
-				and PRODUCTION_ORDER like CONCAT('${productionOrder}','%')
+				and PRODUCTION_ORDER like CONCAT('%',CONCAT('${productionOrder}','%'))
 			</if>
 			<if test="startDate != null">
 				and STARTDATE = #{startDate}

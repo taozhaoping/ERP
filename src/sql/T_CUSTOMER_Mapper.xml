@@ -25,7 +25,7 @@
 				and id = #{id}
 			</if>
 			<if test="name != null">
-				and NAME like CONCAT('${name}','%')
+				and NAME like CONCAT('%',CONCAT('${name}','%'))
 			</if>
 			<if test="type != null and type != ''">
 				and TYPE = #{type}
