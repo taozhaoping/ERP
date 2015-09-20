@@ -394,7 +394,7 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("saveSub()");
 		BomSub bomSub = this.productStructModel.getBomSub();
 		//明细表的主键
-		Integer id = bomSub.getId();
+		Long id = bomSub.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			bomSub.setId(id);
@@ -468,7 +468,7 @@ public class ProductStructAction extends BaseAction {
 		//主表的id
 		Long primaryId = bomSub.getPrimaryId();
 		//明细表的主键
-		Integer id = bomSub.getId();
+		Long id = bomSub.getId();
 		if (null != id && !"".equals(id)){
 			bomSub.setId(id);
 			productStructService.deleteSub(bomSub);
