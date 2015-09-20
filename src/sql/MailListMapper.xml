@@ -63,7 +63,7 @@
   </delete>
   
   <insert id="insert" parameterType="MailList" >
-  	<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+  	<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select SEQUENCE_SYS_Mail_list.nextval from dual
 	</selectKey>
     insert into SYS_MAIL_LIST

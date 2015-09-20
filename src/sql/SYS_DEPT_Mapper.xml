@@ -57,7 +57,7 @@
 	</select>
 
 	<insert id="insert" parameterType="Dept" >
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_DEPT.nextval from dual
 		</selectKey>

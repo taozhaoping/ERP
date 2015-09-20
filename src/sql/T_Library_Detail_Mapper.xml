@@ -77,7 +77,7 @@
 	</select>
 
 	<insert id="insert" parameterType="LibraryDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Library_Detail.nextval from dual
 		</selectKey>

@@ -57,7 +57,7 @@
 	</select>
 
 	<insert id="insert" parameterType="MaterialRequisitionDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_MATERIAL_DETAIL.nextval from dual
 		</selectKey>

@@ -73,7 +73,7 @@
 	</select>
 
 	<insert id="insert" parameterType="StorageDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Storage_Detail.nextval from dual
 		</selectKey>

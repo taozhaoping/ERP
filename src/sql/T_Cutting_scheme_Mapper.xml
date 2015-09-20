@@ -85,7 +85,7 @@
 	</select>
 
 	<insert id="insert" parameterType="CuttingScheme">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Cutting_scheme.nextval from dual
 		</selectKey>

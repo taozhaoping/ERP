@@ -59,7 +59,7 @@
 		where ID = #{id}
 	</delete>
 	<insert id="insert" parameterType="Enterprise" >
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_ENTERPRISE.nextval from dual
 		</selectKey>

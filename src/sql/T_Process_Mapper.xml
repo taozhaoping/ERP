@@ -52,7 +52,7 @@
 	</select>
 
 	<insert id="insert" parameterType="ProcessBean" >
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Process.nextval from dual
 		</selectKey>

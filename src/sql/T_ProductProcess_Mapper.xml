@@ -72,7 +72,7 @@
 	</select>
 
 	<insert id="insert" parameterType="ProductProcess" >
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_t_productProcess.nextval from dual
 		</selectKey>
