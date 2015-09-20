@@ -10,7 +10,7 @@
 		<result column="I18N_KEY" property="i18nKey" jdbcType="VARCHAR" />
 		<result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
 		<result column="PARENTID" property="parentid" javaType="Long" />
-		<result column="REORDER" property="reorder" javaType="Long" />
+		<result column="REORDER" property="reorder" javaType="Integer" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, NAME, nameSpace,ACTION, URL, I18N_KEY, ENABLED, PARENTID, REORDER
