@@ -89,7 +89,7 @@
 	</select>
 
 	<insert id="insert" parameterType="BomDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_BOM_DETAIL.nextval from dual
 		</selectKey>

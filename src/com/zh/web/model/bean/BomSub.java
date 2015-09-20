@@ -21,7 +21,7 @@ public class BomSub extends IDataObject {
 	/**
 	 * 主键
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 产品结构头表主建
@@ -63,11 +63,11 @@ public class BomSub extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
