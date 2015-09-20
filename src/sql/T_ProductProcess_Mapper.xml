@@ -126,7 +126,7 @@
 				process_ID = #{processID,jdbcType=VARCHAR},
 			</if>
 			<if test="bomPrimaryID != null">
-				bomPrimary_ID = #{bomPrimaryID,jdbcType=FLOAT},
+				bomPrimary_ID = #{bomPrimaryID},
 			</if>
 			<if test="referencePrice != null">
 				Process_Price = #{referencePrice,jdbcType=FLOAT},
