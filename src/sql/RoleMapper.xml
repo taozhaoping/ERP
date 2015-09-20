@@ -81,7 +81,7 @@
 	</delete>
 
 	<insert id="insert" parameterType="Role">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_ROLE.nextval from dual
 		</selectKey>

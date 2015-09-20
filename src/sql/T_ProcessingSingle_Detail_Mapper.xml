@@ -84,7 +84,7 @@
 	</select>
 
 	<insert id="insert" parameterType="ProcessingSingleDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select SEQUENCE_T_PROCESSING_DETAIL.nextval from dual
 		</selectKey>
 		insert into T_PROCESSING_SINGLE_DETAIL

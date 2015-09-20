@@ -61,7 +61,7 @@
 	</select>
 
 	<insert id="insert" parameterType="Warehouse" >
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_WAREHOUSE.nextval from dual
 		</selectKey>

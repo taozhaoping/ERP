@@ -89,7 +89,7 @@
 		where ID = #{id}
 	</delete>
 	<insert id="insert" parameterType="Menu">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_MENU.nextval from dual
 		</selectKey>

@@ -61,7 +61,7 @@
 	</select>
 
 	<insert id="insert" parameterType="ProductionTaskDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Production_DETAIL.nextval from dual
 		</selectKey>

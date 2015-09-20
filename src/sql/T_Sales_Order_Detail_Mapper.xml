@@ -84,7 +84,7 @@
 	</select>
 
 	<insert id="insert" parameterType="SalesOrderDetail">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_T_Sales_order_DETAIL.nextval from dual
 		</selectKey>

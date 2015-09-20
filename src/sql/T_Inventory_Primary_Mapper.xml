@@ -59,7 +59,7 @@
 	</select>
 
 	<insert id="insert" parameterType="InventoryCountPrimary">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_t_Inventory_Primary.nextval from dual
 		</selectKey>
