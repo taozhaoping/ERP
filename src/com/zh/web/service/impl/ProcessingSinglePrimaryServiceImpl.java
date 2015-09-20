@@ -6,16 +6,20 @@ import org.apache.avalon.framework.parameters.ParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 import com.zh.web.concurrent.ExpandProductionTask;
 import com.zh.web.dao.ProcessingSingleDetailDao;
 import com.zh.web.dao.ProcessingSinglePrimaryDao;
 import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
+import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.SalesOrderBom;
 import com.zh.web.service.ProcessingSinglePrimaryService;
+import com.zh.web.service.ProductionTaskService;
 import com.zh.web.service.SalesOrderBomService;
 import com.zh.web.util.ExecutorServiceHandler;
+import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
 
 @Component("processingSinglePrimaryService")
@@ -29,6 +33,9 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	
 	@Autowired
 	private SalesOrderBomService salesOrderBomService;
+	
+	@Autowired
+	private ProductionTaskService productionTaskService;
 	
 	@Autowired
 	private ExpandProductionTask command;
@@ -126,6 +133,43 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 		
 		command.setProcessingSingleId(processingSingleId);
 		ExecutorServiceHandler.getInstance().execute(command);
+	}
+
+	@Override
+	public void increaseStock(Integer id) {
+		// TODO Auto-generated method stub
+		ProcessingSinglePrimary processingSinglePrimary = new ProcessingSinglePrimary();
+		processingSinglePrimary.setId(id);
+		ProcessingSinglePrimary reult = this.query(processingSinglePrimary);
+		if (null == reult)
+		{
+			throw new RuntimeException("数据库不存在该单据");
+		}
+		
+		if (1 == reult.getStatus())
+		{
+			//生产任务单是否完成
+			ProductionTask productionTask = new ProductionTask();
+			productionTask.setInventoryCountID(id);
+			List<ProductionTask> taskReultList = productionTaskService.queryList(productionTask);
+			for (ProductionTask taskInfo : taskReultList) {
+				if(taskInfo.getStatus() != UtilService.TASK_STATUS_COMPLETE)
+				{
+					throw new RuntimeException("生产订单没有完成，请先核对订单生产状态");
+				}
+			}
+			
+			//设置入库状态
+			processingSinglePrimary.setStatus(2);
+			this.update(processingSinglePrimary);
+			
+			//单据入库
+			StockUtil stockUtil = StockUtil.getInstance();
+			stockUtil.operationStock(reult.getId(),0,StockUtil.TASK_INCREASE);
+		}else
+		{
+			throw new RuntimeException("生产单据号：" + reult.getId() + "，已经入库!不允许重复入库");
+		}
 	}
 
 }

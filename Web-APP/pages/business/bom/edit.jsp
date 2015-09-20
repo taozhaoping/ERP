@@ -835,7 +835,7 @@
 					for ( var i = 0; i < data.rows.length; i++) {
 						var parts = data.rows[i];
 						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
+						parts.text = parts.id + "(" + parts.name + parts.specifications + ")";
 					}
 					partsArr = data.rows;
 					return {
@@ -984,7 +984,7 @@
 					for ( var i = 0; i < data.rows.length; i++) {
 						var parts = data.rows[i];
 						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
+						parts.text = parts.id + "(" + parts.name + parts.specifications + ")";
 					}
 					partsArr = data.rows;
 					return {
@@ -1056,7 +1056,7 @@
 					for ( var i = 0; i < data.rows.length; i++) {
 						var parts = data.rows[i];
 						parts.id = parts.id;
-						parts.text = parts.id + "(" + parts.name + ")";
+						parts.text = parts.id + "(" + parts.name + parts.specifications + ")";
 					}
 					partsArr = data.rows;
 					return {

@@ -88,7 +88,7 @@ public class ProductionTaskServiceImpl implements ProductionTaskService {
 		ProductionTask reult = this.query(productionTask);
 		if (null == reult)
 		{
-			throw new ProjectException("数据库不存在该单据");
+			throw new RuntimeException("数据库不存在该单据");
 		}
 		
 		if (0 == reult.getStatus())
@@ -102,7 +102,7 @@ public class ProductionTaskServiceImpl implements ProductionTaskService {
 			stockUtil.operationStock(reult.getId(),reult.getWarehouseID(),StockUtil.TASK_REDUCE);
 		}else
 		{
-			throw new ProjectException("领料单据号：" + reult.getId() + "，已经入库!不允许重复入库");
+			throw new RuntimeException("领料单据号：" + reult.getId() + "，已经入库!不允许重复入库");
 		}
 	}
 

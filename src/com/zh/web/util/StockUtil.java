@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import com.zh.base.model.bean.Warehouse;
+import com.zh.base.service.WarehouseService;
 import com.zh.core.base.model.StockObject;
 import com.zh.core.exception.ProjectException;
 import com.zh.web.model.bean.InventoryCountDetail;
 import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
 import com.zh.web.model.bean.MaterialRequisitionDetail;
+import com.zh.web.model.bean.ProductionStorageDetail;
 import com.zh.web.model.bean.ProductionTask;
 import com.zh.web.model.bean.Stock;
 import com.zh.web.model.bean.StorageDetail;
@@ -20,6 +23,7 @@ import com.zh.web.model.bean.StoragePrimary;
 import com.zh.web.service.InventoryCountDetailService;
 import com.zh.web.service.LibraryDetailService;
 import com.zh.web.service.MaterialRequisitionDetailService;
+import com.zh.web.service.ProductionStorageDetailService;
 import com.zh.web.service.StockService;
 import com.zh.web.service.StorageDetailService;
 
@@ -46,6 +50,10 @@ public class StockUtil implements ApplicationContextAware {
 	private static InventoryCountDetailService inventoryCountDetailService;
 	
 	private static MaterialRequisitionDetailService materialRequisitionDetailService;
+	
+	private static ProductionStorageDetailService productionStorageDetailService;
+	
+	private static WarehouseService warehouseService;
 
 	private static StockService stockService;
 
@@ -103,7 +111,8 @@ public class StockUtil implements ApplicationContextAware {
 			inventoryCountDetailService = (InventoryCountDetailService) ctx.getBean("inventoryCountDetailService");
 			stockUtil = (StockUtil) ctx.getBean("stockUtil");
 			materialRequisitionDetailService = (MaterialRequisitionDetailService) ctx.getBean("materialRequisitionDetailService");
-			
+			productionStorageDetailService = (ProductionStorageDetailService) ctx.getBean("productionStorageDetailService");
+			warehouseService = (WarehouseService) ctx.getBean("warehouseService");
 		}
 
 		return stockUtil;
@@ -123,6 +132,9 @@ public class StockUtil implements ApplicationContextAware {
 		} else if( type == TASK_REDUCE)
 		{
 			this.materialStock(id);
+		} else if( type == TASK_INCREASE)
+		{
+			this.StorageStock(id);
 		}
 		
 		//生产任务出库和领料
@@ -193,6 +205,47 @@ public class StockUtil implements ApplicationContextAware {
 		}
 
 	}
+	
+	/**
+	 * 生产单入库
+	 * @param id
+	 */
+	private synchronized void StorageStock(Integer id) {
+		ProductionStorageDetail productionStorageDetail = new ProductionStorageDetail();
+		productionStorageDetail.setProcessingSingleId(id);
+		
+		//获取剩余料入库号
+		Warehouse warehouse = new Warehouse();
+		warehouse.setType(UtilService.WAREHOUSE_TYPE_ZERO);
+		List<Warehouse> warehouseList = warehouseService.queryList(warehouse);
+		if (warehouseList.size() == 0) {
+			throw new ProjectException("没有查找到可以仓库信息");
+		}
+		Integer warehouseID = warehouseList.get(0).getId();
+		List<ProductionStorageDetail> list = productionStorageDetailService.queryList(productionStorageDetail);
+		for (ProductionStorageDetail result : list) {
+			Stock stock = new Stock();
+			stock.setProductsID(result.getProductsId());
+			if(result.getWarehouseType() == 0)
+			{
+				stock.setWarehouseID(UtilService.SYSTEM_WAREHOUSE_ID);
+			}else
+			{
+				stock.setWarehouseID(warehouseID);
+			}
+			Float StorageNumber = result.getProcessingNumber();
+			Stock reult = stockService.query(stock);
+			if (reult == null) {
+				throw new ProjectException("数据库不存在该产品编号");
+			}
+			Float stockNumber = reult.getStockNumber();
+			stockNumber += StorageNumber;
+			stock = new Stock();
+			stock.setId(reult.getId());
+			stock.setStockNumber(stockNumber);
+			stockService.update(stock);
+		}
+	}
 
 	/***
 	* @Title: 领料单出库 
@@ -212,6 +265,9 @@ public class StockUtil implements ApplicationContextAware {
 			stock.setProductsID(materialRequisitionDetail.getProductsId());
 			Float materialNumber = materialRequisitionDetail.getMaterialNumber();
 			List<Stock> reult = stockService.queryList(stock);
+			if (reult == null) {
+				throw new ProjectException("数据库不存在该产品编号");
+			}
 			for (Stock st : reult) {
 				Float stockNumber = st.getStockNumber();
 				stock = new Stock();
@@ -229,9 +285,7 @@ public class StockUtil implements ApplicationContextAware {
 					stockService.update(stock);
 				}
 			}
-			if (reult == null) {
-				throw new ProjectException("数据库不存在该产品编号");
-			}
+			
 		}
 	}
 	

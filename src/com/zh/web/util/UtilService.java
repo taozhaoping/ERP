@@ -137,4 +137,29 @@ public interface UtilService {
 	 * 仓库类型：系统仓库
 	 */
 	public static Integer WAREHOUSE_TYPE_ONE = 1;
+	
+	/**
+	 * 系统仓库ID
+	 */
+	public static Integer SYSTEM_WAREHOUSE_ID = 1;
+	
+	/**
+	 * 领料中
+	 */
+	public static Integer TASK_STATUS_MATERIAL = 0;
+	
+	/**
+	 * 生产中
+	 */
+	public static Integer TASK_STATUS_PROCESSING = 1;
+	
+	/**
+	 * 验收中
+	 */
+	public static Integer TASK_STATUS_ACCEPTANCE = 2;
+	
+	/**
+	 * 完成
+	 */
+	public static Integer TASK_STATUS_COMPLETE = 3;
 }

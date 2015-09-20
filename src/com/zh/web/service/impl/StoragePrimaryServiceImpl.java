@@ -135,7 +135,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 		storagePrimary.setId(Integer.valueOf(id));
 		StoragePrimary reult = this.query(storagePrimary);
 		if (null == reult) {
-			throw new ProjectException("数据库不存在该单据");
+			throw new RuntimeException("数据库不存在该单据");
 		}
 
 		if (0 == reult.getStatus()) {
@@ -159,7 +159,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 				purchaseOrderPrimaryService.update(purchaseOrderPrimary);
 			}
 		} else {
-			throw new ProjectException("单据号：" + reult.getOrderNoID()
+			throw new RuntimeException("单据号：" + reult.getOrderNoID()
 					+ "，已经入库!不允许重复入库");
 		}
 

@@ -55,7 +55,7 @@ EXCEPTION
     --retId:='';
     return(retId);
 end getReleaseBOMByProductId;
-
+/
 
 --获取产品实际生产数量
 drop  function getSalesOrderBOMProductNumber;

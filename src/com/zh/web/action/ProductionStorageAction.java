@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
+import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 import com.zh.web.model.ProcessingSingleModel;
 import com.zh.web.model.bean.ProcessingSinglePrimary;
@@ -84,7 +85,13 @@ public class ProductionStorageAction extends BaseAction {
 	/**
 	 * 采购需求单审核
 	 */
-	public String approvalDemand() throws Exception {
+	public String approvalDemand() throws ParameterException {
+		Integer id = this.processingSingleModel.getId();
+		if (null == id || "".equals(id)) {
+			throw new ParameterException("领料单号不允许为空!");
+		}
+		processingSinglePrimaryService.increaseStock(id);
+		
 		return Action.EDITOR_SUCCESS;
 	}
 

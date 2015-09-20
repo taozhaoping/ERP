@@ -63,4 +63,9 @@ public interface ProcessingSinglePrimaryService {
 	 */
 	public void increase(Integer processingSingleId)  throws ParameterException;
 	
+	/**
+	 * 生产产品入库
+	 */
+	public void increaseStock(Integer id);
+	
 }

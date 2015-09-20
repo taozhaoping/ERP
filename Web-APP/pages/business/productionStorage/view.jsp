@@ -85,7 +85,7 @@
 			<li class="active">查看</li>
 		</ul>
 		<s:set name="ProcessId"
-					value="productionTask.id!=null&&productionTask.id!=''" />
+					value="processingSinglePrimary.id!=null&&processingSinglePrimary.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -94,7 +94,14 @@
 						
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
-						
+						<div class="pull-right">
+							<s:if test="processingSinglePrimary.status==1">
+								<button class="btn btn-danger" type="button" id="approveBtn"
+								data-toggle="modal" data-target="#forMchangefirm">
+									<i class="icon-ok"></i> 产品入库
+								</button>
+							</s:if>
+						</div>
 					</div>
 					<div class="well">
 						<ul class="nav nav-tabs">
@@ -195,6 +202,29 @@
 		</div>
 	</div>
 
+<div class="modal small hide fade" id="forMchangefirm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示</h3>
+		</div>
+		<div class="modal-body">
+			<p class="error-text">
+				<i class="icon-warning-sign modal-icon "></i>产品入库后，当前单据将不可更改.继续请按."入库" 否则请按 "取消"
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-dismiss="modal"
+				id="formChangefirmBtn">入库</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+	
+	<form action="${menu2Id}!approvalDemand.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+		<input id="id" name="id" value="${processingSinglePrimary.id}" type="hidden"/>
+	</form>
+	
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
@@ -218,6 +248,9 @@
 		var curPage = ${pageInfo.curPage};
 		var tabID = "${tabID}";
 		
+		$("#formChangefirmBtn").click(function() {
+			$("#increaseStockForm").submit();
+		});
 	</script>
 </body>
 </html>

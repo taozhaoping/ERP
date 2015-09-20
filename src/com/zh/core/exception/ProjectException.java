@@ -20,7 +20,7 @@ public class ProjectException extends RuntimeException {
 	private Throwable exception;
 
 	public ProjectException() {
-		initCause(null);
+		initCause(new Throwable());
 	}
 
 	public ProjectException(String message, Throwable cause) {
@@ -32,7 +32,7 @@ public class ProjectException extends RuntimeException {
 
 	public ProjectException(String message) {
 		super(message);
-		initCause(null);
+		initCause(new Throwable(message));
 		this.manager = message;
 	}
 	

@@ -191,7 +191,6 @@
 													name="products.paint" cssClass="input-medium" placeholder="颜色">
 												</s:select>
 											</div>
-
 										</div>
 									</div>
 									<div class="span4">

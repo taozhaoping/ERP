@@ -287,7 +287,7 @@ start with 1
  cache 10
 order;
 
-drop table t_Material_requisition_TEMP
+drop table t_Material_requisition_TEMP;
  --领料临时表
    create table t_Material_requisition_TEMP 
 (

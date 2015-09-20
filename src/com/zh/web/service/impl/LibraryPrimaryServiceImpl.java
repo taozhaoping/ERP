@@ -74,7 +74,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 		LibraryPrimary reult = this.query(libraryPrimary);
 		if (null == reult)
 		{
-			throw new ProjectException("数据库不存在该单据");
+			throw new RuntimeException("数据库不存在该单据");
 		}
 		
 		if (0 == reult.getStatus())
@@ -88,7 +88,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 			stockUtil.operationStock(reult.getId(),reult.getWarehouseID(),StockUtil.REDUCE);
 		}else
 		{
-			throw new ProjectException("单据号：" + reult.getOrderNoID() + "，已经入库!不允许重复入库");
+			throw new RuntimeException("单据号：" + reult.getOrderNoID() + "，已经入库!不允许重复入库");
 		}
 		
 	}
