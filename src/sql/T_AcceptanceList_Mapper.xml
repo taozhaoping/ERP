@@ -54,5 +54,18 @@
 		from T_AcceptanceList
 		<include refid="where" />
 	</select>
+	
+	<update id="update" parameterType="AcceptanceList">
+		update T_AcceptanceList
+		<set>
+			<if test="acceptanceDate != null">
+				AcceptanceDate=#{acceptanceDate,jdbcType=VARCHAR},
+			</if>
+			<if test="isAcceptance != null">
+				isAcceptance=#{isAcceptance,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<include refid="where" />
+	</update>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.zh.web.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.avalon.framework.parameters.ParameterException;
@@ -102,16 +103,35 @@ public class AcceptanceAction extends BaseAction {
 		ProductionTask productionTask  = this.productionTaskModel.getProductionTask();
 		//头表的主键
 		Long id = productionTask.getId();
+		
+		this.productionTaskModel.setId(id);
 		//主键为空，则是插入，不为空，更新
-		if (null != id && !"".equals(id)){
+		if (null != id && !"".equals(id)) {
+			// 获取明细的验收状态
+			// 查询需求清单明细
+			AcceptanceList acceptanceList = this.productionTaskModel.getAcceptance();
+			acceptanceList.setProductionTaskID(id);
+			List<AcceptanceList> list = acceptanceListService.queryList(acceptanceList);
+			// 未验收的集合
+			List<AcceptanceList> noAuditList = new ArrayList<AcceptanceList>();
+			for (AcceptanceList a : list) {
+				String isAcceptance = a.getIsAcceptance();
+				if ("0".equalsIgnoreCase(isAcceptance)) {
+					noAuditList.add(a);
+				}
+			}
+			if (noAuditList.isEmpty()) {
+				productionTask.setStatus(2);
+				productionTaskService.update(productionTask);
+				LOGGER.debug("auditStatus productionTask:{}", productionTask);
+			} else {
+				throw new ParameterException("审核失败，存在未验收的产品!");
+			}
 			//生效
-			productionTask.setStatus(2);
-			productionTaskService.update(productionTask);
-			LOGGER.debug("auditStatus productionTask:{}", productionTask);
 		}else{
 			throw new ParameterException("验收单不允许为空!");
 		}
-		return Action.EDITOR_SUCCESS;
+		return Action.EDITOR_SAVE;
 	}
 	
 	/** 
@@ -122,19 +142,25 @@ public class AcceptanceAction extends BaseAction {
 		AcceptanceList acceptanceList = this.productionTaskModel.getAcceptance();
 		//头表的主键
 		Long id = acceptanceList.getId();
-		//主键为空，则是插入，不为空，更新
-		if (null != id && !"".equals(id)){
-			//
+		
+		ProductionTask productionTask  = this.productionTaskModel.getProductionTask();
+		//头表的主键
+		Long taskId = productionTask.getId();
+		
+		this.productionTaskModel.setId(taskId);
+		
+		// 主键为空，则是插入，不为空，更新
+		if (null != id && !"".equals(id)) {
 			acceptanceList.setIsAcceptance("1");
 			String acceptanceDate = DateUtil.getStringDate();
 			acceptanceList.setAcceptanceDate(acceptanceDate);
-			//TODO
-			//更新状态和验收时间
+			// 更新状态和验收时间
+			acceptanceListService.update(acceptanceList);
 			LOGGER.debug("updateAcceptance acceptanceList:{}", acceptanceList);
-		}else{
+		} else {
 			throw new ParameterException("验收单明细不允许为空!");
 		}
-		return Action.EDITOR_SUCCESS;
+		return Action.EDITOR_SAVE;
 	}
 
 	

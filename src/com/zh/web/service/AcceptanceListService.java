@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zh.core.model.Pager;
 import com.zh.web.model.bean.AcceptanceList;
+import com.zh.web.model.bean.Customer;
 
 /**
  *  生产任务单_明细
@@ -39,5 +40,11 @@ public interface AcceptanceListService {
 	 * @return
 	 */
 	public Integer count(AcceptanceList acceptanceList);
+	
+	/**
+	 * 修改
+	 * @param 
+	 */
+	public void update(AcceptanceList acceptanceList);
 	
 }

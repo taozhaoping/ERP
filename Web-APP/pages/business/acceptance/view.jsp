@@ -185,8 +185,8 @@
 												<td><s:property value="#tp.processName" /></td>
 												<td><s:property value="#tp.acceptanceDate" /></td>
 												<td>
-													<s:if test="1 == productionTask.status and 0 == #index.isAcceptance">
-													<a title="验收" style="margin: 0px 3px;" href="${menu2Id}!updateAcceptance.jspa?id=${productionTask.id}&formId=<s:property value='#index.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i class="icon-ok"></i></a>
+													<s:if test="1 == productionTask.status and 0 == #tp.isAcceptance">
+													<a title="验收" style="margin: 0px 3px;" href="${menu2Id}!updateAcceptance.jspa?productionTask.id=${productionTask.id}&acceptance.id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}&tabID=storagedetailButt"><i class="icon-ok"></i></a>
 													</s:if>
 												</td>
 											</tr>
@@ -230,6 +230,14 @@
 		<input type="hidden" name="id" value="${productionTask.id}">
 		<input type="hidden" name="tabID" value="storagedetailButt">
 	</form>
+	
+	<!-- 审核生效 -->
+	<form action="${menu2Id}!auditStatus.jspa" id="auditForm" method="post">
+		<input type="hidden" name="productionTask.id" value="${productionTask.id}">
+		<input type="hidden" name="menuId" value="${menuId}">
+		<input type="hidden" name="menu2Id" value="${menu2Id}">
+		<input type="hidden" name="spaceId" value="${spaceId}">
+	</form>
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
@@ -245,6 +253,12 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		var tabID = "${tabID}";
+		
+		//审核生效状态
+		$("#formChangefirmBtn").click(function(){
+			//提交表单
+			$("#auditForm").submit();
+		});
 		
 	</script>
 </body>

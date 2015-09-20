@@ -340,7 +340,7 @@
 				<param name="namespace">/business</param>
 				<param name="menuId">${menuId}</param>
 				<param name="menu2Id">${menu2Id}</param>
-				<param name="id">${formId}</param>
+				<param name="id">${id}</param>
 				<param name="tabID">${tabID}</param>
 				<param name="spaceId">${spaceId}</param>
 			</result>

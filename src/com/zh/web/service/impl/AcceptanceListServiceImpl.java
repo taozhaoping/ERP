@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.zh.core.model.Pager;
 import com.zh.web.dao.AcceptanceListDao;
 import com.zh.web.model.bean.AcceptanceList;
+import com.zh.web.model.bean.Customer;
 import com.zh.web.service.AcceptanceListService;
 
 @Component("acceptanceListService")
@@ -39,6 +40,11 @@ public class AcceptanceListServiceImpl implements AcceptanceListService {
 	public Integer count(AcceptanceList acceptanceList) {
 		// TODO Auto-generated method stub
 		return acceptanceListDao.count(acceptanceList);
+	}
+
+	@Override
+	public void update(AcceptanceList acceptanceList) {
+		acceptanceListDao.update(acceptanceList);		
 	}
 
 }
