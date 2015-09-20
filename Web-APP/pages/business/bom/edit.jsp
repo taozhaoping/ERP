@@ -782,8 +782,12 @@
 				$("#popuProcessingCycle").attr("value",processingCycle);
 				$("#popupProcessingRemarks").attr("value",remarks);
 			});
-			$("#popuProductProcessID").val(processObject[0].id)
-			.trigger("change");
+			var proc = processObject[0];
+			if(proc !=undefined)
+			{
+				$("#popuProductProcessID").val(proc.id)
+				.trigger("change");
+			}
 		}
 		
 		$("#popupProductProcessConfirm").click(function(){
