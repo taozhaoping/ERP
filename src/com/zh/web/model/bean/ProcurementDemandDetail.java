@@ -18,17 +18,17 @@ public class ProcurementDemandDetail extends IDataObject {
 	 */
 	private static final long serialVersionUID = -2646268575260258392L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 头表ID
 	 */
-	private Integer procurementID;
+	private Long procurementID;
 	
 	/**
 	 * 产品编号
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 产品名称
@@ -82,53 +82,28 @@ public class ProcurementDemandDetail extends IDataObject {
 	 */
 	private Integer approvalStatus;
 
-
-	public Integer getApprovalStatus() {
-		return approvalStatus;
-	}
-
-	public void setApprovalStatus(Integer approvalStatus) {
-		this.approvalStatus = approvalStatus;
-	}
-
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProcurementID() {
+	public Long getProcurementID() {
 		return procurementID;
 	}
 
-	public void setProcurementID(Integer procurementID) {
+	public void setProcurementID(Long procurementID) {
 		this.procurementID = procurementID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
-	}
-
-	public Integer getDemandNumber() {
-		return demandNumber;
-	}
-
-	public void setDemandNumber(Integer demandNumber) {
-		this.demandNumber = demandNumber;
-	}
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
 	}
 
 	public String getProductsName() {
@@ -147,28 +122,20 @@ public class ProcurementDemandDetail extends IDataObject {
 		this.measurementCompany = measurementCompany;
 	}
 
-	public Integer getPlaceOrderNumber() {
-		return placeOrderNumber;
-	}
-
-	public void setPlaceOrderNumber(Integer placeOrderNumber) {
-		this.placeOrderNumber = placeOrderNumber;
-	}
-
-	public Integer getStorageNumber() {
-		return storageNumber;
-	}
-
-	public void setStorageNumber(Integer storageNumber) {
-		this.storageNumber = storageNumber;
-	}
-
 	public Integer getIsMainProducts() {
 		return isMainProducts;
 	}
 
 	public void setIsMainProducts(Integer isMainProducts) {
 		this.isMainProducts = isMainProducts;
+	}
+
+	public Integer getDemandNumber() {
+		return demandNumber;
+	}
+
+	public void setDemandNumber(Integer demandNumber) {
+		this.demandNumber = demandNumber;
 	}
 
 	public Integer getEstimatedPrice() {
@@ -179,12 +146,36 @@ public class ProcurementDemandDetail extends IDataObject {
 		this.estimatedPrice = estimatedPrice;
 	}
 
+	public Integer getPlaceOrderNumber() {
+		return placeOrderNumber;
+	}
+
+	public void setPlaceOrderNumber(Integer placeOrderNumber) {
+		this.placeOrderNumber = placeOrderNumber;
+	}
+
 	public Integer getNotPlaceOrderNumber() {
 		return notPlaceOrderNumber;
 	}
 
 	public void setNotPlaceOrderNumber(Integer notPlaceOrderNumber) {
 		this.notPlaceOrderNumber = notPlaceOrderNumber;
+	}
+
+	public Integer getStorageNumber() {
+		return storageNumber;
+	}
+
+	public void setStorageNumber(Integer storageNumber) {
+		this.storageNumber = storageNumber;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public String getOrderID() {
@@ -194,5 +185,13 @@ public class ProcurementDemandDetail extends IDataObject {
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
-	
+
+	public Integer getApprovalStatus() {
+		return approvalStatus;
+	}
+
+	public void setApprovalStatus(Integer approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
 }

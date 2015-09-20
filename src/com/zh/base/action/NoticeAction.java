@@ -49,7 +49,7 @@ public class NoticeAction extends BaseAction {
 
 	public String editor() {
 		LOGGER.debug("editor()");
-		Integer id = this.noticeModel.getId();
+		Long id = this.noticeModel.getId();
 		if (null != id && !"".equals(id)) {
 			Notice notice = this.noticeModel.getNotice();
 			notice.setId(id);
@@ -72,7 +72,7 @@ public class NoticeAction extends BaseAction {
 		String view = this.noticeModel.getView();
 		if (null != view && "enabled".equals(view)) {
 			String enabled = this.noticeModel.getEnabled();
-			Integer id = this.noticeModel.getId();
+			Long id = this.noticeModel.getId();
 			if ("0".equals(enabled)) {
 				notice.setEnabled("1");
 			} else {
@@ -82,9 +82,9 @@ public class NoticeAction extends BaseAction {
 		}
 
 		// 判断是新增还是修改
-		Integer id = notice.getId();
+		Long id = notice.getId();
 		if (null == id || 0 == id) {
-			Integer userid = this.queryUserId();
+			Long userid = this.queryUserId();
 			notice.setUserid(userid);
 			noticeService.insert(notice);
 		} else {

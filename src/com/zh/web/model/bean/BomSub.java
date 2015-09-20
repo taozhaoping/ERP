@@ -26,22 +26,22 @@ public class BomSub extends IDataObject {
 	/**
 	 * 产品结构头表主建
 	 */
-	private Integer primaryId;
+	private Long primaryId;
 	
 	/**
 	 * 产品id
 	 */
-	private Integer productsId;
+	private Long productsId;
 	
 	/**
 	 * 主料编号
 	 */
-	private Integer mainProductsId;
+	private Long mainProductsId;
 
 	/**
 	 * 替代料编号
 	 */
-	private Integer subProductsId;
+	private Long subProductsId;
 
 	/**
 	 * 替代料名称
@@ -71,35 +71,35 @@ public class BomSub extends IDataObject {
 		this.id = id;
 	}
 
-	public Integer getPrimaryId() {
+	public Long getPrimaryId() {
 		return primaryId;
 	}
 
-	public void setPrimaryId(Integer primaryId) {
+	public void setPrimaryId(Long primaryId) {
 		this.primaryId = primaryId;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
-	public Integer getMainProductsId() {
+	public Long getMainProductsId() {
 		return mainProductsId;
 	}
 
-	public void setMainProductsId(Integer mainProductsId) {
+	public void setMainProductsId(Long mainProductsId) {
 		this.mainProductsId = mainProductsId;
 	}
 
-	public Integer getSubProductsId() {
+	public Long getSubProductsId() {
 		return subProductsId;
 	}
 
-	public void setSubProductsId(Integer subProductsId) {
+	public void setSubProductsId(Long subProductsId) {
 		this.subProductsId = subProductsId;
 	}
 

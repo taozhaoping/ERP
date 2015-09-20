@@ -81,7 +81,7 @@ public class UserInfoAction extends BaseAction {
 
 	public String editor(){
 		LOGGER.debug("editor()");
-		Integer id = this.userInfoModel.getId();
+		Long id = this.userInfoModel.getId();
 		if(null != id && !"".equals(id)){
 			User user = this.userInfoModel.getUserInfo();
 			user.setId(id);
@@ -112,7 +112,7 @@ public class UserInfoAction extends BaseAction {
 		if(null != view && "enabled".equals(view)){
 			
 			String enabled = this.userInfoModel.getEnabled();
-			Integer id = this.userInfoModel.getId();
+			Long id = this.userInfoModel.getId();
 			if("0".equals(enabled)){
 				user.setEnabled("1");
 			}else{
@@ -122,7 +122,7 @@ public class UserInfoAction extends BaseAction {
 		}
 		
 		//判断是新增还是修改
-		Integer id = user.getId();
+		Long id = user.getId();
 		String passWord = userInfoModel.getNewPassWord();
 		
 		if(null == id || 0 == id){

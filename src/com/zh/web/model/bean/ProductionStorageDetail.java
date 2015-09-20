@@ -21,17 +21,17 @@ public class ProductionStorageDetail extends IDataObject {
 	/**
 	 * id
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 加工单头表id，和加工单公用主表
 	 */
-	private Integer processingSingleId;
+	private Long processingSingleId;
 	
 	/**
 	 * 物料
 	 */
-	private Integer productsId;
+	private Long productsId;
 
 	/**
 	 * 数量
@@ -43,27 +43,27 @@ public class ProductionStorageDetail extends IDataObject {
 	 */
 	private Integer warehouseType;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProcessingSingleId() {
+	public Long getProcessingSingleId() {
 		return processingSingleId;
 	}
 
-	public void setProcessingSingleId(Integer processingSingleId) {
+	public void setProcessingSingleId(Long processingSingleId) {
 		this.processingSingleId = processingSingleId;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
@@ -82,5 +82,6 @@ public class ProductionStorageDetail extends IDataObject {
 	public void setWarehouseType(Integer warehouseType) {
 		this.warehouseType = warehouseType;
 	}
+
 	
 }

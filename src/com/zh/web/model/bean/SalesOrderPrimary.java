@@ -18,7 +18,7 @@ public class SalesOrderPrimary extends IDataObject {
 	 */
 	private static final long serialVersionUID = -329763143033086853L;
 
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 销售订单
@@ -33,7 +33,7 @@ public class SalesOrderPrimary extends IDataObject {
 	/**
 	 * 客户主键
 	 */
-	private Integer customerID;
+	private Long customerID;
 
 	/**
 	 * 付款方式
@@ -92,13 +92,13 @@ public class SalesOrderPrimary extends IDataObject {
 	/**
 	 * 发起人
 	 */
-	private Integer userID;
+	private Long userID;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -110,11 +110,11 @@ public class SalesOrderPrimary extends IDataObject {
 		this.orderID = orderID;
 	}
 
-	public Integer getCustomerID() {
+	public Long getCustomerID() {
 		return customerID;
 	}
 
-	public void setCustomerID(Integer customerID) {
+	public void setCustomerID(Long customerID) {
 		this.customerID = customerID;
 	}
 
@@ -222,11 +222,11 @@ public class SalesOrderPrimary extends IDataObject {
 		this.currencyPayment = currencyPayment;
 	}
 
-	public Integer getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 

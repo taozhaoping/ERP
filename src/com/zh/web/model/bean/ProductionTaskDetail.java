@@ -19,19 +19,19 @@ public class ProductionTaskDetail extends IDataObject {
 	/**
 	 * id
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 生产任务单主表id
 	 */
-	private Integer productionTaskID;
+	private Long productionTaskID;
 	
 
 	
 	/**
 	 * 生产物料id
 	 */
-	private Integer productsId;
+	private Long productsId;
 	
 	/**
 	 * 生产数量
@@ -41,29 +41,29 @@ public class ProductionTaskDetail extends IDataObject {
 	/**
 	 * 工序
 	 */
-	private Integer processID;
+	private Long processID;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProductionTaskID() {
+	public Long getProductionTaskID() {
 		return productionTaskID;
 	}
 
-	public void setProductionTaskID(Integer productionTaskID) {
+	public void setProductionTaskID(Long productionTaskID) {
 		this.productionTaskID = productionTaskID;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
@@ -75,11 +75,11 @@ public class ProductionTaskDetail extends IDataObject {
 		this.processingNumber = processingNumber;
 	}
 
-	public Integer getProcessID() {
+	public Long getProcessID() {
 		return processID;
 	}
 
-	public void setProcessID(Integer processID) {
+	public void setProcessID(Long processID) {
 		this.processID = processID;
 	}
 

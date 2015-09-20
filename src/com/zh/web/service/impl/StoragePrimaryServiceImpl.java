@@ -75,7 +75,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 	@Override
 	public Integer insert(StoragePrimary storagePrimary, String type) {
 		// TODO Auto-generated method stub
-		Integer id = Integer.valueOf(storagePrimaryDao.getSequence(
+		Long id = Long.valueOf(storagePrimaryDao.getSequence(
 				SEQUENCE_STORAGE_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		storagePrimary.setId(id);
@@ -132,7 +132,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 	@Override
 	public void increaseStock(String id) {
 		StoragePrimary storagePrimary = new StoragePrimary();
-		storagePrimary.setId(Integer.valueOf(id));
+		storagePrimary.setId(Long.valueOf(id));
 		StoragePrimary reult = this.query(storagePrimary);
 		if (null == reult) {
 			throw new RuntimeException("数据库不存在该单据");

@@ -54,13 +54,13 @@
 			<if test="id != null">
 				and id like CONCAT('${id}','%' )
 			</if>
-			<if test="name != null">
+			<if test="name != null and name != ''">
 				and NAME like CONCAT('${name}', '%')
 			</if>
 			<if test="sourceType != null">
 				and source_type = #{sourceType}
 			</if>
-			<if test="productType != null">
+			<if test="productType != null and productType != 0">
 				and product_type = #{productType}
 			</if>
 			<if test="safetyStock != null">

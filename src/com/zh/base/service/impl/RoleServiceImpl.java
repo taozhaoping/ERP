@@ -85,10 +85,10 @@ public class RoleServiceImpl implements RoleService {
 			//菜单分层（树状）
 			List<Menu> menuList = roleReult.getMenuList();
 			List<Menu> newMenuList = new ArrayList<Menu>();
-			Map<Integer, List<Menu>> map = new HashMap<Integer, List<Menu>>();
+			Map<Long, List<Menu>> map = new HashMap<Long, List<Menu>>();
 			for (Menu menu : menuList) {
 				
-				Integer parentid = menu.getParentid();
+				Long parentid = menu.getParentid();
 				if(parentid == 0)
 				{
 					List<Menu> mList;

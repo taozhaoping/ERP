@@ -19,7 +19,7 @@ public class Dept extends IDataObject {
 	 */
 	private static final long serialVersionUID = -8970789225839780294L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 名称
@@ -41,11 +41,11 @@ public class Dept extends IDataObject {
 	 */
 	private Integer enabled;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

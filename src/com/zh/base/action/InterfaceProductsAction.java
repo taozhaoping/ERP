@@ -54,7 +54,7 @@ public class InterfaceProductsAction extends BaseAction {
 		Products products = this.productsModel.getProducts();
 		String id = this.productsModel.getProductsID();
 		if ( null !=id && !"".equals(id))
-		products.setId(Integer.valueOf(id));
+		products.setId(Long.valueOf(id));
 		Pager page = productsModel.getPageInfo();
 
 		Map<String, Object> jsonMap = this.productsModel.getDataMap();
@@ -70,7 +70,7 @@ public class InterfaceProductsAction extends BaseAction {
 	public String queryProducts() throws ParameterException
 	{
 		LOGGER.debug("queryProducts() ");
-		Integer id = this.productsModel.getId();
+		Long id = this.productsModel.getId();
 		if ( null == id || "".equals(id))
 		{
 			throw new ParameterException("产品编号不允许为null");

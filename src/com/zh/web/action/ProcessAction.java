@@ -56,13 +56,13 @@ public class ProcessAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.processModel.getId();
+		Long id = this.processModel.getId();
 
 		if (null != id) {
 			// 查询信息
 			LOGGER.debug("editor StoragePrimary id " + id);
 			ProcessBean processBean = this.processModel.getProcessBean();
-			processBean.setId(Integer.valueOf(id));
+			processBean.setId(Long.valueOf(id));
 			ProcessBean reult = processService.query(processBean);
 			this.processModel.setProcessBean(reult);
 
@@ -79,7 +79,7 @@ public class ProcessAction extends BaseAction {
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		ProcessBean processBean = this.processModel.getProcessBean();
-		Integer id = this.processModel.getId();
+		Long id = this.processModel.getId();
 		if (null != id && !"".equals(id)) {
 			processBean.setId(id);
 			processService.update(processBean);

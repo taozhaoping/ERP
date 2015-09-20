@@ -67,7 +67,7 @@ public class mainAction extends BaseAction {
 //
 		// 获取角色信息和菜单信息
 		Role role = new Role();
-		role.setId(Integer.valueOf(user.getRoleId()));
+		role.setId(Long.valueOf(user.getRoleId()));
 		Role roleReult = roleService.queryAuthoritiesToMenu(role);
 		this.mainModel.setRole(roleReult);
 //		
@@ -97,7 +97,7 @@ public class mainAction extends BaseAction {
 		{
 			throw new ProjectException("当前未登录!");
 		}
-		Integer id = currUser.getId();
+		Long id = currUser.getId();
 		user.setId(id);
 		User userReult = userInfoService.query(user);
 		this.mainModel.setUser(userReult);
@@ -113,7 +113,7 @@ public class mainAction extends BaseAction {
 		}
 		User user = this.mainModel.getUser();
 
-		Integer id = user.getId();
+		Long id = user.getId();
 		if ( id == null || id.equals(0))
 		{
 			throw new ProjectException("当前修改的数据错误!");
@@ -155,7 +155,7 @@ public class mainAction extends BaseAction {
 	 */
 	public String queryNotice()
 	{
-		Integer id = this.getMainModel().getId();
+		Long id = this.getMainModel().getId();
 		if(null == id || "".equals(id.toString()))
 		{
 			return Action.SUCCESS;
@@ -202,7 +202,7 @@ public class mainAction extends BaseAction {
 		if(null != role){
 			List<Menu> menuList = role.getMenuList();
 			for (Menu menu : menuList) {
-				Integer parentid = menu.getParentid();
+				Long parentid = menu.getParentid();
 				if (parentid.equals(0)) {
 					List<Menu> mList = menu.getMenuList();
 					for (Menu menu2 : mList) {

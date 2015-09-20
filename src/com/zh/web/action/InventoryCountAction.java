@@ -89,19 +89,19 @@ public class InventoryCountAction extends BaseAction {
 			throw new ParameterException("库存盘点单据不允许为空!");
 		}
 		
-		inventoryCountPrimaryService.increaseStock(Integer.valueOf(formID));
+		inventoryCountPrimaryService.increaseStock(Long.valueOf(formID));
 		return Action.EDITOR_SUCCESS;
 	}
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.inventoryCountModel.getId();
+		Long id = this.inventoryCountModel.getId();
 
 		// 获取仓库信息
 		Warehouse warehouse = new Warehouse();
 		warehouse.setEnabled(UtilService.ENABLED_EFFECTIVE);
 		List<Warehouse> warehouseList = warehouseService.queryList(warehouse);
-		warehouse.setId(0);
+		warehouse.setId(0L);
 		warehouse.setName("全部库存");
 		warehouseList.set(0, warehouse);
 		this.inventoryCountModel.setWarehouseList(warehouseList);
@@ -111,7 +111,7 @@ public class InventoryCountAction extends BaseAction {
 			LOGGER.debug("editor StoragePrimary id " + id);
 			InventoryCountPrimary inventoryCountPrimary = this.inventoryCountModel
 					.getInventoryCountPrimary();
-			inventoryCountPrimary.setId(Integer.valueOf(id));
+			inventoryCountPrimary.setId(Long.valueOf(id));
 			InventoryCountPrimary reult = inventoryCountPrimaryService
 					.query(inventoryCountPrimary);
 			this.inventoryCountModel.setInventoryCountPrimary(reult);
@@ -135,7 +135,7 @@ public class InventoryCountAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.inventoryCountModel.getInventoryCountPrimary().setUserID(
 					userID);
 			this.inventoryCountModel.getInventoryCountPrimary().setCreateDate(
@@ -148,7 +148,7 @@ public class InventoryCountAction extends BaseAction {
 		LOGGER.debug("save StorageDetail ()");
 		InventoryCountDetail inventoryCountDetail = this.inventoryCountModel
 				.getInventoryCountDetail();
-		Integer id = this.inventoryCountModel.getId();
+		Long id = this.inventoryCountModel.getId();
 		String changeValue = this.inventoryCountModel.getChangeValue();
 		Map<String, Object> map = this.inventoryCountModel.getDataMap();
 		map.put("reult", "error");
@@ -171,7 +171,7 @@ public class InventoryCountAction extends BaseAction {
 		LOGGER.debug("save()");
 		InventoryCountPrimary inventoryCountPrimary = this.inventoryCountModel
 				.getInventoryCountPrimary();
-		Integer id = this.inventoryCountModel.getId();
+		Long id = this.inventoryCountModel.getId();
 		if (null != id && !"".equals(id)) {
 			inventoryCountPrimary.setId(id);
 			inventoryCountPrimaryService.update(inventoryCountPrimary);

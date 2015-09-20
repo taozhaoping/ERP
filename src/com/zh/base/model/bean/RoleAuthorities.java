@@ -1,23 +1,23 @@
 package com.zh.base.model.bean;
 
 public class RoleAuthorities {
-	private Integer roleId;
+	private Long roleId;
 	
-	private Integer authoritiesId;
+	private Long authoritiesId;
 
-	public Integer getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
-	public Integer getAuthoritiesId() {
+	public Long getAuthoritiesId() {
 		return authoritiesId;
 	}
 
-	public void setAuthoritiesId(Integer authoritiesId) {
+	public void setAuthoritiesId(Long authoritiesId) {
 		this.authoritiesId = authoritiesId;
 	}
 	

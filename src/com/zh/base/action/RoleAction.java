@@ -73,9 +73,9 @@ public class RoleAction extends BaseAction {
 		List<Menu> menuList = menuService.queryList(menu);
 		
 		List<Menu> newMenuList = new ArrayList<Menu>();
-		Map<Integer, List<Menu>> map = new HashMap<Integer, List<Menu>>();
+		Map<Long, List<Menu>> map = new HashMap<Long, List<Menu>>();
 		for (Menu tempMenu : menuList) {
-			Integer parentid = tempMenu.getParentid();
+			Long parentid = tempMenu.getParentid();
 			if(parentid == 0){
 				List<Menu> mList;
 				if(map.containsKey(tempMenu.getId())){
@@ -123,7 +123,7 @@ public class RoleAction extends BaseAction {
 	public String editor() {
 		LOGGER.debug("editor()");
 		
-		Integer id = this.roleModel.getId();
+		Long id = this.roleModel.getId();
 		if(null == id || "".equals(id)){
 			Role role = this.roleModel.getRole();
 			role.setId(id);
@@ -165,14 +165,14 @@ public class RoleAction extends BaseAction {
 		LOGGER.debug("save()");
 		
 		Role role = this.roleModel.getRole();
-		Integer id = role.getId();
+		Long id = role.getId();
 		
 		//判断是新增还是修改
 		if(null == id || 0 == id){
 			role.setCreatetime(new Date());
 			roleService.insert(role);
 			
-			Integer newRoleId = role.getId();
+			Long newRoleId = role.getId();
 			//菜单集合
 			String menuListJsonValue = this.roleModel.getMenuListJsonValue();
 			if(menuListJsonValue != null && !menuListJsonValue.isEmpty()){

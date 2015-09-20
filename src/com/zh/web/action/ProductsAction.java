@@ -66,6 +66,10 @@ public class ProductsAction extends BaseAction {
 		this.productsModel.setProductsList(list);
 		
 		List<Dictionary> productTypeList = queryDictionaryList(BasiTypeService.PRODUCT_TYPE);
+		Dictionary dict = new Dictionary();
+		dict.setKey(0);
+		dict.setDescr("请选择");
+		productTypeList.add(0, dict);
 		this.productsModel.setProductTypeList(productTypeList);
 		
 		return Action.SUCCESS;
@@ -74,7 +78,7 @@ public class ProductsAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productsModel.getId();
+		Long id = this.productsModel.getId();
 		
 		//产品来源
 		List<Dictionary> sourceTypeList = queryDictionaryList(BasiTypeService.SOURCE_TYPE);
@@ -95,7 +99,7 @@ public class ProductsAction extends BaseAction {
 			//查询信息
 			LOGGER.debug("editor Products id " + id );
 			Products products = this.productsModel.getProducts();
-			products.setId(Integer.valueOf(id));
+			products.setId(Long.valueOf(id));
 			Products reult = productsService.query(products);
 			this.productsModel.setProducts(reult);
 			
@@ -104,7 +108,7 @@ public class ProductsAction extends BaseAction {
 			bomPrimary = productStructService.queryReleasePrimary(bomPrimary);
 			if(null != bomPrimary && null != bomPrimary.getId()){
 				//结构头表id
-				Integer primaryId = bomPrimary.getId();
+				Long primaryId = bomPrimary.getId();
 				
 				//产品结构明细
 				BomDetail bomDetail = this.productsModel.getBomDetail();
@@ -112,7 +116,7 @@ public class ProductsAction extends BaseAction {
 				LOGGER.debug("bomDetail: {}", bomDetail);
 				List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
 				for(BomDetail bd : bomDetailList){
-					int productId = bd.getSubProductsId();
+					Long productId = bd.getSubProductsId();
 					Products ps = new Products();
 					ps.setId(productId);
 					ps = productsService.query(ps);
@@ -126,7 +130,7 @@ public class ProductsAction extends BaseAction {
 				LOGGER.debug("bomSub: {}", bomSub);
 				List<BomSub> bomSubList = productStructService.querySubList(bomSub);
 				for(BomSub bs : bomSubList){
-					int productId = bs.getSubProductsId();
+					Long productId = bs.getSubProductsId();
 					Products ps = new Products();
 					ps.setId(productId);
 					ps = productsService.query(ps);
@@ -149,7 +153,7 @@ public class ProductsAction extends BaseAction {
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		Products products = this.productsModel.getProducts();
-		Integer id = this.productsModel.getId();
+		Long id = this.productsModel.getId();
 		if (null != id && !"".equals(id))
 		{
 			products.setId(id);

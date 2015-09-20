@@ -21,17 +21,17 @@ public class ProcessingSingleDetail extends IDataObject {
 	/**
 	 * id
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 加工单头表id
 	 */
-	private Integer processingSingleId;
+	private Long processingSingleId;
 	
 	/**
 	 * 销售订单分解结构表ID
 	 */
-	private Integer salesOrderBomID;
+	private Long salesOrderBomID;
 	
 	/**
 	 * 生产日期
@@ -46,7 +46,7 @@ public class ProcessingSingleDetail extends IDataObject {
 	/**
 	 * 生产物料id
 	 */
-	private Integer productsId;
+	private Long productsId;
 	
 	/**
 	 * 生产数量
@@ -56,7 +56,7 @@ public class ProcessingSingleDetail extends IDataObject {
 	/**
 	 * 主料物料编号
 	 */
-	private Integer mainProductsID;
+	private Long mainProductsID;
 	
 	/**
 	 * 是否主料/替代料
@@ -73,20 +73,28 @@ public class ProcessingSingleDetail extends IDataObject {
 	 */
 	private Integer tier;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProcessingSingleId() {
+	public Long getProcessingSingleId() {
 		return processingSingleId;
 	}
 
-	public void setProcessingSingleId(Integer processingSingleId) {
+	public void setProcessingSingleId(Long processingSingleId) {
 		this.processingSingleId = processingSingleId;
+	}
+
+	public Long getSalesOrderBomID() {
+		return salesOrderBomID;
+	}
+
+	public void setSalesOrderBomID(Long salesOrderBomID) {
+		this.salesOrderBomID = salesOrderBomID;
 	}
 
 	public Date getStartDate() {
@@ -105,11 +113,11 @@ public class ProcessingSingleDetail extends IDataObject {
 		this.endDate = endDate;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
@@ -121,19 +129,11 @@ public class ProcessingSingleDetail extends IDataObject {
 		this.processingNumber = processingNumber;
 	}
 
-	public Integer getSalesOrderBomID() {
-		return salesOrderBomID;
-	}
-
-	public void setSalesOrderBomID(Integer salesOrderBomID) {
-		this.salesOrderBomID = salesOrderBomID;
-	}
-
-	public Integer getMainProductsID() {
+	public Long getMainProductsID() {
 		return mainProductsID;
 	}
 
-	public void setMainProductsID(Integer mainProductsID) {
+	public void setMainProductsID(Long mainProductsID) {
 		this.mainProductsID = mainProductsID;
 	}
 
@@ -161,4 +161,5 @@ public class ProcessingSingleDetail extends IDataObject {
 		this.tier = tier;
 	}
 
+	
 }

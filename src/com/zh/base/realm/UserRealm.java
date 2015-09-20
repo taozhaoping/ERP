@@ -54,7 +54,7 @@ public class UserRealm extends AuthorizingRealm {
         String roleId = user.getRoleId();
         if(null != roleId && !roleId.isEmpty()){
         	Role role = new Role();
-        	role.setId(Integer.parseInt(roleId));
+        	role.setId(Long.valueOf(roleId));
         	role = roleService.query(role);
         	String roleName = role.getName();
         	if(roleName != null && !roleName.isEmpty()){

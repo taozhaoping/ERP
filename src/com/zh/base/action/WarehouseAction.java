@@ -66,7 +66,7 @@ public class WarehouseAction extends BaseAction {
 	@Override
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.warehouseModel.getId();
+		Long id = this.warehouseModel.getId();
 
 		// 获取企业列表
 		List<Enterprise> enterpriseList = this.queryEnterpriseList();
@@ -76,7 +76,7 @@ public class WarehouseAction extends BaseAction {
 			// 查询信息
 			LOGGER.debug("editor Warehouse id " + id);
 			Warehouse warehouse = this.warehouseModel.getWarehouse();
-			warehouse.setId(Integer.valueOf(id));
+			warehouse.setId(Long.valueOf(id));
 			Warehouse reult = warehouseService.query(warehouse);
 			this.warehouseModel.setWarehouse(reult);
 		}
@@ -88,7 +88,7 @@ public class WarehouseAction extends BaseAction {
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		Warehouse warehouse = this.warehouseModel.getWarehouse();
-		Integer id = this.warehouseModel.getId();
+		Long id = this.warehouseModel.getId();
 		if (null != id && !"".equals(id)) {
 			String view = this.warehouseModel.getView();
 			if (null != view && "enabled".equals(view)) {

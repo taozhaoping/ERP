@@ -18,17 +18,17 @@ public class StorageDetail extends IDataObject {
 	 */
 	private static final long serialVersionUID = 1764450071409870780L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 头表id
 	 */
-	private Integer storagePrimaryID;
+	private Long storagePrimaryID;
 	
 	/**
 	 * 入库产品
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 库位
@@ -55,27 +55,27 @@ public class StorageDetail extends IDataObject {
 	 */
 	private String productsName;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getStoragePrimaryID() {
+	public Long getStoragePrimaryID() {
 		return storagePrimaryID;
 	}
 
-	public void setStoragePrimaryID(Integer storagePrimaryID) {
+	public void setStoragePrimaryID(Long storagePrimaryID) {
 		this.storagePrimaryID = storagePrimaryID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
@@ -119,5 +119,5 @@ public class StorageDetail extends IDataObject {
 		this.productsName = productsName;
 	}
 
-
+	
 }

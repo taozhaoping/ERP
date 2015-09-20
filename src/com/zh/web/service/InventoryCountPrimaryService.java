@@ -66,6 +66,6 @@ public interface InventoryCountPrimaryService {
 	/**
 	 * 盘点入库
 	 */
-	public void increaseStock(Integer id);
+	public void increaseStock(Long id);
 
 }

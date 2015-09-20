@@ -73,7 +73,7 @@ public class ProductStructAction extends BaseAction {
 		page.setTotalRow(count);
 		List<BomPrimary> bomPrimaryList = productStructService.queryPrimaryList(bomPrimary, page);
 		for(BomPrimary bp : bomPrimaryList){
-			int productId = bp.getProductsId();
+			Long productId = bp.getProductsId();
 			Products products = new Products();
 			products.setId(productId);
 			products = productsService.query(products);
@@ -89,13 +89,13 @@ public class ProductStructAction extends BaseAction {
 	 */
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productStructModel.getId();
+		Long id = this.productStructModel.getId();
 		
 		if (null != id){
 			//查询信息
 			LOGGER.debug("editor ProductStruct id " + id );
 			BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
-			bomPrimary.setId(Integer.valueOf(id));
+			bomPrimary.setId(Long.valueOf(id));
 			//查询结果
 			BomPrimary result = productStructService.queryPrimary(bomPrimary);
 			LOGGER.debug("query bomPrimary:{}", result);
@@ -107,7 +107,7 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("bomDetail: {}", bomDetail);
 			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
 			for(BomDetail bd : bomDetailList){
-				int productId = bd.getSubProductsId();
+				Long productId = bd.getSubProductsId();
 				Products products = new Products();
 				products.setId(productId);
 				products = productsService.query(products);
@@ -121,7 +121,7 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("bomSub: {}", bomSub);
 			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
 			for(BomSub bs : bomSubList){
-				int productId = bs.getSubProductsId();
+				Long productId = bs.getSubProductsId();
 				Products products = new Products();
 				products.setId(productId);
 				products = productsService.query(products);
@@ -171,7 +171,7 @@ public class ProductStructAction extends BaseAction {
 			productProcessService.insert(productProcess);
 		} else {
 			// 修改
-			productProcess.setId(Integer.valueOf(id));
+			productProcess.setId(Long.valueOf(id));
 			productProcessService.delete(productProcess);
 		}
 		return Action.EDITOR_SAVE;
@@ -182,12 +182,12 @@ public class ProductStructAction extends BaseAction {
 	 */
 	public String view() throws Exception {
 		LOGGER.debug("view()");
-		Integer id = this.productStructModel.getId();
+		Long id = this.productStructModel.getId();
 		if (null != id){
 			//查询信息
 			LOGGER.debug("view ProductStruct id " + id );
 			BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
-			bomPrimary.setId(Integer.valueOf(id));
+			bomPrimary.setId(Long.valueOf(id));
 			//查询结果
 			BomPrimary result = productStructService.queryPrimary(bomPrimary);
 			LOGGER.debug("query bomPrimary:{}", result);
@@ -199,7 +199,7 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("bomDetail: {}", bomDetail);
 			List<BomDetail> bomDetailList = productStructService.queryDetailList(bomDetail);
 			for(BomDetail bd : bomDetailList){
-				int productId = bd.getSubProductsId();
+				Long productId = bd.getSubProductsId();
 				Products products = new Products();
 				products.setId(productId);
 				products = productsService.query(products);
@@ -213,7 +213,7 @@ public class ProductStructAction extends BaseAction {
 			LOGGER.debug("bomSub: {}", bomSub);
 			List<BomSub> bomSubList = productStructService.querySubList(bomSub);
 			for(BomSub bs : bomSubList){
-				int productId = bs.getSubProductsId();
+				Long productId = bs.getSubProductsId();
 				Products products = new Products();
 				products.setId(productId);
 				products = productsService.query(products);
@@ -238,7 +238,7 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("save()");
 		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
 		//头表的主键
-		Integer id = bomPrimary.getId();
+		Long id = bomPrimary.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			bomPrimary.setId(id);
@@ -260,7 +260,7 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("auditStatus()");
 		BomPrimary bomPrimary = this.productStructModel.getBomPrimary();
 		//头表的主键
-		Integer id = bomPrimary.getId();
+		Long id = bomPrimary.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			//生效
@@ -283,11 +283,11 @@ public class ProductStructAction extends BaseAction {
 	public String verifySaveDetail(){
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
 		//产品id
-		Integer primaryId = bomDetail.getPrimaryId();
+		Long primaryId = bomDetail.getPrimaryId();
 		//产品编号
-		Integer productsId = bomDetail.getProductsId();
+		Long productsId = bomDetail.getProductsId();
 		//组件编号
-		Integer subProductsId = bomDetail.getSubProductsId();
+		Long subProductsId = bomDetail.getSubProductsId();
 		//返回值
 		Map<String, Object> dataMap = productStructModel.getDataMap();
 		//添加本身
@@ -343,7 +343,7 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("saveDetail()");
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
 		//明细表的主键
-		Integer id = bomDetail.getId();
+		Long id = bomDetail.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			bomDetail.setId(id);
@@ -365,9 +365,9 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("deleteDetail()");
 		BomDetail bomDetail = this.productStructModel.getBomDetail();
 		//主表的id
-		int primaryId = bomDetail.getPrimaryId();
+		Long primaryId = bomDetail.getPrimaryId();
 		//删除组件的编号
-		Integer subProductsId = bomDetail.getSubProductsId();
+		Long subProductsId = bomDetail.getSubProductsId();
 		
 		//替代料 主料料号以及BOM头表的主键编号
 		BomSub bomSub = new BomSub();
@@ -375,7 +375,7 @@ public class ProductStructAction extends BaseAction {
 		bomSub.setMainProductsId(subProductsId);
 		
 		//明细表的主键
-		Integer id = bomDetail.getId();
+		Long id = bomDetail.getId();
 		if (null != id && !"".equals(id)){
 			bomDetail.setId(id);
 			productStructService.deleteDetail(bomDetail, bomSub);
@@ -418,10 +418,10 @@ public class ProductStructAction extends BaseAction {
 	 */
 	public String verifySaveSub(){
 		BomSub bomSub = this.productStructModel.getBomSub();
-		Integer mainProductsId = bomSub.getMainProductsId();
-		Integer subProductsId = bomSub.getSubProductsId();
-		Integer productsId = bomSub.getProductsId();
-		Integer primaryId = bomSub.getPrimaryId();
+		Long mainProductsId = bomSub.getMainProductsId();
+		Long subProductsId = bomSub.getSubProductsId();
+		Long productsId = bomSub.getProductsId();
+		Long primaryId = bomSub.getPrimaryId();
 		//返回值
 		Map<String, Object> dataMap = productStructModel.getDataMap();
 		if(subProductsId != null){
@@ -466,7 +466,7 @@ public class ProductStructAction extends BaseAction {
 		LOGGER.debug("deleteSub()");
 		BomSub bomSub = this.productStructModel.getBomSub();
 		//主表的id
-		int primaryId = bomSub.getPrimaryId();
+		Long primaryId = bomSub.getPrimaryId();
 		//明细表的主键
 		Integer id = bomSub.getId();
 		if (null != id && !"".equals(id)){

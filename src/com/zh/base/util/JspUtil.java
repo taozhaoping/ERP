@@ -98,7 +98,7 @@ public class JspUtil implements ApplicationContextAware {
 			return "";
 		}
 		User user = new User();
-		user.setId(Integer.valueOf(id));
+		user.setId(Long.valueOf(id));
 		User reult = userInfoService.query(user);
 		return reult.getName();
 	}
@@ -190,7 +190,7 @@ public class JspUtil implements ApplicationContextAware {
 		}
 
 		Enterprise enterprise = new Enterprise();
-		enterprise.setId(Integer.valueOf(id));
+		enterprise.setId(Long.valueOf(id));
 		Enterprise reult = enterpriseService.query(enterprise);
 		if (reult == null) {
 			return "";
@@ -215,7 +215,7 @@ public class JspUtil implements ApplicationContextAware {
 		}
 
 		Customer customer = new Customer();
-		customer.setId(Integer.valueOf(id));
+		customer.setId(Long.valueOf(id));
 		Customer reult = customerService.query(customer);
 		if (reult == null) {
 			return "";
@@ -241,7 +241,7 @@ public class JspUtil implements ApplicationContextAware {
 		}
 
 		Warehouse warehouse = new Warehouse();
-		warehouse.setId(Integer.valueOf(id));
+		warehouse.setId(Long.valueOf(id));
 		Warehouse reult = warehouseService.query(warehouse);
 		if (reult == null) {
 			return "";

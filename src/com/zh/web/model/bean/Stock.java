@@ -18,7 +18,7 @@ public class Stock extends IDataObject {
 	 */
 	private static final long serialVersionUID = -1948935877580356439L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 库位
@@ -28,39 +28,47 @@ public class Stock extends IDataObject {
 	/**
 	 * 产品编号
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 仓库编号
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 	
 	/**
 	 * 库存量
 	 */
 	private Float stockNumber;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProductsID() {
+	public Integer getPosition() {
+		return position;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
+
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
-	public Integer getWarehouseID() {
+	public Long getWarehouseID() {
 		return warehouseID;
 	}
 
-	public void setWarehouseID(Integer warehouseID) {
+	public void setWarehouseID(Long warehouseID) {
 		this.warehouseID = warehouseID;
 	}
 
@@ -72,12 +80,5 @@ public class Stock extends IDataObject {
 		this.stockNumber = stockNumber;
 	}
 
-	public Integer getPosition() {
-		return position;
-	}
-
-	public void setPosition(Integer position) {
-		this.position = position;
-	}
 	
 }

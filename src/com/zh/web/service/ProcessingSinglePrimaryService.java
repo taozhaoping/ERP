@@ -56,16 +56,16 @@ public interface ProcessingSinglePrimaryService {
 	 * 新增 加工单，需要获取对应销售订单中的产品
 	 * @param 
 	 */
-	public Integer insert(ProcessingSinglePrimary processingSinglePrimary);
+	public Long insert(ProcessingSinglePrimary processingSinglePrimary);
 	
 	/**
 	 * 审核加工单
 	 */
-	public void increase(Integer processingSingleId)  throws ParameterException;
+	public void increase(Long processingSingleId)  throws ParameterException;
 	
 	/**
 	 * 生产产品入库
 	 */
-	public void increaseStock(Integer id);
+	public void increaseStock(Long id);
 	
 }

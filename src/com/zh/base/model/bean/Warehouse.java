@@ -19,7 +19,7 @@ public class Warehouse extends IDataObject {
 	 */
 	private static final long serialVersionUID = -916242789369646195L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 名称
@@ -46,11 +46,11 @@ public class Warehouse extends IDataObject {
 	 */
 	private Integer enabled;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

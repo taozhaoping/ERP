@@ -18,17 +18,17 @@ public class ProductProcess extends IDataObject {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 产品结构ID
 	 */
-	private Integer bomPrimaryID;
+	private Long bomPrimaryID;
 	
 	/**
 	 * 工序ID
 	 */
-	private Integer processID;
+	private Long processID;
 
 	/**
 	 * 工序名称
@@ -50,20 +50,28 @@ public class ProductProcess extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getBomPrimaryID() {
+	public Long getBomPrimaryID() {
 		return bomPrimaryID;
 	}
 
-	public void setBomPrimaryID(Integer bomPrimaryID) {
+	public void setBomPrimaryID(Long bomPrimaryID) {
 		this.bomPrimaryID = bomPrimaryID;
+	}
+
+	public Long getProcessID() {
+		return processID;
+	}
+
+	public void setProcessID(Long processID) {
+		this.processID = processID;
 	}
 
 	public String getName() {
@@ -98,13 +106,5 @@ public class ProductProcess extends IDataObject {
 		this.remarks = remarks;
 	}
 
-	public Integer getProcessID() {
-		return processID;
-	}
-
-	public void setProcessID(Integer processID) {
-		this.processID = processID;
-	}
-	
 	
 }

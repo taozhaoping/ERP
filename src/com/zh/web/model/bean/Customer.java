@@ -18,7 +18,7 @@ public class Customer extends IDataObject {
 	 */
 	private static final long serialVersionUID = 7952984219744829098L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 名称
@@ -75,11 +75,12 @@ public class Customer extends IDataObject {
 	 */
 	private String iphone;
 
-	public Integer getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -63,5 +63,5 @@ public interface ProductionTaskService {
 	/**
 	* 领料
 	 */
-	public void increaseStock(Integer id);
+	public void increaseStock(Long id);
 }

@@ -67,7 +67,7 @@ public class DeptAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.deptModel.getId();
+		Long id = this.deptModel.getId();
 		//部门类型
 		List<Dictionary> list = queryDictionaryList(BasiTypeService.DEPT_TYPE);
 		this.deptModel.setDictionaryList(list);
@@ -81,7 +81,7 @@ public class DeptAction extends BaseAction {
 			//查询信息
 			LOGGER.debug("editor Dept id " + id );
 			Dept dept = this.deptModel.getDept();
-			dept.setId(Integer.valueOf(id));
+			dept.setId(Long.valueOf(id));
 			Dept reult = deptService.query(dept);
 			this.deptModel.setDept(reult);
 		}
@@ -92,7 +92,7 @@ public class DeptAction extends BaseAction {
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		Dept dept = this.deptModel.getDept();
-		Integer id = this.deptModel.getId();
+		Long id = this.deptModel.getId();
 		if (null != id && !"".equals(id))
 		{
 			String view = this.deptModel.getView();

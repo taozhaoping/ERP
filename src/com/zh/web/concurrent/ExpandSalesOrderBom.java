@@ -21,7 +21,7 @@ public class ExpandSalesOrderBom implements Runnable {
 	/**
 	 * 销售单号 
 	 */
-	private Integer salesOrderId;
+	private Long salesOrderId;
 	
 	@Autowired
 	private SalesOrderDetailDao salesOrderDetailDao;
@@ -43,11 +43,11 @@ public class ExpandSalesOrderBom implements Runnable {
 		}
 	}
 
-	public int getSalesOrderId() {
+	public Long getSalesOrderId() {
 		return salesOrderId;
 	}
 
-	public void setSalesOrderId(int salesOrderId) {
+	public void setSalesOrderId(Long salesOrderId) {
 		this.salesOrderId = salesOrderId;
 	}
 }

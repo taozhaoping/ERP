@@ -141,7 +141,7 @@ public interface UtilService {
 	/**
 	 * 系统仓库ID
 	 */
-	public static Integer SYSTEM_WAREHOUSE_ID = 1;
+	public static Long SYSTEM_WAREHOUSE_ID = 1L;
 	
 	/**
 	 * 领料中

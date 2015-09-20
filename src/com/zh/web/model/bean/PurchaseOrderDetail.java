@@ -19,17 +19,17 @@ public class PurchaseOrderDetail extends IDataObject {
 	 */
 	private static final long serialVersionUID = 5431113151180787058L;
 
-	private Integer  id;
+	private Long  id;
 	
 	/**
 	 * 头表ID
 	 */
-	private Integer  purchaseOrderID;
+	private Long  purchaseOrderID;
 	
 	/**
 	 * 产品编号
 	 */
-	private Integer  productsID;
+	private Long  productsID;
 	
 	/**
 	 * 数量
@@ -54,7 +54,7 @@ public class PurchaseOrderDetail extends IDataObject {
 	/**
 	 * 需求清单明细ID
 	 */
-	private Integer  procurementID;
+	private Long  procurementID;
 	
 	/**
 	 * 产品名称
@@ -71,27 +71,27 @@ public class PurchaseOrderDetail extends IDataObject {
 	 */
 	private Double estimatedPrice;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getPurchaseOrderID() {
+	public Long getPurchaseOrderID() {
 		return purchaseOrderID;
 	}
 
-	public void setPurchaseOrderID(Integer purchaseOrderID) {
+	public void setPurchaseOrderID(Long purchaseOrderID) {
 		this.purchaseOrderID = purchaseOrderID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
@@ -111,6 +111,14 @@ public class PurchaseOrderDetail extends IDataObject {
 		this.price = price;
 	}
 
+	public Double getOrderValue() {
+		return orderValue;
+	}
+
+	public void setOrderValue(Double orderValue) {
+		this.orderValue = orderValue;
+	}
+
 	public String getRemarks() {
 		return remarks;
 	}
@@ -119,11 +127,11 @@ public class PurchaseOrderDetail extends IDataObject {
 		this.remarks = remarks;
 	}
 
-	public Integer getProcurementID() {
+	public Long getProcurementID() {
 		return procurementID;
 	}
 
-	public void setProcurementID(Integer procurementID) {
+	public void setProcurementID(Long procurementID) {
 		this.procurementID = procurementID;
 	}
 
@@ -149,14 +157,6 @@ public class PurchaseOrderDetail extends IDataObject {
 
 	public void setEstimatedPrice(Double estimatedPrice) {
 		this.estimatedPrice = estimatedPrice;
-	}
-
-	public Double getOrderValue() {
-		return orderValue;
-	}
-
-	public void setOrderValue(Double orderValue) {
-		this.orderValue = orderValue;
 	}
 
 }

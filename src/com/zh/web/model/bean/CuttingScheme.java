@@ -18,7 +18,7 @@ public class CuttingScheme extends IDataObject {
 	 */
 	private static final long serialVersionUID = -1288177167525441866L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 名称
@@ -28,14 +28,14 @@ public class CuttingScheme extends IDataObject {
 	/**
 	 * 原材料
 	 */
-	private Integer rawMaterials;
+	private Long rawMaterials;
 	
 	private String rawName;
 	
 	/**
 	 * 主产品物料数量
 	 */
-	private Integer mainProducts;
+	private Long mainProducts;
 	
 	private String mainName;
 	
@@ -47,7 +47,7 @@ public class CuttingScheme extends IDataObject {
 	/**
 	 * 副产品物料
 	 */
-	private Integer byProducts;
+	private Long byProducts;
 	
 	private String byName;
 	
@@ -61,11 +61,11 @@ public class CuttingScheme extends IDataObject {
 	 */
 	private Integer enabled;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -77,12 +77,36 @@ public class CuttingScheme extends IDataObject {
 		this.name = name;
 	}
 
-	public Integer getMainProducts() {
+	public Long getRawMaterials() {
+		return rawMaterials;
+	}
+
+	public void setRawMaterials(Long rawMaterials) {
+		this.rawMaterials = rawMaterials;
+	}
+
+	public String getRawName() {
+		return rawName;
+	}
+
+	public void setRawName(String rawName) {
+		this.rawName = rawName;
+	}
+
+	public Long getMainProducts() {
 		return mainProducts;
 	}
 
-	public void setMainProducts(Integer mainProducts) {
+	public void setMainProducts(Long mainProducts) {
 		this.mainProducts = mainProducts;
+	}
+
+	public String getMainName() {
+		return mainName;
+	}
+
+	public void setMainName(String mainName) {
+		this.mainName = mainName;
 	}
 
 	public Integer getManNumber() {
@@ -93,12 +117,20 @@ public class CuttingScheme extends IDataObject {
 		this.manNumber = manNumber;
 	}
 
-	public Integer getByProducts() {
+	public Long getByProducts() {
 		return byProducts;
 	}
 
-	public void setByProducts(Integer byProducts) {
+	public void setByProducts(Long byProducts) {
 		this.byProducts = byProducts;
+	}
+
+	public String getByName() {
+		return byName;
+	}
+
+	public void setByName(String byName) {
+		this.byName = byName;
 	}
 
 	public Integer getByNumber() {
@@ -117,37 +149,4 @@ public class CuttingScheme extends IDataObject {
 		this.enabled = enabled;
 	}
 
-	public Integer getRawMaterials() {
-		return rawMaterials;
-	}
-
-	public void setRawMaterials(Integer rawMaterials) {
-		this.rawMaterials = rawMaterials;
-	}
-
-	public String getRawName() {
-		return rawName;
-	}
-
-	public void setRawName(String rawName) {
-		this.rawName = rawName;
-	}
-
-	public String getMainName() {
-		return mainName;
-	}
-
-	public void setMainName(String mainName) {
-		this.mainName = mainName;
-	}
-
-	public String getByName() {
-		return byName;
-	}
-
-	public void setByName(String byName) {
-		this.byName = byName;
-	}
-	
-	
 }

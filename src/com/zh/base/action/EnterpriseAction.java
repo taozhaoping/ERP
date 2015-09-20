@@ -49,7 +49,7 @@ public class EnterpriseAction extends BaseAction {
 	
 	public String editor(){
 		LOGGER.debug("editor()");
-		Integer id = this.enterpriseModel.getId();
+		Long id = this.enterpriseModel.getId();
 		if(null != id && !"".equals(id))
 		{
 			Enterprise enterprise = this.enterpriseModel.getEnterprise();
@@ -69,7 +69,7 @@ public class EnterpriseAction extends BaseAction {
 		if(null != view && "enabled".equals(view))
 		{
 			String enabled = this.enterpriseModel.getEnabled();
-			Integer id = this.enterpriseModel.getId();
+			Long id = this.enterpriseModel.getId();
 			if("0".equals(enabled))
 			{
 				enterprise.setEnabled("1");
@@ -81,7 +81,7 @@ public class EnterpriseAction extends BaseAction {
 		}
 		
 		//判断是新增还是修改
-		Integer id = enterprise.getId();
+		Long id = enterprise.getId();
 		if(null == id || 0 == id)
 		{
 			enterpriseService.insert(enterprise);

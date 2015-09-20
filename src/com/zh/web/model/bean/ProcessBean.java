@@ -14,7 +14,7 @@ import com.zh.core.model.IDataObject;
  */
 public class ProcessBean extends IDataObject {
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 工序名称
@@ -36,11 +36,11 @@ public class ProcessBean extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -119,7 +119,7 @@ public class StockUtil implements ApplicationContextAware {
 	}
 	
 
-	public synchronized void operationStock(Integer id,Integer warehouseID, String type) {
+	public synchronized void operationStock(Long id,Long warehouseID, String type) {
 
 		//出库入库
 		if (type == INCREASE) {
@@ -149,7 +149,7 @@ public class StockUtil implements ApplicationContextAware {
 	* @author taozhaoping 26078
 	* @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void inventoryCount(Integer id) {
+	private synchronized void inventoryCount(Long id) {
 		if(id == null)
 		{
 			throw new ProjectException("数据库不存在该库存盘点编号");
@@ -181,7 +181,7 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void increaseStock(Integer id,Integer warehouseID) {
+	private synchronized void increaseStock(Long id,Long warehouseID) {
 
 		StorageDetail storageDetail = new StorageDetail();
 		storageDetail.setStoragePrimaryID(id);
@@ -210,7 +210,7 @@ public class StockUtil implements ApplicationContextAware {
 	 * 生产单入库
 	 * @param id
 	 */
-	private synchronized void StorageStock(Integer id) {
+	private synchronized void StorageStock(Long id) {
 		ProductionStorageDetail productionStorageDetail = new ProductionStorageDetail();
 		productionStorageDetail.setProcessingSingleId(id);
 		
@@ -221,7 +221,7 @@ public class StockUtil implements ApplicationContextAware {
 		if (warehouseList.size() == 0) {
 			throw new ProjectException("没有查找到可以仓库信息");
 		}
-		Integer warehouseID = warehouseList.get(0).getId();
+		Long warehouseID = warehouseList.get(0).getId();
 		List<ProductionStorageDetail> list = productionStorageDetailService.queryList(productionStorageDetail);
 		for (ProductionStorageDetail result : list) {
 			Stock stock = new Stock();
@@ -256,7 +256,7 @@ public class StockUtil implements ApplicationContextAware {
 	* @author taozhaoping 26078
 	* @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void materialStock(Integer id) {
+	private synchronized void materialStock(Long id) {
 		MaterialRequisitionDetail requisitionDetail = new MaterialRequisitionDetail();
 		requisitionDetail.setProductiontaskId(id);
 		List<MaterialRequisitionDetail> list = materialRequisitionDetailService.queryList(requisitionDetail);
@@ -302,7 +302,7 @@ public class StockUtil implements ApplicationContextAware {
 	 * @author taozhaoping 26078
 	 * @author mail taozhaoping@gmail.com
 	 */
-	private synchronized void reduceStock(Integer id,Integer warehouseID) {
+	private synchronized void reduceStock(Long id,Long warehouseID) {
 
 		LibraryDetail libraryDetail = new LibraryDetail();
 		libraryDetail.setLibraryPrimaryID(id);

@@ -18,7 +18,7 @@ public class ProcurementDemandPrimary extends IDataObject {
 	 */
 	private static final long serialVersionUID = 7949566103367164628L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 申请时间
@@ -33,7 +33,7 @@ public class ProcurementDemandPrimary extends IDataObject {
 	/**
 	 * 创建人
 	 */
-	private Integer userID;
+	private Long userID;
 	
 	/**
 	 * 销售订单号
@@ -50,11 +50,11 @@ public class ProcurementDemandPrimary extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -74,11 +74,11 @@ public class ProcurementDemandPrimary extends IDataObject {
 		this.limitDate = limitDate;
 	}
 
-	public Integer getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 

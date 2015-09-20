@@ -21,7 +21,7 @@ public class InventoryCountPrimary extends IDataObject {
 	/**
 	 * 主键
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 名称
@@ -36,7 +36,7 @@ public class InventoryCountPrimary extends IDataObject {
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 	
 	/**
 	 * 创建时间
@@ -51,18 +51,18 @@ public class InventoryCountPrimary extends IDataObject {
 	/**
 	 * 创建用户
 	 */
-	private Integer userID;
+	private Long userID;
 	
 	/**
 	 * 是否审核
 	 */
 	private Integer status;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -82,11 +82,11 @@ public class InventoryCountPrimary extends IDataObject {
 		this.remarks = remarks;
 	}
 
-	public Integer getWarehouseID() {
+	public Long getWarehouseID() {
 		return warehouseID;
 	}
 
-	public void setWarehouseID(Integer warehouseID) {
+	public void setWarehouseID(Long warehouseID) {
 		this.warehouseID = warehouseID;
 	}
 
@@ -98,11 +98,11 @@ public class InventoryCountPrimary extends IDataObject {
 		this.createDate = createDate;
 	}
 
-	public Integer getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 

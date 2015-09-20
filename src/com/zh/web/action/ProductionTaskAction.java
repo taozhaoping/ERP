@@ -64,7 +64,7 @@ public class ProductionTaskAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productionTaskModel.getId();
+		Long id = this.productionTaskModel.getId();
 
 		if (null == id) {
 			throw new ParameterException("任务单号不允许为空!");
@@ -74,7 +74,7 @@ public class ProductionTaskAction extends BaseAction {
 		LOGGER.debug("editor ProductionTask id " + id);
 		ProductionTask productionTask = this.productionTaskModel
 				.getProductionTask();
-		productionTask.setId(Integer.valueOf(id));
+		productionTask.setId(Long.valueOf(id));
 		ProductionTask reult = productionTaskService.query(productionTask);
 		this.productionTaskModel.setProductionTask(reult);
 

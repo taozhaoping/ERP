@@ -72,11 +72,11 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	}
 
 	@Override
-	public Integer insert(ProcessingSinglePrimary processingSinglePrimary) {
+	public Long insert(ProcessingSinglePrimary processingSinglePrimary) {
 		processingSinglePrimaryDao.insert(processingSinglePrimary);
-		int processingSingleId = processingSinglePrimary.getId();
+		Long processingSingleId = processingSinglePrimary.getId();
 		//销售订单id
-		int salesOrdePrimaryId = processingSinglePrimary.getPurchaseOrderId();
+		Long salesOrdePrimaryId = processingSinglePrimary.getPurchaseOrderId();
 		SalesOrderBom data = new SalesOrderBom();
 		//设置自生产类型
 		data.setSourceType(UtilService.PRODUCTION_SOURCE_TYPE_SELF_PROCESSING);
@@ -107,7 +107,7 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	 * 审核加工单
 	 * @throws ParameterException 
 	 */
-	public void increase(Integer processingSingleId) throws ParameterException
+	public void increase(Long processingSingleId) throws ParameterException
 	{
 		//判断加工时间是否填写
 		ProcessingSingleDetail data = new ProcessingSingleDetail();
@@ -136,7 +136,7 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 	}
 
 	@Override
-	public void increaseStock(Integer id) {
+	public void increaseStock(Long id) {
 		// TODO Auto-generated method stub
 		ProcessingSinglePrimary processingSinglePrimary = new ProcessingSinglePrimary();
 		processingSinglePrimary.setId(id);
@@ -165,11 +165,12 @@ public class ProcessingSinglePrimaryServiceImpl implements ProcessingSinglePrima
 			
 			//单据入库
 			StockUtil stockUtil = StockUtil.getInstance();
-			stockUtil.operationStock(reult.getId(),0,StockUtil.TASK_INCREASE);
+			stockUtil.operationStock(reult.getId(),0L,StockUtil.TASK_INCREASE);
 		}else
 		{
 			throw new RuntimeException("生产单据号：" + reult.getId() + "，已经入库!不允许重复入库");
 		}
 	}
+
 
 }

@@ -18,7 +18,7 @@ public class StoragePrimary extends IDataObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -6333019662890680692L;
-	private Integer id;
+	private Long id;
 	/**
 	 * 入库单号
 	 */
@@ -37,12 +37,12 @@ public class StoragePrimary extends IDataObject {
 	/**
 	 * 收货人
 	 */
-	private Integer userID;
+	private Long userID;
 	
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 	
 	/**
 	 * 金额
@@ -57,7 +57,7 @@ public class StoragePrimary extends IDataObject {
 	/**
 	 * 发货客户
 	 */
-	private Integer customerID;
+	private Long customerID;
 	
 	/**
 	 * 创建时间
@@ -79,12 +79,20 @@ public class StoragePrimary extends IDataObject {
 	 */
 	private Integer isStorage;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getOrderNoID() {
+		return orderNoID;
+	}
+
+	public void setOrderNoID(String orderNoID) {
+		this.orderNoID = orderNoID;
 	}
 
 	public String getStoragedate() {
@@ -95,12 +103,28 @@ public class StoragePrimary extends IDataObject {
 		this.storagedate = storagedate;
 	}
 
-	public Integer getUserID() {
+	public String getPurchaseOrderID() {
+		return purchaseOrderID;
+	}
+
+	public void setPurchaseOrderID(String purchaseOrderID) {
+		this.purchaseOrderID = purchaseOrderID;
+	}
+
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
+	}
+
+	public Long getWarehouseID() {
+		return warehouseID;
+	}
+
+	public void setWarehouseID(Long warehouseID) {
+		this.warehouseID = warehouseID;
 	}
 
 	public Float getMountMeoey() {
@@ -119,6 +143,14 @@ public class StoragePrimary extends IDataObject {
 		this.remarks = remarks;
 	}
 
+	public Long getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(Long customerID) {
+		this.customerID = customerID;
+	}
+
 	public String getCreatedate() {
 		return createdate;
 	}
@@ -135,6 +167,14 @@ public class StoragePrimary extends IDataObject {
 		this.updatedate = updatedate;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public Integer getIsStorage() {
 		return isStorage;
 	}
@@ -143,44 +183,5 @@ public class StoragePrimary extends IDataObject {
 		this.isStorage = isStorage;
 	}
 
-	public String getOrderNoID() {
-		return orderNoID;
-	}
 
-	public void setOrderNoID(String orderNoID) {
-		this.orderNoID = orderNoID;
-	}
-
-	public String getPurchaseOrderID() {
-		return purchaseOrderID;
-	}
-
-	public void setPurchaseOrderID(String purchaseOrderID) {
-		this.purchaseOrderID = purchaseOrderID;
-	}
-
-	public Integer getWarehouseID() {
-		return warehouseID;
-	}
-
-	public void setWarehouseID(Integer warehouseID) {
-		this.warehouseID = warehouseID;
-	}
-
-	public Integer getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(Integer customerID) {
-		this.customerID = customerID;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-	
 }

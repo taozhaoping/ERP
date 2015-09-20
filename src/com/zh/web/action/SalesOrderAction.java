@@ -76,7 +76,7 @@ public class SalesOrderAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.salesOrderModel.getId();
+		Long id = this.salesOrderModel.getId();
 		
 		//付款方式
 		List<Dictionary> paymentTermList = queryDictionaryList(BasiTypeService.PAYMENT_TERM);
@@ -97,7 +97,7 @@ public class SalesOrderAction extends BaseAction {
 			LOGGER.debug("editor StoragePrimary id " + id);
 			SalesOrderPrimary salesOrderPrimary = this.salesOrderModel
 					.getSalesOrderPrimary();
-			salesOrderPrimary.setId(Integer.valueOf(id));
+			salesOrderPrimary.setId(Long.valueOf(id));
 			SalesOrderPrimary reult = salesOrderPrimaryService.query(salesOrderPrimary);
 			this.salesOrderModel.setSalesOrderPrimary(reult);
 
@@ -119,7 +119,7 @@ public class SalesOrderAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.salesOrderModel.getSalesOrderPrimary().setUserID(userID);
 		}
 		return Action.EDITOR;
@@ -139,7 +139,7 @@ public class SalesOrderAction extends BaseAction {
 	public String examineSalesOrder() throws ParameterException
 	{
 		LOGGER.debug("examine SalesOrder ()");
-		Integer id = this.salesOrderModel.getId();
+		Long id = this.salesOrderModel.getId();
 		if (null == id || "".equals(id)) {
 			throw new ParameterException("审核的单据号不允许为空!");
 		}
@@ -164,7 +164,7 @@ public class SalesOrderAction extends BaseAction {
 	public String saveSalesOrderDetail() {
 		LOGGER.debug("save StorageDetail ()");
 		SalesOrderDetail salesOrderDetail = this.salesOrderModel.getSalesOrderDetail();
-		Integer id = this.salesOrderModel.getId();
+		Long id = this.salesOrderModel.getId();
 		if (null == id || "".equals(id)) {
 			// 新增
 			Integer storageNumber = salesOrderDetail.getStorageNumber();
@@ -188,7 +188,7 @@ public class SalesOrderAction extends BaseAction {
 		LOGGER.debug("save()");
 		SalesOrderPrimary salesOrderPrimary = this.salesOrderModel
 				.getSalesOrderPrimary();
-		Integer id = this.salesOrderModel.getId();
+		Long id = this.salesOrderModel.getId();
 		if (null != id && !"".equals(id)) {
 			salesOrderPrimary.setId(id);
 			salesOrderPrimaryService.update(salesOrderPrimary);

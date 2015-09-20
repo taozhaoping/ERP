@@ -19,17 +19,17 @@ public class SalesOrderDetail extends IDataObject {
 	 */
 	private static final long serialVersionUID = -2057884432860261616L;
 
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 销售主表ID
 	 */
-	private Integer salesOrderID;
+	private Long salesOrderID;
 	
 	/**
 	 * 物料ID
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 产品名称
@@ -66,28 +66,44 @@ public class SalesOrderDetail extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getSalesOrderID() {
+	public Long getSalesOrderID() {
 		return salesOrderID;
 	}
 
-	public void setSalesOrderID(Integer salesOrderID) {
+	public void setSalesOrderID(Long salesOrderID) {
 		this.salesOrderID = salesOrderID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
+	}
+
+	public String getProductsName() {
+		return productsName;
+	}
+
+	public void setProductsName(String productsName) {
+		this.productsName = productsName;
+	}
+
+	public Double getSalesPrice() {
+		return salesPrice;
+	}
+
+	public void setSalesPrice(Double salesPrice) {
+		this.salesPrice = salesPrice;
 	}
 
 	public Integer getStorageNumber() {
@@ -128,22 +144,6 @@ public class SalesOrderDetail extends IDataObject {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
-	}
-
-	public String getProductsName() {
-		return productsName;
-	}
-
-	public void setProductsName(String productsName) {
-		this.productsName = productsName;
-	}
-
-	public Double getSalesPrice() {
-		return salesPrice;
-	}
-
-	public void setSalesPrice(Double salesPrice) {
-		this.salesPrice = salesPrice;
 	}
 
 }

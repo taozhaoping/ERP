@@ -22,7 +22,7 @@ public class LibraryPrimary extends IDataObject {
 	 * 
 	 */
 	
-	private Integer id;
+	private Long id;
 	/**
 	 * 出库单号
 	 */
@@ -41,12 +41,12 @@ public class LibraryPrimary extends IDataObject {
 	/**
 	 * 发货人
 	 */
-	private Integer userID;
+	private Long userID;
 	
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 	
 	/**
 	 * 金额
@@ -61,7 +61,7 @@ public class LibraryPrimary extends IDataObject {
 	/**
 	 * 收货客户
 	 */
-	private Integer customerID;
+	private Long customerID;
 	
 	/**
 	 * 创建时间
@@ -78,11 +78,11 @@ public class LibraryPrimary extends IDataObject {
 	 */
 	private Integer status;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -93,7 +93,6 @@ public class LibraryPrimary extends IDataObject {
 	public void setOrderNoID(String orderNoID) {
 		this.orderNoID = orderNoID;
 	}
-
 
 	public String getLibrarydate() {
 		return librarydate;
@@ -111,19 +110,19 @@ public class LibraryPrimary extends IDataObject {
 		this.purchaseOrderID = purchaseOrderID;
 	}
 
-	public Integer getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 
-	public Integer getWarehouseID() {
+	public Long getWarehouseID() {
 		return warehouseID;
 	}
 
-	public void setWarehouseID(Integer warehouseID) {
+	public void setWarehouseID(Long warehouseID) {
 		this.warehouseID = warehouseID;
 	}
 
@@ -143,11 +142,11 @@ public class LibraryPrimary extends IDataObject {
 		this.remarks = remarks;
 	}
 
-	public Integer getCustomerID() {
+	public Long getCustomerID() {
 		return customerID;
 	}
 
-	public void setCustomerID(Integer customerID) {
+	public void setCustomerID(Long customerID) {
 		this.customerID = customerID;
 	}
 
@@ -174,5 +173,5 @@ public class LibraryPrimary extends IDataObject {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
 }

@@ -82,7 +82,7 @@ public class ProductionTaskServiceImpl implements ProductionTaskService {
 	}
 
 	@Override
-	public void increaseStock(Integer id) {
+	public void increaseStock(Long id) {
 		ProductionTask productionTask = new ProductionTask();
 		productionTask.setId(id);
 		ProductionTask reult = this.query(productionTask);

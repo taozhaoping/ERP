@@ -18,7 +18,7 @@ public class Products extends IDataObject {
 	 */
 	private static final long serialVersionUID = 6958330497434989824L;
 
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 名称
@@ -130,11 +130,11 @@ public class Products extends IDataObject {
 	 */
 	private Integer isCuttingScheme;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

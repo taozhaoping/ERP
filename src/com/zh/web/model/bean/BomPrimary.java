@@ -19,49 +19,57 @@ public class BomPrimary extends IDataObject {
 	private static final long serialVersionUID = 7931223535636799647L;
 
 	/**
-	 * 主键id 
+	 * 主键id
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 主产品编号
 	 */
-	private Integer productsId;
+	private Long productsId;
 
 	/**
 	 * 主产品编号
 	 */
 	private String productsName;
-	
+
 	/**
 	 * 描述
 	 */
 	private String descr;
-	
+
 	/**
 	 * 生效日期
 	 */
 	private String effdt;
-	
+
 	/**
 	 * 生效状态
 	 */
 	private String effStatus;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
+	}
+
+	public String getProductsName() {
+		return productsName;
+	}
+
+	public void setProductsName(String productsName) {
+		this.productsName = productsName;
 	}
 
 	public String getDescr() {
@@ -88,23 +96,13 @@ public class BomPrimary extends IDataObject {
 		this.effStatus = effStatus;
 	}
 
-	public String getProductsName() {
-		return productsName;
-	}
-
-	public void setProductsName(String productsName) {
-		this.productsName = productsName;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("id:").append(id)
-		.append(" productsId:").append(productsId)
-		.append(" productsName:").append(productsName)
-		.append(" descr:").append(descr)
-		.append(" effdt:").append(effdt)
-		.append(" effStatus:").append(effStatus);
+		sb.append("id:").append(id).append(" productsId:").append(productsId)
+				.append(" productsName:").append(productsName)
+				.append(" descr:").append(descr).append(" effdt:")
+				.append(effdt).append(" effStatus:").append(effStatus);
 		return sb.toString();
 	}
 }

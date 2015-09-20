@@ -19,7 +19,7 @@ public class ProcessingSinglePrimary extends IDataObject {
 	/**
 	 * id
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 加工单号
@@ -29,7 +29,7 @@ public class ProcessingSinglePrimary extends IDataObject {
 	/**
 	 * 销售订单号
 	 */
-	private Integer purchaseOrderId;
+	private Long purchaseOrderId;
 	
 	/**
 	 * 创建日期
@@ -46,11 +46,11 @@ public class ProcessingSinglePrimary extends IDataObject {
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,11 +62,11 @@ public class ProcessingSinglePrimary extends IDataObject {
 		this.processingSingleId = processingSingleId;
 	}
 
-	public Integer getPurchaseOrderId() {
+	public Long getPurchaseOrderId() {
 		return purchaseOrderId;
 	}
 
-	public void setPurchaseOrderId(Integer purchaseOrderId) {
+	public void setPurchaseOrderId(Long purchaseOrderId) {
 		this.purchaseOrderId = purchaseOrderId;
 	}
 

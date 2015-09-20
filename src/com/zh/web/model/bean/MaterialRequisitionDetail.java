@@ -20,44 +20,44 @@ public class MaterialRequisitionDetail extends IDataObject {
 	/**
 	 * id
 	 */
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 生产任务单号id，和生产任务单公用主表
 	 */
-	private Integer productiontaskId;
+	private Long productiontaskId;
 	
 	/**
 	 * 物料
 	 */
-	private Integer productsId;
+	private Long productsId;
 
 	/**
 	 * 生产数量
 	 */
 	private Float materialNumber;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProductiontaskId() {
+	public Long getProductiontaskId() {
 		return productiontaskId;
 	}
 
-	public void setProductiontaskId(Integer productiontaskId) {
+	public void setProductiontaskId(Long productiontaskId) {
 		this.productiontaskId = productiontaskId;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
@@ -69,8 +69,5 @@ public class MaterialRequisitionDetail extends IDataObject {
 		this.materialNumber = materialNumber;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
 }

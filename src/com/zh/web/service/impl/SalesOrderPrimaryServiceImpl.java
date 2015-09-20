@@ -56,7 +56,7 @@ public class SalesOrderPrimaryServiceImpl implements SalesOrderPrimaryService {
 
 	@Override
 	public Integer insert(SalesOrderPrimary salesOrderPrimary, String type) {
-		Integer id = Integer.valueOf(salesOrderPrimaryDao.getSequence(SEQUENCE_STORAGE_PRIMARY).toString());
+		Long id = Long.valueOf(salesOrderPrimaryDao.getSequence(SEQUENCE_STORAGE_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		salesOrderPrimary.setId(id);
 		salesOrderPrimary.setOrderID(UtilService.SALES_ORDER_TYPE + dateStr + id);

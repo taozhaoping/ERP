@@ -121,7 +121,7 @@ public abstract class BaseAction extends ActionSupport implements
 	 * 获取当前登录的用户id
 	 * @return
 	 */
-	public Integer queryUserId()
+	public Long queryUserId()
 	{
 		User user = (User) this.getSession().getAttribute(VariableUtil.SESSION_KEY);
 		return user.getId();
@@ -210,7 +210,7 @@ public abstract class BaseAction extends ActionSupport implements
 		
 	}
 	
-	protected Enterprise queryEnterprise(Integer enterpriseID)
+	protected Enterprise queryEnterprise(Long enterpriseID)
 	{
 		Enterprise enterprise = new Enterprise();
 		enterprise.setId(enterpriseID);

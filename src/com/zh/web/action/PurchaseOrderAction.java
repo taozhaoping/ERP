@@ -117,7 +117,7 @@ public class PurchaseOrderAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.purchaseOrderModel.getId();
+		Long id = this.purchaseOrderModel.getId();
 
 		// 供应商信息
 		Customer customer = new Customer();
@@ -138,7 +138,7 @@ public class PurchaseOrderAction extends BaseAction {
 			LOGGER.debug("editor StoragePrimary id " + id);
 			PurchaseOrderPrimary purchaseOrderPrimary = this.purchaseOrderModel
 					.getPurchaseOrderPrimary();
-			purchaseOrderPrimary.setId(Integer.valueOf(id));
+			purchaseOrderPrimary.setId(Long.valueOf(id));
 			PurchaseOrderPrimary reult = purchaseOrderPrimaryService
 					.query(purchaseOrderPrimary);
 			this.purchaseOrderModel.setPurchaseOrderPrimary(reult);
@@ -162,7 +162,7 @@ public class PurchaseOrderAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.purchaseOrderModel.getPurchaseOrderPrimary().setUserID(userID);
 		}
 		return Action.EDITOR;
@@ -191,7 +191,7 @@ public class PurchaseOrderAction extends BaseAction {
 	 */
 	public String examineSalesOrder() throws ParameterException {
 		LOGGER.debug("examine SalesOrder ()");
-		Integer id = this.purchaseOrderModel.getId();
+		Long id = this.purchaseOrderModel.getId();
 		if (null == id || "".equals(id)) {
 			throw new ParameterException("审核的单据号不允许为空!");
 		}
@@ -220,7 +220,7 @@ public class PurchaseOrderAction extends BaseAction {
 //		configuration.setObjectWrapper(new DefaultObjectWrapper());
 		
 		String purchaseOrderId = this.purchaseOrderModel.getPurchaseOrderPrimary().getPurchaseOrderID();
-		int customerId = this.purchaseOrderModel.getPurchaseOrderPrimary().getCustomerID();
+		Long customerId = this.purchaseOrderModel.getPurchaseOrderPrimary().getCustomerID();
 		String arrivalDate = this.purchaseOrderModel.getPurchaseOrderPrimary().getArrivalDate();
 		try {
 			
@@ -268,7 +268,7 @@ public class PurchaseOrderAction extends BaseAction {
 			for (int i = 0; i < detailList.size(); i++) {
 				PurchaseOrderDetail detail = detailList.get(i);
 				//产品编号
-				int productId = detail.getProductsID();
+				Long productId = detail.getProductsID();
 				
 				Products product = new Products();
 				product.setId(productId);
@@ -371,7 +371,7 @@ public class PurchaseOrderAction extends BaseAction {
 		LOGGER.debug("save StorageDetail ()");
 		PurchaseOrderDetail purchaseOrderDetail = this.purchaseOrderModel
 				.getPurchaseOrderDetail();
-		Integer id = this.purchaseOrderModel.getId();
+		Long id = this.purchaseOrderModel.getId();
 		if (null == id || "".equals(id)) {
 			// 新增
 			Integer purchaseNumber = purchaseOrderDetail.getPurchaseNumber();
@@ -395,7 +395,7 @@ public class PurchaseOrderAction extends BaseAction {
 		LOGGER.debug("save()");
 		PurchaseOrderPrimary purchaseOrderPrimary = this.purchaseOrderModel
 				.getPurchaseOrderPrimary();
-		Integer id = this.purchaseOrderModel.getId();
+		Long id = this.purchaseOrderModel.getId();
 		if (null != id && !"".equals(id)) {
 			purchaseOrderPrimary.setId(id);
 			purchaseOrderPrimaryService.update(purchaseOrderPrimary);

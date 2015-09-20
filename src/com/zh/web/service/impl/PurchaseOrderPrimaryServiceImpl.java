@@ -57,7 +57,7 @@ public class PurchaseOrderPrimaryServiceImpl implements PurchaseOrderPrimaryServ
 
 	@Override
 	public Integer insert(PurchaseOrderPrimary purchaseOrderPrimary) {
-		Integer id = Integer.valueOf(purchaseOrderPrimaryDao.getSequence(SEQUENCE_PURCHASE_PRIMARY).toString());
+		Long id = Long.valueOf(purchaseOrderPrimaryDao.getSequence(SEQUENCE_PURCHASE_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		purchaseOrderPrimary.setId(id);
 		purchaseOrderPrimary.setPurchaseOrderID(UtilService.PURCHASE_ORDER_TYPE + dateStr + id);

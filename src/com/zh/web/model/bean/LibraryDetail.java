@@ -18,22 +18,22 @@ public class LibraryDetail extends IDataObject {
 	 */
 	private static final long serialVersionUID = -726926002801037061L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 头表id
 	 */
-	private Integer libraryPrimaryID;
+	private Long libraryPrimaryID;
 	
 	/**
 	 * 入库产品
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 库位
 	 */
-	private Integer position;
+	private Long position;
 	
 	/**
 	 * 入库数量
@@ -58,42 +58,42 @@ public class LibraryDetail extends IDataObject {
 	/**
 	 * 仓库
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 	
 	/**
 	 * 库存数量
 	 */
 	private Float stockNumber;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getLibraryPrimaryID() {
+	public Long getLibraryPrimaryID() {
 		return libraryPrimaryID;
 	}
 
-	public void setLibraryPrimaryID(Integer libraryPrimaryID) {
+	public void setLibraryPrimaryID(Long libraryPrimaryID) {
 		this.libraryPrimaryID = libraryPrimaryID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
-	public Integer getPosition() {
+	public Long getPosition() {
 		return position;
 	}
 
-	public void setPosition(Integer position) {
+	public void setPosition(Long position) {
 		this.position = position;
 	}
 
@@ -129,11 +129,11 @@ public class LibraryDetail extends IDataObject {
 		this.productsName = productsName;
 	}
 
-	public Integer getWarehouseID() {
+	public Long getWarehouseID() {
 		return warehouseID;
 	}
 
-	public void setWarehouseID(Integer warehouseID) {
+	public void setWarehouseID(Long warehouseID) {
 		this.warehouseID = warehouseID;
 	}
 
@@ -145,5 +145,5 @@ public class LibraryDetail extends IDataObject {
 		this.stockNumber = stockNumber;
 	}
 
-
+	
 }

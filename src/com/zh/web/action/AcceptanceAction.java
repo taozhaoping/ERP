@@ -67,7 +67,7 @@ public class AcceptanceAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productionTaskModel.getId();
+		Long id = this.productionTaskModel.getId();
 
 		if (null == id) {
 			throw new ParameterException("任务单号不允许为空!");
@@ -77,7 +77,7 @@ public class AcceptanceAction extends BaseAction {
 		LOGGER.debug("editor ProductionTask id " + id);
 		ProductionTask productionTask = this.productionTaskModel
 				.getProductionTask();
-		productionTask.setId(Integer.valueOf(id));
+		productionTask.setId(Long.valueOf(id));
 		ProductionTask reult = productionTaskService.query(productionTask);
 		this.productionTaskModel.setProductionTask(reult);
 
@@ -101,11 +101,11 @@ public class AcceptanceAction extends BaseAction {
 		LOGGER.debug("auditStatus()");
 		ProductionTask productionTask  = this.productionTaskModel.getProductionTask();
 		//头表的主键
-		Integer id = productionTask.getId();
+		Long id = productionTask.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			//生效
-			productionTask.setStatus(new Integer(2));
+			productionTask.setStatus(2);
 			productionTaskService.update(productionTask);
 			LOGGER.debug("auditStatus productionTask:{}", productionTask);
 		}else{
@@ -121,7 +121,7 @@ public class AcceptanceAction extends BaseAction {
 		LOGGER.debug("updateAcceptance()");
 		AcceptanceList acceptanceList = this.productionTaskModel.getAcceptance();
 		//头表的主键
-		Integer id = acceptanceList.getId();
+		Long id = acceptanceList.getId();
 		//主键为空，则是插入，不为空，更新
 		if (null != id && !"".equals(id)){
 			//

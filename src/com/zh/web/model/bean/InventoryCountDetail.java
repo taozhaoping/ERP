@@ -17,27 +17,27 @@ public class InventoryCountDetail extends IDataObject {
 	/**
 	 * 主键
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 头表ID
 	 */
-	private Integer inventoryID;
+	private Long inventoryID;
 	
 	/**
 	 * 库存ID
 	 */
-	private Integer stockID;
+	private Long stockID;
 
 	/**
 	 * 物料编号
 	 */
-	private Integer productsID;
+	private Long productsID;
 
 	/**
 	 * 库存编号
 	 */
-	private Integer warehouseID;
+	private Long warehouseID;
 
 	/**
 	 * 变更前数量
@@ -59,35 +59,43 @@ public class InventoryCountDetail extends IDataObject {
 	 */
 	private Integer userID;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getInventoryID() {
+	public Long getInventoryID() {
 		return inventoryID;
 	}
 
-	public void setInventoryID(Integer inventoryID) {
+	public void setInventoryID(Long inventoryID) {
 		this.inventoryID = inventoryID;
 	}
 
-	public Integer getProductsID() {
+	public Long getStockID() {
+		return stockID;
+	}
+
+	public void setStockID(Long stockID) {
+		this.stockID = stockID;
+	}
+
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
-	public Integer getWarehouseID() {
+	public Long getWarehouseID() {
 		return warehouseID;
 	}
 
-	public void setWarehouseID(Integer warehouseID) {
+	public void setWarehouseID(Long warehouseID) {
 		this.warehouseID = warehouseID;
 	}
 
@@ -121,14 +129,6 @@ public class InventoryCountDetail extends IDataObject {
 
 	public void setUserID(Integer userID) {
 		this.userID = userID;
-	}
-
-	public Integer getStockID() {
-		return stockID;
-	}
-
-	public void setStockID(Integer stockID) {
-		this.stockID = stockID;
 	}
 
 }

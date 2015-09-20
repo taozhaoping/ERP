@@ -18,7 +18,7 @@ public class PurchaseOrderPrimary extends IDataObject {
 	 */
 	private static final long serialVersionUID = -7602391432738599635L;
 	
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 订单号
@@ -38,12 +38,12 @@ public class PurchaseOrderPrimary extends IDataObject {
 	/**
 	 * 供应商
 	 */
-	private Integer customerID;
+	private Long customerID;
 	
 	/**
 	 * 采购员
 	 */
-	private Integer userID;
+	private Long userID;
 	
 	/**
 	 * 仓库
@@ -70,11 +70,11 @@ public class PurchaseOrderPrimary extends IDataObject {
 	 */
 	private Integer status;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -102,19 +102,19 @@ public class PurchaseOrderPrimary extends IDataObject {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public Integer getCustomerID() {
+	public Long getCustomerID() {
 		return customerID;
 	}
 
-	public void setCustomerID(Integer customerID) {
+	public void setCustomerID(Long customerID) {
 		this.customerID = customerID;
 	}
 
-	public Integer getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(Integer userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 

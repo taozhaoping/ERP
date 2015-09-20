@@ -110,7 +110,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @param data
 	 * @return
 	 */
-	public void select(String sqlId , Integer data) {
+	public void select(String sqlId , Long data) {
 		sqlSessionTemplate.selectOne(namespace + sqlId, data);
 	}
 	
@@ -147,7 +147,7 @@ public abstract class BaseDao<IdataObject> {
 	 * @param data
 	 * @return
 	 */
-	public List<IdataObject> queryParentList(Integer productsId){
+	public List<IdataObject> queryParentList(Long productsId){
 		return sqlSessionTemplate.selectList(namespace + "listParents", productsId);
 	}
 	

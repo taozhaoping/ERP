@@ -22,7 +22,7 @@ public class ExpandProductionTask implements Runnable {
 	/**
 	 * 销售单号 
 	 */
-	private Integer ProcessingSingleId;
+	private Long ProcessingSingleId;
 	
 	/**
 	 * 日志
@@ -45,11 +45,11 @@ public class ExpandProductionTask implements Runnable {
 		}
 	}
 
-	public Integer getProcessingSingleId() {
+	public Long getProcessingSingleId() {
 		return ProcessingSingleId;
 	}
 
-	public void setProcessingSingleId(Integer processingSingleId) {
+	public void setProcessingSingleId(Long processingSingleId) {
 		ProcessingSingleId = processingSingleId;
 	}
 

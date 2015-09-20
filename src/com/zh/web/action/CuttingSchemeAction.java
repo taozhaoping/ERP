@@ -53,14 +53,14 @@ public class CuttingSchemeAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.cuttingSchemeModel.getId();
+		Long id = this.cuttingSchemeModel.getId();
 		
 		if (null != id) {
 			// 查询信息
 			LOGGER.debug("editor StoragePrimary id " + id);
 			CuttingScheme cuttingScheme = this.cuttingSchemeModel
 					.getCuttingScheme();
-			cuttingScheme.setId(Integer.valueOf(id));
+			cuttingScheme.setId(Long.valueOf(id));
 			CuttingScheme reult = cuttingSchemeService.query(cuttingScheme);
 			this.cuttingSchemeModel.setCuttingScheme(reult);
 
@@ -77,7 +77,7 @@ public class CuttingSchemeAction extends BaseAction {
 		LOGGER.debug("save()");
 		CuttingScheme cuttingScheme = this.cuttingSchemeModel
 				.getCuttingScheme();
-		Integer id = this.cuttingSchemeModel.getId();
+		Long id = this.cuttingSchemeModel.getId();
 		if (null != id && !"".equals(id)) {
 			String view = this.cuttingSchemeModel.getView();
 			if (null != view && "enabled".equals(view)) {

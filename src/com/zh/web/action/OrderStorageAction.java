@@ -97,7 +97,7 @@ public class OrderStorageAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.storagePrimaryModel.getId();
+		Long id = this.storagePrimaryModel.getId();
 
 		// 采购订单
 		PurchaseOrderPrimary purchaseOrderPrimary = new PurchaseOrderPrimary();
@@ -117,7 +117,7 @@ public class OrderStorageAction extends BaseAction {
 			LOGGER.debug("editor StoragePrimary id " + id);
 			StoragePrimary storagePrimary = this.storagePrimaryModel
 					.getStoragePrimary();
-			storagePrimary.setId(Integer.valueOf(id));
+			storagePrimary.setId(Long.valueOf(id));
 			StoragePrimary reult = storagePrimaryService.query(storagePrimary);
 			this.storagePrimaryModel.setStoragePrimary(reult);
 
@@ -139,7 +139,7 @@ public class OrderStorageAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.storagePrimaryModel.getStoragePrimary().setUserID(userID);
 			this.storagePrimaryModel.getStoragePrimary().setStoragedate(
 					DateUtil.getCreated());
@@ -151,7 +151,7 @@ public class OrderStorageAction extends BaseAction {
 		LOGGER.debug("save StorageDetail ()");
 		StorageDetail storageDetail = this.storagePrimaryModel
 				.getStorageDetail();
-		Integer id = this.storagePrimaryModel.getId();
+		Long id = this.storagePrimaryModel.getId();
 		if (null == id || "".equals(id)) {
 			// 新增
 			storageDetailService.insert(storageDetail);
@@ -170,7 +170,7 @@ public class OrderStorageAction extends BaseAction {
 		LOGGER.debug("save()");
 		StoragePrimary storagePrimary = this.storagePrimaryModel
 				.getStoragePrimary();
-		Integer id = this.storagePrimaryModel.getId();
+		Long id = this.storagePrimaryModel.getId();
 		if (null != id && !"".equals(id)) {
 			storagePrimary.setId(id);
 			storagePrimaryService.update(storagePrimary);

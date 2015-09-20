@@ -18,17 +18,17 @@ public class SalesOrderBom extends IDataObject {
 	 */
 	private static final long serialVersionUID = -3177653866959734491L;
 
-	private Integer id;
+	private Long id;
 	
 	/**
 	 * 销售订单号
 	 */
-	private	Integer orderID;
+	private	Long orderID;
 	
 	/**
 	 * 物料ID
 	 */
-	private Integer productsID;
+	private Long productsID;
 	
 	/**
 	 * 数量
@@ -43,12 +43,12 @@ public class SalesOrderBom extends IDataObject {
 	/**
 	 * 主物料ID
 	 */
-	private Integer mainProductsID;
+	private Long mainProductsID;
 	
 	/**
 	 * 父料id
 	 */
-	private Integer parentID;
+	private Long parentID;
 	
 	private Integer tier;
 	
@@ -66,27 +66,27 @@ public class SalesOrderBom extends IDataObject {
 	
 	private String updateDate;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getOrderID() {
+	public Long getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(Integer orderID) {
+	public void setOrderID(Long orderID) {
 		this.orderID = orderID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
@@ -106,19 +106,19 @@ public class SalesOrderBom extends IDataObject {
 		this.isMainProducts = isMainProducts;
 	}
 
-	public Integer getMainProductsID() {
+	public Long getMainProductsID() {
 		return mainProductsID;
 	}
 
-	public void setMainProductsID(Integer mainProductsID) {
+	public void setMainProductsID(Long mainProductsID) {
 		this.mainProductsID = mainProductsID;
 	}
 
-	public Integer getParentID() {
+	public Long getParentID() {
 		return parentID;
 	}
 
-	public void setParentID(Integer parentID) {
+	public void setParentID(Long parentID) {
 		this.parentID = parentID;
 	}
 
@@ -161,6 +161,6 @@ public class SalesOrderBom extends IDataObject {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	
 }

@@ -60,7 +60,7 @@ public class MaterialAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.productionTaskModel.getId();
+		Long id = this.productionTaskModel.getId();
 
 		if (null == id) {
 			throw new ParameterException("任务单号不允许为空!");
@@ -69,7 +69,7 @@ public class MaterialAction extends BaseAction {
 		// 查询信息
 		LOGGER.debug("editor ProductionTask id " + id);
 		ProductionTask productionTask = this.productionTaskModel.getProductionTask();
-		productionTask.setId(Integer.valueOf(id));
+		productionTask.setId(Long.valueOf(id));
 		ProductionTask reult = productionTaskService.query(productionTask);
 		this.productionTaskModel.setProductionTask(reult);
 
@@ -89,7 +89,7 @@ public class MaterialAction extends BaseAction {
 	 */
 	public String approvalDemand() throws Exception {
 		LOGGER.debug("examine SalesOrder ()");
-		Integer id = this.productionTaskModel.getId();
+		Long id = this.productionTaskModel.getId();
 		if (null == id || "".equals(id)) {
 			throw new ParameterException("领料单号不允许为空!");
 		}

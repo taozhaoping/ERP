@@ -18,13 +18,13 @@ public class AcceptanceList extends IDataObject {
 	 */
 	private static final long serialVersionUID = 3280404658467577945L;
 
-	private Integer id;
+	private Long id;
 	
-	private Integer productionTaskID;
+	private Long productionTaskID;
 	
-	private Integer productsID;
+	private Long productsID;
 	
-	private Integer processID;
+	private Long processID;
 	
 	private String processName;
 	
@@ -32,36 +32,44 @@ public class AcceptanceList extends IDataObject {
 	
 	private String isAcceptance;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getProductionTaskID() {
+	public Long getProductionTaskID() {
 		return productionTaskID;
 	}
 
-	public void setProductionTaskID(Integer productionTaskID) {
+	public void setProductionTaskID(Long productionTaskID) {
 		this.productionTaskID = productionTaskID;
 	}
 
-	public Integer getProductsID() {
+	public Long getProductsID() {
 		return productsID;
 	}
 
-	public void setProductsID(Integer productsID) {
+	public void setProductsID(Long productsID) {
 		this.productsID = productsID;
 	}
 
-	public Integer getProcessID() {
+	public Long getProcessID() {
 		return processID;
 	}
 
-	public void setProcessID(Integer processID) {
+	public void setProcessID(Long processID) {
 		this.processID = processID;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
 
 	public String getAcceptanceDate() {
@@ -80,12 +88,5 @@ public class AcceptanceList extends IDataObject {
 		this.isAcceptance = isAcceptance;
 	}
 
-	public String getProcessName() {
-		return processName;
-	}
-
-	public void setProcessName(String processName) {
-		this.processName = processName;
-	}
-
+	
 }

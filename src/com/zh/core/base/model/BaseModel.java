@@ -23,7 +23,7 @@ public class BaseModel {
 	 */
 	private String jsonIDString;
 	
-	private Integer id;
+	private Long id;
 	
 	private String spaceId;
 	
@@ -99,11 +99,11 @@ public class BaseModel {
 		this.jsonIDString = jsonIDString;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

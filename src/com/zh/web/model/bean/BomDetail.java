@@ -21,78 +21,86 @@ public class BomDetail extends IDataObject {
 	/**
 	 * 主键
 	 */
-	private Integer id;
-	
+	private Long id;
+
 	/**
 	 * 产品结构头表主建
 	 */
-	private Integer primaryId;
-	
+	private Long primaryId;
+
 	/**
 	 * 主产品主键
 	 */
-	private Integer productsId;
-	
+	private Long productsId;
+
 	/**
 	 * 子产品主键
 	 */
-	private Integer subProductsId;
+	private Long subProductsId;
 
 	/**
 	 * 子产品名称
 	 */
 	private String subProductsName;
-	
+
 	/**
 	 * 库位号
 	 */
 	private Integer position;
-	
+
 	/**
 	 * 是否主要产品
 	 */
 	private Integer isMainProducts;
-	
+
 	/**
 	 * 数量
 	 */
 	private Float qty;
-	
+
 	/**
 	 * 备注
 	 */
 	private String remarks;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getPrimaryId() {
+	public Long getPrimaryId() {
 		return primaryId;
 	}
 
-	public void setPrimaryId(Integer primaryId) {
+	public void setPrimaryId(Long primaryId) {
 		this.primaryId = primaryId;
 	}
 
-	public Integer getProductsId() {
+	public Long getProductsId() {
 		return productsId;
 	}
 
-	public void setProductsId(Integer productsId) {
+	public void setProductsId(Long productsId) {
 		this.productsId = productsId;
 	}
 
-	public Integer getSubProductsId() {
+	public Long getSubProductsId() {
 		return subProductsId;
 	}
 
-	public void setSubProductsId(Integer subProductsId) {
+	public void setSubProductsId(Long subProductsId) {
 		this.subProductsId = subProductsId;
+	}
+
+	public String getSubProductsName() {
+		return subProductsName;
+	}
+
+	public void setSubProductsName(String subProductsName) {
+		this.subProductsName = subProductsName;
 	}
 
 	public Integer getPosition() {
@@ -126,27 +134,18 @@ public class BomDetail extends IDataObject {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	
-	public String getSubProductsName() {
-		return subProductsName;
-	}
-
-	public void setSubProductsName(String subProductsName) {
-		this.subProductsName = subProductsName;
-	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("id:").append(id)
-		.append(" primaryId:").append(primaryId)
-		.append(" productsId:").append(productsId)
-		.append(" subProductsId:").append(subProductsId)
-		.append(" subProductsName:").append(subProductsName)
-		.append(" position:").append(position)
-		.append(" isMainProducts:").append(isMainProducts)
-		.append(" qty:").append(qty)
-		.append(" remarks:").append(remarks);
+		sb.append("id:").append(id).append(" primaryId:").append(primaryId)
+				.append(" productsId:").append(productsId)
+				.append(" subProductsId:").append(subProductsId)
+				.append(" subProductsName:").append(subProductsName)
+				.append(" position:").append(position)
+				.append(" isMainProducts:").append(isMainProducts)
+				.append(" qty:").append(qty).append(" remarks:")
+				.append(remarks);
 		return sb.toString();
 	}
 

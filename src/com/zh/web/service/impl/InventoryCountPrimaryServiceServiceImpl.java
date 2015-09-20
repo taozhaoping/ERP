@@ -76,7 +76,7 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 		if (inventoryCountPrimary.getWarehouseID() != 0) {
 			stock.setWarehouseID(inventoryCountPrimary.getWarehouseID());
 		}
-		Integer inventoryID = inventoryCountPrimary.getId();
+		Long inventoryID = inventoryCountPrimary.getId();
 		List<Stock> stockList = stockService.queryList(stock);
 		for (Stock stockReult : stockList) {
 			InventoryCountDetail inventoryCountDetail = new InventoryCountDetail();
@@ -92,7 +92,7 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 		return reult;
 	}
 
-	public void increaseStock(Integer id)
+	public void increaseStock(Long id)
 	{
 		InventoryCountPrimary inventoryCountPrimary = new InventoryCountPrimary();
 		inventoryCountPrimary.setId(id);
@@ -101,7 +101,7 @@ public class InventoryCountPrimaryServiceServiceImpl implements InventoryCountPr
 		
 		// 单据入库
 		StockUtil stockUtil = StockUtil.getInstance();
-		stockUtil.operationStock(id,0, stockUtil.INVENTORY_COUNT);
+		stockUtil.operationStock(id,0L, stockUtil.INVENTORY_COUNT);
 	}
 	
 	public InventoryCountPrimaryDao getInventoryCountPrimaryDao() {

@@ -59,7 +59,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 	@Override
 	public Integer insert(LibraryPrimary libraryPrimary,String type) {
 		// TODO Auto-generated method stub
-		Integer id = Integer.valueOf(libraryPrimaryDao.getSequence(SEQUENCE_LIBRARY_PRIMARY).toString());
+		Long id = Long.valueOf(libraryPrimaryDao.getSequence(SEQUENCE_LIBRARY_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		libraryPrimary.setId(id);
 		libraryPrimary.setOrderNoID(type + dateStr + id);
@@ -70,7 +70,7 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 	@Override
 	public void increaseStock(String id) {
 		LibraryPrimary libraryPrimary = new LibraryPrimary();
-		libraryPrimary.setId(Integer.valueOf(id));
+		libraryPrimary.setId(Long.valueOf(id));
 		LibraryPrimary reult = this.query(libraryPrimary);
 		if (null == reult)
 		{

@@ -66,14 +66,14 @@ public class ProcurementDemandAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.procurementDemandModel.getId();
+		Long id = this.procurementDemandModel.getId();
 
 		if (null != id) {
 			// 查询信息
 			LOGGER.debug("editor ProcurementDemandPrimary id " + id);
 			ProcurementDemandPrimary procurementDemandPrimary = this.procurementDemandModel
 					.getProcurementDemandPrimary();
-			procurementDemandPrimary.setId(Integer.valueOf(id));
+			procurementDemandPrimary.setId(Long.valueOf(id));
 			ProcurementDemandPrimary reult = procurementDemandPrimaryService.query(procurementDemandPrimary);
 			this.procurementDemandModel.setProcurementDemandPrimary(reult);
 
@@ -95,7 +95,7 @@ public class ProcurementDemandAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.procurementDemandModel.getProcurementDemandPrimary().setUserID(userID);
 			this.procurementDemandModel.getProcurementDemandPrimary().setCreateDate(
 					DateUtil.getCreated());
@@ -115,7 +115,7 @@ public class ProcurementDemandAction extends BaseAction {
 			throw new ParameterException("审核的单据号不允许为空!");
 		}
 		ProcurementDemandPrimary procurementDemandPrimary = new ProcurementDemandPrimary();
-		procurementDemandPrimary.setId(Integer.valueOf(formId));
+		procurementDemandPrimary.setId(Long.valueOf(formId));
 		procurementDemandPrimary.setStatus(UtilService.PROCUREMENTDEMAND_STATUS_APPROVAL);
 		procurementDemandPrimaryService.update(procurementDemandPrimary);
 		return Action.EDITOR_SUCCESS;
@@ -125,7 +125,7 @@ public class ProcurementDemandAction extends BaseAction {
 		LOGGER.debug("save ProcurementDemandDetail ()");
 		ProcurementDemandDetail procurementDemandDetail = this.procurementDemandModel
 				.getProcurementDemandDetail();
-		Integer id = this.procurementDemandModel.getId();
+		Long id = this.procurementDemandModel.getId();
 		if (null == id || "".equals(id)) {
 			// 新增
 			procurementDemandDetailService.insert(procurementDemandDetail);
@@ -144,7 +144,7 @@ public class ProcurementDemandAction extends BaseAction {
 		LOGGER.debug("save()");
 		ProcurementDemandPrimary procurementDemandPrimary = this.procurementDemandModel
 				.getProcurementDemandPrimary();
-		Integer id = this.procurementDemandModel.getId();
+		Long id = this.procurementDemandModel.getId();
 		if (null != id && !"".equals(id)) {
 			procurementDemandPrimary.setId(id);
 			procurementDemandPrimaryService.update(procurementDemandPrimary);

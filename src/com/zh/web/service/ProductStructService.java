@@ -97,7 +97,7 @@ public interface ProductStructService {
 	 * @param 组件的编号
 	 * @return 祖先编号的集合
 	 */
-	public List<BomDetail> queryParentList(Integer productsId);
+	public List<BomDetail> queryParentList(Long productsId);
 	
 	/**
 	 * 查询明细表列表，带分页

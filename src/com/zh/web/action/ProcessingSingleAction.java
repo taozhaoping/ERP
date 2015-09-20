@@ -71,7 +71,7 @@ public class ProcessingSingleAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.processingSingleModel.getId();
+		Long id = this.processingSingleModel.getId();
 
 		// 查询没有关联的，采购状态的销售订单
 		List<SalesOrderPrimary> salesOrderPrimaryList = salesOrderPrimaryService
@@ -85,7 +85,7 @@ public class ProcessingSingleAction extends BaseAction {
 			LOGGER.debug("editor ProcessingSinglePrimary id " + id);
 			ProcessingSinglePrimary processingSingleModelPrimary = this.processingSingleModel
 					.getProcessingSinglePrimary();
-			processingSingleModelPrimary.setId(Integer.valueOf(id));
+			processingSingleModelPrimary.setId(Long.valueOf(id));
 			ProcessingSinglePrimary result = processingSingleModelPrimaryService
 					.query(processingSingleModelPrimary);
 			this.processingSingleModel.setProcessingSinglePrimary(result);
@@ -117,7 +117,7 @@ public class ProcessingSingleAction extends BaseAction {
 		LOGGER.debug("save ProcessingSingleDetail ()");
 		ProcessingSingleDetail processingSingleModelDetail = this.processingSingleModel
 				.getProcessingSingleDetail();
-		Integer id = this.processingSingleModel.getId();
+		Long id = this.processingSingleModel.getId();
 		if (null == id || "".equals(id)) {
 			throw new ParameterException("产品编号不允许为空！");
 		}
@@ -156,7 +156,7 @@ public class ProcessingSingleAction extends BaseAction {
 			throw new ParameterException("加工单编号不允许为空！");
 		}
 
-		processingSingleModelPrimaryService.increase(Integer.valueOf(formID));
+		processingSingleModelPrimaryService.increase(Long.valueOf(formID));
 		return Action.EDITOR_SUCCESS;
 	}
 
@@ -164,7 +164,7 @@ public class ProcessingSingleAction extends BaseAction {
 		LOGGER.debug("save()");
 		ProcessingSinglePrimary processingSingleModelPrimary = this.processingSingleModel
 				.getProcessingSinglePrimary();
-		Integer id = this.processingSingleModel.getId();
+		Long id = this.processingSingleModel.getId();
 		if (null != id && !"".equals(id)) {
 			processingSingleModelPrimary.setId(id);
 			processingSingleModelPrimaryService

@@ -97,7 +97,7 @@ public class LibraryPrimaryAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.libraryPrimaryModel.getId();
+		Long id = this.libraryPrimaryModel.getId();
 
 		// 客户信息
 		Customer customer = new Customer();
@@ -117,7 +117,7 @@ public class LibraryPrimaryAction extends BaseAction {
 			LOGGER.debug("editor LibraryPrimary id " + id);
 			LibraryPrimary libraryPrimary = this.libraryPrimaryModel
 					.getLibraryPrimary();
-			libraryPrimary.setId(Integer.valueOf(id));
+			libraryPrimary.setId(Long.valueOf(id));
 			LibraryPrimary reult = libraryPrimaryService.query(libraryPrimary);
 			this.libraryPrimaryModel.setLibraryPrimary(reult);
 
@@ -141,7 +141,7 @@ public class LibraryPrimaryAction extends BaseAction {
 				return Action.VIEW;
 			}
 		} else {
-			Integer userID = this.queryUser().getId();
+			Long userID = this.queryUser().getId();
 			this.libraryPrimaryModel.getLibraryPrimary().setUserID(userID);
 			this.libraryPrimaryModel.getLibraryPrimary().setLibrarydate(
 					DateUtil.getCreated());
@@ -153,7 +153,7 @@ public class LibraryPrimaryAction extends BaseAction {
 		LOGGER.debug("save LibraryDetail ()");
 		LibraryDetail libraryDetail = this.libraryPrimaryModel
 				.getLibraryDetail();
-		Integer id = this.libraryPrimaryModel.getId();
+		Long id = this.libraryPrimaryModel.getId();
 
 		if (null == id || "".equals(id)) {
 			// 新增
@@ -173,7 +173,7 @@ public class LibraryPrimaryAction extends BaseAction {
 		LOGGER.debug("save()");
 		LibraryPrimary libraryPrimary = this.libraryPrimaryModel
 				.getLibraryPrimary();
-		Integer id = this.libraryPrimaryModel.getId();
+		Long id = this.libraryPrimaryModel.getId();
 		if (null != id && !"".equals(id)) {
 			libraryPrimary.setId(id);
 			libraryPrimaryService.update(libraryPrimary);

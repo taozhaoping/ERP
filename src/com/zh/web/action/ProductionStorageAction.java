@@ -58,7 +58,7 @@ public class ProductionStorageAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.processingSingleModel.getId();
+		Long id = this.processingSingleModel.getId();
 
 		if (null == id) {
 			throw new ParameterException("任务单号不允许为空!");
@@ -67,7 +67,7 @@ public class ProductionStorageAction extends BaseAction {
 		// 查询信息
 		LOGGER.debug("editor ProductionTask id " + id);
 		ProcessingSinglePrimary processingSinglePrimary = this.processingSingleModel.getProcessingSinglePrimary();
-		processingSinglePrimary.setId(Integer.valueOf(id));
+		processingSinglePrimary.setId(Long.valueOf(id));
 		ProcessingSinglePrimary reult = processingSinglePrimaryService.query(processingSinglePrimary);
 		this.processingSingleModel.setProcessingSinglePrimary(reult);
 
@@ -86,7 +86,7 @@ public class ProductionStorageAction extends BaseAction {
 	 * 采购需求单审核
 	 */
 	public String approvalDemand() throws ParameterException {
-		Integer id = this.processingSingleModel.getId();
+		Long id = this.processingSingleModel.getId();
 		if (null == id || "".equals(id)) {
 			throw new ParameterException("领料单号不允许为空!");
 		}

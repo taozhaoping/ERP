@@ -81,7 +81,7 @@ public class CustomerAction extends BaseAction {
 
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
-		Integer id = this.customerModel.getId();
+		Long id = this.customerModel.getId();
 		
 		//客户类型
 		List<Dictionary> typeList = queryDictionaryList(BasiTypeService.CUSTOMER_TYPE);
@@ -99,7 +99,7 @@ public class CustomerAction extends BaseAction {
 			//查询信息
 			LOGGER.debug("editor Customer id " + id );
 			Customer customer = this.customerModel.getCustomer();
-			customer.setId(Integer.valueOf(id));
+			customer.setId(Long.valueOf(id));
 			Customer reult = customerService.query(customer);
 			this.customerModel.setCustomer(reult);
 			
@@ -137,7 +137,7 @@ public class CustomerAction extends BaseAction {
 	public String save() throws Exception {
 		LOGGER.debug("save()");
 		Customer customer = this.customerModel.getCustomer();
-		Integer id = this.customerModel.getId();
+		Long id = this.customerModel.getId();
 		if (null != id && !"".equals(id))
 		{
 			String view = this.customerModel.getView();
@@ -170,7 +170,7 @@ public class CustomerAction extends BaseAction {
 	public String saveMailList() {
 		LOGGER.debug("saveMailList()");
 		String formId = this.customerModel.getFormId();
-		Integer id = this.customerModel.getId();
+		Long id = this.customerModel.getId();
 		String view = this.customerModel.getView();
 		
 		if (null == formId || "".equals(formId)) {
@@ -183,7 +183,7 @@ public class CustomerAction extends BaseAction {
 		}
 		
 		MailList mailList = this.customerModel.getMailList();
-		mailList.setForeignId(Integer.valueOf(formId));
+		mailList.setForeignId(Long.valueOf(formId));
 
 		if (null != view && "delete".equals(view)) {
 			mailList.setId(id);
