@@ -83,6 +83,11 @@
 		CALL expand_sales_order_bom(#{data})
 	</select>
 
+	<!-- 产品结构分解采购需求订单 -->
+	<select id="bomPurchasingDemand" parameterType="java.lang.Integer" statementType="CALLABLE">
+		CALL bom_Purchasing_demand(#{data})
+	</select>
+
 	<insert id="insert" parameterType="SalesOrderDetail">
 		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select

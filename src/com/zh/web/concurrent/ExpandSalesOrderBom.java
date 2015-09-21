@@ -35,8 +35,14 @@ public class ExpandSalesOrderBom implements Runnable {
 	public void run() {
 		LOGGER.debug("ExpandSalesOrderBom run start; id:{}",salesOrderId);
 		try{
+			//展开销售订单中的BOM
 			salesOrderDetailDao.select("expandSalesOrderBom", salesOrderId);
 			LOGGER.debug("ExpandSalesOrderBom run end; id:{}",salesOrderId);
+			
+			//产品结构分解采购需求订单
+			salesOrderDetailDao.select("bomPurchasingDemand", salesOrderId);
+			LOGGER.debug("bomPurchasingDemand run end; id:{}",salesOrderId);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			LOGGER.error("ExpandSalesOrderBom error; id:{}",salesOrderId);
