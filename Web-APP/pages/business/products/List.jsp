@@ -95,7 +95,7 @@
 								<div class="span5">
 									<label class="control-label">产品编号：
 										<input type="number" maxlength="15" id="inputId" name="products.id"
-											value="${products.id}" class="input-large">
+											value="${products.id}" class="input-large" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 										</label>
 								</div>
 								<div class="span4">

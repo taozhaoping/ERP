@@ -59,6 +59,10 @@ public class ProductsAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
 		Products products = this.productsModel.getProducts();
+		if(products.getName() != null)
+		{
+			products.setName(products.getName().trim());
+		}
 		Integer count = productsService.count(products);
 		Pager page = this.productsModel.getPageInfo();
 		page.setTotalRow(count);
