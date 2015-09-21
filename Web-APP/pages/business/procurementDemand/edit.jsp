@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@  page import="com.zh.base.util.JspUtil" %>
 <%
 	String path = request.getContextPath();
@@ -97,12 +98,14 @@
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
 						<div class="pull-right">
+							<shiro:hasPermission name="procurementDemand:approve">
 							<s:if test="#ProcessId">
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
 									<i class="icon-ok"></i> 审批
 								</button>
 							</s:if>
+							</shiro:hasPermission>
 						</div>
 					</div>
 					<div class="well">

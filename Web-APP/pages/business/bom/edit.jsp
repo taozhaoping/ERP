@@ -93,11 +93,13 @@
 						<div class="btn-group"></div>
 						
 						<div class="pull-right">
+							<shiro:hasPermission name="productStruct:approve">
 							<s:if test="bomPrimary.productsId">
 								<button class="btn btn-danger" type="button" id="approveBtn" data-toggle="modal" data-target="#forMchangefirm">
 									<i class="icon-ok"></i> 审核
 								</button>
 							</s:if>
+							</shiro:hasPermission>
 						</div>
 					</div>
 					<div class="well">

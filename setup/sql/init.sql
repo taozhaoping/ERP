@@ -497,3 +497,52 @@ insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 101);
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 102);
 
 commit;
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (103, '验收单批准', null, 0, null, 'acceptance:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (104, '产品结构维护批准', null, 0, null, 'productStruct:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (105, '加工单批准', null, 0, null, 'processingSingle:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (106, '采购需求清单批准', null, 0, null, 'procurementDemand:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (107, '生产入库批准', null, 0, null, 'productionStorage:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (108, '采购订单批准', null, 0, null, 'purchaseOrder:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (109, '销售订单批准', null, 0, null, 'salesOrder:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (110, '领料单批准', null, 0, null, 'material:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (111, '订单入库批准', null, 0, null, 'orderStorage:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (112, '其他入库批准', null, 0, null, 'stockStorage:approve');
+
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (113, '其他出库批准', null, 0, null, 'stockLibrary:approve');
+
+commit;
+
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 103);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 104);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 105);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 106);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 107);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 108);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 109);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 110);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 111);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 112);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 113);
+
+commit;
