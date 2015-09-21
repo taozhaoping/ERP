@@ -321,7 +321,7 @@ public class PurchaseOrderAction extends BaseAction {
 			String fileName = purchaseOrderId + ".doc";
 			response.setContentType("application/x-download");
 			response.addHeader("Content-Disposition", new String(
-					("filename=" + fileName).getBytes("GBK"), "ISO-8859-1"));
+					("filename=" + fileName).getBytes("UTF-8"), "ISO-8859-1"));
 			os = response.getOutputStream();
 //			fis = new FileInputStream(file);
 //			byte[] buf = new byte[1024];
@@ -329,7 +329,7 @@ public class PurchaseOrderAction extends BaseAction {
 //			while ((fis != null) && ((length = fis.read(buf)) != -1)) {
 //				os.write(buf, 0, length);
 //			}
-			Writer out = new OutputStreamWriter(os);
+			Writer out = new OutputStreamWriter(os,"UTF-8");
 			template.process(rootMap, out);
 			out.flush();
 		} catch (Exception e) {
