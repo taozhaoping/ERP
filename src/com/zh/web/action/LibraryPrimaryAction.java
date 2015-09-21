@@ -65,6 +65,7 @@ public class LibraryPrimaryAction extends BaseAction {
 	public String execute() throws Exception {
 		LibraryPrimary libraryPrimary = this.libraryPrimaryModel
 				.getLibraryPrimary();
+		libraryPrimary.setIsStorage(0);
 		Integer count = libraryPrimaryService.count(libraryPrimary);
 		Pager page = this.libraryPrimaryModel.getPageInfo();
 		page.setTotalRow(count);

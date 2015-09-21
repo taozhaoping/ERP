@@ -8,8 +8,14 @@ import org.springframework.stereotype.Component;
 import com.zh.core.exception.ProjectException;
 import com.zh.core.model.Pager;
 import com.zh.core.util.DateUtil;
+import com.zh.web.dao.LibraryDetailDao;
 import com.zh.web.dao.LibraryPrimaryDao;
+import com.zh.web.dao.SalesOrderDetailDao;
+import com.zh.web.dao.SalesOrderPrimaryDao;
+import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
+import com.zh.web.model.bean.SalesOrderDetail;
+import com.zh.web.model.bean.SalesOrderPrimary;
 import com.zh.web.service.LibraryPrimaryService;
 import com.zh.web.util.StockUtil;
 import com.zh.web.util.UtilService;
@@ -19,6 +25,15 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 
 	@Autowired
 	private LibraryPrimaryDao libraryPrimaryDao;
+	
+	@Autowired
+	private LibraryDetailDao libraryDetailDao;
+	
+	@Autowired
+	private SalesOrderPrimaryDao salesOrderPrimaryDao;
+
+	@Autowired
+	private SalesOrderDetailDao salesOrderDetailDao;
 	
 	@Override
 	public LibraryPrimary query(LibraryPrimary libraryPrimary) {
@@ -58,13 +73,32 @@ public class LibraryPrimaryServiceImpl implements LibraryPrimaryService {
 
 	@Override
 	public Integer insert(LibraryPrimary libraryPrimary,String type) {
-		// TODO Auto-generated method stub
+		Integer ret = 0;
 		Long id = Long.valueOf(libraryPrimaryDao.getSequence(SEQUENCE_LIBRARY_PRIMARY).toString());
 		String dateStr = DateUtil.getToday();
 		libraryPrimary.setId(id);
 		libraryPrimary.setOrderNoID(type + dateStr + id);
 		libraryPrimary.setStatus(UtilService.STORAGE_STATUS_ON);
-		return libraryPrimaryDao.insert(libraryPrimary);
+		ret = libraryPrimaryDao.insert(libraryPrimary);
+		//获取采购订单明细，添加采购订单明细到订单出库
+		String salesOrderId = libraryPrimary.getPurchaseOrderID();
+		SalesOrderPrimary salesOrderPrimary = new SalesOrderPrimary();
+		salesOrderPrimary.setOrderID(salesOrderId);
+		salesOrderPrimary = salesOrderPrimaryDao.query(salesOrderPrimary);
+		
+		SalesOrderDetail salesOrderDetail = new SalesOrderDetail();
+		salesOrderDetail.setSalesOrderID(salesOrderPrimary.getId());
+		List<SalesOrderDetail> list = salesOrderDetailDao.queryList(salesOrderDetail );
+		for(SalesOrderDetail sod : list){
+			LibraryDetail data = new LibraryDetail();
+			data.setLibraryPrimaryID(libraryPrimary.getId());
+			data.setProductsID(sod.getProductsID());
+			data.setStockNumber(Float.valueOf(sod.getStorageNumber()));
+			data.setRemarks(sod.getRemarks());
+			libraryDetailDao.insert(data );
+		}
+		
+		return ret;
 	}
 
 	@Override

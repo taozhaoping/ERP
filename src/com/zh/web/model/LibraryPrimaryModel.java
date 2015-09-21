@@ -8,6 +8,8 @@ import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.Customer;
 import com.zh.web.model.bean.LibraryDetail;
 import com.zh.web.model.bean.LibraryPrimary;
+import com.zh.web.model.bean.PurchaseOrderPrimary;
+import com.zh.web.model.bean.SalesOrderPrimary;
 
 public class LibraryPrimaryModel extends BaseModel {
 
@@ -22,6 +24,8 @@ public class LibraryPrimaryModel extends BaseModel {
 	private List<Customer> customerList = new ArrayList<Customer>();
 
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
+	
+	private List<SalesOrderPrimary> salesOrderPrimaryList = new ArrayList<SalesOrderPrimary>();
 
 	public LibraryPrimary getLibraryPrimary() {
 		return libraryPrimary;
@@ -69,6 +73,15 @@ public class LibraryPrimaryModel extends BaseModel {
 
 	public void setWarehouseList(List<Warehouse> warehouseList) {
 		this.warehouseList = warehouseList;
+	}
+
+	public List<SalesOrderPrimary> getSalesOrderPrimaryList() {
+		return salesOrderPrimaryList;
+	}
+
+	public void setSalesOrderPrimaryList(
+			List<SalesOrderPrimary> salesOrderPrimaryList) {
+		this.salesOrderPrimaryList = salesOrderPrimaryList;
 	}
 
 	

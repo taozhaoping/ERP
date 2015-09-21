@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@  page import="com.zh.base.util.JspUtil" %>
 <%
 	String path = request.getContextPath();
@@ -84,8 +85,6 @@
 			<li><a href="" id="navigation"></a> <span class="divider">/</span></li>
 			<li class="active">查看</li>
 		</ul>
-		<s:set name="ProcessId"
-					value="productionTask.id!=null&&productionTask.id!=''" />
 		<div class="container-fluid">
 				<input type="hidden" id="formChanged" name="formChanged" value="0" />
 				<div class="row-fluid">
@@ -99,23 +98,23 @@
 					<div class="well">
 						<ul class="nav nav-tabs">
 							<li><a id="homeButt" href="#home" data-toggle="tab">基本信息</a></li>
-							<li><a id="storagedetailButt" href="#storagedetail" data-toggle="tab">加工入库清单</a></li>
+							<li><a id="stocikLibraryButt" href="#stocikLibrary" data-toggle="tab">出库清单</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<dl class="tab-pane fade dl-horizontal" id="home">
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>生产任务单：</dt>
-											<dd>${productionTask.productionOrder}</dd>
+											<dt>出库单号：</dt>
+											<dd>${libraryPrimary.orderNoID}</dd>
 										</div>
 									</div>
 									
 									<div class="span4">
 										<div class="control-group">
-											<dt>加工单号：</dt>
+											<dt>出库时间：</dt>
 											<dd>
-												<dd>${productionTask.processingsingleID}</dd>
+												${libraryPrimary.librarydate}
 											</dd>
 										</div>
 									</div>
@@ -124,44 +123,99 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<dt>加工日期：</dt>
-											<dd>
-												<s:date name="productionTask.startDate" format="yyyy-MM-dd" />
-											</dd>
+											<dt>发货人：</dt>
+											<dd><%=userName.queryUserName(String.valueOf(request.getAttribute("libraryPrimary.userID"))) %></dd>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<dt>完成日期：</dt>
+											<dt>接收客户：</dt>
 											<dd>
-												<s:date name="productionTask.endDate" format="yyyy-MM-dd" />
+												<s:iterator value="customerList" var="tp" status="index">
+													<s:if test="#tp.id == libraryPrimary.customerID">
+														<s:property value="#tp.name"/>
+													</s:if>
+												</s:iterator>
 											</dd>
 										</div>
 									</div>
 								</dir>
 								
+								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<dt>发货仓库：</dt>
+											<dd>
+												<s:iterator value="warehouseList" var="tp" status="index">
+													<s:if test="#tp.id == libraryPrimary.warehouseID">
+														<s:property value="#tp.name"/>
+													</s:if>
+												</s:iterator>
+											</dd>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<dt>出库：</dt>
+											<dd>
+												<s:if test="libraryPrimary.status==0">
+													否
+												</s:if>
+												<s:else>
+													是
+												</s:else>
+											</dd>
+										</div>
+									</div>
+								</dir>
+								
+								<dir class="row">
+									<div class="span8">
+										<div class="control-group">
+											<dt>备注：</dt>
+											<dd>${libraryPrimary.remarks}</dd>
+										</div>
+									</div>
+								</dir>
 							</dl>
 							
-							<div class="tab-pane fade" id="storagedetail">
+							<div class="tab-pane fade" id="stocikLibrary">
 								<table class="table ">
 									<thead>
 										<tr>
 											<th>序号</th>
-											<th>物料</th>
-											<th>数量</th>
+											<th>产品编号</th>
+											<th>产品名称</th>
+											<th>出库数量</th>
+											<th>库存量</th>
+											<th>用途</th>
+											<th>备注</th>
 										</tr>
 									</thead>
 									
 									<tbody id="maillistSearch">
 										<tr>
 											<!-- 产品列表-->
-											<s:iterator value="productionStorageDetailList" var="tp" status="index">
-											<tr>
-												<td><s:property value="#index.index +1" /></td>
-												<td><s:property value="#tp.productsId" /></td>
-												<td><s:property value="#tp.processingNumber" /></td>
-											</tr>
-											</s:iterator>
+										<s:iterator value="libraryDetailList" var="tp" status="index">
+										<tr>
+											<td><s:property value="#index.index +1" /></td>
+											<td><s:property value="#tp.productsID" /></td>
+											<td><s:property value="#tp.productsName" /></td>
+											<td><s:property value="#tp.storageNumber" /></td>
+											<td>
+												<s:if test="#tp.storageNumber > #tp.stockNumber">
+													<span style="color: red">
+												</s:if>
+												<s:else>
+													<span>
+												</s:else>
+														<s:property value="#tp.stockNumber" />
+													</span>
+											</td>
+											<td><s:property value="#tp.use" /></td>
+											<td><s:property value="#tp.remarks" /></td>
+										</tr>
+										</s:iterator>
 											
 										</tr>
 									</tbody>
@@ -176,14 +230,15 @@
 				</div>
 		</div>
 	</div>
-
+	
 	<form action="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="queryForm" method="post">
 		<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden"/>
 		<input type="hidden" name="spaceId" value="${spaceId}">
+		<input type="hidden" name="id" value="${libraryPrimary.id}">
 		<input type="hidden" name="view" value="view">
-		<input type="hidden" name="id" value="${productionTask.id}">
-		<input type="hidden" name="tabID" value="storagedetailButt">
+		<input type="hidden" name="tabID" value="stocikLibraryButt">
 	</form>
+	
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/collapsePulg.js"></script>
@@ -199,7 +254,6 @@
 		var pageSize = ${pageInfo.pageSize};
 		var curPage = ${pageInfo.curPage};
 		var tabID = "${tabID}";
-		
 	</script>
 </body>
 </html>

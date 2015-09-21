@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@  page import="com.zh.base.util.JspUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
@@ -55,6 +56,7 @@
 <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body class="">
+<jsp:useBean id="userName" class="com.zh.base.util.JspUtil" scope="session"></jsp:useBean>
 	<!--<![endif]-->
 	<%@ include file="/pages/common/titleWithNav.jsp"%>
 	<%@ include file="/pages/common/sidebarWithNav.jsp"%> 
@@ -86,15 +88,11 @@
 			<div class="row-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
-						<form class="form-search">
-							<input type="hidden" name="menuId" value="${menuId}" /> 
-							<input type="hidden" name="menu2Id" value="${menu2Id}" /> 
-							<input type="hidden" name="spaceId" value="${spaceId}" />
-							<!-- 
-							<input type="text" class="input-medium search-query form_datetime" readonly="readonly" name="productionTask.startDate" value="<s:date name="productionTask.startDate" format="yyyy-MM-dd"/>" title="开始时间" placeholder="开始时间" />
-							<button type="submit" class="btn">Search</button>
-							 -->
-						</form>
+						<shiro:hasPermission name="orderDelivery:add">
+						<a class="btn btn-primary" href="${menu2Id}!editor.jspa?menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}">
+							<i class="icon-plus"></i> 新增
+						</a>
+						</shiro:hasPermission>
 						<div class="btn-group"></div>
 					</div>
 					<div class="well">
@@ -102,26 +100,45 @@
 							<thead>
 								<tr>
 									<th>序号</th>
-									<th>加工单</th>
-									<th>生产单</th>
-									<th>生产日期</th>
-									<th>完成日期</th>
+									<th>出库单号</th>
+									<th>出库时间</th>
+									<th>签收人</th>
+									<th>仓库</th>
+									<th>状态</th>
+									<th>接收客户</th>
 									<th style="width: 40px;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="productionTaskList" var="tp" status="index">
+								<s:iterator value="libraryPrimaryList" var="tp" status="index">
 									<tr>
 									<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.processingsingleID"/></td>
-										<td><s:property value="#tp.productionOrder"/></td>
+										<td><s:property value="#tp.orderNoID"/></td>
+										<td><s:property value="#tp.librarydate"/></td>
 										<td>
-											<s:property value="#tp.startDate"/>
+											<s:set id="userID" value="#tp.userID"></s:set>
+											<%=userName.queryUserName(String.valueOf(request.getAttribute("userID"))) %>
 										</td>
 										<td>
-											<s:property value="#tp.endDate"/>
+											<s:set id="warehouseID" value="#tp.warehouseID"></s:set>
+											<%=userName.queryWarehouse(String.valueOf(request.getAttribute("warehouseID"))) %>
 										</td>
 										<td>
+											<s:if test="#tp.status==0">
+												未出库
+											</s:if>
+											<s:else>
+												出库
+											</s:else>
+										</td>
+										<td>
+											<s:set id="customerID" value="#tp.customerID"></s:set>
+											<%=userName.queryCustomer(String.valueOf(request.getAttribute("customerID"))) %>
+										</td>
+										<td>
+											<shiro:hasPermission name="orderDelivery:edit">
+											<a title="修改" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-pencil"></i></a> 
+											</shiro:hasPermission>
 											<a title="查看" style="margin: 0px 3px;" href="${menu2Id}!editor.jspa?id=<s:property value='#tp.id'/>&view=view&menuId=${menuId}&menu2Id=${menu2Id}&spaceId=${spaceId}"><i class="icon-search"></i></a> 
 										</td>
 									</tr>
@@ -148,7 +165,6 @@
 	<%@ include file="/pages/common/footer.jsp"%>
 	<script src="<%=path%>/js/bootstrap.js"></script>
 	<script src="<%=path %>/js/collapsePulg.js"></script>
-	<script src="<%=path%>/js/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		var menuId='${menuId}';
@@ -161,20 +177,6 @@
 			$('.demo-cancel-click').click(function() {
 				return false;
 			});
-			
-			//日期控件
-			$(".form_datetime").datetimepicker({
-				language : 'zh-CN',
-				format : 'yyyy-mm-dd',
-				weekStart : 1,
-				todayBtn : 1,
-				autoclose : 1,
-				todayHighlight : 1,
-				startView : 2,
-				minView : 2,
-				forceParse : true
-			});
-			
 			var headText = $("#" + menu2Id).text();
 			$("#menu2Name").text(headText);
 			$("#navigation").text(headText);

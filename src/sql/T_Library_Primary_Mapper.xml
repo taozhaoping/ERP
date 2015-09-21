@@ -5,8 +5,7 @@
 		<id column="ID" property="id" />
 		<result column="order_no_id" property="orderNoID" jdbcType="VARCHAR" />
 		<result column="LIBRARY_date" property="librarydate" jdbcType="VARCHAR" />
-		<result column="purchase_order_id" property="purchaseOrderID"
-			jdbcType="VARCHAR" />
+		<result column="purchase_order_id" property="purchaseOrderID" jdbcType="VARCHAR" />
 		<result column="userid" property="userID" />
 		<result column="warehouse_id" property="warehouseID" />
 		<result column="mount_meoey" property="mountMeoey" jdbcType="FLOAT" />
@@ -15,6 +14,7 @@
 		<result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
 		<result column="customer_id" property="customerID" jdbcType="VARCHAR" />
 		<result column="status" property="status" />
+		<result column="CONTAINER_TYPE" property="containerType" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID,
@@ -28,10 +28,17 @@
 		customer_id ,
 		createdate ,
 		updatedate,
-		status
+		status,
+		CONTAINER_TYPE
 	</sql>
 	<sql id="where">
 		<where>
+			<if test="isStorage == 1">
+		       and  purchase_order_id is not null
+		    </if>
+		    <if test="isStorage == 0">
+		       and  purchase_order_id is null
+		    </if>
 			<if test="id != null">
 				and id = #{id}
 			</if>
@@ -43,6 +50,9 @@
 			</if>
 			<if test="status != null">
 				and status = #{status}
+			</if>
+			<if test="containerType != null">
+				and CONTAINER_TYPE = #{containerType}
 			</if>
 		</where>
 	</sql>
@@ -105,6 +115,9 @@
 			<if test="status != null">
 				status ,
 			</if>
+			<if test="containerType != null">
+				CONTAINER_TYPE ,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -136,6 +149,9 @@
 			</if>
 			<if test="status != null">
 				#{status},
+			</if>
+			<if test="containerType != null">
+				#{containerType},
 			</if>
 		</trim>
 	</insert>
@@ -169,6 +185,9 @@
 			</if>
 			<if test="status != null">
 				status = #{status},
+			</if>
+			<if test="containerType != null">
+				CONTAINER_TYPE = #{containerType},
 			</if>
 		</set>
 		where ID = #{id}

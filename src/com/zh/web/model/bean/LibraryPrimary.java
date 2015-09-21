@@ -77,6 +77,16 @@ public class LibraryPrimary extends IDataObject {
 	 * 入库状态
 	 */
 	private Integer status;
+	
+	/**
+	 * 集装箱号
+	 */
+	private String containerType;
+	
+	/**
+	 * 是否订单出库(1销售订单出库，0为其他出库)
+	 */
+	private Integer isStorage;
 
 	public Long getId() {
 		return id;
@@ -172,6 +182,22 @@ public class LibraryPrimary extends IDataObject {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getContainerType() {
+		return containerType;
+	}
+
+	public void setContainerType(String containerType) {
+		this.containerType = containerType;
+	}
+
+	public Integer getIsStorage() {
+		return isStorage;
+	}
+
+	public void setIsStorage(Integer isStorage) {
+		this.isStorage = isStorage;
 	}
 
 }

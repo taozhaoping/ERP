@@ -774,7 +774,8 @@ create table t_library_Primary
    Customer_ID        NUMBER,
    createDate         varchar2(20),
    updateDate         varchar2(20),
-   STATUS               NUMBER default 0
+   STATUS             NUMBER default 0,
+   CONTAINER_TYPE	  varchar2(20)
 );
 
 comment on table t_library_Primary is
@@ -815,6 +816,9 @@ comment on column t_library_Primary.updateDate is
 
 comment on column t_library_Primary.STATUS is
 '状态';
+
+comment on column t_library_Primary.CONTAINER_TYPE is
+'集装箱号';
 
 alter table t_library_Primary
    add constraint PK_T_LIBRARY_PRIMARY primary key (ID);

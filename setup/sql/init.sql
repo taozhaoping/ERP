@@ -531,6 +531,9 @@ values (112, '其他入库批准', null, 0, null, 'stockStorage:approve');
 insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
 values (113, '其他出库批准', null, 0, null, 'stockLibrary:approve');
 
+insert into SYS_AUTHORITIES (ID, NAME, DESCRIPTION, ENABLED, MODULE, PERMISSION)
+values (114, '订单出库批准', null, 0, null, 'orderDelivery:approve');
+
 commit;
 
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 103);
@@ -544,5 +547,6 @@ insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 110);
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 111);
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 112);
 insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 113);
+insert into SYS_ROLE_TO_AUTHORITIES (ROLE_ID, AUTHORITIES_ID) values (1, 114);
 
 commit;
