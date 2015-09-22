@@ -91,7 +91,8 @@
 							<input type="hidden" name="menuId" value="${menuId}"> 
 							<input type="hidden" name="menu2Id" value="${menu2Id}"> 
 							<input type="hidden" name="spaceId" value="${spaceId}">
-							<input type="text" class="input-medium search-query" name="stock.productsID" value="${stock.productsID}" title="产品编号" placeholder="产品编号">
+							<input type="text" class="input-medium search-query" name="stock.productsID" value="${stock.productsID}" title="产品编号" placeholder="产品编号" 
+							onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 							<button type="submit" class="btn">Search</button>
 						</form>
 						<div class="btn-group"></div>

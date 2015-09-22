@@ -57,7 +57,7 @@
 		  from (select t.ID, t.PRODUCTS_ID, t.DESCR, t.EFFDT, t.EFF_STATUS
 		          from T_BOM_PRIMARY t
 		         where t.EFF_STATUS = '1'
-		           and t.effdt < to_char(sysdate,'yyyy-mm-dd hh24:mi:ss')
+		           and t.effdt <= to_char(sysdate,'yyyy-mm-dd hh24:mi:ss')
 		           and t.PRODUCTS_ID = #{productsId}
 		         order by t.EFFDT desc)
 		 where rownum = 1
