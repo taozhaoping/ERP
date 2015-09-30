@@ -101,7 +101,7 @@
 								<button class="btn btn-danger" type="button" id="approveBtn"
 								data-toggle="modal" data-target="#forMchangefirm">
 									<i class="icon-ok"></i> 
-									<s:if test="cuttingScheme.enabled=='0'">激活</s:if>
+									<s:if test="cuttingScheme.enabled==0">激活</s:if>
 									<s:else>停用</s:else>
 								</button>
 							</s:if>
@@ -196,7 +196,7 @@
 											<label class="control-label" for="inputbyProducts" style="">副产品编号：</label>
 											<div class="controls">
 												
-												<input id="inputbyProducts"  data-required="true" value="${cuttingScheme.byProducts}"
+												<input id="inputbyProducts" value="${cuttingScheme.byProducts}"
 													name="cuttingScheme.byProducts" class="input-large" placeholder="产品编号">
 												</input>
 											</div>
@@ -207,7 +207,7 @@
 											<label class="control-label" for="inputbyNumber" style="">副产品数量：</label>
 											<div class="controls">
 												<input size="16" id="inputbyNumber" name="cuttingScheme.byNumber"
-													type="number" data-required="true"
+													type="number"
 													value="${cuttingScheme.byNumber}"
 													class="input-large">
 											</div>

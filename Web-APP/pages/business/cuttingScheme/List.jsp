@@ -119,7 +119,11 @@
 										<td><s:property value="#tp.mainProducts"/>(<s:property value="#tp.mainName"/>)</td>
 										<td>
 										<s:property value="#tp.manNumber"/></td>
-										<td><s:property value="#tp.byProducts"/>(<s:property value="#tp.byName"/>)</td>
+										<td>
+											<s:if test='#tp.byProducts !=null'>
+												<s:property value="#tp.byProducts"/>(<s:property value="#tp.byName"/>)
+											</s:if>
+										</td>
 										<td><s:property value="#tp.byNumber"/></td>
 										<td>
 											<s:if test="#tp.enabled ==0">
