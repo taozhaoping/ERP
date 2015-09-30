@@ -1187,7 +1187,7 @@ comment on column T_Procurement_Demand_DETAIL.Remarks is
 
 alter table T_Procurement_Demand_DETAIL
    add constraint PK_T_PROCUREMENT_DEMAND_DETAIL primary key (id);
-   
+ 
 /*==============================================================*/
 /* Table: 采购订单表头					                             */
 /*==============================================================*/

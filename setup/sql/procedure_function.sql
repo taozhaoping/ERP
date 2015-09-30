@@ -456,6 +456,50 @@ end task_Production_task;
 --产品结构分解采购需求订单
 delete from T_PROCUREMENT_DEMAND_PRIMARY t where t.order_id is not null;
 delete from T_PROCUREMENT_DEMAND_DETAIL t ;
+alter table T_Procurement_Demand_TEMP drop primary key cascade;
+
+drop table T_Procurement_Demand_TEMP cascade constraints;
+drop sequence SEQUENCE_T_Procurement_TEMP;
+create sequence SEQUENCE_T_Procurement_TEMP
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
+create table T_Procurement_Demand_TEMP 
+(
+   id                 NUMBER               not null,
+   ProcuremenID       NUMBER,
+   ProductsID         NUMBER,
+   isMainProducts      NUMBER,
+   Demand_Number      NUMBER,
+   Remarks            varchar2(500)
+);
+
+comment on table T_Procurement_Demand_TEMP is
+'采购需求清单明细临时表';
+
+comment on column T_Procurement_Demand_TEMP.id is
+'主键';
+
+comment on column T_Procurement_Demand_TEMP.ProcuremenID is
+'采购需求头表ID';
+
+comment on column T_Procurement_Demand_TEMP.ProductsID is
+'产品编号';
+
+comment on column T_Procurement_Demand_TEMP.isMainProducts is
+'是否主要材料';
+
+comment on column T_Procurement_Demand_TEMP.Demand_Number is
+'数量';
+
+comment on column T_Procurement_Demand_TEMP.Remarks is
+'备注';
+
+alter table T_Procurement_Demand_TEMP
+   add constraint PK_T_Procurement_Demand_TEMP primary key (id);
 
 drop  procedure bom_Purchasing_demand;
 
@@ -478,37 +522,37 @@ declare
 begin
   DBMS_OUTPUT.ENABLE (buffer_size=>null);
         bom_order_id  := v_order_id;
-        
+
         --判断当前采购订单是否已经生成过采购需求清单
         select count(1) into t_status from T_PROCUREMENT_DEMAND_PRIMARY t where t.order_id=bom_order_id;
 
         if (t_status=0) then
           dbms_output.PUT_LINE('开始计算采购需求单：' || bom_order_id );
           select to_char(sysdate,'yyyymmdd') into t_dateChar from dual;
-          
+
           --损耗率
           select t.scrap_factor+1 into scrap_factor from sys_param t;
-             
+
           --进程编号
           select SEQUENCE_procedure_id.nextval into procedure_id from dual;
-          
+
           --获取销售订单信息
           select t.userid,t.inspection into userid,inspectionDate from T_SALES_ORDER_PRIMARY t where t.id=bom_order_id;
-          
+
           --初始化采购需求清单表头
           select SEQUENCE_T_Procurement_PRIMARY.nextval into DEMAND_PRIMARY_ID from dual;
           insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,sysdate,to_date(inspectionDate,'yyyy-mm-dd'),userid,bom_order_id,1,'销售订单分解');
 
           --获取指定的采购订单
           for sub in (select * from  T_SALES_ORDER_BOM b where b.order_id =bom_order_id and b.tier!=0 and (b.main_sub is null or b.main_sub='Y')) loop
-               
+
                --获取产品库存数量
                stock_Number := getProducts_stock_Number(sub.products_id);
                dbms_output.PUT_LINE('库存数量' || stock_Number);
                --主产品需要生产的数量
                main_product_number := getSalesOrderBOMProductNumber(sub.id);
                dbms_output.PUT_LINE('结构ID：' || sub.id || '    生产数量' || main_product_number);
-               
+
                 if(stock_Number < main_product_number) then
 
                   --主产品实际需要生产的数量
@@ -516,8 +560,8 @@ begin
                   if(sub.source_type=120) then
                     dbms_output.PUT_LINE('采购产品：' || sub.products_id );
                     --直接添加采购材料
-                    select SEQUENCE_T_Procurement_DETAIL.nextval into DEMAND_DETAIL_ID from dual;
-                    insert into T_PROCUREMENT_DEMAND_DETAIL (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,sub.products_id,main_product_number,'',sub.is_main_products);
+                    select SEQUENCE_T_Procurement_TEMP.nextval into DEMAND_DETAIL_ID from dual;
+                    insert into T_Procurement_Demand_TEMP (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,sub.products_id,main_product_number,'',sub.is_main_products);
                   else
                     --自生产产品
                     dbms_output.PUT_LINE('自生产产品：' || sub.products_id );
@@ -531,15 +575,20 @@ begin
                              select ceil(cutting_number) into cutting_number from dual;
                              dbms_output.PUT_LINE('产品:' || sub.products_id || '，实际需要生产数量：' || main_product_number || '原材料数量:' || cutting_number);
                              --添加采购材料
-                             select SEQUENCE_T_Procurement_DETAIL.nextval into DEMAND_DETAIL_ID from dual;
-                             insert into T_PROCUREMENT_DEMAND_DETAIL (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,cutting.raw_materials,cutting_number,'切割原材料',sub.is_main_products);
+                             select SEQUENCE_T_Procurement_TEMP.nextval into DEMAND_DETAIL_ID from dual;
+                             insert into T_Procurement_Demand_TEMP (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,cutting.raw_materials,cutting_number,'切割原材料',sub.is_main_products);
                              dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
                          end loop;
                     end if;
                   end if;
                 end if;
           end loop;
-           
+
+          --合并同一个销售订单的相同产品的采购订单
+          for hb in (select emp.productsid,emp.ismainproducts,sum(emp.demand_number) demandNumber,emp.remarks from T_PROCUREMENT_DEMAND_TEMP emp where emp.procuremenid=DEMAND_PRIMARY_ID group by emp.productsid,emp.ismainproducts,emp.remarks) loop
+              select SEQUENCE_T_Procurement_DETAIL.nextval into DEMAND_DETAIL_ID from dual;
+              insert into T_Procurement_Demand_DETAIL (ID,PROCUREMENID,PRODUCTSID,DEMAND_NUMBER,REMARKS,ISMAINPRODUCTS) values (DEMAND_DETAIL_ID,DEMAND_PRIMARY_ID,hb.productsid,hb.demandNumber,hb.remarks,hb.ismainproducts);
+          end loop;
         else
             dbms_output.PUT_LINE('采购需求单已经存在：' || bom_order_id );
         end if;
