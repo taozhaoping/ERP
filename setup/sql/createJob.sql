@@ -14,6 +14,9 @@ prompt
 --删除job
 --exec dbms_job.remove(jobID)
 
+--输出日记
+--set serveroutput on
+
 
 drop  procedure erp.task_purchasing_demand;
 

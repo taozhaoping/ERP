@@ -301,7 +301,7 @@ drop table t_Material_requisition_TEMP;
 create or replace procedure task_Production_task(v_ProcessingSingleID number) as
 begin
 declare
-       procedure_id number;           --进程ID
+       temp_procedure_id number;           --进程ID
        t_processingSingleID  number; -- 生产单id
        t_status number;          --生产单状态
        task_id number;           --生产任务主表ID
@@ -330,9 +330,9 @@ begin
 
            --损耗率
            select t.scrap_factor+1 into scrap_factor from sys_param t;
-           
+
            --进程编号
-            select SEQUENCE_procedure_id.nextval into procedure_id from dual;
+            select SEQUENCE_procedure_id.nextval into temp_procedure_id from dual;
 
            --加工单明细列表
            for sub in (select processingsingleid,startdate, enddate
@@ -362,7 +362,7 @@ begin
                        if (substitute_number != 0) then
                          --领料明细
                          select SEQUENCE_t_Material_DETAIL.nextval into Material_id from dual;
-                         insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,procedure_id,task_id,substitute.products_id,substitute_number*scrap_factor);
+                         insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,temp_procedure_id,task_id,substitute.products_id,substitute_number*scrap_factor);
                          dbms_output.PUT_LINE('替代料库:' || task.products_id || '，领料生产数量：' || cutting_number);
                        end if;
                     end loop;
@@ -405,7 +405,7 @@ begin
                                                     --领料明细
                                                    select SEQUENCE_t_Material_DETAIL.nextval into Material_id from dual;
                                                    select ceil(main_product_number*matreial.own_qty) into cutting_number from dual;
-                                                   insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,procedure_id,task_id,matreial.products_id,cutting_number);
+                                                   insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,temp_procedure_id,task_id,matreial.products_id,cutting_number);
                                                   --dbms_output.PUT_LINE('非自产产品:' || task.products_id || '，领料生产数量：' || main_product_number*matreial.own_qty);
                                                end loop;
 
@@ -418,11 +418,11 @@ begin
                                                    dbms_output.PUT_LINE('产品:' || task.products_id || '，实际需要生产数量：' || main_product_number || '原材料数量:' || cutting_number);
                                                    --领料明细
                                                      select SEQUENCE_t_Material_DETAIL.nextval into Material_id from dual;
-                                                     insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,procedure_id,task_id,cutting.raw_materials,cutting_number);
+                                                     insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,temp_procedure_id,task_id,cutting.raw_materials,cutting_number);
                                                     dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
-                                                    
+
                                                     --生产入库单初始化(剩余料)
-                                                    select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual; 
+                                                    select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
                                                     insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
                                                end loop;
                                         end if;
@@ -432,18 +432,18 @@ begin
                 end if;
              end loop;
            end loop;
-           
+
             --拷贝临时领料表到正式表
-            Insert into T_MATERIAL_REQUISITION_DETAIL(ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) select ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER from t_Material_requisition_TEMP tem where tem.procedure_id=procedure_id;
-            
+            Insert into T_MATERIAL_REQUISITION_DETAIL(ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) select ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER from t_Material_requisition_TEMP tem where tem.procedure_id=temp_procedure_id and tem.procedure_id=temp_procedure_id;
+
             --生产入库单初始化(成品)
             for psdet in (select * from t_sales_order_bom where tier=0 and order_id=order_id) loop
-              select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual; 
+              select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
               insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,psdet.products_id,psdet.qty,0);
             end loop;
-            
-            
-            
+
+
+
             --delete from t_Material_requisition_TEMP;
         else
            dbms_output.PUT_LINE('已经存在生产任务单');

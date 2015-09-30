@@ -26,4 +26,5 @@ grant drop any table to ERP;
 grant drop any view to ERP;
 grant insert any table to ERP;
 grant update any table to ERP;
-
+grant debug any procedure to ERP;
+grant debug connect session to ERP;
