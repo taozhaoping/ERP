@@ -98,7 +98,7 @@
 						<a class="btn" id="backList" href=""> 返回</a>
 						<div class="btn-group"></div>
 						<div class="pull-right">
-							<s:if test="%{purchaseOrderPrimary.status != 0}">
+							<s:if test="%{purchaseOrderPrimary.status != 0 && purchaseOrderPrimary.status != null}">
 								<button class="btn" type="button" id="downloadBtn">
 									<i class="icon-download-alt"></i> 导出
 								</button>

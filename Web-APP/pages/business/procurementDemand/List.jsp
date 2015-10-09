@@ -113,7 +113,7 @@
 								<s:iterator value="procurementDemandPrimaryList" var="tp" status="index">
 									<tr>
 										<td><s:property value="#index.index + 1"/></td>
-										<td><s:property value="#tp.orderID"/></td>
+										<td><s:property value="#tp.orderNo"/></td>
 										<td><s:property value="#tp.createDate"/></td>
 										<td><s:property value="#tp.limitDate"/></td>
 										<td>

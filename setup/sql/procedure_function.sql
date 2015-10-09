@@ -421,10 +421,12 @@ begin
                                                      insert into t_Material_requisition_TEMP (ID,PROCEDURE_ID,ProductionTaskID,Products_ID,MATERIAL_NUMBER) values (Material_id,temp_procedure_id,task_id,cutting.raw_materials,cutting_number);
                                                     dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
 
-                                                    --生产入库单初始化(剩余料)
-                                                    select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
-                                                    insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
-                                               end loop;
+                                                    if(cutting_number*cutting.by_number > 0 and cutting.by_product is not null and cutting.by_product !='') then
+                                                    	--生产入库单初始化(剩余料)
+                                                    	select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
+                                                    	insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
+                                              		end if; 
+                                              end loop;
                                         end if;
 
                                  end if;
@@ -541,7 +543,7 @@ begin
 
           --初始化采购需求清单表头
           select SEQUENCE_T_Procurement_PRIMARY.nextval into DEMAND_PRIMARY_ID from dual;
-          insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,sysdate,to_date(inspectionDate,'yyyy-mm-dd'),userid,bom_order_id,1,'销售订单分解');
+          insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,to_char(sysdate,'yyyy-mm-dd'),inspectionDate,userid,bom_order_id,1,'销售订单分解');
 
           --获取指定的采购订单
           for sub in (select * from  T_SALES_ORDER_BOM b where b.order_id =bom_order_id and b.tier!=0 and (b.main_sub is null or b.main_sub='Y')) loop

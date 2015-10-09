@@ -41,6 +41,11 @@ public class ProcurementDemandPrimary extends IDataObject {
 	private String orderID;
 	
 	/**
+	 * 销售订单编号
+	 */
+	private String orderNo;
+	
+	/**
 	 * 状态
 	 */
 	private Integer status;
@@ -104,6 +109,14 @@ public class ProcurementDemandPrimary extends IDataObject {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 	
 	

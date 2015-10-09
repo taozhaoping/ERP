@@ -162,4 +162,24 @@ public interface UtilService {
 	 * 完成
 	 */
 	public static Integer TASK_STATUS_COMPLETE = 3;
+	
+	/**
+	 * 销售订单状态 （发起）
+	 */
+	public static Integer ORDER_STATUS_SALES_LAUNCH = 0;
+	
+	/**
+	 * 销售订单状态 （采购）
+	 */
+	public static Integer ORDER_STATUS_SALES_PURCHASE = 1;
+	
+	/**
+	 * 销售订单状态 （生产）
+	 */
+	public static Integer ORDER_STATUS_SALES_PRODUCTION = 2;
+	
+	/**
+	 * 销售订单状态 （交付）
+	 */
+	public static Integer ORDER_STATUS_SALES_DELIVERY = 3;
 }

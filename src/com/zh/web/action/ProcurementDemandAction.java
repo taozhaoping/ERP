@@ -98,7 +98,7 @@ public class ProcurementDemandAction extends BaseAction {
 			Long userID = this.queryUser().getId();
 			this.procurementDemandModel.getProcurementDemandPrimary().setUserID(userID);
 			this.procurementDemandModel.getProcurementDemandPrimary().setCreateDate(
-					DateUtil.getCreated());
+					DateUtil.getNowDateShort());
 		}
 		return Action.EDITOR;
 	}

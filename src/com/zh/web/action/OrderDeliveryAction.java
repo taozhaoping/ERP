@@ -81,6 +81,7 @@ public class OrderDeliveryAction extends BaseAction {
 		// 客户信息
 		
 		SalesOrderPrimary salesOrderPrimary = new SalesOrderPrimary();
+		salesOrderPrimary.setStatus(UtilService.ORDER_STATUS_SALES_DELIVERY);
 		//销售订单
 		List<SalesOrderPrimary> salesOrderPrimaryList = salesOrderPrimaryService.queryList(salesOrderPrimary );
 		this.libraryPrimaryModel.setSalesOrderPrimaryList(salesOrderPrimaryList);

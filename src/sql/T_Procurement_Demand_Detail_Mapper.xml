@@ -72,7 +72,7 @@
 		estimatedPrice
 		from (select S.ID,
 		ProcuremenID,
-		p.order_id as orderID,
+		o.order_id as orderID,
 		p.status as approvalStatus,
 		s.ProductsID,
 		isMainProducts,
@@ -97,6 +97,8 @@
 		from T_Procurement_Demand_DETAIL S
 		LEFT JOIN t_Procurement_Demand_Primary p
 		on s.procuremenid = p.id
+		left join T_SALES_ORDER_PRIMARY o 
+    	on p.order_id=o.id
 		LEFT JOIN T_PRODUCTS T
 		ON T.ID = S.ProductsID
 		left join ( select procurementid,productsid,sum(purchase_number)

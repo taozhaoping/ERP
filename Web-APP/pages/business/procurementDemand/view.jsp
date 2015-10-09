@@ -142,7 +142,7 @@
 										<div class="control-group">
 											<dt>销售订单：</dt>
 											<dd>
-												${procurementDemandPrimary.orderID}
+												${procurementDemandPrimary.orderNo}
 											</dd>
 										</div>
 									</div>
