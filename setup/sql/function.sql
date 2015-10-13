@@ -82,14 +82,19 @@ begin
     select count(s.id)
       into storageCount
       from T_Procurement_Demand_DETAIL S
-      left join (select procurementid,
-                        productsid,
-                        sum(purchase_number) storageNumber
-                   from t_purchaseorder_detail pd
-                   left join t_purchaseorder_primary pp
-                     on pd.purchaseorderid = pp.id
-                  where pp.status = 3
-                  group by procurementid, productsid) sp
+     left join (select pd.procurementid,
+                          pd.productsid,
+                          sum(purchase_number) storageNumber
+                     from t_purchaseorder_detail pd
+                     left join t_purchaseorder_primary pp
+                       on pd.purchaseorderid = pp.id
+                     left join t_procurement_demand_detail ded
+                     on pd.procurementid=ded.id
+                     left join t_procurement_demand_primary dep
+                     on ded.procuremenid=dep.id
+                    where pp.status = 3
+                    and dep.order_id is not null
+                    group by pd.procurementid, pd.productsid) sp
         on s.id = sp.procurementid
      where sp.storageNumber > 0
        and s.productsid = productId;
@@ -97,14 +102,19 @@ begin
       select sum(sp.storageNumber)
         into storage_Number
         from T_Procurement_Demand_DETAIL S
-        left join (select procurementid,
-                          productsid,
+       left join (select pd.procurementid,
+                          pd.productsid,
                           sum(purchase_number) storageNumber
                      from t_purchaseorder_detail pd
                      left join t_purchaseorder_primary pp
                        on pd.purchaseorderid = pp.id
+                     left join t_procurement_demand_detail ded
+                     on pd.procurementid=ded.id
+                     left join t_procurement_demand_primary dep
+                     on ded.procuremenid=dep.id
                     where pp.status = 3
-                    group by procurementid, productsid) sp
+                    and dep.order_id is not null
+                    group by pd.procurementid, pd.productsid) sp
           on s.id = sp.procurementid
        where sp.storageNumber > 0
          and s.productsid = productId
@@ -116,20 +126,26 @@ begin
      select sum(sp.storageNumber - s.demand_number)
         into Excess_number
         from T_Procurement_Demand_DETAIL S
-        left join (select procurementid,
-                          productsid,
+         left join (select pd.procurementid,
+                          pd.productsid,
                           sum(purchase_number) storageNumber
                      from t_purchaseorder_detail pd
                      left join t_purchaseorder_primary pp
                        on pd.purchaseorderid = pp.id
+                     left join t_procurement_demand_detail ded
+                     on pd.procurementid=ded.id
+                     left join t_procurement_demand_primary dep
+                     on ded.procuremenid=dep.id
                     where pp.status = 3
-                    group by procurementid, productsid) sp
+                    and dep.order_id is not null
+                    group by pd.procurementid, pd.productsid) sp
           on s.id = sp.procurementid
        where sp.storageNumber > 0
          and s.productsid = productId
          group by s.productsid;
-         stockNumber := stockNumber + Excess_number;
-         
+         if(Excess_number>0)then
+             stockNumber := stockNumber + Excess_number;
+         end if;
     end if;
     
    

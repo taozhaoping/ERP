@@ -462,7 +462,9 @@ delete from T_PROCUREMENT_DEMAND_DETAIL t ;
 alter table T_Procurement_Demand_TEMP drop primary key cascade;
 
 drop table T_Procurement_Demand_TEMP cascade constraints;
+
 drop sequence SEQUENCE_T_Procurement_TEMP;
+
 create sequence SEQUENCE_T_Procurement_TEMP
 start with 1
  maxvalue 999999999
