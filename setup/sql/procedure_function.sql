@@ -10,7 +10,7 @@ prompt
 prompt Creating procedure EXPAND_PRODUCT_BOM
 prompt =====================================
 prompt
-create or replace procedure erp.EXPAND_PRODUCT_BOM(V_SALES_ORDER_ID  IN NUMBER,
+create or replace procedure EXPAND_PRODUCT_BOM(V_SALES_ORDER_ID  IN NUMBER,
                                                V_PRODUCT_ID      IN NUMBER,
                                                V_IS_MAIN_PRODUCT IN NUMBER,
                                                V_TIER            IN NUMBER,
@@ -24,21 +24,21 @@ begin
     TIER            number; -- 层级（产品本身为0）
     QTY             number; -- 数量
     PARENT_ID       number; -- 父类的id
-    
+
     bom_qty        number; -- 数量
     bom_sub_qty    number; -- 数量
     scrap_factor   float; --损耗率
-  
+
     SOURCE_TYPE    varchar2(50); -- 来源,如采购(120)，外加工(122)，自生产(121)
     insert_id      number; -- 产品id
     temp_parent_id number; -- 暂存的parent_id
-  
+
     bom_primary_id number; -- 产品结构中的主表id
-    
+
     bom_sub_primary_id number; -- 产品结构中的主表id
-    
+
     sub_bom_primary_id number; -- 替代料的产品结构中的主表id
-  
+
     sub_count number; -- 替代料的数量
   begin
     SALES_ORDER_ID  := V_SALES_ORDER_ID;
@@ -47,14 +47,14 @@ begin
     TIER            := V_TIER;
     QTY             := V_QTY;
     PARENT_ID := V_PARENT_ID;
-  
+
     select t.source_type
       into SOURCE_TYPE
       from T_PRODUCTS t
      where t.id = PRODUCT_ID;
-     
+
     select t.scrap_factor into scrap_factor from sys_param t ;
-  
+
     dbms_output.put_line('EXPAND_PRODUCT_BOM');
     /**
     * 1、插入数据库,根据层级判断
@@ -62,7 +62,7 @@ begin
     * 3、判断产品来源是否是<自生产>，如果是，则递归调用自己
     *
     */
-  
+
     -- 自生产的递归调用,考虑死循环的情况，如果层级大约100，则不继续递归
     if (SOURCE_TYPE is not null and SOURCE_TYPE = 121 and TIER < 100) then
       -- 根据产品编号找到结构主表的primary_id
@@ -77,16 +77,16 @@ begin
                          t.qty
                     from t_bom_detail t
                    where t.primary_id = bom_primary_id) loop
-        
+         dbms_output.put_line('主结构ID' || bom_primary_id);
           select decode(TIER, 1, p.is_main_products, IS_MAIN_PRODUCT)
             into IS_MAIN_PRODUCT
             from dual;
-            
-          select decode(TIER, 1, round(p.qty * QTY * (1+scrap_factor)), p.qty * QTY)
+
+          select decode(TIER, 1, ceil(p.qty * QTY * (1+scrap_factor)), p.qty * QTY)
             into bom_qty
             from dual;
-        
-          -- dbms_output.put_line(p.id);
+
+          dbms_output.put_line(p.id);
           -- 查找产品的来源,如采购(120)，外加工(122)，自生产(121)
           select t.source_type
             into SOURCE_TYPE
@@ -96,19 +96,19 @@ begin
           select SEQUENCE_T_SALES_ORDER_BOM.nextval
             into insert_id
             from dual;
-        
+
           -- 查询是否有主料、替代料
           select count(1)
             into sub_count
             from T_BOM_SUB t
            where t.primary_id = p.primary_id
              and t.main_products_id = p.sub_products_id;
-             
+
           --获取产品结构id
           bom_sub_primary_id := getReleaseBOMByProductId(p.sub_products_id);
-          
-           
-        
+
+
+
           --层级为1的时候,需要获取[是否为主要材料]值,计算主料、替代料,parentId
           --继承[是否是主要材料],计算主料、替代料,parentId
           insert into T_SALES_ORDER_BOM
@@ -137,9 +137,9 @@ begin
              decode(sub_count, 0, '', 'Y'));
           commit;
           --dbms_output.put_line(2);
-        
+
           temp_parent_id := insert_id;
-        
+
           --添加替代料
           if (sub_count is not null and sub_count > 0) then
             for sub in (select t.sub_products_id,
@@ -149,8 +149,8 @@ begin
                           from T_BOM_SUB t
                          where t.primary_id = p.primary_id
                            and t.main_products_id = p.sub_products_id) loop
-            
-              -- 产品来源                  
+
+              -- 产品来源
               select t.source_type
                 into SOURCE_TYPE
                 from T_PRODUCTS t
@@ -159,14 +159,14 @@ begin
               select SEQUENCE_T_SALES_ORDER_BOM.nextval
                 into insert_id
                 from dual;
-                
+
           select decode(TIER, 1, round(sub.qty * QTY * (1+scrap_factor)), sub.qty * QTY)
             into bom_sub_qty
             from dual;
-            
+
             sub_bom_primary_id := getReleaseBOMByProductId(sub.sub_products_id);
-            
-              --插入替代料   
+
+              --插入替代料
               insert into T_SALES_ORDER_BOM
                 (ID,
                  ORDER_ID,
@@ -194,10 +194,10 @@ begin
                  sub.main_products_id,
                  'N');
               commit;
-            
+
             end loop;
           end if;
-        
+
           --递归调用存储过程，展开产品
           EXPAND_PRODUCT_BOM(SALES_ORDER_ID,
                              p.sub_products_id,
@@ -205,10 +205,10 @@ begin
                              TIER + 1,
                              bom_qty,
                              temp_parent_id);
-        
+
         end loop;
       end if;
-    
+
     end if;
   end;
 end EXPAND_PRODUCT_BOM;
@@ -218,7 +218,7 @@ prompt
 prompt Creating procedure EXPAND_SALES_ORDER_BOM
 prompt =========================================
 prompt
-create or replace procedure erp.expand_sales_order_bom(sales_order_id in number) as
+create or replace procedure expand_sales_order_bom(sales_order_id in number) as
 begin
   declare
     --count_products number;
@@ -237,16 +237,16 @@ begin
                 where t.sales_order_id = input_id) loop
       dbms_output.put_line(so.id || ' : ' || so.sales_order_id || ' : ' ||
                            so.products_id);
-    
+
       select SEQUENCE_T_SALES_ORDER_BOM.nextval into insert_id from dual;
-    
+
       select t.source_type
         into SOURCE_TYPE
         from T_PRODUCTS t
        where t.id = so.products_id;
-       
+
        bom_primary_id := getReleaseBOMByProductId(so.products_id);
-       
+
       --插入顶级的产品
       insert into T_SALES_ORDER_BOM
         (ID, ORDER_ID, PRODUCTS_ID,PRODUCTS_BOM_ID, QTY, OWN_QTY, TIER, SOURCE_TYPE)
@@ -259,8 +259,8 @@ begin
          so.storage_number,
          0,
          SOURCE_TYPE);
-       commit;  
-      --展开的每个产品                       
+       commit;
+      --展开的每个产品
       EXPAND_PRODUCT_BOM(so.sales_order_id,
                          so.products_id,
                          '',
@@ -358,7 +358,8 @@ begin
                     for substitute in (select t.products_id from  T_SALES_ORDER_BOM t  where t.order_id=order_id and t.main_sub='N' and t.tier=task.tier and t.main_products_id=task.products_id) loop
 
                        --替代料库存数量
-                       substitute_number:=getProducts_stock_Number(substitute.products_id);
+                       substitute_number:=getProducts_stock_Number(substitute.products_id,order_id);
+
                        if (substitute_number != 0) then
                          --领料明细
                          select SEQUENCE_t_Material_DETAIL.nextval into Material_id from dual;
@@ -369,7 +370,7 @@ begin
                  end if;
 
                  --获取产品库存数量
-                 stock_Number := getProducts_stock_Number(task.products_id);
+                 stock_Number := getProducts_stock_Number(task.products_id,order_id);
                  dbms_output.PUT_LINE('库存数量' || stock_Number);
                  --主产品需要生产的数量
                  main_product_number := getSalesOrderBOMProductNumber(task.SALESORDERBOMID);
@@ -422,10 +423,10 @@ begin
                                                     dbms_output.PUT_LINE('切割产品:' || cutting.raw_materials || '，领料生产数量：' || cutting_number);
 
                                                     if(cutting_number*cutting.by_number > 0 and cutting.by_product is not null and cutting.by_product !='') then
-                                                    	--生产入库单初始化(剩余料)
-                                                    	select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
-                                                    	insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
-                                              		end if; 
+                                                      --生产入库单初始化(剩余料)
+                                                      select SEQUENCE_t_productionStorage.nextval into productionStorageID from dual;
+                                                      insert into t_productionStorage_DETAIL (id,processingsingleid,products_id,Processingnumber，warehouse_type) values(productionStorageID,t_processingSingleID,cutting.by_product,cutting_number*cutting.by_number,1);
+                                                  end if;
                                               end loop;
                                         end if;
 
@@ -503,6 +504,28 @@ comment on column T_Procurement_Demand_TEMP.Remarks is
 alter table T_Procurement_Demand_TEMP
    add constraint PK_T_Procurement_Demand_TEMP primary key (id);
 
+--预使用物料
+drop table T_STOCK_BOM_TEMP cascade constraints;
+create table T_STOCK_BOM_TEMP 
+(
+   id                 NUMBER               not null,
+   order_id           NUMBER,
+   ProductsID         NUMBER,
+   stock_bom_Number   NUMBER
+);
+
+alter table T_STOCK_BOM_TEMP
+   add constraint PK_T_STOCK_BOM_TEMP primary key (id);
+
+  
+drop sequence SEQUENCE_T_STOCK_BOM_TEMP;
+create sequence SEQUENCE_T_STOCK_BOM_TEMP
+start with 1
+ maxvalue 999999999
+ minvalue 1
+ cache 10
+order;
+
 drop  procedure bom_Purchasing_demand;
 
 create or replace procedure bom_Purchasing_demand(v_order_id number) as
@@ -516,7 +539,10 @@ declare
        userid            number;    --用户ID
        bom_order_id number;  --销售订单
        main_product_number FLOAT;  --主产品数量
+       stockBomCount   number; --使用使用过物料库存
+       stockBomNumber number;    --销售订单使用库存数量
        stock_Number FLOAT; --产品库存数量
+       T_STOCK_BOM_TEMP_ID number;
        scrap_factor FLOAT; --损耗率
        cutting_number FLOAT;  --原材料数量
        isCutting    number;  --是否需要查找切割方案 (0 查找切割方案，不等于0的，直接查看结构子类)
@@ -543,22 +569,39 @@ begin
 
           --初始化采购需求清单表头
           select SEQUENCE_T_Procurement_PRIMARY.nextval into DEMAND_PRIMARY_ID from dual;
-          insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,to_char(sysdate,'yyyy-mm-dd'),inspectionDate,userid,bom_order_id,1,'销售订单分解');
+           insert into T_PROCUREMENT_DEMAND_PRIMARY (ID,CREATEDATE,LIMITDATE,USERID,ORDER_ID,STATUS,REMARKS) values (DEMAND_PRIMARY_ID,to_char(sysdate,'yyyy-mm-dd'),inspectionDate,userid,bom_order_id,1,'销售订单分解');
 
           --获取指定的采购订单
           for sub in (select * from  T_SALES_ORDER_BOM b where b.order_id =bom_order_id and b.tier!=0 and (b.main_sub is null or b.main_sub='Y')) loop
 
                --获取产品库存数量
-               stock_Number := getProducts_stock_Number(sub.products_id);
+               stock_Number := getProducts_stock_Number(sub.products_id,bom_order_id);
                dbms_output.PUT_LINE('库存数量' || stock_Number);
                --主产品需要生产的数量
                main_product_number := getSalesOrderBOMProductNumber(sub.id);
-               dbms_output.PUT_LINE('结构ID：' || sub.id || '    生产数量' || main_product_number);
-
+               dbms_output.PUT_LINE('产品ID：' || sub.id || '    生产数量' || main_product_number);
+               
+               --当前销售订单是否使用过库存物料
+               select count(id) into stockBomCount from T_STOCK_BOM_TEMP t where t.productsid=sub.products_id and t.order_id=bom_order_id;
+               if(stockBomCount >0)then
+                     select sum(t.stock_bom_number) into stockBomNumber from T_STOCK_BOM_TEMP t where t.productsid=sub.products_id and t.order_id=bom_order_id group by t.productsid;
+                     stock_Number := stock_Number - stockBomNumber; 
+               end if;
+               
+               if(stock_Number > 0)then
+                    select SEQUENCE_T_STOCK_BOM_TEMP.nextval into T_STOCK_BOM_TEMP_ID from dual;
+                    if(stock_Number >= main_product_number)then
+                        insert into T_STOCK_BOM_TEMP (ID,PRODUCTSID,stock_bom_Number,order_id) values (T_STOCK_BOM_TEMP_ID,sub.products_id,main_product_number,bom_order_id);
+                    else
+                        insert into T_STOCK_BOM_TEMP (ID,PRODUCTSID,stock_bom_Number,order_id) values (T_STOCK_BOM_TEMP_ID,sub.products_id,stock_Number,bom_order_id);
+                    end if;
+               end if;
+                  
                 if(stock_Number < main_product_number) then
 
-                  --主产品实际需要生产的数量
-                  main_product_number := main_product_number - stock_Number;
+                 --主产品实际需要生产的数量
+                 main_product_number := main_product_number - stock_Number;
+                  dbms_output.PUT_LINE('生产数量:' || main_product_number || '库存数量' || stock_Number || '实际生产数量' || main_product_number);
                   if(sub.source_type=120) then
                     dbms_output.PUT_LINE('采购产品：' || sub.products_id );
                     --直接添加采购材料

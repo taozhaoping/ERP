@@ -26,7 +26,7 @@ public class StoragePrimaryModel extends BaseModel {
 
 	private List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 	
-	
+	private Integer storageNumber;
 
 	public StoragePrimary getStoragePrimary() {
 		return storagePrimary;
@@ -84,6 +84,14 @@ public class StoragePrimaryModel extends BaseModel {
 
 	public void setCustomerList(List<Customer> customerList) {
 		this.customerList = customerList;
+	}
+
+	public Integer getStorageNumber() {
+		return storageNumber;
+	}
+
+	public void setStorageNumber(Integer storageNumber) {
+		this.storageNumber = storageNumber;
 	}
 
 	

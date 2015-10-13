@@ -560,6 +560,7 @@ create table T_Storage_Primary
    Order_No_id        varchar2(50),
    Storage_Date       varchar2(20),
    Purchase_order_ID  varchar2(50),
+   DeliveryNumber     VARCHAR(60),
    UserID             NUMBER,
    Warehouse_ID       NUMBER,
    mount_meoey        FLOAT,
@@ -580,6 +581,9 @@ comment on column T_Storage_Primary.ID is
 
 comment on column T_Storage_Primary.Order_No_id is
 '入库单号';
+
+comment on column T_Storage_Primary.DeliveryNumber is
+'送货单号';
 
 comment on column T_Storage_Primary.Storage_Date is
 '入库时间';
@@ -619,6 +623,7 @@ create table T_Storage_Detail
    STORAGEPRIMARYID        NUMBER,
    Products_ID        NUMBER,
    Position           NUMBER,
+   purchaseNumber     NUMBER,
    Storage_number     NUMBER,
    Use                VARCHAR2(100),
    Remarks            varchar2(500)
@@ -640,6 +645,9 @@ comment on column T_Storage_Detail.Products_ID is
 
 comment on column T_Storage_Detail.Position is
 '库位';
+
+comment on column T_Storage_Detail.purchaseNumber is
+'采购数量';
 
 comment on column T_Storage_Detail.Storage_number is
 '入库数量';

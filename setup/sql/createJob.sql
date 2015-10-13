@@ -20,7 +20,7 @@ prompt
 
 drop  procedure erp.task_purchasing_demand;
 
-create or replace procedure erp.task_Purchasing_demand as
+create or replace procedure task_Purchasing_demand as
 begin
 declare
        isProd  number; -- 所有采购是否采购完成
@@ -34,7 +34,7 @@ begin
        s.ProductsID,
        isMainProducts,
        Demand_Number,
-       nvl(sp.storageNumber,0) storageNumber 
+       nvl(sp.storageNumber,0) storageNumber
   from T_Procurement_Demand_DETAIL S
   LEFT JOIN t_Procurement_Demand_Primary p
     on s.productsid = p.id
@@ -50,7 +50,7 @@ begin
  where ProcuremenID = sub.id ) loop
                    --处理数据
                  if(isProd = 0) then
-                   if (demandObject.Demand_Number != demandObject.storageNumber) then  
+                   if (demandObject.Demand_Number != demandObject.storageNumber) then
                      isProd  := 1;
                      dbms_output.PUT_LINE('未完成');
                      exit;
@@ -86,7 +86,7 @@ sys.dbms_job.submit(job1
   commit;
 end;
 
-create or replace procedure erp.task_Production_Decom as
+create or replace procedure task_Production_Decom as
 begin
 declare
        isProd  number; -- 所有采购是否采购完成

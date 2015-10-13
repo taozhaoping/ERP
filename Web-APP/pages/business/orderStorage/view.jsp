@@ -182,6 +182,7 @@
 										<th>序号</th>
 											<th>产品编号</th>
 											<th>产品名称</th>
+											<th>采购数量</th>
 											<th>入库数量</th>
 											<th>备注</th>
 										</tr>
@@ -195,6 +196,7 @@
 												<td><s:property value="#index.index +1" /></td>
 												<td><s:property value="#tp.productsID" /></td>
 												<td><s:property value="#tp.productsName" /></td>
+												<td><s:property value="#tp.purchaseNumber" /></td>
 												<td><s:property value="#tp.storageNumber" /></td>
 												<td><s:property value="#tp.remarks" /></td>
 											</tr>

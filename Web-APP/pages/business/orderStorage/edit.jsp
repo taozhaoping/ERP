@@ -155,10 +155,10 @@
 								<dir class="row">
 									<div class="span4">
 										<div class="control-group">
-											<label class="control-label" for="inputuserID" style="">收货人：</label>
+											<label class="control-label" for="inputuserID" style="">送货单号：</label>
 											<div class="controls">
-												<input type="text" maxlength="40" name="storagePrimary.userID" disabled="disabled"
-													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
+												<input type="text" maxlength="40" name="storagePrimary.deliveryNumber" data-required="true"
+													placeholder="送货单号" id="inputuserID" value="${storagePrimary.deliveryNumber}" class="input-medium"></input>
 											</div>
 
 										</div>
@@ -200,6 +200,19 @@
 									</div>
 								</dir>
 								<dir class="row">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="inputuserID" style="">收货人：</label>
+											<div class="controls">
+												<input type="text" maxlength="40" name="storagePrimary.userID" disabled="disabled"
+													placeholder="收货人" id="inputuserID" value="<%=userName.queryUserName(String.valueOf(request.getAttribute("storagePrimary.userID"))) %>" class="input-medium"></input>
+											</div>
+
+										</div>
+									</div>
+								
+								</dir>
+								<dir class="row">
 									<div class="span8">
 										<div class="control-group">
 											<label class="control-label" for="inputremarks" >备注：</label>
@@ -221,6 +234,7 @@
 									<th>序号</th>
 										<th>产品编号</th>
 										<th>产品名称</th>
+										<th>采购数量</th>
 										<th>入库数量</th>
 										<th>备注</th>
 									</tr>
@@ -234,7 +248,12 @@
 											<td><s:property value="#index.index +1" /></td>
 											<td><s:property value="#tp.productsID" /></td>
 											<td><s:property value="#tp.productsName" /></td>
-											<td><s:property value="#tp.storageNumber" /></td>
+											<td><s:property value="#tp.purchaseNumber" /></td>
+											<td>
+												<input size="16" id="inputStorageNumber" FID="${tp.id}" purchaseNumber="${tp.purchaseNumber}" name="tp.storageNumber"
+												type="number" value="<s:property value="#tp.storageNumber" />" onchange="changeQuantiy(this)"
+												class="input-medium">
+											</td>
 											<td><s:property value="#tp.remarks" /></td>
 										</tr>
 										</s:iterator>
@@ -333,6 +352,38 @@
 		//判读当前tab，需要保存那个form
 		function saveForm() {
 			$("#editForm").submit();
+		}
+		
+		function changeQuantiy(obj)
+		{
+			var changeValue = $(obj).val()
+			var changeID = $(obj).attr("FID");
+			var purchaseNumber = $(obj).attr("purchaseNumber");
+			var data = {"id":changeID,
+						"storageNumber":changeValue};
+			if(purchaseNumber>changeValue)
+			{
+				$(obj).parents("tr").addClass("error");
+				return;
+			}
+			$.ajax({
+				   type: "POST",
+				   url: basePath + "/" + spaceId + "/" + menu2Id + "!saveStorageDetailChangeNumber.jspa",
+				   data: data,
+				   success: function(msg){
+					$(obj).parents("tr").removeClass("success");
+					$(obj).parents("tr").removeClass("error");
+				     if(msg.reult=="success")
+				    {
+				    	$(obj).parents("tr").addClass("success");
+				    }else
+				    {
+				    	
+				    	$(obj).parents("tr").addClass("error");
+				    	$(obj).val(oldValue);
+				    }
+				   }
+				}); 
 		}
 		
 		if ("" != id)

@@ -36,6 +36,11 @@ public class StorageDetail extends IDataObject {
 	private Integer position;
 	
 	/**
+	 * 采购数量
+	 */
+	private Integer purchaseNumber;
+	
+	/**
 	 * 入库数量
 	 */
 	private Integer storageNumber;
@@ -119,5 +124,12 @@ public class StorageDetail extends IDataObject {
 		this.productsName = productsName;
 	}
 
-	
+	public Integer getPurchaseNumber() {
+		return purchaseNumber;
+	}
+
+	public void setPurchaseNumber(Integer purchaseNumber) {
+		this.purchaseNumber = purchaseNumber;
+	}
+
 }

@@ -7,6 +7,7 @@
 		<result column="PRODUCTS_ID" property="productsID" />
 		<result column="POSITION" property="position" />
 		<result column="STORAGE_NUMBER" property="storageNumber" />
+		<result column="purchaseNumber" property="purchaseNumber" />
 		<result column="use" property="use" jdbcType="VARCHAR" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 	</resultMap>
@@ -20,6 +21,7 @@
 		PRODUCTS_ID ,
 		POSITION ,
 		STORAGE_NUMBER,
+		purchaseNumber,
 		use ,
 		remarks 
 	</sql>
@@ -55,6 +57,7 @@
 		S.PRODUCTS_ID ,
 		T.POSITION ,
 		STORAGE_NUMBER,
+		purchaseNumber,
 		use ,
 		S.remarks ,
 		name as PRODUCTS_NAME
@@ -94,6 +97,9 @@
 			<if test="storageNumber != null">
 				STORAGE_NUMBER,
 			</if>
+			<if test="purchaseNumber != null">
+				purchaseNumber,
+			</if>
 			<if test="use != null">
 				use,
 			</if>
@@ -117,6 +123,9 @@
 			<if test="storageNumber != null">
 				#{storageNumber},
 			</if>
+			<if test="purchaseNumber != null">
+				#{purchaseNumber},
+			</if>
 			<if test="use != null">
 				#{use,jdbcType=VARCHAR},
 			</if>
@@ -139,6 +148,9 @@
 			</if>
 			<if test="storageNumber != null">
 				STORAGE_NUMBER = #{storageNumber},
+			</if>
+			<if test="purchaseNumber != null">
+				purchaseNumber = #{purchaseNumber},
 			</if>
 			<if test="use != null">
 				use = #{use,jdbcType=VARCHAR},

@@ -1,6 +1,7 @@
 package com.zh.web.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import com.zh.core.base.action.BaseAction;
 import com.zh.core.model.Pager;
 import com.zh.core.util.DateUtil;
 import com.zh.web.model.StoragePrimaryModel;
+import com.zh.web.model.bean.ProcessingSingleDetail;
 import com.zh.web.model.bean.PurchaseOrderPrimary;
 import com.zh.web.model.bean.StorageDetail;
 import com.zh.web.model.bean.StoragePrimary;
@@ -142,7 +144,7 @@ public class OrderStorageAction extends BaseAction {
 			Long userID = this.queryUser().getId();
 			this.storagePrimaryModel.getStoragePrimary().setUserID(userID);
 			this.storagePrimaryModel.getStoragePrimary().setStoragedate(
-					DateUtil.getCreated());
+					DateUtil.getNowDateShort());
 		}
 		return Action.EDITOR;
 	}
@@ -165,6 +167,31 @@ public class OrderStorageAction extends BaseAction {
 		return Action.EDITOR_SAVE;
 
 	}
+	
+
+	public String saveStorageDetailChangeNumber() throws ParameterException {
+		LOGGER.debug("update saveStorageDetailChangeNumber ()");
+		StorageDetail storageDetail = new StorageDetail();
+		Long id = this.storagePrimaryModel.getId();
+		if (null == id || "".equals(id)) {
+			throw new ParameterException("编号不允许为null！");
+		}
+		Map<String, Object> map = this.storagePrimaryModel.getDataMap();
+		map.put("reult", "error");
+		try {
+			Integer changeValue = this.storagePrimaryModel.getStorageNumber();
+			
+			// 修改
+			storageDetail.setId(id);
+			storageDetail.setStorageNumber(changeValue);
+			storageDetailService
+					.update(storageDetail);
+			map.put("reult", "success");
+		} catch (Exception e) {
+		}
+		return Action.RETURN_JSON;
+
+	}
 
 	public String save() throws Exception {
 		LOGGER.debug("save()");
@@ -183,6 +210,47 @@ public class OrderStorageAction extends BaseAction {
 		}
 		this.storagePrimaryModel.setFormId(storagePrimary.getId().toString());
 		return Action.EDITOR_SAVE;
+	}
+
+	public StoragePrimaryService getStoragePrimaryService() {
+		return storagePrimaryService;
+	}
+
+	public void setStoragePrimaryService(StoragePrimaryService storagePrimaryService) {
+		this.storagePrimaryService = storagePrimaryService;
+	}
+
+	public StorageDetailService getStorageDetailService() {
+		return storageDetailService;
+	}
+
+	public void setStorageDetailService(StorageDetailService storageDetailService) {
+		this.storageDetailService = storageDetailService;
+	}
+
+	public PurchaseOrderPrimaryService getPurchaseOrderPrimaryService() {
+		return purchaseOrderPrimaryService;
+	}
+
+	public void setPurchaseOrderPrimaryService(
+			PurchaseOrderPrimaryService purchaseOrderPrimaryService) {
+		this.purchaseOrderPrimaryService = purchaseOrderPrimaryService;
+	}
+
+	public WarehouseService getWarehouseService() {
+		return warehouseService;
+	}
+
+	public void setWarehouseService(WarehouseService warehouseService) {
+		this.warehouseService = warehouseService;
+	}
+
+	public StoragePrimaryModel getStoragePrimaryModel() {
+		return storagePrimaryModel;
+	}
+
+	public void setStoragePrimaryModel(StoragePrimaryModel storagePrimaryModel) {
+		this.storagePrimaryModel = storagePrimaryModel;
 	}
 
 }

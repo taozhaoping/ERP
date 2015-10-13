@@ -247,6 +247,9 @@
 				<param name="tabID">${tabID}</param>
 				<param name="spaceId">${spaceId}</param>
 			</result>
+			<result name="json" type="json">
+			    <param name="root">storagePrimaryModel.dataMap</param>
+			</result>
 		</action>
 		
 		<!-- 工序管理-->
@@ -410,6 +413,11 @@
 				<param name="tabID">${tabID}</param>
 				<param name="spaceId">${spaceId}</param>
 			</result>
+		</action>
+		
+		<!-- 采购助理 -->
+		<action name="purchasingAssistant" class="com.zh.web.action.PurchasingAssistantAction">
+			<result name="success">/pages/business/purchasingAssistant/List.jsp</result>
 		</action>
 	</package>
 </struts>

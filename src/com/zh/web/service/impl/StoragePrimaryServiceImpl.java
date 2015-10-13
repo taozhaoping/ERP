@@ -117,6 +117,8 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 							.getProductsID());
 					storageDetail.setStorageNumber(purchaseOrderDetail
 							.getPurchaseNumber());
+					storageDetail.setPurchaseNumber(purchaseOrderDetail
+							.getPurchaseNumber());
 					storageDetail.setRemarks(purchaseOrderDetail.getRemarks());
 					storageDetail.setProductsName(purchaseOrderDetail
 							.getProductsName());

@@ -35,6 +35,11 @@ public class StoragePrimary extends IDataObject {
 	private String purchaseOrderID;
 	
 	/**
+	 * 送货单号
+	 */
+	private String deliveryNumber;
+	
+	/**
 	 * 收货人
 	 */
 	private Long userID;
@@ -181,6 +186,14 @@ public class StoragePrimary extends IDataObject {
 
 	public void setIsStorage(Integer isStorage) {
 		this.isStorage = isStorage;
+	}
+
+	public String getDeliveryNumber() {
+		return deliveryNumber;
+	}
+
+	public void setDeliveryNumber(String deliveryNumber) {
+		this.deliveryNumber = deliveryNumber;
 	}
 
 

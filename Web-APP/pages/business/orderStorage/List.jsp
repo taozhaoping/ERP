@@ -102,6 +102,7 @@
 									<th>序号</th>
 									<th>采购单号</th>
 									<th>入库单号</th>
+									<th>送货单号</th>
 									<th>入库时间</th>
 									<th>签收人</th>
 									<th>仓库</th>
@@ -116,6 +117,7 @@
 									<td><s:property value="#index.index + 1"/></td>
 										<td><s:property value="#tp.purchaseOrderID"/></td>
 										<td><s:property value="#tp.orderNoID"/></td>
+										<td><s:property value="#tp.deliveryNumber"/></td>
 										<td><s:property value="#tp.storagedate"/></td>
 										<td>
 											<s:set id="userID" value="#tp.userID"></s:set>

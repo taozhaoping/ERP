@@ -7,6 +7,7 @@
 		<result column="storage_date" property="storagedate" jdbcType="VARCHAR" />
 		<result column="purchase_order_id" property="purchaseOrderID"
 			jdbcType="VARCHAR" />
+		<result column="DeliveryNumber" property="deliveryNumber" jdbcType="VARCHAR" />
 		<result column="userid" property="userID" />
 		<result column="warehouse_id" property="warehouseID" />
 		<result column="mount_meoey" property="mountMeoey" jdbcType="FLOAT" />
@@ -21,6 +22,7 @@
 		order_no_id ,
 		storage_date ,
 		purchase_order_id ,
+		DeliveryNumber,
 		userid ,
 		warehouse_id ,
 		mount_meoey ,
@@ -43,6 +45,9 @@
 			</if>
 			<if test="orderNoID != null">
 				and order_no_id = #{orderNoID}
+			</if>
+			<if test="deliveryNumber != null">
+				and DeliveryNumber = #{deliveryNumber,jdbcType=VARCHAR}
 			</if>
 			<if test="purchaseOrderID != null">
 				and purchase_order_id = #{purchaseOrderID}
@@ -93,6 +98,9 @@
 			<if test="purchaseOrderID != null">
 				purchase_order_id ,
 			</if>
+			<if test="deliveryNumber != null">
+				DeliveryNumber ,
+			</if>
 			<if test="userID != null">
 				userid ,
 			</if>
@@ -124,6 +132,9 @@
 			</if>
 			<if test="purchaseOrderID != null">
 				#{purchaseOrderID,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryNumber != null">
+				#{deliveryNumber,jdbcType=VARCHAR},
 			</if>
 			<if test="userID != null">
 				#{userID},
@@ -157,6 +168,9 @@
 			</if>
 			<if test="purchaseOrderID != null">
 				purchase_order_id = #{purchaseOrderID},
+			</if>
+			<if test="deliveryNumber != null">
+				DeliveryNumber = #{deliveryNumber,jdbcType=VARCHAR},
 			</if>
 			<if test="userID != null">
 				userid = #{userID},
