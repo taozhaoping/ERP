@@ -132,10 +132,10 @@
 		<if test="productsID != null">
 			and s.ProductsID = #{productsID}
 		</if>
+		</where>
 		<if test="orderByClause != null">
 			order by ${orderByClause}
 		</if>
-		</where>
 	</select>
 
 	<select id="count" resultType="Integer" parameterType="ProcurementDemandDetail">
