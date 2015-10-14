@@ -577,7 +577,15 @@ begin
           for sub in (select * from  T_SALES_ORDER_BOM b where b.order_id =bom_order_id and b.tier!=0 and (b.main_sub is null or b.main_sub='Y')) loop
 
                --获取产品库存数量
-               stock_Number := getProducts_stock_Number(sub.products_id,bom_order_id);
+               if(sub.source_type=120) then
+                  stock_Number := getProducts_stock_Number(sub.products_id,bom_order_id);
+               else
+                  select sum(st.stock_number)
+                  into stock_Number
+                  from t_stock st
+                   where st.products_id = sub.products_id
+                   group by st.products_id;
+               end if;
                dbms_output.PUT_LINE('库存数量' || stock_Number);
                --主产品需要生产的数量
                main_product_number := getSalesOrderBOMProductNumber(sub.id);
