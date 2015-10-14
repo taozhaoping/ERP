@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_PurchasingAssistant">
+	<resultMap id="T_PurchasingAssistant" type="PurchasingAssistant">
+		<id column="ID" property="id" />
+		<result column="purchaseorderid" property="purchaseOrderID" />
+		<result column="purchasedate" property="purchaseDate" />
+		<result column="order_no_id" property="orderNoID" />
+		<result column="customer_id" property="customerID" />
+		<result column="status" property="status" />
+		<result column="productsid" property="productsID" />
+		<result column="products_Name" property="productsName" jdbcType="VARCHAR"/>
+		<result column="measurement_company" property="measurementCompany" jdbcType="VARCHAR"/>
+		<result column="purchase_number" property="purchaseNumber" />
+		<result column="price" property="price" jdbcType="DOUBLE"/>
+		<result column="order_Value" property="orderValue" jdbcType="DOUBLE"/>
+		<result column="storage_number" property="storageNumber" />
+		<result column="storage_date" property="storagedate" />
+		<result column="warehouse_Name" property="warehouseName" jdbcType="VARCHAR"/>
+		<result column="deliverynumber" property="deliveryNumber"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="list" resultMap="T_PurchasingAssistant"
+		parameterType="PurchasingAssistant">
+		select
+		pp.id,
+		pp.purchaseorderid,
+		pp.purchasedate,
+		pp.customer_id,
+		pp.status,
+		pd.productsid,
+		pd.purchase_number,
+		pd.price,
+		sd.storage_number,
+		sp.order_no_id,
+		sp.storage_date,
+		sw.name as warehouse_Name,
+		pr.name as products_Name,
+		di.descr as measurement_company,
+		sp.deliverynumber,
+		sd.storage_number*pd.price as order_Value
+		from t_purchaseorder_primary pp
+		left join t_purchaseorder_detail pd
+		on pp.id = pd.purchaseorderid
+		left join t_storage_detail sd
+		on sd.purchaseorderid=pd.id
+		left join t_storage_primary sp on
+		sd.storageprimaryid=sp.id
+		left join t_products pr
+        on pr.id = pd.productsid
+        left join SYS_DICTIONARY di
+        on di.key = pr.measurement_company
+        left join sys_warehouse sw
+        on sw.id = sp.warehouse_id
+		<where>
+			<if test="customerID != null">
+				and pp.customer_id = #{customerID}
+			</if>
+			<if test="startDate != null">
+				and sp.storage_date >= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and sp.storage_date &lt;= #{endDate}
+			</if>
+		</where>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="PurchasingAssistant">
+		select
+		count(pp.id)
+		from t_purchaseorder_primary pp
+		left join t_purchaseorder_detail pd
+		on
+		pp.id = pd.purchaseorderid
+		left join t_storage_detail sd
+		on
+		sd.purchaseorderid=pd.id
+		left join t_storage_primary sp
+		on
+		sd.storageprimaryid=sp.id
+		<where>
+			<if test="customerID != null">
+				and pp.customer_id = #{customerID}
+			</if>
+			<if test="startDate != null">
+				and sp.storage_date >= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and sp.storage_date &lt;= #{endDate}
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

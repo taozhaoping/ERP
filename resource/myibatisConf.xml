@@ -139,6 +139,8 @@
 		<!-- 加工单入库明细 -->
 		<typeAlias alias="ProductionStorageDetail" type="com.zh.web.model.bean.ProductionStorageDetail"/>
 		
+		<!-- 采购助理视图 -->
+		<typeAlias alias="PurchasingAssistant" type="com.zh.web.model.bean.PurchasingAssistant"/>
 	</typeAliases>
 
 	<plugins>
