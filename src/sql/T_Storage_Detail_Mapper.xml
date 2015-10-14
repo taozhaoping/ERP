@@ -5,6 +5,7 @@
 		<id column="ID" property="id" />
 		<result column="STORAGEPRIMARYID" property="storagePrimaryID" />
 		<result column="PRODUCTS_ID" property="productsID" />
+		<result column="PURCHASEORDERID" property="purchaseorderID" />
 		<result column="POSITION" property="position" />
 		<result column="STORAGE_NUMBER" property="storageNumber" />
 		<result column="purchaseNumber" property="purchaseNumber" />
@@ -19,6 +20,7 @@
 		ID,
 		STORAGEPRIMARYID ,
 		PRODUCTS_ID ,
+		PURCHASEORDERID,
 		POSITION ,
 		STORAGE_NUMBER,
 		purchaseNumber,
@@ -55,6 +57,7 @@
 		S.ID,
 		STORAGEPRIMARYID ,
 		S.PRODUCTS_ID ,
+		PURCHASEORDERID,
 		T.POSITION ,
 		STORAGE_NUMBER,
 		purchaseNumber,
@@ -88,6 +91,9 @@
 			<if test="storagePrimaryID != null">
 				STORAGEPRIMARYID,
 			</if>
+			<if test="purchaseorderID != null">
+				PURCHASEORDERID,
+			</if>
 			<if test="productsID != null">
 				PRODUCTS_ID,
 			</if>
@@ -114,6 +120,9 @@
 			<if test="storagePrimaryID != null">
 				#{storagePrimaryID},
 			</if>
+			<if test="purchaseorderID != null">
+				#{purchaseorderID},
+			</if>
 			<if test="productsID != null">
 				#{productsID},
 			</if>
@@ -139,6 +148,9 @@
 		<set>
 			<if test="storagePrimaryID != null">
 				STORAGEPRIMARYID = #{storagePrimaryID},
+			</if>
+			<if test="purchaseorderID != null">
+				PURCHASEORDERID = #{purchaseorderID},
 			</if>
 			<if test="productsID != null">
 				PRODUCTS_ID = #{productsID},

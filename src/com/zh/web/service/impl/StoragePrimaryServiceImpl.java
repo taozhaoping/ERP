@@ -113,6 +113,7 @@ public class StoragePrimaryServiceImpl implements StoragePrimaryService {
 				for (PurchaseOrderDetail purchaseOrderDetail : purchaseOrderDetailList) {
 					StorageDetail storageDetail = new StorageDetail();
 					storageDetail.setStoragePrimaryID(storagePrimary.getId());
+					storageDetail.setPurchaseorderID(purchaseOrderDetail.getId());
 					storageDetail.setProductsID(purchaseOrderDetail
 							.getProductsID());
 					storageDetail.setStorageNumber(purchaseOrderDetail

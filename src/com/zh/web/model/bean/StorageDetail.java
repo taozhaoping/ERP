@@ -26,6 +26,11 @@ public class StorageDetail extends IDataObject {
 	private Long storagePrimaryID;
 	
 	/**
+	 * 对应采购订单明细ID
+	 */
+	private Long purchaseorderID;
+	
+	/**
 	 * 入库产品
 	 */
 	private Long productsID;
@@ -130,6 +135,14 @@ public class StorageDetail extends IDataObject {
 
 	public void setPurchaseNumber(Integer purchaseNumber) {
 		this.purchaseNumber = purchaseNumber;
+	}
+
+	public Long getPurchaseorderID() {
+		return purchaseorderID;
+	}
+
+	public void setPurchaseorderID(Long purchaseorderID) {
+		this.purchaseorderID = purchaseorderID;
 	}
 
 }
