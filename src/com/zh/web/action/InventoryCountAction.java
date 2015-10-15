@@ -103,7 +103,7 @@ public class InventoryCountAction extends BaseAction {
 		List<Warehouse> warehouseList = warehouseService.queryList(warehouse);
 		warehouse.setId(0L);
 		warehouse.setName("全部库存");
-		warehouseList.set(0, warehouse);
+		warehouseList.add(0, warehouse);
 		this.inventoryCountModel.setWarehouseList(warehouseList);
 
 		if (null != id) {
