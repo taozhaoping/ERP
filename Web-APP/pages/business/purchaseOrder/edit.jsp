@@ -605,7 +605,9 @@
 			}
 		});
 		
-		
+		$("#popupProductsID").change(function(e){
+			$("#price").val(e.added.estimatedPrice);
+		}); 
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
 			var _Qty = $("#popupQty").val();

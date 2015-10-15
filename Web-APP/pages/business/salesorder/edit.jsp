@@ -558,6 +558,9 @@
 			}
 		});
 		
+		$("#popupProductsID").change(function(e){
+			 $("#unitPrice").val(e.added.salesPrice);
+		}); 
 		
 		$("#popupBtnConfirm").click(function(x) {
 			var _ProductsID = $("#popupProductsID").val();
