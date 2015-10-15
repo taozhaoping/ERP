@@ -57,10 +57,10 @@
 			<if test="customerID != null">
 				and pp.customer_id = #{customerID}
 			</if>
-			<if test="startDate != null">
+			<if test="startDate != null and startDate!=''">
 				and sp.storage_date >= #{startDate}
 			</if>
-			<if test="endDate != null">
+			<if test="endDate != null and endDate!=''">
 				and sp.storage_date &lt;= #{endDate}
 			</if>
 		</where>
@@ -86,10 +86,10 @@
 			<if test="customerID != null">
 				and pp.customer_id = #{customerID}
 			</if>
-			<if test="startDate != null">
+			<if test="startDate != null and startDate!=''">
 				and sp.storage_date >= #{startDate}
 			</if>
-			<if test="endDate != null">
+			<if test="endDate != null and endDate!=''">
 				and sp.storage_date &lt;= #{endDate}
 			</if>
 		</where>
