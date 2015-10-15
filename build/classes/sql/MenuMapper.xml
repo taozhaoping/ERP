@@ -9,8 +9,8 @@
 		<result column="URL" property="url" jdbcType="VARCHAR" />
 		<result column="I18N_KEY" property="i18nKey" jdbcType="VARCHAR" />
 		<result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
-		<result column="PARENTID" property="parentid" javaType="java.lang.Integer" />
-		<result column="REORDER" property="reorder" javaType="java.lang.Integer" />
+		<result column="PARENTID" property="parentid" javaType="Long" />
+		<result column="REORDER" property="reorder" javaType="Integer" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, NAME, nameSpace,ACTION, URL, I18N_KEY, ENABLED, PARENTID, REORDER
@@ -45,7 +45,7 @@
 		</where>
 	</sql>
 	
-	<select id="roleToMenu" parameterType="long" resultMap="T_Menu">
+	<select id="roleToMenu" parameterType="Long" resultMap="T_Menu">
 		select 
 			id,
 			NAME, 
@@ -89,7 +89,7 @@
 		where ID = #{id}
 	</delete>
 	<insert id="insert" parameterType="Menu">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_MENU.nextval from dual
 		</selectKey>

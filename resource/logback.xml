@@ -120,7 +120,7 @@
 		</layout>
 	</appender>
 	<logger name="com.zh.core" addtivity="false">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-core" />
 	</logger>
 	<logger name="com.zh.web.concurrent" addtivity="false">
@@ -132,11 +132,11 @@
 		<appender-ref ref="logfile-myibatis" />
 	</logger>
 	<logger name="org.apache.struts2">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-struts2" />
 	</logger>
 	<root>
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="stdout" />
 	</root>
 </configuration> 

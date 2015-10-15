@@ -103,6 +103,44 @@
 		<!-- 采购订单明细-->
 		<typeAlias alias="PurchaseOrderDetail" type="com.zh.web.model.bean.PurchaseOrderDetail" />
 	
+		<!-- 工序 -->
+		<typeAlias alias="ProcessBean" type="com.zh.web.model.bean.ProcessBean"/>
+		
+		<!-- 产品加工工序维护 -->
+		<typeAlias alias="ProductProcess" type="com.zh.web.model.bean.ProductProcess"/>
+		
+		<!-- 加工单头表 -->		
+		<typeAlias alias="ProcessingSinglePrimary" type="com.zh.web.model.bean.ProcessingSinglePrimary"/>
+		
+		<!-- 加工单明细 -->
+		<typeAlias alias="ProcessingSingleDetail" type="com.zh.web.model.bean.ProcessingSingleDetail"/>
+
+		<!-- 库存盘点_头表 -->
+		<typeAlias alias="InventoryCountPrimary" type="com.zh.web.model.bean.InventoryCountPrimary"/>
+		
+		<!-- 库存盘点_明细 -->
+		<typeAlias alias="InventoryCountDetail" type="com.zh.web.model.bean.InventoryCountDetail"/>
+		
+		<!-- 生产任务单 -->
+		<typeAlias alias="ProductionTask" type="com.zh.web.model.bean.ProductionTask"/>
+		
+		<!-- 生产任务单_明细 -->
+		<typeAlias alias="ProductionTaskDetail" type="com.zh.web.model.bean.ProductionTaskDetail"/>
+
+		<!-- 领料单_明细 -->
+		<typeAlias alias="MaterialRequisitionDetail" type="com.zh.web.model.bean.MaterialRequisitionDetail"/>
+	
+		<!-- 销售订单明细产品结构表 -->
+		<typeAlias alias="SalesOrderBom" type="com.zh.web.model.bean.SalesOrderBom"/>
+		
+		<!-- 验收单 -->
+		<typeAlias alias="AcceptanceList" type="com.zh.web.model.bean.AcceptanceList"/>
+
+		<!-- 加工单入库明细 -->
+		<typeAlias alias="ProductionStorageDetail" type="com.zh.web.model.bean.ProductionStorageDetail"/>
+		
+		<!-- 采购助理视图 -->
+		<typeAlias alias="PurchasingAssistant" type="com.zh.web.model.bean.PurchasingAssistant"/>
 	</typeAliases>
 
 	<plugins>

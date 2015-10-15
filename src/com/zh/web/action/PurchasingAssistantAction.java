@@ -61,8 +61,9 @@ public class PurchasingAssistantAction extends BaseAction {
 			// 查询数据
 			Integer count = purchasingAssistantService.count(purchasingAssistant);
 			Pager page = this.purchasingAssistantModel.getPageInfo();
+			page.setPageSize(50);
 			page.setTotalRow(count);
-			List<PurchasingAssistant> list = purchasingAssistantService.queryList(purchasingAssistant, page);
+			List<PurchasingAssistant> list = purchasingAssistantService.queryList(purchasingAssistant);
 			this.purchasingAssistantModel.setPurchasingAssistantList(list);
 		}
 		return Action.SUCCESS;

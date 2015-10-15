@@ -8,20 +8,19 @@
 		<id column="ID" property="id" />
 		<result column="EMAILSERVICE" property="emailservice" jdbcType="VARCHAR" />
 		<result column="EMAILFORM" property="emailform" jdbcType="VARCHAR" />
-		<result column="EMAILUSERNAME" property="emailusername"
-			jdbcType="VARCHAR" />
-		<result column="EMAILPASSWORD" property="emailpassword"
-			jdbcType="VARCHAR" />
+		<result column="EMAILUSERNAME" property="emailusername" jdbcType="VARCHAR" />
+		<result column="EMAILPASSWORD" property="emailpassword" jdbcType="VARCHAR" />
 		<result column="EMAILISAUTH" property="emailisauth" jdbcType="VARCHAR" />
-		<result column="EMAILURLPASSWORD" property="emailurlpassword"
-			jdbcType="VARCHAR" />
+		<result column="EMAILURLPASSWORD" property="emailurlpassword" jdbcType="VARCHAR" />
+		<result column="SCRAP_FACTOR" property="scrapFactor" jdbcType="FLOAT" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		ID, EMAILSERVICE, EMAILFORM, EMAILUSERNAME, EMAILPASSWORD, EMAILISAUTH,
-		EMAILURLPASSWORD
+		EMAILURLPASSWORD, SCRAP_FACTOR
 	</sql>
+	
 	<select id="select" resultMap="TA_PARAM" parameterType="Param">
-
 		select
 		<include refid="Base_Column_List" />
 		from SYS_PARAM
@@ -29,7 +28,6 @@
 	</select>
 
 	<update id="update" parameterType="Param">
-
 		update SYS_PARAM
 		<set>
 			<if test="emailservice != null">
@@ -49,6 +47,9 @@
 			</if>
 			<if test="emailurlpassword != null">
 				EMAILURLPASSWORD = #{emailurlpassword,jdbcType=VARCHAR},
+			</if>
+			<if test="scrapFactor != null">
+				SCRAP_FACTOR = #{scrapFactor},
 			</if>
 		</set>
 		where ID = #{id}

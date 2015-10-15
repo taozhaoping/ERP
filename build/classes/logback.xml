@@ -41,6 +41,32 @@
 			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
 		</layout>
 	</appender>
+	
+	<appender name="logfile-concurrent"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 设置打印级别 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level value="DEBUG" />
+		</filter>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+		</encoder>
+		<File>${log.base}_concurrent.log</File>
+		<!-- 保存日记最大数量30 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}_concurrent.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 设置日记文件大小 -->
+		<TimeBasedFileNamingAndTriggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<maxFileSize>20MB</maxFileSize>
+		</TimeBasedFileNamingAndTriggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
 
 	<appender name="logfile-myibatis"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -94,15 +120,19 @@
 		</layout>
 	</appender>
 	<logger name="com.zh.core" addtivity="false">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-core" />
 	</logger>
+	<logger name="com.zh.web.concurrent" addtivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="logfile-concurrent" />
+	</logger>
 	<logger name="org.springframework" addtivity="false">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-myibatis" />
 	</logger>
 	<logger name="org.apache.struts2">
-		<level value="WARN" />
+		<level value="DEBUG" />
 		<appender-ref ref="logfile-struts2" />
 	</logger>
 	<root>

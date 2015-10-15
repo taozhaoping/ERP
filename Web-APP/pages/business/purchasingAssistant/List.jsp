@@ -89,9 +89,8 @@
 					<div>
 						<form action="${menu2Id}.jspa?menuId=${menuId}&menu2Id=${menu2Id}"
 							id="queryForm" method="post">
-							<input id="curPage" name="pageInfo.curPage"
-								value="${pageInfo.curPage}" type="hidden" /> <input
-								type="hidden" name="spaceId" value="${spaceId}">
+							<input type="hidden" name="spaceId" value="${spaceId}">
+							<input id="curPage" name="pageInfo.curPage" value="${pageInfo.curPage}" type="hidden" />
 							<dir class="row">
 								<div class="span5">
 									<label class="control-label">供应商： <s:select
@@ -131,8 +130,8 @@
 							</dir>
 						</form>
 					</div>
-					<div class=".table-responsive" width="1000px" style="overflow: scroll;overflow-y:hidden;">
-						<table style="width: 1300px" class="table table-striped table-bordered table-hover js-table" >
+					<div class=".table-responsive" width="1000px"  style="overflow: scroll;height: 528px;">
+						<table style="width: 1300px;height: 528px;" class="table table-striped table-bordered table-hover js-table" >
 							<thead>
 								<tr>
 									<th >序号</th>
@@ -230,7 +229,6 @@
 				$("#inputstartDate").val("");
 				$("#inputendDate").val("");
 
-				$('#curPage').val("");
 			});
 			if (totalRow > 0) {
 				$.jqPaginator('#pagination', {

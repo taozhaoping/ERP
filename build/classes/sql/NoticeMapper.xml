@@ -69,7 +69,7 @@
 	</delete>
 
 	<insert id="insert" parameterType="Notice">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select
 			SEQUENCE_SYS_NOTICE.nextval from dual
 		</selectKey>

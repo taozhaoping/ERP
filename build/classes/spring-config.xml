@@ -89,6 +89,7 @@
 			<tx:method name="del*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="increase*" propagation="REQUIRED" />
 			<!--除了上面标识的方法,其他方法全是只读方法 -->
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
@@ -146,6 +147,21 @@
 	<bean id="jspUtil" class="com.zh.base.util.JspUtil" init-method="getBean" />
 	
 	<bean id="stockUtil" class="com.zh.web.util.StockUtil" init-method="getInstance"/>
+
+	<!-- freemarker -->
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath">
+			<value>/WEB-INF/ftl/</value>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+			</props>
+		</property>
+	</bean>
 	
 	
 </beans>

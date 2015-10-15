@@ -120,7 +120,7 @@
 	</delete>
 
 	<insert id="insert" parameterType="User">
-		<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 			select SEQUENCE_SYS_USER.nextval from dual
 		</selectKey>
 		insert into SYS_USER (

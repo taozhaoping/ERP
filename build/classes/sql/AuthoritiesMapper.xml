@@ -43,7 +43,7 @@
 		</where>
 	</sql>
 	
-	<select id="Role_To_Authorities" parameterType="java.lang.Long" resultMap="T_Authorities">
+	<select id="Role_To_Authorities" parameterType="Long" resultMap="T_Authorities">
 		select  
 		 <include refid="Base_Column_List" />
 		from sys_role_to_authorities ra left join SYS_AUTHORITIES a 
@@ -82,7 +82,7 @@
   </delete>
  
   <insert id="insert" parameterType="Authorities" >
-	<selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+	<selectKey keyProperty="id" resultType="Long" order="BEFORE">
 		select SEQUENCE_SYS_AUTHORITIES.nextval from dual
 	</selectKey>
     insert into SYS_AUTHORITIES
