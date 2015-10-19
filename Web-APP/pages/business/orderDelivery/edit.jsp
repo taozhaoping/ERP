@@ -400,7 +400,7 @@
 		<input type="hidden" name="tabID" value="librarydetailButt">
 	</form>
 	
-	<form action="${menu2Id}!increaseStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="increaseStockForm" method="post">
+	<form action="${menu2Id}!deliveryStock.jspa?menuId=${menuId}&menu2Id=${menu2Id}" id="deliveryStockForm" method="post">
 		<input id="formId" name="formId" value="${libraryPrimary.id}" type="hidden"/>
 	</form>
 	
@@ -429,7 +429,7 @@
 		.trigger("change");
 		
 		$("#formChangefirmBtn").click(function() {
-			$("#increaseStockForm").submit();
+			$("#deliveryStockForm").submit();
 		});
 		
 		$("#popupProductsID").select2({

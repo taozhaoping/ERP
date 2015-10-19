@@ -2,6 +2,7 @@ package com.zh.web.action;
 
 import java.util.List;
 
+import org.apache.avalon.framework.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +140,21 @@ public class OrderDeliveryAction extends BaseAction {
 		}
 		this.libraryPrimaryModel.setFormId(libraryPrimary.getId().toString());
 		return Action.EDITOR_SAVE;
+	}
+	
+	/**
+	 * 订单出库
+	 * @return
+	 * @throws ParameterException
+	 */
+	public String deliveryStock() throws ParameterException {
+		String formID = this.libraryPrimaryModel.getFormId();
+		if (null == formID || "".equals(formID)) {
+			throw new ParameterException("出库单据不允许为空!");
+		}
+		//TODO
+
+		return Action.EDITOR_SUCCESS;
 	}
 
 }
