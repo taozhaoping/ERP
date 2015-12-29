@@ -379,6 +379,8 @@
 	
 					</div>
 				</div>
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputProductName" style="">名称：</label>
@@ -397,9 +399,10 @@
 							<input type="number" maxlength="40" name="products.longDegree"
 								placeholder="长度" id="inputlongDegree" class="input-medium"></input>
 						</div>
-	
 					</div>
 				</div>
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputwideDegree" style="">宽度：</label>
@@ -421,6 +424,8 @@
 	
 					</div>
 				</div>
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputsurfaceTreatment">表面处理：</label>
@@ -442,6 +447,8 @@
 						</div>
 					</div>
 				</div>
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputenabled" style="">是否油漆：</label>
@@ -466,6 +473,8 @@
 	
 					</div>
 				</div>
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputsourceType" style="">来源：</label>
@@ -489,7 +498,8 @@
 	
 					</div>
 				</div>
-			
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputprocessingFee" >成本：</label>
@@ -500,7 +510,6 @@
 	
 					</div>
 				</div>
-				
 			</dir>
 			<dir class="row">
 				<div class="span4">
@@ -513,7 +522,8 @@
 	
 					</div>
 				</div>
-			
+			</dir>
+			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputsalesPrice" >销售价：</label>
@@ -521,26 +531,22 @@
 							<input type="number" maxlength="20" name="products.salesPrice"
 								placeholder="销售价" id="inputsalesPrice" class="input-medium"></input>
 						</div>
-	
 					</div>
 				</div>
-				
 			</dir>
 			<dir class="row">
-				<div class="span8">
+				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputsafetyStock" >安全库存：</label>
 						<div class="controls">
 							<input type="number" maxlength="10" name="products.safetyStock"
 								placeholder="安全库存" id="inputsafetyStock" class="input-medium"></input>
 						</div>
-	
 					</div>
 				</div>
-			
 			</dir>
 			<dir class="row">
-				<div class="span8">
+				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="inputremarks" >备注：</label>
 						<div class="controls">
@@ -1174,7 +1180,6 @@
 			var ProductId = $.trim(_inputProductId);
 			var ProductName = $.trim(_inputProductName);
 			var estimatedPrice = $.trim(_inputestimatedPrice);
-			alert("ProductId: " + ProductId);
 			
 			//产品编号
 			if (ProductId == null || ProductId == "") {
