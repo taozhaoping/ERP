@@ -371,20 +371,20 @@
 			<dir class="row">
 				<div class="span4">
 					<div class="control-group">
-						<label class="control-label" for="inputId" style="">产品编号：</label>
+						<label class="control-label" for="inputProductId" style="">产品编号：</label>
 						<div class="controls">
 							<input type="text" data-required="true" maxlength="20"  
-							placeholder="产品编号" name="products.id" id="inputId" class="input-medium"></input>
+							placeholder="产品编号" name="products.id" id="inputProductId" class="input-medium"></input>
 						</div>
 	
 					</div>
 				</div>
 				<div class="span4">
 					<div class="control-group">
-						<label class="control-label" for="inputname" style="">名称：</label>
+						<label class="control-label" for="inputProductName" style="">名称：</label>
 						<div class="controls">
 							<input type="text" data-required="true" maxlength="40"
-								placeholder="产品名称" id="inputname" name="products.name" class="input-medium"></input>
+								placeholder="产品名称" id="inputProductName" name="products.name" class="input-medium"></input>
 						</div>
 					</div>
 				</div>
@@ -1134,6 +1134,77 @@
 				$("#addProductPrompt").html(ret.message);
 				//alert(ret.message);
 			}
+		})
+		
+		//新建产品
+		$("#addProductPopupBtnConfirm").click(function(x) {
+			// 产品编号
+			var _inputProductId = $("#inputProductId").val();
+			// 名称
+			var _inputProductName = $("#inputProductName").val();
+			// 长度
+			var _inputlongDegree = $("#inputlongDegree").val();
+			// 宽度
+			var _inputwideDegree = $("#inputwideDegree").val();
+			// 规格
+			var _inputspecifications = $("#inputspecifications").val();
+			// 表面处理
+			var _inputsurfaceTreatment = $("#inputsurfaceTreatment").val();
+			// 颜色
+			var _inputpaint = $("#inputpaint").val();
+			// 是否油漆
+			var _inputenabled = $("#inputenabled").val();
+			// 计量单位
+			var _inputmeasurementCompany = $("#inputmeasurementCompany").val();
+			// 来源
+			var _inputsourceType = $("#inputsourceType").val();
+			// 产品类型
+			var _inputproductType = $("#inputproductType").val();
+			// 成本
+			var _inputprocessingFee = $("#inputprocessingFee").val();
+			// 采购价
+			var _inputestimatedPrice = $("#inputestimatedPrice").val();
+			// 销售价
+			var _inputsalesPrice = $("#inputsalesPrice").val();
+			// 安全库存
+			var _inputsafetyStock = $("#inputsafetyStock").val();
+			// 备注
+			var _inputremarks = $("#inputremarks").val();
+			
+			var ProductId = $.trim(_inputProductId);
+			var ProductName = $.trim(_inputProductName);
+			var estimatedPrice = $.trim(_inputestimatedPrice);
+			alert("ProductId: " + ProductId);
+			
+			//产品编号
+			if (ProductId == null || ProductId == "") {
+				$("#inputProductId").closest('div').parents('div').removeClass('success').addClass('error');
+				return;
+			} else {
+				$("#inputProductId").closest('div').parents('div').removeClass('error').addClass('success');
+			}
+			//产品名称
+			if (ProductName == null || ProductName == "") {
+				$("#inputProductName").closest('div').parents('div').removeClass('success').addClass('error');
+				return;
+			} else {
+				$("#inputProductName").closest('div').parents('div').removeClass('error').addClass('success');
+			}
+			//采购价
+			if (estimatedPrice == null || estimatedPrice == "") {
+				$("#inputestimatedPrice").closest('div').parents('div').removeClass('success').addClass('error');
+				return;
+			} else {
+				$("#inputestimatedPrice").closest('div').parents('div').removeClass('error').addClass('success');
+			}
+			
+// 			$("#bomDetailSubProductsId").val(ProductsID);
+// 			$("#bomDetailQty").val(Qty);
+// 			$("#bomDetailIsMainProducts").val(IsMainProducts);
+// 			$("#bomDetailRemarks").val(Remarks);
+			
+// 			//提交表单
+// 			$("#productStructDetailForm").submit();
 		})
 		
 		/**
