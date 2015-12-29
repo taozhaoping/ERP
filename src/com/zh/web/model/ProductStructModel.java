@@ -3,6 +3,7 @@ package com.zh.web.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zh.base.model.bean.Dictionary;
 import com.zh.core.base.model.BaseModel;
 import com.zh.web.model.bean.BomDetail;
 import com.zh.web.model.bean.BomPrimary;
@@ -52,6 +53,21 @@ public class ProductStructModel extends BaseModel {
 	 * 产品工序
 	 */
 	private ProductProcess productProcess = new ProductProcess();
+	
+	/**
+	 * 产品类型
+	 */
+	private List<Dictionary> productTypeList = new ArrayList<Dictionary>();
+	
+	/**
+	 * //颜色
+	 */
+	private List<Dictionary> paintList = new ArrayList<Dictionary>();
+	
+	/**
+	 * //产品来源
+	 */
+	private List<Dictionary> sourceTypeList = new ArrayList<Dictionary>();
 	
 	private List<ProductProcess> productProcessList = new ArrayList<ProductProcess>();
 	
@@ -135,5 +151,30 @@ public class ProductStructModel extends BaseModel {
 	public void setProcessList(List<ProcessBean> processList) {
 		this.processList = processList;
 	}
+
+	public List<Dictionary> getProductTypeList() {
+		return productTypeList;
+	}
+
+	public void setProductTypeList(List<Dictionary> productTypeList) {
+		this.productTypeList = productTypeList;
+	}
+
+	public List<Dictionary> getPaintList() {
+		return paintList;
+	}
+
+	public void setPaintList(List<Dictionary> paintList) {
+		this.paintList = paintList;
+	}
+
+	public List<Dictionary> getSourceTypeList() {
+		return sourceTypeList;
+	}
+
+	public void setSourceTypeList(List<Dictionary> sourceTypeList) {
+		this.sourceTypeList = sourceTypeList;
+	}
+	
 
 }

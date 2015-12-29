@@ -192,6 +192,7 @@
 									<input type="hidden" name="bomDetail.qty" id="bomDetailQty" value="">
 									<input type="hidden" name="bomDetail.remarks" id="bomDetailRemarks" value="">
 									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#popupfirm">添加组件</button>
+									<button class="btn btn-small btn-primary" type="button" data-toggle="modal" data-target="#addProductPopup">添加产品</button>
 								</form>
 								
 								<form id="productStructDetailDelForm" class="form-horizontal" action="${menu2Id}!deleteDetail.jspa" method="post">
@@ -357,6 +358,203 @@
 						</div>
 					</div>
 				</div>
+		</div>
+	</div>
+	
+	<!-- 新增产品 -->
+	<div class="modal large hide fade" id="addProductPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"aria-hidden="true">×</button>
+			<h3 id="startModalLabel1">新增产品</h3>
+		</div>
+		<div class="modal-body">
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputId" style="">产品编号：</label>
+						<div class="controls">
+							<input type="text" data-required="true" maxlength="20"  
+							placeholder="产品编号" name="products.id" id="inputId" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputname" style="">名称：</label>
+						<div class="controls">
+							<input type="text" data-required="true" maxlength="40"
+								placeholder="产品名称" id="inputname" name="products.name" class="input-medium"></input>
+						</div>
+					</div>
+				</div>
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputlongDegree" style="">长度：</label>
+						<div class="controls">
+							<input type="number" maxlength="40" name="products.longDegree"
+								placeholder="长度" id="inputlongDegree" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputwideDegree" style="">宽度：</label>
+						<div class="controls">
+							<input type="number" maxlength="40" name="products.wideDegree"
+								placeholder="长度" id="inputwideDegree" class="input-medium"></input>
+						</div>
+					</div>
+				</div>
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputspecifications" style="">规格：</label>
+						<div class="controls">
+							<input type="text" maxlength="40" name="products.specifications"
+								placeholder="规格" id="inputspecifications" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputsurfaceTreatment">表面处理：</label>
+						<div class="controls">
+							<input type="text" maxlength="40" name="products.surfaceTreatment" 
+								placeholder="表面处理" id="inputsurfaceTreatment" class="input-medium"></input>
+						</div>
+					</div>
+				</div>
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputipaint" >颜色：</label>
+						<div class="controls">
+							<s:select id="inputpaint"  list="paintList" listKey="key" listValue="descr"
+								name="products.paint" cssClass="input-medium" placeholder="颜色">
+							</s:select>
+						</div>
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputenabled" style="">是否油漆：</label>
+						<div class="controls">
+							<select id="inputenabled" name="products.isPaint" class="input-medium">
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputmeasurementCompany" >计量单位：</label>
+						<div class="controls">
+							<s:select id="inputmeasurementCompany"  list="dictionaryList" listKey="key" listValue="descr"
+								name="products.measurementCompany" cssClass="input-medium" placeholder="计量单位">
+							</s:select>
+						</div>
+	
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputsourceType" style="">来源：</label>
+						<div class="controls">
+							<s:select id="inputsourceType"  list="sourceTypeList" listKey="key" listValue="descr"
+								name="products.sourceType" cssClass="input-medium" placeholder="来源">
+							</s:select>
+						</div>
+					</div>
+				</div>
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputproductType" >产品类型：</label>
+						<div class="controls">
+							<s:select id="inputproductType"  list="productTypeList" listKey="key" listValue="descr"
+								name="products.productType" cssClass="input-medium" placeholder="产品类型">
+							</s:select>
+						</div>
+	
+					</div>
+				</div>
+			
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputprocessingFee" >成本：</label>
+						<div class="controls">
+							<input type="number" maxlength="20" name="products.processingFee" readonly="readonly"
+								placeholder="加工费" id="inputprocessingFee" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+				
+			</dir>
+			<dir class="row">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputestimatedPrice" >采购价：</label>
+						<div class="controls">
+							<input type="number" maxlength="20" name="products.estimatedPrice" data-required="true"
+								placeholder="预估价" id="inputestimatedPrice" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+			
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputsalesPrice" >销售价：</label>
+						<div class="controls">
+							<input type="number" maxlength="20" name="products.salesPrice"
+								placeholder="销售价" id="inputsalesPrice" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+				
+			</dir>
+			<dir class="row">
+				<div class="span8">
+					<div class="control-group">
+						<label class="control-label" for="inputsafetyStock" >安全库存：</label>
+						<div class="controls">
+							<input type="number" maxlength="10" name="products.safetyStock"
+								placeholder="安全库存" id="inputsafetyStock" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+			
+			</dir>
+			<dir class="row">
+				<div class="span8">
+					<div class="control-group">
+						<label class="control-label" for="inputremarks" >备注：</label>
+						<div class="controls">
+							<input type="text" maxlength="500" name="products.remarks"
+								placeholder="备注" id="inputremarks" class="input-medium"></input>
+						</div>
+	
+					</div>
+				</div>
+			</dir>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-loading-text="正在保存" id="addProductPopupBtnConfirm">确认</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
 		</div>
 	</div>
 	

@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zh.base.model.bean.Dictionary;
+import com.zh.base.service.BasiTypeService;
 import com.zh.base.util.ConstantService;
 import com.zh.core.base.action.Action;
 import com.zh.core.base.action.BaseAction;
@@ -90,6 +92,22 @@ public class ProductStructAction extends BaseAction {
 	public String editor() throws Exception {
 		LOGGER.debug("editor()");
 		Long id = this.productStructModel.getId();
+		
+		//产品来源
+		List<Dictionary> sourceTypeList = queryDictionaryList(BasiTypeService.SOURCE_TYPE);
+		this.productStructModel.setSourceTypeList(sourceTypeList);
+		
+		//产品来源
+		List<Dictionary> productTypeList = queryDictionaryList(BasiTypeService.PRODUCT_TYPE);
+		this.productStructModel.setProductTypeList(productTypeList);
+		
+		//计量等级
+		List<Dictionary> list = queryDictionaryList(BasiTypeService.MEASUREMENT_COMPANYSOURCE_TYPE);
+		this.productStructModel.setDictionaryList(list);
+		
+		//颜色
+		List<Dictionary> paintList = queryDictionaryList(BasiTypeService.PAINT_COLR);
+		this.productStructModel.setPaintList(paintList);
 		
 		if (null != id){
 			//查询信息
