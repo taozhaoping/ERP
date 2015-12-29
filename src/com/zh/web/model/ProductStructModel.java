@@ -10,6 +10,7 @@ import com.zh.web.model.bean.BomPrimary;
 import com.zh.web.model.bean.BomSub;
 import com.zh.web.model.bean.ProcessBean;
 import com.zh.web.model.bean.ProductProcess;
+import com.zh.web.model.bean.Products;
 
 public class ProductStructModel extends BaseModel {
 
@@ -71,6 +72,10 @@ public class ProductStructModel extends BaseModel {
 	
 	private List<ProductProcess> productProcessList = new ArrayList<ProductProcess>();
 	
+	/**
+	 * 产品
+	 */
+	private Products products = new Products();
 
 	public BomPrimary getBomPrimary() {
 		return bomPrimary;
@@ -175,6 +180,13 @@ public class ProductStructModel extends BaseModel {
 	public void setSourceTypeList(List<Dictionary> sourceTypeList) {
 		this.sourceTypeList = sourceTypeList;
 	}
-	
+
+	public Products getProducts() {
+		return products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
+	}
 
 }

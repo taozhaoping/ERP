@@ -497,6 +497,19 @@ public class ProductStructAction extends BaseAction {
 		this.productStructModel.setId(primaryId);
 		return Action.EDITOR_SAVE;
 	}
+	
+	/**
+	 * 新建产品
+	 * @return
+	 */
+	public String addProduct(){
+		String ret = "success";
+		Products products = this.productStructModel.getProducts();
+		//新增
+		productsService.insert(products);
+		LOGGER.debug("addProduct()");
+		return ret;
+	}
 
 	public ProductStructModel getProductStructModel() {
 		return productStructModel;

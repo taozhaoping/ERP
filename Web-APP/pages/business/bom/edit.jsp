@@ -1203,6 +1203,42 @@
 				$("#inputestimatedPrice").closest('div').parents('div').removeClass('error').addClass('success');
 			}
 			
+			$.ajax({
+				type : "POST", //访问WebService使用Post方式请求
+				async : false,//同步操作
+				url : basePath + "/business/productStruct!addProduct.jspa", //调用WebService的地址和方法名称组合 ---- WsURL/方法名
+				data : {
+					"products.id":ProductId,
+					"products.name":ProductName,
+					"products.longDegree":_inputlongDegree,
+					"products.wideDegree":_inputwideDegree,
+					"products.specifications":_inputspecifications,
+					"products.surfaceTreatment":_inputsurfaceTreatment,
+					"products.paint":_inputpaint,
+					"products.isPaint":_inputenabled ,
+					"products.measurementCompany":_inputmeasurementCompany,
+					"products.sourceType":_inputsourceType,
+					"products.productType":_inputproductType,
+					"products.processingFee":_inputprocessingFee,
+					"products.estimatedPrice":_inputestimatedPrice,
+					"products.salesPrice":_inputsalesPrice,
+					"products.safetyStock":_inputsafetyStock,
+					"products.remarks":_inputremarks
+					}, //这里是要传递的参数，格式为 data: "{paraName:paraValue}",下面将会看到       
+				dataType : 'json', //WebService 会返回Json类型
+				traditional : false, //不要序列化参数
+				error : function(err, textStatus) {
+					//alert("error: " + err + " textStatus: " + textStatus);
+				},
+				success : function(result) {//回调函数，result，返回值
+					//alert("result: "+result);
+					//auditRet = result;
+				}
+			});
+
+			//隐藏模态框
+			$('#addProductPopup').modal('hide');
+			
 // 			$("#bomDetailSubProductsId").val(ProductsID);
 // 			$("#bomDetailQty").val(Qty);
 // 			$("#bomDetailIsMainProducts").val(IsMainProducts);
